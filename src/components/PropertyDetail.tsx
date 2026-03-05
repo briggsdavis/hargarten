@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useEffect } from 'react';
 import { X, MapPin, Maximize, Bed, Bath } from 'lucide-react';
 
 interface Property {
@@ -17,6 +18,12 @@ interface Property {
 }
 
 export const PropertyDetail = ({ property, onClose, onContact }: { property: Property, onClose: () => void, onContact: () => void }) => {
+  // Lock body scroll while overlay is open so only this panel scrolls
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -65,16 +72,16 @@ export const PropertyDetail = ({ property, onClose, onContact }: { property: Pro
               {/* Bento Gallery */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-20">
                 <div className="md:col-span-8 aspect-video overflow-hidden">
-                  <img src={`https://images.unsplash.com/photo-1600607687940-4e7a6a353d39?auto=format&fit=crop&q=80&w=800`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" className="w-full h-full object-cover" />
                 </div>
                 <div className="md:col-span-4 aspect-square overflow-hidden">
-                  <img src={`https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=400`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=400" className="w-full h-full object-cover" />
                 </div>
                 <div className="md:col-span-4 aspect-square overflow-hidden">
-                  <img src={`https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=400`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=400" className="w-full h-full object-cover" />
                 </div>
                 <div className="md:col-span-8 aspect-video overflow-hidden">
-                  <img src={`https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80&w=800`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800" className="w-full h-full object-cover" />
                 </div>
               </div>
             </motion.div>

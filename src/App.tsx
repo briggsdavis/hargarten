@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import Lenis from 'lenis';
 import { LoadingScreen } from './components/LoadingScreen';
@@ -16,11 +16,22 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
   // Scroll to top on page change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPage]);
+
+  // Stop/start Lenis when property detail overlay is open
+  useEffect(() => {
+    if (!lenisRef.current) return;
+    if (selectedProperty) {
+      lenisRef.current.stop();
+    } else {
+      lenisRef.current.start();
+    }
+  }, [selectedProperty]);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -34,6 +45,8 @@ export default function App() {
       infinite: false,
     });
 
+    lenisRef.current = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -43,6 +56,7 @@ export default function App() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
