@@ -50,7 +50,7 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
     <>
       <motion.nav
         initial={{ y: 0 }}
-        animate={{ y: isVisible ? 0 : -100 }}
+        animate={{ y: isVisible ? 0 : -150 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 w-full z-[100] px-8 py-8 flex items-center transition-colors duration-300 ${textClass} ${bgClass}`}
       >
