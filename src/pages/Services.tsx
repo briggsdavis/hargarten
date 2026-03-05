@@ -7,19 +7,48 @@ export const Services = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="pt-32 pb-32 px-8 md:px-24">
-      <div className="max-w-5xl mx-auto">
+    <div className="relative bg-parchment">
+      {/* Hero Banner */}
+      <section className="relative h-[60vh] w-full overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-24"
+          initial={{ scale: 1.1, filter: 'blur(10px)' }}
+          animate={{ scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0"
         >
-          <h1 className="text-6xl md:text-8xl font-serif text-primary mb-8 tracking-tighter">Tailor-made Services</h1>
-          <p className="text-xl text-primary/70 max-w-2xl leading-relaxed">
-            We provide a suite of services designed to secure your assets and elevate your living experience. Our focus is on legal authority and personalized care.
-          </p>
+          <img
+            src="/luxembourg.jpg"
+            alt="Services"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40" />
         </motion.div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.h1
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="text-6xl md:text-8xl font-serif text-parchment tracking-tighter"
+          >
+            Our Services
+          </motion.h1>
+        </div>
+      </section>
 
+      {/* Intro */}
+      <div className="pt-24 pb-16 px-8 md:px-24 max-w-5xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-xl text-primary/70 max-w-2xl leading-relaxed"
+        >
+          We provide a suite of services designed to secure your assets and elevate your living experience. Our focus is on legal authority and personalized care.
+        </motion.p>
+      </div>
+
+      {/* Services Accordion */}
+      <div className="pb-32 px-8 md:px-24 max-w-5xl mx-auto">
         <div className="flex flex-col gap-4">
           {SERVICES.map((service, idx) => (
             <div key={idx} className="border-b border-primary/10">
@@ -48,13 +77,59 @@ export const Services = () => {
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <div className="pb-12 pl-16 md:pl-24 pr-8 grid grid-cols-1 md:grid-cols-2 gap-12">
-                      <p className="text-lg text-primary/80 leading-relaxed">
-                        {service.description}
-                      </p>
-                      <p className="text-lg text-primary/60 leading-relaxed italic">
-                        {service.details}
-                      </p>
+                    <div className="pb-16 pl-16 md:pl-24 pr-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                      {/* Text content */}
+                      <div>
+                        <motion.p
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.1 }}
+                          className="text-lg text-primary/80 leading-relaxed mb-4"
+                        >
+                          {service.description}
+                        </motion.p>
+                        <motion.p
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2 }}
+                          className="text-base text-primary/55 leading-relaxed italic mb-8"
+                        >
+                          {service.details}
+                        </motion.p>
+                        <ul className="flex flex-col gap-3">
+                          {service.features.map((feature, fIdx) => (
+                            <motion.li
+                              key={fIdx}
+                              initial={{ opacity: 0, x: -12 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.25 + fIdx * 0.08 }}
+                              className="flex items-center gap-3 text-sm text-primary/70"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-primary/40 flex-shrink-0" />
+                              {feature}
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Image with animation */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.94, y: 12 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                        className="relative overflow-hidden aspect-[4/3]"
+                      >
+                        <motion.img
+                          src={service.image}
+                          alt={service.title}
+                          initial={{ scale: 1.08 }}
+                          animate={{ scale: 1 }}
+                          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                          className="w-full h-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="absolute inset-0 bg-primary/10" />
+                      </motion.div>
                     </div>
                   </motion.div>
                 )}

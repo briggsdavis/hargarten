@@ -64,18 +64,29 @@ export const PROPERTIES = [
 
 export const SERVICES = [
   {
-    title: 'Legal Security',
-    description: 'Our team ensures every transaction is backed by rigorous legal verification and contract drafting expertise.',
-    details: 'We handle complex cross-border regulations and local property laws to provide absolute peace of mind for our clients.',
+    title: 'Real Estate Agency',
+    description: 'A comprehensive, full-service approach to buying and selling premium properties across Luxembourg. Our agents combine deep local market knowledge with an international perspective to secure the finest outcomes for our clients.',
+    details: 'From initial consultation to the final signing, we manage every detail of your transaction with the precision and discretion that distinguished clientele deserves.',
+    features: [
+      'Exclusive Off-Market & Private Listings',
+      'In-depth Property Valuation & Market Analysis',
+      'Negotiation Strategy & Offer Management',
+      'Full Transaction Coordination & Oversight',
+      'Post-Sale Support, Aftercare & Relocation Assistance',
+    ],
+    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80&w=1200',
   },
   {
-    title: 'Tailor-made Service',
-    description: 'Discreet and personalized property management designed for families and high-net-worth individuals.',
-    details: 'From acquisition to long-term management, our approach is centered on your specific lifestyle requirements.',
-  },
-  {
-    title: 'Portfolio Strategy',
-    description: 'Strategic advice on real estate investment and asset diversification within the Luxembourg market.',
-    details: 'We analyze market trends to identify unique opportunities that align with your long-term financial goals.',
+    title: 'Real Estate Legal Advice',
+    description: 'Rigorous legal expertise applied at every stage of your real estate journey. Our in-house legal team ensures every contract, clause, and compliance obligation is reviewed with absolute precision to protect your interests.',
+    details: 'We navigate Luxembourgish property law, cross-border regulations, and thorough due diligence with meticulous attention to detail and unwavering authority.',
+    features: [
+      'Contract Drafting, Review & Amendment',
+      'Full Due Diligence & Title Verification',
+      'Cross-Border & EU Regulation Compliance',
+      'Notarial Act Preparation & Coordination',
+      'Dispute Resolution, Mediation & Litigation Support',
+    ],
+    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200',
   },
 ];

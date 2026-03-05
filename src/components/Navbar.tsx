@@ -60,7 +60,7 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
 
         <button
           onClick={() => onNavigate('contact')}
-          className="text-[10px] uppercase tracking-widest font-bold hover:opacity-70 transition-opacity interactive underline underline-offset-4"
+          className="text-[10px] uppercase tracking-widest font-bold border border-white text-white px-4 py-2 transition-all duration-300 hover:bg-white hover:text-primary interactive"
         >
           Contact
         </button>
