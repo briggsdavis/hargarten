@@ -87,6 +87,14 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[200] flex"
           >
+            {/* Title — centred at the top, mirrors its position on the navbar */}
+            <div
+              className="absolute top-8 left-1/2 -translate-x-1/2 z-10 text-2xl font-serif text-primary tracking-tighter cursor-pointer interactive whitespace-nowrap"
+              onClick={() => { onNavigate('home'); setIsOpen(false); }}
+            >
+              Hargarten Properties
+            </div>
+
             {/* Contact button — top-right corner of the whole overlay */}
             <button
               onClick={() => { onNavigate('contact'); setIsOpen(false); }}
