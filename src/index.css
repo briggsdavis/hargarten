@@ -10,8 +10,12 @@
 @layer base {
   html {
     /* scroll-behavior: smooth; */
+    margin: 0;
+    padding: 0;
   }
   body {
+    margin: 0;
+    padding: 0;
     @apply bg-parchment text-primary font-sans antialiased selection:bg-primary selection:text-parchment;
     cursor: none;
   }

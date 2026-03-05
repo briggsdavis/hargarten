@@ -5,7 +5,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onComplete();
-    }, 3500); // Total duration of animations + buffer
+    }, 2600); // Text ~1.2s, underline finishes at 2.5s → tiny buffer then exit
     return () => clearTimeout(timer);
   }, [onComplete]);
 

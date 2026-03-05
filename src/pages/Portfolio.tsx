@@ -1,47 +1,147 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { ChevronDown, X } from 'lucide-react';
 import { PROPERTIES } from '../constants';
 
+const ALL_AMENITIES = Array.from(new Set(PROPERTIES.flatMap(p => p.amenities))).sort();
+
+const PillGroup = ({
+  label,
+  options,
+  value,
+  onChange,
+}: {
+  label: string;
+  options: string[];
+  value: string;
+  onChange: (v: string) => void;
+}) => (
+  <div className="flex flex-col gap-2">
+    <span className="text-[9px] uppercase tracking-[0.2em] text-primary/40">{label}</span>
+    <div className="flex gap-2">
+      {options.map(opt => (
+        <button
+          key={opt}
+          onClick={() => onChange(opt)}
+          className={`px-3 py-1.5 text-[10px] uppercase tracking-widest font-bold border transition-all duration-200 interactive ${
+            value === opt
+              ? 'bg-primary text-parchment border-primary'
+              : 'bg-transparent text-primary/50 border-primary/20 hover:border-primary hover:text-primary'
+          }`}
+        >
+          {opt}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
 export const Portfolio = ({ onSelectProperty }: { onSelectProperty: (prop: any) => void }) => {
-  const [filter, setFilter] = useState<'All' | 'Rent' | 'Sale'>('All');
-  const [maxPrice, setMaxPrice] = useState(6); // In millions
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [typeFilter, setTypeFilter] = useState('All');
+  const [minBedrooms, setMinBedrooms] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(6);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [amenityOpen, setAmenityOpen] = useState(false);
+  const amenityRef = useRef<HTMLDivElement>(null);
+
+  // Close amenity dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (amenityRef.current && !amenityRef.current.contains(e.target as Node)) {
+        setAmenityOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const toggleAmenity = (a: string) => {
+    setSelectedAmenities(prev =>
+      prev.includes(a) ? prev.filter(x => x !== a) : [...prev, a]
+    );
+  };
+
+  const activeFilterCount = [
+    statusFilter !== 'All',
+    typeFilter !== 'All',
+    minBedrooms > 0,
+    maxPrice < 6,
+    selectedAmenities.length > 0,
+  ].filter(Boolean).length;
+
+  const clearAll = () => {
+    setStatusFilter('All');
+    setTypeFilter('All');
+    setMinBedrooms(0);
+    setMaxPrice(6);
+    setSelectedAmenities([]);
+  };
 
   const filtered = PROPERTIES.filter(p => {
-    const matchesType = filter === 'All' || p.type === filter;
-    const priceNum = parseFloat(p.price.replace('M', ''));
-    const matchesPrice = priceNum <= maxPrice;
-    return matchesType && matchesPrice;
+    if (statusFilter !== 'All' && p.status !== statusFilter) return false;
+    if (typeFilter !== 'All' && p.type !== typeFilter) return false;
+    if (p.bedrooms < minBedrooms) return false;
+    if (parseFloat(p.price.replace('M', '')) > maxPrice) return false;
+    if (selectedAmenities.length > 0 && !selectedAmenities.every(a => p.amenities.includes(a))) return false;
+    return true;
   });
 
   return (
     <div className="pt-32 pb-32 px-8 md:px-24">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
-          <div>
-            <h1 className="text-6xl font-serif text-primary mb-4">Portfolio</h1>
-            <p className="text-primary/50 uppercase tracking-widest text-xs">Curated Selection / 2024</p>
-          </div>
 
-          {/* Filters */}
-          <div className="flex flex-wrap gap-12 items-end">
-            <div className="flex gap-6">
-              {['All', 'Rent', 'Sale'].map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setFilter(t as any)}
-                  className={`text-xs uppercase tracking-widest font-bold pb-1 border-b transition-all interactive ${
-                    filter === t ? 'border-primary text-primary' : 'border-transparent text-primary/40 hover:text-primary'
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
+        {/* Header */}
+        <div className="mb-14">
+          <h1 className="text-6xl font-serif text-primary mb-2">Portfolio</h1>
+          <p className="text-primary/50 uppercase tracking-widest text-xs">Curated Selection / 2024</p>
+        </div>
+
+        {/* Filter Bar */}
+        <div className="border-t border-b border-primary/10 py-6 mb-14">
+          <div className="flex flex-wrap gap-x-12 gap-y-6 items-end">
+
+            {/* Status */}
+            <PillGroup
+              label="Status"
+              options={['All', 'Available', 'Reserved']}
+              value={statusFilter}
+              onChange={setStatusFilter}
+            />
+
+            {/* Type */}
+            <PillGroup
+              label="Transaction"
+              options={['All', 'Rent', 'Sale']}
+              value={typeFilter}
+              onChange={setTypeFilter}
+            />
+
+            {/* Bedrooms */}
+            <div className="flex flex-col gap-2">
+              <span className="text-[9px] uppercase tracking-[0.2em] text-primary/40">Min. Rooms</span>
+              <div className="flex gap-2">
+                {[0, 1, 2, 3, 4, 5].map(n => (
+                  <button
+                    key={n}
+                    onClick={() => setMinBedrooms(n)}
+                    className={`w-8 h-8 text-[10px] font-bold border transition-all duration-200 interactive ${
+                      minBedrooms === n
+                        ? 'bg-primary text-parchment border-primary'
+                        : 'bg-transparent text-primary/50 border-primary/20 hover:border-primary hover:text-primary'
+                    }`}
+                  >
+                    {n === 0 ? 'Any' : `${n}+`}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="w-48">
-              <div className="flex justify-between text-[10px] uppercase tracking-widest text-primary/50 mb-2">
-                <span>Price Range</span>
-                <span>Up to ${maxPrice}M</span>
+            {/* Price */}
+            <div className="flex flex-col gap-2 min-w-[160px]">
+              <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-primary/40">
+                <span>Max Price</span>
+                <span className="text-primary font-bold">{maxPrice === 6 ? 'Any' : `€${maxPrice}M`}</span>
               </div>
               <input
                 type="range"
@@ -49,26 +149,109 @@ export const Portfolio = ({ onSelectProperty }: { onSelectProperty: (prop: any) 
                 max="6"
                 step="0.1"
                 value={maxPrice}
-                onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
-                className="w-full h-1 bg-primary/10 appearance-none cursor-pointer accent-primary"
+                onChange={e => setMaxPrice(parseFloat(e.target.value))}
+                className="w-full h-[2px] bg-primary/10 appearance-none cursor-pointer accent-primary"
               />
+              <div className="flex justify-between text-[8px] text-primary/30">
+                <span>€1M</span>
+                <span>€6M+</span>
+              </div>
+            </div>
+
+            {/* Amenities Dropdown */}
+            <div className="flex flex-col gap-2" ref={amenityRef}>
+              <span className="text-[9px] uppercase tracking-[0.2em] text-primary/40">Amenities</span>
+              <div className="relative">
+                <button
+                  onClick={() => setAmenityOpen(v => !v)}
+                  className={`flex items-center gap-3 px-4 py-2 border text-[10px] uppercase tracking-widest font-bold transition-all duration-200 interactive ${
+                    selectedAmenities.length > 0
+                      ? 'border-primary text-primary bg-primary/5'
+                      : 'border-primary/20 text-primary/50 hover:border-primary hover:text-primary'
+                  }`}
+                >
+                  {selectedAmenities.length > 0 ? `${selectedAmenities.length} selected` : 'Select'}
+                  <motion.span animate={{ rotate: amenityOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                    <ChevronDown size={12} />
+                  </motion.span>
+                </button>
+
+                <AnimatePresence>
+                  {amenityOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-0 mt-2 w-56 bg-white border border-primary/10 shadow-lg z-20 py-2"
+                    >
+                      {ALL_AMENITIES.map(a => (
+                        <button
+                          key={a}
+                          onClick={() => toggleAmenity(a)}
+                          className={`w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest transition-colors interactive flex items-center justify-between ${
+                            selectedAmenities.includes(a)
+                              ? 'text-primary font-bold bg-primary/5'
+                              : 'text-primary/50 hover:text-primary hover:bg-primary/3'
+                          }`}
+                        >
+                          {a}
+                          {selectedAmenities.includes(a) && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+                          )}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Clear + Result count */}
+            <div className="flex flex-col gap-2 ml-auto self-end">
+              {activeFilterCount > 0 && (
+                <button
+                  onClick={clearAll}
+                  className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-primary/40 hover:text-primary transition-colors interactive"
+                >
+                  <X size={10} />
+                  Clear filters
+                </button>
+              )}
+              <span className="text-[10px] uppercase tracking-widest text-primary/30 text-right">
+                {filtered.length} {filtered.length === 1 ? 'property' : 'properties'}
+              </span>
             </div>
           </div>
+
+          {/* Active amenity chips */}
+          {selectedAmenities.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-5 pt-5 border-t border-primary/5">
+              {selectedAmenities.map(a => (
+                <button
+                  key={a}
+                  onClick={() => toggleAmenity(a)}
+                  className="flex items-center gap-2 px-3 py-1 bg-primary text-parchment text-[9px] uppercase tracking-widest font-bold interactive hover:bg-primary/80 transition-colors"
+                >
+                  {a}
+                  <X size={8} />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
-        >
+        {/* Grid */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           <AnimatePresence mode="popLayout">
             {filtered.map((prop) => (
               <motion.div
                 key={prop.id}
                 layout
-                initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-                transition={{ duration: 0.5 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4 }}
                 className="group interactive"
                 onClick={() => onSelectProperty(prop)}
               >
@@ -79,7 +262,6 @@ export const Portfolio = ({ onSelectProperty }: { onSelectProperty: (prop: any) 
                     src={prop.image}
                     alt={prop.title}
                     className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-4 right-4 bg-parchment/90 backdrop-blur-sm px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-primary">
                     {prop.status}
@@ -101,9 +283,19 @@ export const Portfolio = ({ onSelectProperty }: { onSelectProperty: (prop: any) 
         </motion.div>
 
         {filtered.length === 0 && (
-          <div className="py-32 text-center">
-            <p className="text-primary/40 font-serif text-2xl italic">No properties match your current criteria.</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="py-32 text-center"
+          >
+            <p className="text-primary/40 font-serif text-2xl italic mb-6">No properties match your current filters.</p>
+            <button
+              onClick={clearAll}
+              className="text-[10px] uppercase tracking-widest font-bold text-primary/50 border-b border-primary/20 pb-1 hover:text-primary hover:border-primary transition-colors interactive"
+            >
+              Clear all filters
+            </button>
+          </motion.div>
         )}
       </div>
     </div>

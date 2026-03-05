@@ -9,28 +9,29 @@ const timelineData = [
 ];
 
 const valuesData = [
-  { 
-    title: 'Discretion', 
+  {
+    title: 'Discretion',
     desc: 'We operate with the highest level of confidentiality, protecting our clients\' privacy at every stage.',
-    image: 'https://images.unsplash.com/photo-1600607687940-4e7a6a353d39?auto=format&fit=crop&q=80&w=1200'
+    image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
-  { 
-    title: 'Legal Security', 
+  {
+    title: 'Legal Security',
     desc: 'Every contract is drafted with meticulous attention to detail, ensuring absolute legal protection.',
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=1200'
+    image: 'https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
-  { 
-    title: 'Family Focus', 
+  {
+    title: 'Family Focus',
     desc: 'We understand the unique needs of families, providing homes that foster growth and security.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200'
+    image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
 ];
 
-export const About = () => {
+export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   const [activeSection, setActiveSection] = useState('hero');
   const valuesRef = useRef<HTMLDivElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
-  
+  const heroRef = useRef<HTMLElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: valuesRef,
     offset: ["start start", "end end"]
@@ -41,7 +42,13 @@ export const About = () => {
     offset: ["start end", "end start"]
   });
 
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
   const parallaxY = useTransform(parallaxScroll, [0, 1], ["-10%", "10%"]);
+  const heroParallaxY = useTransform(heroScroll, [0, 1], ["0%", "30%"]);
 
   const activeValueIndex = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [0, 0, 1, 2]);
 
@@ -52,23 +59,20 @@ export const About = () => {
   ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    sidebarItems.forEach((item) => {
-      const el = document.getElementById(item.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    const updateActive = () => {
+      const triggerY = window.scrollY + window.innerHeight * 0.4;
+      let current = sidebarItems[0].id;
+      for (const item of sidebarItems) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top + window.scrollY <= triggerY) {
+          current = item.id;
+        }
+      }
+      setActiveSection(current);
+    };
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+    return () => window.removeEventListener('scroll', updateActive);
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -101,19 +105,20 @@ export const About = () => {
       </div>
 
       {/* Hero Banner (Partial Height) */}
-      <section id="hero" className="relative h-[60vh] w-full overflow-hidden">
+      <section ref={heroRef} id="hero" className="relative h-[60vh] w-full overflow-hidden">
         <motion.div
           initial={{ scale: 1.1, filter: 'blur(10px)' }}
           animate={{ scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
-          <img
-            src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&q=80&w=1920"
-            alt="About Hargarten"
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
+          <motion.div style={{ y: heroParallaxY }} className="absolute inset-0 w-full h-[130%] -top-[15%]">
+            <img
+              src="/luxembourg.jpg"
+              alt="About Hargarten"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
           <div className="absolute inset-0 bg-black/30" />
         </motion.div>
         <div className="absolute inset-0 flex items-center justify-center">
@@ -155,10 +160,9 @@ export const About = () => {
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
           <img
-            src="https://images.unsplash.com/photo-1600585154526-990dcea4db0d?auto=format&fit=crop&q=80&w=1920"
+            src="https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=1920"
             alt="Luxury Interior"
             className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
@@ -234,8 +238,8 @@ export const About = () => {
             </div>
 
             {/* Right Side: Text */}
-            <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-8 md:p-24 bg-white">
-              <div className="max-w-md relative h-64">
+            <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center px-10 py-12 md:px-16 md:py-16 bg-white">
+              <div className="w-full max-w-lg relative h-64">
                 {valuesData.map((value, idx) => (
                   <motion.div
                     key={idx}
@@ -256,6 +260,35 @@ export const About = () => {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Portfolio CTA */}
+      <section className="py-32 px-8 md:px-24 bg-parchment">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">Explore Our Listings</p>
+          <h2 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter leading-tight">
+            Discover Properties Crafted for Discerning Clients
+          </h2>
+          <p className="text-lg text-primary/60 leading-relaxed mb-14 max-w-xl mx-auto">
+            From urban penthouses to private estates across Luxembourg — each residence selected with the same standards of precision and discretion.
+          </p>
+          <button
+            onClick={() => onNavigate('portfolio')}
+            className="group inline-flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
+          >
+            <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">View All Properties</span>
+            <motion.span
+              animate={{ x: [0, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 1.6 }}
+            >→</motion.span>
+          </button>
+        </motion.div>
       </section>
     </div>
   );

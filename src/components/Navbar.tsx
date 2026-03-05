@@ -1,14 +1,17 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { X } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const MENU_ITEMS = [
-  { name: 'Home', id: 'home', image: 'https://images.unsplash.com/photo-1600607687940-4e7a6a353d39?auto=format&fit=crop&q=80&w=800' },
-  { name: 'About', id: 'about', image: 'https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=800' },
-  { name: 'Portfolio', id: 'portfolio', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' },
-  { name: 'Services', id: 'services', image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80&w=800' },
-  { name: 'Contact', id: 'contact', image: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&q=80&w=800' },
+  { name: 'Home', id: 'home', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'About', id: 'about', image: 'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'Portfolio', id: 'portfolio', image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'Services', id: 'services', image: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'Contact', id: 'contact', image: 'https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=800' },
 ];
+
+// Pages that open with a dark full-image hero — navbar text should be white at the top
+const HERO_PAGES = ['home', 'about', 'services'];
 
 interface NavbarProps {
   onNavigate: (page: string) => void;
@@ -19,48 +22,59 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(MENU_ITEMS[0]);
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
-    setLastScrollY(currentScrollY);
-  };
+  useEffect(() => {
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setIsVisible(y < lastY || y < 80);
+      setScrollY(y);
+      lastY = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  useState(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  });
+  // Use white when overlapping a dark hero image, black/primary otherwise
+  const isOnHero = HERO_PAGES.includes(currentPage) && scrollY < 80;
+  const textClass = isOnHero ? 'text-white' : 'text-primary';
+  const borderClass = isOnHero ? 'border-white' : 'border-primary';
+  const contactHover = isOnHero
+    ? 'hover:bg-white hover:text-primary'
+    : 'hover:bg-primary hover:text-parchment';
+  // Show white background when scrolled down (not on hero)
+  const bgClass = isOnHero ? 'bg-transparent' : 'bg-white/95 backdrop-blur-sm';
 
   return (
     <>
       <motion.nav
         initial={{ y: 0 }}
-        animate={{ y: isVisible ? 0 : -100 }}
+        animate={{ y: isVisible ? 0 : -150 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 left-0 w-full z-[100] px-8 py-8 flex justify-between items-center text-primary"
+        className={`fixed top-0 left-0 w-full z-[100] px-8 py-8 flex items-center transition-colors duration-300 ${textClass} ${bgClass}`}
       >
+        {/* Left: Hamburger */}
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 group interactive"
+          className="flex flex-col gap-[6px] group interactive"
         >
-          <Menu size={24} />
+          <span className="block w-6 h-[1.5px] bg-current" />
+          <span className="block w-4 h-[1.5px] bg-current" />
         </button>
 
-        <div 
-          className="text-2xl font-serif tracking-tighter cursor-pointer interactive"
+        {/* Center: Title — absolutely centered regardless of button widths */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 text-2xl font-serif tracking-tighter cursor-pointer interactive whitespace-nowrap"
           onClick={() => onNavigate('home')}
         >
           Hargarten Properties
         </div>
 
+        {/* Right: Contact Button */}
         <button
           onClick={() => onNavigate('contact')}
-          className="text-[10px] uppercase tracking-widest font-bold hover:opacity-70 transition-opacity interactive underline underline-offset-4"
+          className={`ml-auto text-[11.5px] uppercase tracking-widest font-bold border ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
         >
           Contact
         </button>
@@ -75,11 +89,27 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[200] flex"
           >
+            {/* Title — centred at the top, mirrors its position on the navbar */}
+            <div
+              className="absolute top-8 left-1/2 -translate-x-1/2 z-10 text-2xl font-serif text-primary tracking-tighter cursor-pointer interactive whitespace-nowrap"
+              onClick={() => { onNavigate('home'); setIsOpen(false); }}
+            >
+              Hargarten Properties
+            </div>
+
+            {/* Contact button — top-right corner of the whole overlay */}
+            <button
+              onClick={() => { onNavigate('contact'); setIsOpen(false); }}
+              className="absolute top-8 right-8 z-10 text-[11.5px] uppercase tracking-widest font-bold border border-primary text-primary px-[18px] py-[9px] transition-all duration-300 hover:bg-primary hover:text-parchment interactive"
+            >
+              Contact
+            </button>
+
             {/* Left Side: Menu Links */}
-            <div className="w-full md:w-1/2 bg-primary h-full flex flex-col justify-center px-12 md:px-24 relative">
+            <div className="w-full md:w-3/5 bg-parchment h-full flex flex-col justify-center px-12 md:px-24 relative">
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-8 left-8 text-parchment interactive"
+                className="absolute top-8 left-8 text-primary interactive"
               >
                 <X size={32} />
               </button>
@@ -96,8 +126,8 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
                       onNavigate(item.id);
                       setIsOpen(false);
                     }}
-                    className={`text-3xl md:text-5xl font-serif text-left interactive ${
-                      currentPage === item.id ? 'text-parchment' : 'text-parchment/40 hover:text-parchment'
+                    className={`text-[1.3rem] md:text-[2.1rem] font-serif text-left interactive ${
+                      currentPage === item.id ? 'text-primary' : 'text-primary/30 hover:text-primary'
                     } transition-colors`}
                   >
                     {item.name}
@@ -106,20 +136,21 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
               </div>
             </div>
 
-            {/* Right Side: Dynamic Image */}
-            <div className="hidden md:block w-1/2 h-full bg-parchment overflow-hidden relative">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={hoveredItem.id}
-                  src={hoveredItem.image}
-                  initial={{ scale: 1.1, opacity: 0, filter: 'blur(10px)' }}
-                  animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ scale: 1.05, opacity: 0, filter: 'blur(10px)' }}
-                  transition={{ duration: 0.6 }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </AnimatePresence>
+            {/* Right Side: Image inset so edges don't touch the screen border */}
+            <div className="hidden md:flex w-2/5 h-full bg-parchment items-center justify-center p-10">
+              <div className="relative w-full h-[75%] overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={hoveredItem.id}
+                    src={hoveredItem.image}
+                    initial={{ opacity: 0, scale: 1.04 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.04 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         )}
