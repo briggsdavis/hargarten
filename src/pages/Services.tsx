@@ -1,26 +1,31 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import { useState, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { SERVICES } from '../constants';
 
 export const Services = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
   return (
     <div className="relative bg-parchment">
       {/* Hero Banner */}
-      <section className="relative h-[60vh] w-full overflow-hidden">
+      <section ref={heroRef} className="relative h-[60vh] w-full overflow-hidden">
         <motion.div
           initial={{ scale: 1.1, filter: 'blur(10px)' }}
           animate={{ scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
-          <img
-            src="/luxembourg.jpg"
-            alt="Services"
-            className="w-full h-full object-cover"
-          />
+          <motion.div style={{ y: parallaxY }} className="absolute inset-0 w-full h-[130%] -top-[15%]">
+            <img
+              src="/luxembourg.jpg"
+              alt="Services"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
           <div className="absolute inset-0 bg-black/40" />
         </motion.div>
         <div className="absolute inset-0 flex items-center justify-center">

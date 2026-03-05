@@ -1,22 +1,29 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
 import { PROPERTIES } from '../constants';
 
 export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+      <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div
           initial={{ scale: 0.75, filter: 'blur(20px)' }}
           animate={{ scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0 z-0"
         >
-          <img
-            src="/luxembourg.jpg"
-            alt="Luxembourg"
-            className="w-full h-full object-cover"
-          />
+          <motion.div style={{ y: parallaxY }} className="absolute inset-0 w-full h-[130%] -top-[15%]">
+            <img
+              src="/luxembourg.jpg"
+              alt="Luxembourg"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
 

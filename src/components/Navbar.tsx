@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const MENU_ITEMS = [
   { name: 'Home', id: 'home', image: 'https://images.unsplash.com/photo-1600607687940-4e7a6a353d39?auto=format&fit=crop&q=80&w=800' },
@@ -19,22 +19,17 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(MENU_ITEMS[0]);
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
-    setLastScrollY(currentScrollY);
-  };
-
-  useState(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  });
+  useEffect(() => {
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setIsVisible(y < lastY || y < 80);
+      lastY = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <>
@@ -61,7 +56,7 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
 
         <button
           onClick={() => onNavigate('contact')}
-          className="text-[10px] uppercase tracking-widest font-bold border border-white text-white px-4 py-2 transition-all duration-300 hover:bg-white hover:text-primary interactive"
+          className="text-[11.5px] uppercase tracking-widest font-bold border border-white text-white px-[18px] py-[9px] transition-all duration-300 hover:bg-white hover:text-primary interactive"
         >
           Contact
         </button>

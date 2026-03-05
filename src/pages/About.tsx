@@ -30,7 +30,8 @@ export const About = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const valuesRef = useRef<HTMLDivElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
-  
+  const heroRef = useRef<HTMLElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: valuesRef,
     offset: ["start start", "end end"]
@@ -41,7 +42,13 @@ export const About = () => {
     offset: ["start end", "end start"]
   });
 
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
   const parallaxY = useTransform(parallaxScroll, [0, 1], ["-10%", "10%"]);
+  const heroParallaxY = useTransform(heroScroll, [0, 1], ["0%", "30%"]);
 
   const activeValueIndex = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [0, 0, 1, 2]);
 
@@ -98,19 +105,20 @@ export const About = () => {
       </div>
 
       {/* Hero Banner (Partial Height) */}
-      <section id="hero" className="relative h-[60vh] w-full overflow-hidden">
+      <section ref={heroRef} id="hero" className="relative h-[60vh] w-full overflow-hidden">
         <motion.div
           initial={{ scale: 1.1, filter: 'blur(10px)' }}
           animate={{ scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
-          <img
-            src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&q=80&w=1920"
-            alt="About Hargarten"
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
+          <motion.div style={{ y: heroParallaxY }} className="absolute inset-0 w-full h-[130%] -top-[15%]">
+            <img
+              src="/luxembourg.jpg"
+              alt="About Hargarten"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
           <div className="absolute inset-0 bg-black/30" />
         </motion.div>
         <div className="absolute inset-0 flex items-center justify-center">
