@@ -213,12 +213,6 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
           <h2 className="text-3xl md:text-5xl font-serif text-primary mb-8 tracking-tighter leading-tight">
             Full-spectrum expertise, from acquisition to legal certainty.
           </h2>
-          <p className="text-lg text-primary/60 leading-relaxed mb-4">
-            Whether you are buying, renting, or managing a high-value property, Hargarten provides end-to-end guidance with the discretion and rigour your investment deserves.
-          </p>
-          <p className="text-lg text-primary/60 leading-relaxed mb-12">
-            Our in-house legal team and seasoned agents work in concert, ensuring every transaction is not only commercially sound, but legally airtight under Luxembourgish and EU law.
-          </p>
           <button
             onClick={() => onNavigate('services')}
             className="group flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
