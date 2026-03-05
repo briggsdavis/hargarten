@@ -1,0 +1,81 @@
+export const THEME = {
+  primary: '#163b0f',
+  parchment: '#fbf6f1',
+};
+
+export const PROPERTIES = [
+  {
+    id: '1',
+    title: 'The Penthouse Suite',
+    price: '4.2M',
+    sqm: '320',
+    type: 'Sale',
+    status: 'Available',
+    location: 'Luxembourg City',
+    bedrooms: 4,
+    bathrooms: 3,
+    image: 'https://images.unsplash.com/photo-1600607687940-4e7a6a353d39?auto=format&fit=crop&q=80&w=1200',
+    amenities: ['Private Elevator', 'Roof Terrace', 'Wine Cellar'],
+    description: 'A masterpiece of modern architecture offering horizon-deep views and expansive ceilings.',
+  },
+  {
+    id: '2',
+    title: 'Sky Loft Residence',
+    price: '1.8M',
+    sqm: '180',
+    type: 'Sale',
+    status: 'Available',
+    location: 'Kirchberg',
+    bedrooms: 2,
+    bathrooms: 2,
+    image: 'https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=1200',
+    amenities: ['Floor-to-ceiling Windows', 'Smart Home', 'Concierge'],
+    description: 'Contemporary living at its finest, located in the heart of the financial district.',
+  },
+  {
+    id: '3',
+    title: 'Garden Duplex',
+    price: '2.5M',
+    sqm: '240',
+    type: 'Rent',
+    status: 'Available',
+    location: 'Limpertsberg',
+    bedrooms: 3,
+    bathrooms: 2,
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200',
+    amenities: ['Private Garden', 'Double Garage', 'Fireplace'],
+    description: 'A serene oasis combining historical charm with modern luxury.',
+  },
+  {
+    id: '4',
+    title: 'Forest Edge Villa',
+    price: '5.5M',
+    sqm: '450',
+    type: 'Sale',
+    status: 'Reserved',
+    location: 'Senningerberg',
+    bedrooms: 5,
+    bathrooms: 4,
+    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80&w=1200',
+    amenities: ['Infinity Pool', 'Home Cinema', 'Guest House'],
+    description: 'Ultimate privacy meets sophisticated design in this forest-side retreat.',
+  },
+];
+
+export const SERVICES = [
+  {
+    title: 'Legal Security',
+    description: 'Our team ensures every transaction is backed by rigorous legal verification and contract drafting expertise.',
+    details: 'We handle complex cross-border regulations and local property laws to provide absolute peace of mind for our clients.',
+  },
+  {
+    title: 'Tailor-made Service',
+    description: 'Discreet and personalized property management designed for families and high-net-worth individuals.',
+    details: 'From acquisition to long-term management, our approach is centered on your specific lifestyle requirements.',
+  },
+  {
+    title: 'Portfolio Strategy',
+    description: 'Strategic advice on real estate investment and asset diversification within the Luxembourg market.',
+    details: 'We analyze market trends to identify unique opportunities that align with your long-term financial goals.',
+  },
+];
