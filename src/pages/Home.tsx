@@ -174,8 +174,8 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
               className="group cursor-pointer interactive"
               onClick={() => onNavigate('services')}
             >
-              {/* Portrait image */}
-              <div className="aspect-[3/4] overflow-hidden mb-5">
+              {/* Portrait image — 30% shorter than the original 3/4 */}
+              <div className="aspect-[3/2.8] overflow-hidden mb-5">
                 <motion.img
                   whileHover={{ scale: 1.04 }}
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -208,7 +208,7 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="max-w-2xl"
+          className="w-full"
         >
           <h2 className="text-3xl md:text-5xl font-serif text-primary mb-8 tracking-tighter leading-tight">
             Full-spectrum expertise, from acquisition to legal certainty.
