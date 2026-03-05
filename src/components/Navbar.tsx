@@ -87,6 +87,14 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[200] flex"
           >
+            {/* Contact button — top-right corner of the whole overlay */}
+            <button
+              onClick={() => { onNavigate('contact'); setIsOpen(false); }}
+              className="absolute top-8 right-8 z-10 text-[11.5px] uppercase tracking-widest font-bold border border-primary text-primary px-[18px] py-[9px] transition-all duration-300 hover:bg-primary hover:text-parchment interactive"
+            >
+              Contact
+            </button>
+
             {/* Left Side: Menu Links */}
             <div className="w-full md:w-3/5 bg-parchment h-full flex flex-col justify-center px-12 md:px-24 relative">
               <button
@@ -94,14 +102,6 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
                 className="absolute top-8 left-8 text-primary interactive"
               >
                 <X size={32} />
-              </button>
-
-              {/* Contact button — mirrors the navbar button, always visible in the menu */}
-              <button
-                onClick={() => { onNavigate('contact'); setIsOpen(false); }}
-                className="absolute top-8 right-8 text-[11.5px] uppercase tracking-widest font-bold border border-primary text-primary px-[18px] py-[9px] transition-all duration-300 hover:bg-primary hover:text-parchment interactive"
-              >
-                Contact
               </button>
 
               <div className="flex flex-col gap-6">
@@ -126,19 +126,21 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
               </div>
             </div>
 
-            {/* Right Side: Dynamic Image — fast crossfade, no blur */}
-            <div className="hidden md:block w-2/5 h-full bg-parchment overflow-hidden relative">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={hoveredItem.id}
-                  src={hoveredItem.image}
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.04 }}
-                  transition={{ duration: 0.2, ease: 'easeOut' }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </AnimatePresence>
+            {/* Right Side: Image inset so edges don't touch the screen border */}
+            <div className="hidden md:flex w-2/5 h-full bg-parchment items-center justify-center p-10">
+              <div className="relative w-full h-[75%] overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={hoveredItem.id}
+                    src={hoveredItem.image}
+                    initial={{ opacity: 0, scale: 1.04 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.04 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         )}
