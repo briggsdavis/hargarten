@@ -13,10 +13,9 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
           className="absolute inset-0 z-0"
         >
           <img
-            src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&q=80&w=1920"
-            alt="Luxury Interior"
+            src="/luxembourg.jpg"
+            alt="Luxembourg"
             className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
