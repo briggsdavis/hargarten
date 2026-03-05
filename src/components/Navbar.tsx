@@ -3,12 +3,15 @@ import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const MENU_ITEMS = [
-  { name: 'Home', id: 'home', image: 'https://images.unsplash.com/photo-1600607687940-4e7a6a353d39?auto=format&fit=crop&q=80&w=800' },
-  { name: 'About', id: 'about', image: 'https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=800' },
-  { name: 'Portfolio', id: 'portfolio', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' },
-  { name: 'Services', id: 'services', image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80&w=800' },
-  { name: 'Contact', id: 'contact', image: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&q=80&w=800' },
+  { name: 'Home', id: 'home', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'About', id: 'about', image: 'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'Portfolio', id: 'portfolio', image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'Services', id: 'services', image: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'Contact', id: 'contact', image: 'https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=800' },
 ];
+
+// Pages that open with a dark full-image hero — navbar text should be white at the top
+const HERO_PAGES = ['home', 'about', 'services'];
 
 interface NavbarProps {
   onNavigate: (page: string) => void;
@@ -19,17 +22,27 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(MENU_ITEMS[0]);
   const [isVisible, setIsVisible] = useState(true);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     let lastY = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
       setIsVisible(y < lastY || y < 80);
+      setScrollY(y);
       lastY = y;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Use white when overlapping a dark hero image, black/primary otherwise
+  const isOnHero = HERO_PAGES.includes(currentPage) && scrollY < 80;
+  const textClass = isOnHero ? 'text-white' : 'text-primary';
+  const borderClass = isOnHero ? 'border-white' : 'border-primary';
+  const contactHover = isOnHero
+    ? 'hover:bg-white hover:text-primary'
+    : 'hover:bg-primary hover:text-parchment';
 
   return (
     <>
@@ -37,8 +50,9 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
         initial={{ y: 0 }}
         animate={{ y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 left-0 w-full z-[100] px-8 py-8 flex justify-between items-center text-primary"
+        className={`fixed top-0 left-0 w-full z-[100] px-8 py-8 flex items-center ${textClass}`}
       >
+        {/* Left: Hamburger */}
         <button
           onClick={() => setIsOpen(true)}
           className="flex flex-col gap-[6px] group interactive"
@@ -47,16 +61,18 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
           <span className="block w-4 h-[1.5px] bg-current" />
         </button>
 
-        <div 
-          className="text-2xl font-serif tracking-tighter cursor-pointer interactive"
+        {/* Center: Title — absolutely centered regardless of button widths */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 text-2xl font-serif tracking-tighter cursor-pointer interactive whitespace-nowrap"
           onClick={() => onNavigate('home')}
         >
           Hargarten Properties
         </div>
 
+        {/* Right: Contact Button */}
         <button
           onClick={() => onNavigate('contact')}
-          className="text-[11.5px] uppercase tracking-widest font-bold border border-white text-white px-[18px] py-[9px] transition-all duration-300 hover:bg-white hover:text-primary interactive"
+          className={`ml-auto text-[11.5px] uppercase tracking-widest font-bold border ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
         >
           Contact
         </button>
@@ -102,18 +118,17 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
               </div>
             </div>
 
-            {/* Right Side: Dynamic Image */}
+            {/* Right Side: Dynamic Image — fast crossfade, no blur */}
             <div className="hidden md:block w-2/5 h-full bg-parchment overflow-hidden relative">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={hoveredItem.id}
                   src={hoveredItem.image}
-                  initial={{ scale: 1.1, opacity: 0, filter: 'blur(10px)' }}
-                  animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ scale: 1.05, opacity: 0, filter: 'blur(10px)' }}
-                  transition={{ duration: 0.6 }}
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.04 }}
+                  transition={{ duration: 0.2, ease: 'easeOut' }}
                   className="absolute inset-0 w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
                 />
               </AnimatePresence>
             </div>

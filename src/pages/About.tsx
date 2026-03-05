@@ -9,20 +9,20 @@ const timelineData = [
 ];
 
 const valuesData = [
-  { 
-    title: 'Discretion', 
+  {
+    title: 'Discretion',
     desc: 'We operate with the highest level of confidentiality, protecting our clients\' privacy at every stage.',
-    image: 'https://images.unsplash.com/photo-1600607687940-4e7a6a353d39?auto=format&fit=crop&q=80&w=1200'
+    image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
-  { 
-    title: 'Legal Security', 
+  {
+    title: 'Legal Security',
     desc: 'Every contract is drafted with meticulous attention to detail, ensuring absolute legal protection.',
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=1200'
+    image: 'https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
-  { 
-    title: 'Family Focus', 
+  {
+    title: 'Family Focus',
     desc: 'We understand the unique needs of families, providing homes that foster growth and security.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200'
+    image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
 ];
 
@@ -160,10 +160,9 @@ export const About = () => {
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
           <img
-            src="https://images.unsplash.com/photo-1600585154526-990dcea4db0d?auto=format&fit=crop&q=80&w=1920"
+            src="https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=1920"
             alt="Luxury Interior"
             className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
@@ -239,8 +238,8 @@ export const About = () => {
             </div>
 
             {/* Right Side: Text */}
-            <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-8 md:p-24 bg-white">
-              <div className="max-w-md relative h-64">
+            <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center px-10 py-12 md:px-16 md:py-16 bg-white">
+              <div className="w-full max-w-lg relative h-64">
                 {valuesData.map((value, idx) => (
                   <motion.div
                     key={idx}
