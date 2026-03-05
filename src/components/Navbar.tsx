@@ -44,7 +44,7 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
     ? 'hover:bg-white hover:text-primary'
     : 'hover:bg-primary hover:text-parchment';
   // Show white background when scrolled down (not on hero)
-  const bgClass = isOnHero ? 'bg-transparent' : 'bg-white/95 backdrop-blur-sm shadow-sm';
+  const bgClass = isOnHero ? 'bg-transparent' : 'bg-white/95 backdrop-blur-sm';
 
   return (
     <>
