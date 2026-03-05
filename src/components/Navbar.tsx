@@ -96,6 +96,14 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
                 <X size={32} />
               </button>
 
+              {/* Contact button — mirrors the navbar button, always visible in the menu */}
+              <button
+                onClick={() => { onNavigate('contact'); setIsOpen(false); }}
+                className="absolute top-8 right-8 text-[11.5px] uppercase tracking-widest font-bold border border-primary text-primary px-[18px] py-[9px] transition-all duration-300 hover:bg-primary hover:text-parchment interactive"
+              >
+                Contact
+              </button>
+
               <div className="flex flex-col gap-6">
                 {MENU_ITEMS.map((item, index) => (
                   <motion.button

@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
-import { useEffect } from 'react';
-import { X, MapPin, Maximize, Bed, Bath } from 'lucide-react';
+import { ArrowLeft, MapPin, Maximize, Bed, Bath } from 'lucide-react';
 
 interface Property {
   id: string;
@@ -18,47 +17,39 @@ interface Property {
 }
 
 export const PropertyDetail = ({ property, onClose, onContact }: { property: Property, onClose: () => void, onContact: () => void }) => {
-  // Lock body scroll while overlay is open so only this panel scrolls
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
-  }, []);
-
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[300] bg-parchment overflow-y-auto"
-    >
-      <button
-        onClick={onClose}
-        className="fixed top-8 right-8 z-[310] bg-primary text-parchment p-3 rounded-full interactive"
-      >
-        <X size={24} />
-      </button>
+    <div className="min-h-screen bg-parchment">
+      {/* Back button — in flow at the top, no fixed positioning needed */}
+      <div className="pt-32 px-8 md:px-24 mb-8">
+        <button
+          onClick={onClose}
+          className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold text-primary/50 hover:text-primary transition-colors interactive group"
+        >
+          <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1 duration-200" />
+          Back to Portfolio
+        </button>
+      </div>
 
       {/* Hero */}
-      <section className="h-[70vh] relative">
+      <section className="h-[70vh] relative overflow-hidden mx-8 md:mx-24 mb-20">
         <motion.img
-          initial={{ scale: 1.1, filter: 'blur(20px)' }}
-          animate={{ scale: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 1.5 }}
+          initial={{ scale: 1.05, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2 }}
           src={property.image}
           className="w-full h-full object-cover"
-          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-black/20" />
       </section>
 
-      <div className="max-w-7xl mx-auto px-8 md:px-24 py-20">
+      <div className="max-w-7xl mx-auto px-8 md:px-24 pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Details */}
           <div className="lg:col-span-2">
             <motion.div
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.2 }}
             >
               <div className="flex items-center gap-2 text-primary/50 uppercase tracking-widest text-xs mb-4">
                 <MapPin size={14} />
@@ -92,7 +83,7 @@ export const PropertyDetail = ({ property, onClose, onContact }: { property: Pro
             <motion.div
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.4 }}
               className="sticky top-32 space-y-12"
             >
               <div>
@@ -145,6 +136,6 @@ export const PropertyDetail = ({ property, onClose, onContact }: { property: Pro
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };

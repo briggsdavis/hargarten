@@ -18,20 +18,13 @@ export default function App() {
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
-  // Scroll to top on page change
+  // Scroll to top on every page change (including property detail)
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentPage]);
-
-  // Stop/start Lenis when property detail overlay is open
-  useEffect(() => {
-    if (!lenisRef.current) return;
-    if (selectedProperty) {
-      lenisRef.current.stop();
-    } else {
-      lenisRef.current.start();
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
     }
-  }, [selectedProperty]);
+  }, [currentPage, selectedProperty]);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -60,21 +53,48 @@ export default function App() {
     };
   }, []);
 
+  const handleSelectProperty = (prop: any) => {
+    setSelectedProperty(prop);
+    setCurrentPage('property');
+  };
+
+  const handleCloseProperty = () => {
+    setSelectedProperty(null);
+    setCurrentPage('portfolio');
+  };
+
+  const handleContactFromProperty = () => {
+    setSelectedProperty(null);
+    setCurrentPage('contact');
+  };
+
   const renderPage = () => {
+    if (currentPage === 'property' && selectedProperty) {
+      return (
+        <PropertyDetail
+          property={selectedProperty}
+          onClose={handleCloseProperty}
+          onContact={handleContactFromProperty}
+        />
+      );
+    }
     switch (currentPage) {
       case 'home': return <Home onNavigate={setCurrentPage} />;
-      case 'about': return <About />;
-      case 'portfolio': return <Portfolio onSelectProperty={setSelectedProperty} />;
+      case 'about': return <About onNavigate={setCurrentPage} />;
+      case 'portfolio': return <Portfolio onSelectProperty={handleSelectProperty} />;
       case 'services': return <Services />;
       case 'contact': return <Contact />;
       default: return <Home onNavigate={setCurrentPage} />;
     }
   };
 
+  // Key used for AnimatePresence — property pages use property id so each is distinct
+  const pageKey = currentPage === 'property' ? `property-${selectedProperty?.id}` : currentPage;
+
   return (
     <div className="relative min-h-screen">
       <CustomCursor />
-      
+
       <AnimatePresence mode="wait">
         {isLoading ? (
           <LoadingScreen onComplete={() => setIsLoading(false)} />
@@ -86,11 +106,11 @@ export default function App() {
             transition={{ duration: 1 }}
           >
             <Navbar onNavigate={setCurrentPage} currentPage={currentPage} />
-            
+
             <main className="relative z-10">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={currentPage}
+                  key={pageKey}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -100,19 +120,6 @@ export default function App() {
                 </motion.div>
               </AnimatePresence>
             </main>
-
-            <AnimatePresence>
-              {selectedProperty && (
-                <PropertyDetail
-                  property={selectedProperty}
-                  onClose={() => setSelectedProperty(null)}
-                  onContact={() => {
-                    setSelectedProperty(null);
-                    setCurrentPage('contact');
-                  }}
-                />
-              )}
-            </AnimatePresence>
 
             <Footer onNavigate={setCurrentPage} />
           </motion.div>

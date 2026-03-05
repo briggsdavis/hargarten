@@ -12,9 +12,9 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div
-          initial={{ scale: 0.75, filter: 'blur(20px)' }}
+          initial={{ scale: 0.6, filter: 'blur(20px)' }}
           animate={{ scale: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0 z-0"
         >
           <motion.div style={{ y: parallaxY }} className="absolute inset-0 w-full h-[130%] -top-[15%]">
@@ -29,9 +29,9 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
 
         <div className="relative z-10 text-center px-4">
           <motion.h1
-            initial={{ y: 40, opacity: 0 }}
+            initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1.5, duration: 1 }}
+            transition={{ delay: 0.5, duration: 0.9 }}
             className="text-5xl md:text-8xl text-parchment font-serif tracking-tighter mb-6"
           >
             A Journey of Precision
@@ -39,7 +39,7 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1.8, duration: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
             className="text-parchment/80 text-sm uppercase tracking-[0.3em] font-medium"
           >
             Chronicle / 2012 - 2025

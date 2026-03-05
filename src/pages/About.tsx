@@ -26,7 +26,7 @@ const valuesData = [
   },
 ];
 
-export const About = () => {
+export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
   const [activeSection, setActiveSection] = useState('hero');
   const valuesRef = useRef<HTMLDivElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -260,6 +260,35 @@ export const About = () => {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Portfolio CTA */}
+      <section className="py-32 px-8 md:px-24 bg-parchment">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">Explore Our Listings</p>
+          <h2 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter leading-tight">
+            Discover Properties Crafted for Discerning Clients
+          </h2>
+          <p className="text-lg text-primary/60 leading-relaxed mb-14 max-w-xl mx-auto">
+            From urban penthouses to private estates across Luxembourg — each residence selected with the same standards of precision and discretion.
+          </p>
+          <button
+            onClick={() => onNavigate('portfolio')}
+            className="group inline-flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
+          >
+            <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">View All Properties</span>
+            <motion.span
+              animate={{ x: [0, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 1.6 }}
+            >→</motion.span>
+          </button>
+        </motion.div>
       </section>
     </div>
   );
