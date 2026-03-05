@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { ArrowLeft, MapPin, Maximize, Maximize2, Bed, Bath, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Property {
@@ -76,7 +77,7 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
     exit: (d: number) => ({ opacity: 0, x: d * -40 }),
   };
 
-  return (
+  return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -150,7 +151,8 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
           ))}
         </div>
       </div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }
 
