@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useState } from 'react';
 
 const MENU_ITEMS = [
@@ -46,9 +46,10 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
       >
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 group interactive"
+          className="flex flex-col gap-[6px] group interactive"
         >
-          <Menu size={24} />
+          <span className="block w-6 h-[1.5px] bg-current" />
+          <span className="block w-4 h-[1.5px] bg-current" />
         </button>
 
         <div 
@@ -76,10 +77,10 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
             className="fixed inset-0 z-[200] flex"
           >
             {/* Left Side: Menu Links */}
-            <div className="w-full md:w-1/2 bg-primary h-full flex flex-col justify-center px-12 md:px-24 relative">
+            <div className="w-full md:w-3/5 bg-parchment h-full flex flex-col justify-center px-12 md:px-24 relative">
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-8 left-8 text-parchment interactive"
+                className="absolute top-8 left-8 text-primary interactive"
               >
                 <X size={32} />
               </button>
@@ -96,8 +97,8 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
                       onNavigate(item.id);
                       setIsOpen(false);
                     }}
-                    className={`text-3xl md:text-5xl font-serif text-left interactive ${
-                      currentPage === item.id ? 'text-parchment' : 'text-parchment/40 hover:text-parchment'
+                    className={`text-[1.3rem] md:text-[2.1rem] font-serif text-left interactive ${
+                      currentPage === item.id ? 'text-primary' : 'text-primary/30 hover:text-primary'
                     } transition-colors`}
                   >
                     {item.name}
@@ -107,7 +108,7 @@ export const Navbar = ({ onNavigate, currentPage }: NavbarProps) => {
             </div>
 
             {/* Right Side: Dynamic Image */}
-            <div className="hidden md:block w-1/2 h-full bg-parchment overflow-hidden relative">
+            <div className="hidden md:block w-2/5 h-full bg-parchment overflow-hidden relative">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={hoveredItem.id}

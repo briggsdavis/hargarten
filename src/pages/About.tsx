@@ -52,23 +52,20 @@ export const About = () => {
   ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    sidebarItems.forEach((item) => {
-      const el = document.getElementById(item.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    const updateActive = () => {
+      const triggerY = window.scrollY + window.innerHeight * 0.4;
+      let current = sidebarItems[0].id;
+      for (const item of sidebarItems) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top + window.scrollY <= triggerY) {
+          current = item.id;
+        }
+      }
+      setActiveSection(current);
+    };
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+    return () => window.removeEventListener('scroll', updateActive);
   }, []);
 
   const scrollToSection = (id: string) => {
