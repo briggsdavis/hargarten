@@ -24,7 +24,7 @@ export const Services = () => {
             style={{ y: parallaxY }}
             className="absolute inset-0 w-full h-[130%] -top-[15%]"
           >
-            <img src="/luxembourg.jpg" alt="Services" className="w-full h-full object-cover" />
+            <img src="/services.jpg" alt="Services" className="w-full h-full object-cover" />
           </motion.div>
           <div className="absolute inset-0 bg-black/40" />
         </motion.div>
