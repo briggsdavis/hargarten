@@ -1,95 +1,74 @@
-import { useState, useEffect, useRef } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import Lenis from 'lenis';
-import { LoadingScreen } from './components/LoadingScreen';
-import { Navbar } from './components/Navbar';
-import { CustomCursor } from './components/CustomCursor';
-import { Home } from './pages/Home';
-import { About } from './pages/About';
-import { Portfolio } from './pages/Portfolio';
-import { Services } from './pages/Services';
-import { Contact } from './pages/Contact';
-import { Footer } from './components/Footer';
-import { PropertyDetail } from './components/PropertyDetail';
+import { useEffect, useRef, useState } from "react"
+import { Routes, Route, useLocation } from "react-router"
+import { AnimatePresence, motion } from "motion/react"
+import Lenis from "lenis"
+import { LoadingScreen } from "./components/LoadingScreen"
+import { Navbar } from "./components/Navbar"
+import { CustomCursor } from "./components/CustomCursor"
+import { Home } from "./pages/Home"
+import { About } from "./pages/About"
+import { Portfolio } from "./pages/Portfolio"
+import { Services } from "./pages/Services"
+import { Contact } from "./pages/Contact"
+import { Footer } from "./components/Footer"
+import { PropertyDetail } from "./components/PropertyDetail"
+import type { Location } from "react-router"
+
+// Freezes the location at mount so the old page stays visible during its exit animation
+// (prevents Routes from switching to the new page inside the exiting div)
+const FrozenRoutes = ({ location }: { location: Location }) => {
+  const [frozenLocation] = useState(location)
+  return (
+    <Routes location={frozenLocation}>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/portfolio" element={<Portfolio />} />
+      <Route path="/portfolio/:id" element={<PropertyDetail />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="*" element={<Home />} />
+    </Routes>
+  )
+}
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState('home');
-  const [selectedProperty, setSelectedProperty] = useState<any>(null);
-  const lenisRef = useRef<Lenis | null>(null);
+  const [isLoading, setIsLoading] = useState(true)
+  const lenisRef = useRef<Lenis | null>(null)
+  const location = useLocation()
 
-  // Scroll to top on every page change (including property detail)
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0)
     if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
+      lenisRef.current.scrollTo(0, { immediate: true })
     }
-  }, [currentPage, selectedProperty]);
+  }, [location.pathname])
 
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      orientation: "vertical",
+      gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
       infinite: false,
-    });
+    })
 
-    lenisRef.current = lenis;
+    lenisRef.current = lenis
 
     function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      lenis.raf(time)
+      requestAnimationFrame(raf)
     }
 
-    requestAnimationFrame(raf);
+    requestAnimationFrame(raf)
 
     return () => {
-      lenis.destroy();
-      lenisRef.current = null;
-    };
-  }, []);
-
-  const handleSelectProperty = (prop: any) => {
-    setSelectedProperty(prop);
-    setCurrentPage('property');
-  };
-
-  const handleCloseProperty = () => {
-    setSelectedProperty(null);
-    setCurrentPage('portfolio');
-  };
-
-  const handleContactFromProperty = () => {
-    setSelectedProperty(null);
-    setCurrentPage('contact');
-  };
-
-  const renderPage = () => {
-    if (currentPage === 'property' && selectedProperty) {
-      return (
-        <PropertyDetail
-          property={selectedProperty}
-          onClose={handleCloseProperty}
-          onContact={handleContactFromProperty}
-        />
-      );
+      lenis.destroy()
+      lenisRef.current = null
     }
-    switch (currentPage) {
-      case 'home': return <Home onNavigate={setCurrentPage} />;
-      case 'about': return <About onNavigate={setCurrentPage} />;
-      case 'portfolio': return <Portfolio onSelectProperty={handleSelectProperty} />;
-      case 'services': return <Services />;
-      case 'contact': return <Contact />;
-      default: return <Home onNavigate={setCurrentPage} />;
-    }
-  };
-
-  // Key used for AnimatePresence — property pages use property id so each is distinct
-  const pageKey = currentPage === 'property' ? `property-${selectedProperty?.id}` : currentPage;
+  }, [])
 
   return (
     <div className="relative min-h-screen">
@@ -105,26 +84,26 @@ export default function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            <Navbar onNavigate={setCurrentPage} currentPage={currentPage} />
+            <Navbar />
 
             <main className="relative z-10">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={pageKey}
+                  key={location.pathname}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  {renderPage()}
+                  <FrozenRoutes location={location} />
                 </motion.div>
               </AnimatePresence>
             </main>
 
-            <Footer onNavigate={setCurrentPage} />
+            <Footer />
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 }

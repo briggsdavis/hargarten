@@ -1,13 +1,13 @@
-import { motion } from 'motion/react';
-import { useEffect } from 'react';
+import { motion } from "motion/react"
+import { useEffect } from "react"
 
 export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      onComplete();
-    }, 2600); // Text ~1.2s, underline finishes at 2.5s → tiny buffer then exit
-    return () => clearTimeout(timer);
-  }, [onComplete]);
+      onComplete()
+    }, 2600) // Text ~1.2s, underline finishes at 2.5s → tiny buffer then exit
+    return () => clearTimeout(timer)
+  }, [onComplete])
 
   return (
     <motion.div
@@ -25,7 +25,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         >
           Hargarten Properties Sàrl-s
         </motion.div>
-        
+
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -34,5 +34,5 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         />
       </div>
     </motion.div>
-  );
-};
+  )
+}

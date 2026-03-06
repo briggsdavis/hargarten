@@ -1,30 +1,30 @@
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
-import { useState, useRef } from 'react';
-import { ChevronDown } from 'lucide-react';
-import { SERVICES } from '../constants';
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react"
+import { useState, useRef } from "react"
+import { ChevronDown } from "lucide-react"
+import { Link } from "react-router"
+import { SERVICES } from "../constants"
 
 export const Services = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
 
   return (
     <div className="relative bg-parchment">
       {/* Hero Banner */}
       <section ref={heroRef} className="relative h-[60vh] w-full overflow-hidden">
         <motion.div
-          initial={{ scale: 1.1, filter: 'blur(10px)' }}
-          animate={{ scale: 1, filter: 'blur(0px)' }}
+          initial={{ scale: 1.1, filter: "blur(10px)" }}
+          animate={{ scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
-          <motion.div style={{ y: parallaxY }} className="absolute inset-0 w-full h-[130%] -top-[15%]">
-            <img
-              src="/luxembourg.jpg"
-              alt="Services"
-              className="w-full h-full object-cover"
-            />
+          <motion.div
+            style={{ y: parallaxY }}
+            className="absolute inset-0 w-full h-[130%] -top-[15%]"
+          >
+            <img src="/luxembourg.jpg" alt="Services" className="w-full h-full object-cover" />
           </motion.div>
           <div className="absolute inset-0 bg-black/40" />
         </motion.div>
@@ -48,7 +48,8 @@ export const Services = () => {
           viewport={{ once: true }}
           className="text-xl text-primary/70 max-w-2xl leading-relaxed"
         >
-          We provide a suite of services designed to secure your assets and elevate your living experience. Our focus is on legal authority and personalized care.
+          We provide a suite of services designed to secure your assets and elevate your living
+          experience. Our focus is on legal authority and personalized care.
         </motion.p>
       </div>
 
@@ -63,7 +64,7 @@ export const Services = () => {
               >
                 <div className="flex items-center gap-8">
                   <span className="text-xs font-medium text-primary/30 font-mono">0{idx + 1}</span>
-                  <h3 className="text-3xl md:text-4xl font-serif group-hover:translate-x-4 transition-transform duration-500">{service.title}</h3>
+                  <h3 className="text-3xl md:text-4xl font-serif">{service.title}</h3>
                 </div>
                 <motion.div
                   animate={{ rotate: openIndex === idx ? 180 : 0 }}
@@ -77,7 +78,7 @@ export const Services = () => {
                 {openIndex === idx && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
+                    animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
@@ -151,16 +152,69 @@ export const Services = () => {
           className="mt-32 p-12 bg-primary text-parchment flex flex-col md:flex-row items-center gap-12"
         >
           <div className="md:w-1/3">
-            <h4 className="text-xs uppercase tracking-[0.3em] font-bold mb-4 opacity-60">Legal Excellence</h4>
+            <h4 className="text-xs uppercase tracking-[0.3em] font-bold mb-4 opacity-60">
+              Legal Excellence
+            </h4>
             <h3 className="text-4xl font-serif leading-tight">Authoritative Contract Drafting</h3>
           </div>
           <div className="md:w-2/3">
             <p className="text-lg opacity-80 leading-relaxed">
-              Our legal department is led by experts in Luxembourgish property law. We don't just facilitate sales; we architect legally sound agreements that protect your interests for generations. Every clause is scrutinized, every risk mitigated.
+              Our legal department is led by experts in Luxembourgish property law. We don't just
+              facilitate sales; we architect legally sound agreements that protect your interests
+              for generations. Every clause is scrutinized, every risk mitigated.
             </p>
           </div>
         </motion.div>
       </div>
+
+      {/* Portfolio CTA */}
+      <section className="bg-white">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.04 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            className="relative aspect-[4/3] md:aspect-auto overflow-hidden"
+          >
+            <img
+              src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Portfolio"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-primary/10" />
+          </motion.div>
+
+          {/* Text */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+            className="flex flex-col justify-center px-12 md:px-20 py-24"
+          >
+            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-8">
+              Selected Residences
+            </p>
+            <h2 className="text-4xl md:text-5xl font-serif text-primary tracking-tighter leading-tight mb-8">
+              Each service anchored by a residence worth protecting.
+            </h2>
+            <p className="text-base text-primary/60 leading-relaxed mb-14 max-w-sm">
+              Our portfolio spans Luxembourg's most sought-after addresses, curated with the same
+              precision we bring to every mandate.
+            </p>
+            <Link
+              to="/portfolio"
+              className="group inline-flex items-center text-[11px] uppercase tracking-widest font-bold interactive self-start"
+            >
+              <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">
+                Explore the Portfolio
+              </span>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </div>
-  );
-};
+  )
+}

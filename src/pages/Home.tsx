@@ -1,32 +1,40 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
-import { PROPERTIES, SERVICES } from '../constants';
+import { motion, useScroll, useTransform } from "motion/react"
+import { useRef } from "react"
+import { Link } from "react-router"
+import { PROPERTIES, SERVICES } from "../constants"
 
-export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+const MotionLink = motion(Link)
 
-  const dividerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: dividerScroll } = useScroll({ target: dividerRef, offset: ['start end', 'end start'] });
-  const dividerParallaxY = useTransform(dividerScroll, [0, 1], ['-12%', '12%']);
+export const Home = () => {
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
+
+  const dividerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress: dividerScroll } = useScroll({
+    target: dividerRef,
+    offset: ["start end", "end start"],
+  })
+  const dividerParallaxY = useTransform(dividerScroll, [0, 1], ["-12%", "12%"])
 
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+      <section
+        ref={heroRef}
+        className="relative h-screen w-full flex items-center justify-center overflow-hidden"
+      >
         <motion.div
-          initial={{ scale: 0.6, filter: 'blur(20px)' }}
-          animate={{ scale: 1, filter: 'blur(0px)' }}
+          initial={{ scale: 0.6, filter: "blur(20px)" }}
+          animate={{ scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0 z-0"
         >
-          <motion.div style={{ y: parallaxY }} className="absolute inset-0 w-full h-[130%] -top-[15%]">
-            <img
-              src="/luxembourg.jpg"
-              alt="Luxembourg"
-              className="w-full h-full object-cover"
-            />
+          <motion.div
+            style={{ y: parallaxY }}
+            className="absolute inset-0 w-full h-[130%] -top-[15%]"
+          >
+            <img src="/luxembourg.jpg" alt="Luxembourg" className="w-full h-full object-cover" />
           </motion.div>
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
@@ -46,7 +54,7 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
             transition={{ delay: 0.8, duration: 0.8 }}
             className="text-parchment/80 text-sm uppercase tracking-[0.3em] font-medium"
           >
-            Chronicle / 2012 - 2025
+            Chronicle / 2012 - {new Date().getFullYear()}
           </motion.p>
         </div>
       </section>
@@ -55,8 +63,8 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
       <section className="py-32 px-8 md:px-24 bg-parchment">
         <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ y: 40, opacity: 0, filter: 'blur(10px)' }}
-            whileInView={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+            initial={{ y: 40, opacity: 0, filter: "blur(10px)" }}
+            whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
@@ -64,18 +72,18 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
               We define a new era of silence-based architecture and discreet property management.
             </h2>
             <p className="text-lg text-primary/70 leading-relaxed mb-8">
-              Hargarten Properties Sàrl-s is a family-oriented firm dedicated to providing tailor-made services with absolute legal security. Our approach is minimalist, focusing on the essential qualities of luxury: privacy, precision, and permanence.
+              Hargarten Properties Sàrl-s is a family-oriented firm dedicated to providing
+              tailor-made services with absolute legal security. Our approach is minimalist,
+              focusing on the essential qualities of luxury: privacy, precision, and permanence.
             </p>
-            <button 
-              onClick={() => onNavigate('about')}
-              className="group flex items-center gap-4 text-xs uppercase tracking-widest font-bold interactive"
+            <Link
+              to="/about"
+              className="group flex items-start gap-4 text-xs uppercase tracking-widest font-bold interactive"
             >
-              <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors">Discover our values</span>
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-              >→</motion.span>
-            </button>
+              <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors">
+                Discover our values
+              </span>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -84,21 +92,23 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
       <section className="py-32 px-8 md:px-24 bg-white">
         <div className="flex justify-between items-end mb-16">
           <h2 className="text-4xl md:text-6xl font-serif text-primary">Select Residences</h2>
-          <span className="text-[10px] uppercase tracking-widest opacity-50 mb-2">Swipe to explore / 2024</span>
+          <span className="text-[10px] uppercase tracking-widest opacity-50 mb-2">
+            Swipe to explore / 2024
+          </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {PROPERTIES.slice(0, 3).map((prop, idx) => (
-            <motion.div
+            <MotionLink
               key={prop.id}
-              initial={{ y: 60, opacity: 0, filter: 'blur(10px)' }}
-              whileInView={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+              initial={{ y: 60, opacity: 0, filter: "blur(10px)" }}
+              whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: idx * 0.2 }}
+              to="/portfolio"
               className={`${
-                idx === 0 ? 'md:col-span-7' : idx === 1 ? 'md:col-span-5' : 'md:col-span-12'
+                idx === 0 ? "md:col-span-7" : idx === 1 ? "md:col-span-5" : "md:col-span-12"
               } group relative overflow-hidden interactive`}
-              onClick={() => onNavigate('portfolio')}
             >
               <div className="aspect-[16/10] overflow-hidden">
                 <motion.img
@@ -113,24 +123,28 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
               <div className="mt-6 flex justify-between items-start">
                 <div>
                   <h3 className="text-xl font-serif">{prop.title}</h3>
-                  <p className="text-xs text-primary/50 uppercase tracking-widest mt-1">{prop.location}</p>
+                  <p className="text-xs text-primary/50 uppercase tracking-widest mt-1">
+                    {prop.location}
+                  </p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-medium">From ${prop.price}</p>
-                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mt-1">{prop.type}</p>
+                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mt-1">
+                    {prop.type}
+                  </p>
                 </div>
               </div>
-            </motion.div>
+            </MotionLink>
           ))}
         </div>
 
         <div className="mt-20 flex justify-center">
-          <button
-            onClick={() => onNavigate('portfolio')}
+          <Link
+            to="/portfolio"
             className="bg-primary text-parchment px-12 py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive"
           >
             Explore Buildings Portfolio
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -165,14 +179,14 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
         {/* Two-column image grid — mirrors the reference */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           {SERVICES.map((service, idx) => (
-            <motion.div
+            <MotionLink
               key={service.title}
+              to="/services"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, delay: idx * 0.15 }}
               className="group cursor-pointer interactive"
-              onClick={() => onNavigate('services')}
             >
               {/* Portrait image — 30% shorter than the original 3/4 */}
               <div className="aspect-[3/2.8] overflow-hidden mb-5">
@@ -187,18 +201,11 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
 
               {/* Caption row */}
               <div className="flex items-center justify-between border-t border-primary/10 pt-5">
-                <span className="text-[11px] uppercase tracking-[0.25em] font-bold text-primary/60 group-hover:text-primary transition-colors duration-300">
+                <span className="border-b border-primary/30 pb-1 group-hover:border-primary text-[11px] uppercase tracking-[0.25em] font-bold text-primary/60 group-hover:text-primary transition-colors duration-300">
                   {service.title}
                 </span>
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.8, delay: idx * 0.4 }}
-                  className="text-primary/40 group-hover:text-primary transition-colors duration-300 text-sm"
-                >
-                  →
-                </motion.span>
               </div>
-            </motion.div>
+            </MotionLink>
           ))}
         </div>
 
@@ -213,20 +220,16 @@ export const Home = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
           <h2 className="text-3xl md:text-5xl font-serif text-primary mb-8 tracking-tighter leading-tight">
             Full-spectrum expertise, from acquisition to legal certainty.
           </h2>
-          <button
-            onClick={() => onNavigate('services')}
+          <Link
+            to="/services"
             className="group flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
           >
             <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">
               Explore All Services
             </span>
-            <motion.span
-              animate={{ x: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 1.6 }}
-            >→</motion.span>
-          </button>
+          </Link>
         </motion.div>
       </section>
     </div>
-  );
-};
+  )
+}

@@ -1,81 +1,108 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { useState, useEffect, useCallback } from 'react';
-import { createPortal } from 'react-dom';
-import { ArrowLeft, MapPin, Maximize, Maximize2, Bed, Bath, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from "motion/react"
+import { useState, useEffect, useCallback } from "react"
+import { createPortal } from "react-dom"
+import { useParams, Link } from "react-router"
+import { MapPin, Maximize, Maximize2, Bed, Bath, X, ChevronLeft, ChevronRight } from "lucide-react"
+import { PROPERTIES } from "../constants"
 
 interface Property {
-  id: string;
-  title: string;
-  price: string;
-  sqm: string;
-  type: string;
-  status: string;
-  location: string;
-  bedrooms: number;
-  bathrooms: number;
-  image: string;
-  amenities: string[];
-  description: string;
+  id: string
+  title: string
+  price: string
+  sqm: string
+  type: string
+  status: string
+  location: string
+  bedrooms: number
+  bathrooms: number
+  image: string
+  amenities: string[]
+  description: string
 }
 
 const GALLERY = [
-  'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/5824514/pexels-photo-5824514.jpeg?auto=compress&cs=tinysrgb&w=1600',
-];
+  "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  "https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  "https://images.pexels.com/photos/5824514/pexels-photo-5824514.jpeg?auto=compress&cs=tinysrgb&w=1600",
+]
 
 // Thumbnail versions for the carousel strip
 const GALLERY_THUMBS = [
-  'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=300',
-  'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=300',
-  'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=300',
-  'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=300',
-  'https://images.pexels.com/photos/5824514/pexels-photo-5824514.jpeg?auto=compress&cs=tinysrgb&w=300',
-];
+  "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=300",
+  "https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=300",
+  "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=300",
+  "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=300",
+  "https://images.pexels.com/photos/5824514/pexels-photo-5824514.jpeg?auto=compress&cs=tinysrgb&w=300",
+]
 
 // Clicking any image in the bento grid opens the lightbox at that index
 const BENTO = [
-  { src: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800', col: 'md:col-span-8', aspect: 'aspect-video', idx: 0 },
-  { src: 'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=400', col: 'md:col-span-4', aspect: 'aspect-square', idx: 1 },
-  { src: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=400', col: 'md:col-span-4', aspect: 'aspect-square', idx: 2 },
-  { src: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800', col: 'md:col-span-8', aspect: 'aspect-video', idx: 3 },
-];
+  {
+    src: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
+    col: "md:col-span-8",
+    aspect: "aspect-video",
+    idx: 0,
+  },
+  {
+    src: "https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=400",
+    col: "md:col-span-4",
+    aspect: "aspect-square",
+    idx: 1,
+  },
+  {
+    src: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=400",
+    col: "md:col-span-4",
+    aspect: "aspect-square",
+    idx: 2,
+  },
+  {
+    src: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800",
+    col: "md:col-span-8",
+    aspect: "aspect-video",
+    idx: 3,
+  },
+]
 
 function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => void }) {
-  const [index, setIndex] = useState(startIndex);
-  const [direction, setDirection] = useState(0);
+  const [index, setIndex] = useState(startIndex)
+  const [direction, setDirection] = useState(0)
 
-  const go = useCallback((next: number) => {
-    setDirection(next > index ? 1 : -1);
-    setIndex(next);
-  }, [index]);
+  const go = useCallback(
+    (next: number) => {
+      setDirection(next > index ? 1 : -1)
+      setIndex(next)
+    },
+    [index],
+  )
 
-  const prev = useCallback(() => go((index - 1 + GALLERY.length) % GALLERY.length), [go, index]);
-  const next = useCallback(() => go((index + 1) % GALLERY.length), [go, index]);
+  const prev = useCallback(() => go((index - 1 + GALLERY.length) % GALLERY.length), [go, index])
+  const next = useCallback(() => go((index + 1) % GALLERY.length), [go, index])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') prev();
-      else if (e.key === 'ArrowRight') next();
-      else if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [prev, next, onClose]);
+      if (e.key === "ArrowLeft") prev()
+      else if (e.key === "ArrowRight") next()
+      else if (e.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [prev, next, onClose])
 
   // Lock body scroll while lightbox is open
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
-  }, []);
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [])
 
   const variants = {
     enter: (d: number) => ({ opacity: 0, x: d * 40 }),
     center: { opacity: 1, x: 0 },
     exit: (d: number) => ({ opacity: 0, x: d * -40 }),
-  };
+  }
 
   return createPortal(
     <motion.div
@@ -84,7 +111,9 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
       className="fixed inset-0 z-[500] bg-black/96 flex flex-col"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
     >
       {/* Top bar */}
       <div className="flex-none flex justify-between items-center px-8 py-5">
@@ -142,8 +171,8 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
               onClick={() => go(i)}
               className={`flex-shrink-0 w-20 h-14 overflow-hidden transition-all duration-300 interactive ${
                 i === index
-                  ? 'ring-2 ring-white ring-offset-2 ring-offset-black opacity-100'
-                  : 'opacity-30 hover:opacity-60'
+                  ? "ring-2 ring-white ring-offset-2 ring-offset-black opacity-100"
+                  : "opacity-30 hover:opacity-60"
               }`}
             >
               <img src={thumb} className="w-full h-full object-cover" draggable={false} />
@@ -152,28 +181,31 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
         </div>
       </div>
     </motion.div>,
-    document.body
-  );
+    document.body,
+  )
 }
 
-export const PropertyDetail = ({ property, onClose, onContact }: { property: Property, onClose: () => void, onContact: () => void }) => {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+export const PropertyDetail = () => {
+  const { id } = useParams()
+  const property = PROPERTIES.find((p) => p.id === id)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
-  const openLightbox = (idx: number) => setLightboxIndex(idx);
-  const closeLightbox = () => setLightboxIndex(null);
+  const openLightbox = (idx: number) => setLightboxIndex(idx)
+  const closeLightbox = () => setLightboxIndex(null)
+
+  if (!property) return null
 
   return (
     <>
       <div className="min-h-screen bg-parchment">
         {/* Back button */}
         <div className="pt-32 px-8 md:px-24 mb-8">
-          <button
-            onClick={onClose}
+          <Link
+            to="/portfolio"
             className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold text-primary/50 hover:text-primary transition-colors interactive group"
           >
-            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1 duration-200" />
-            Back to Portfolio
-          </button>
+            <span className="border-b border-current pb-0.5 pt-2">Back to Portfolio</span>
+          </Link>
         </div>
 
         {/* Hero — click to open lightbox at index 0 */}
@@ -211,13 +243,15 @@ export const PropertyDetail = ({ property, onClose, onContact }: { property: Pro
                   <MapPin size={14} />
                   {property.location}
                 </div>
-                <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">{property.title}</h1>
+                <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">
+                  {property.title}
+                </h1>
                 <p className="text-xl text-primary/70 leading-relaxed mb-12">
                   {property.description}
                 </p>
 
                 {/* Bento Gallery */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-3 mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
                   {BENTO.map(({ src, col, aspect, idx }) => (
                     <div
                       key={idx}
@@ -249,7 +283,9 @@ export const PropertyDetail = ({ property, onClose, onContact }: { property: Pro
                 className="sticky top-32 space-y-12"
               >
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-2">Price</p>
+                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-2">
+                    Price
+                  </p>
                   <p className="text-4xl font-serif">${property.price}</p>
                 </div>
 
@@ -272,10 +308,15 @@ export const PropertyDetail = ({ property, onClose, onContact }: { property: Pro
                 </div>
 
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-4">Amenities</p>
+                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-4">
+                    Amenities
+                  </p>
                   <div className="flex flex-wrap gap-2">
-                    {property.amenities.map(a => (
-                      <span key={a} className="px-3 py-1 border border-primary/10 text-[10px] uppercase tracking-widest font-bold">
+                    {property.amenities.map((a) => (
+                      <span
+                        key={a}
+                        className="px-3 py-1 border border-primary/10 text-[10px] uppercase tracking-widest font-bold"
+                      >
                         {a}
                       </span>
                     ))}
@@ -284,15 +325,19 @@ export const PropertyDetail = ({ property, onClose, onContact }: { property: Pro
 
                 <div className="pt-8 border-t border-primary/10">
                   <div className="flex justify-between items-center mb-8">
-                    <span className="text-[10px] uppercase tracking-widest text-primary/40">Status</span>
-                    <span className="text-xs font-bold uppercase tracking-widest">{property.status}</span>
+                    <span className="text-[10px] uppercase tracking-widest text-primary/40">
+                      Status
+                    </span>
+                    <span className="text-xs font-bold uppercase tracking-widest">
+                      {property.status}
+                    </span>
                   </div>
-                  <button
-                    onClick={onContact}
-                    className="w-full bg-primary text-parchment py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive"
+                  <Link
+                    to="/contact"
+                    className="block w-full bg-primary text-parchment py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive text-center"
                   >
                     Inquire Now
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             </div>
@@ -302,10 +347,8 @@ export const PropertyDetail = ({ property, onClose, onContact }: { property: Pro
 
       {/* Fullscreen Lightbox */}
       <AnimatePresence>
-        {lightboxIndex !== null && (
-          <Lightbox startIndex={lightboxIndex} onClose={closeLightbox} />
-        )}
+        {lightboxIndex !== null && <Lightbox startIndex={lightboxIndex} onClose={closeLightbox} />}
       </AnimatePresence>
     </>
-  );
-};
+  )
+}

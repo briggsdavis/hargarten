@@ -1,118 +1,149 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from "motion/react"
+import { useRef, useState, useEffect } from "react"
+import { Link } from "react-router"
 
 const timelineData = [
-  { year: '2012', title: 'THE BLUEPRINT', desc: 'Elena Voss and Alber Holding collaborate to define a new era of silence-based architecture.' },
-  { year: '2015', title: 'SITE SELECTION', desc: 'Securing the topological pocket of Mara, the quietest zone in the metropolis.' },
-  { year: '2018', title: 'FOUNDATION', desc: 'Hargarten Properties Sàrl-s established as a family-oriented firm.' },
-  { year: '2022', title: 'EXPANSION', desc: 'Integrating advanced legal security protocols into every transaction.' },
-];
+  {
+    year: "2012",
+    title: "THE BLUEPRINT",
+    desc: "Elena Voss and Alber Holding collaborate to define a new era of silence-based architecture.",
+  },
+  {
+    year: "2015",
+    title: "SITE SELECTION",
+    desc: "Securing the topological pocket of Mara, the quietest zone in the metropolis.",
+  },
+  {
+    year: "2018",
+    title: "FOUNDATION",
+    desc: "Hargarten Properties Sàrl-s established as a family-oriented firm.",
+  },
+  {
+    year: "2022",
+    title: "EXPANSION",
+    desc: "Integrating advanced legal security protocols into every transaction.",
+  },
+]
 
 const valuesData = [
   {
-    title: 'Discretion',
-    desc: 'We operate with the highest level of confidentiality, protecting our clients\' privacy at every stage.',
-    image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    title: "Discretion",
+    desc: "We operate with the highest level of confidentiality, protecting our clients' privacy at every stage.",
+    image:
+      "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
-    title: 'Legal Security',
-    desc: 'Every contract is drafted with meticulous attention to detail, ensuring absolute legal protection.',
-    image: 'https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    title: "Legal Security",
+    desc: "Every contract is drafted with meticulous attention to detail, ensuring absolute legal protection.",
+    image:
+      "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
   {
-    title: 'Family Focus',
-    desc: 'We understand the unique needs of families, providing homes that foster growth and security.',
-    image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200'
+    title: "Family Focus",
+    desc: "We understand the unique needs of families, providing homes that foster growth and security.",
+    image:
+      "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200",
   },
-];
+]
 
-export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) => {
-  const [activeSection, setActiveSection] = useState('hero');
-  const valuesRef = useRef<HTMLDivElement>(null);
-  const parallaxRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLElement>(null);
+export const About = () => {
+  const [activeSection, setActiveSection] = useState("hero")
+  const valuesRef = useRef<HTMLDivElement>(null)
+  const parallaxRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: valuesRef,
-    offset: ["start start", "end end"]
-  });
+    offset: ["start start", "end end"],
+  })
 
   const { scrollYProgress: parallaxScroll } = useScroll({
     target: parallaxRef,
-    offset: ["start end", "end start"]
-  });
+    offset: ["start end", "end start"],
+  })
 
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
-    offset: ["start start", "end start"]
-  });
+    offset: ["start start", "end start"],
+  })
 
-  const parallaxY = useTransform(parallaxScroll, [0, 1], ["-10%", "10%"]);
-  const heroParallaxY = useTransform(heroScroll, [0, 1], ["0%", "30%"]);
+  const parallaxY = useTransform(parallaxScroll, [0, 1], ["-10%", "10%"])
+  const heroParallaxY = useTransform(heroScroll, [0, 1], ["0%", "30%"])
 
-  const activeValueIndex = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [0, 0, 1, 2]);
+  const activeValueIndex = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [0, 0, 1, 2])
 
   const sidebarItems = [
-    { label: 'Philosophy', id: 'intro' },
-    { label: 'History', id: 'timeline' },
-    { label: 'Values', id: 'values' },
-  ];
+    { label: "Philosophy", id: "intro" },
+    { label: "History", id: "timeline" },
+    { label: "Values", id: "values" },
+  ]
 
   useEffect(() => {
     const updateActive = () => {
-      const triggerY = window.scrollY + window.innerHeight * 0.4;
-      let current = sidebarItems[0].id;
+      const triggerY = window.scrollY + window.innerHeight * 0.4
+      let current = sidebarItems[0].id
       for (const item of sidebarItems) {
-        const el = document.getElementById(item.id);
+        const el = document.getElementById(item.id)
         if (el && el.getBoundingClientRect().top + window.scrollY <= triggerY) {
-          current = item.id;
+          current = item.id
         }
       }
-      setActiveSection(current);
-    };
-    window.addEventListener('scroll', updateActive, { passive: true });
-    updateActive();
-    return () => window.removeEventListener('scroll', updateActive);
-  }, []);
+      setActiveSection(current)
+    }
+    window.addEventListener("scroll", updateActive, { passive: true })
+    updateActive()
+    return () => window.removeEventListener("scroll", updateActive)
+  }, [])
 
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
+    const el = document.getElementById(id)
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: "smooth" })
     }
-  };
+  }
 
   return (
     <div className="relative bg-parchment">
       {/* Sidebar Navigation */}
-      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-6">
+      {/* <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-6">
         {sidebarItems.map((item) => (
           <button
             key={item.id}
             onClick={() => scrollToSection(item.id)}
             className="group flex items-center justify-end gap-4 interactive"
           >
-            <span className={`text-[10px] uppercase tracking-widest transition-all duration-300 ${
-              activeSection === item.id ? 'opacity-100 translate-x-0 font-bold' : 'opacity-30 translate-x-2'
-            }`}>
+            <span
+              className={`text-[10px] uppercase tracking-widest transition-all duration-300 ${
+                activeSection === item.id
+                  ? "opacity-100 translate-x-0 font-bold"
+                  : "opacity-30 translate-x-2"
+              }`}
+            >
               {item.label}
             </span>
-            <div className={`h-[1px] transition-all duration-300 ${
-              activeSection === item.id ? 'w-12 bg-primary' : 'w-6 bg-primary/20 group-hover:w-12 group-hover:bg-primary/50'
-            }`} />
+            <div
+              className={`h-[1px] transition-all duration-300 ${
+                activeSection === item.id
+                  ? "w-12 bg-primary"
+                  : "w-6 bg-primary/20 group-hover:w-12 group-hover:bg-primary/50"
+              }`}
+            />
           </button>
         ))}
-      </div>
+      </div> */}
 
       {/* Hero Banner (Partial Height) */}
       <section ref={heroRef} id="hero" className="relative h-[60vh] w-full overflow-hidden">
         <motion.div
-          initial={{ scale: 1.1, filter: 'blur(10px)' }}
-          animate={{ scale: 1, filter: 'blur(0px)' }}
+          initial={{ scale: 1.1, filter: "blur(10px)" }}
+          animate={{ scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
-          <motion.div style={{ y: heroParallaxY }} className="absolute inset-0 w-full h-[130%] -top-[15%]">
+          <motion.div
+            style={{ y: heroParallaxY }}
+            className="absolute inset-0 w-full h-[130%] -top-[15%]"
+          >
             <img
               src="/luxembourg.jpg"
               alt="About Hargarten"
@@ -138,16 +169,22 @@ export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) =>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0 }}
           transition={{ duration: 1 }}
         >
-          <h2 className="text-4xl md:text-6xl font-serif text-primary mb-12 tracking-tighter">Expertise & Family Approach</h2>
+          <h2 className="text-4xl md:text-6xl font-serif text-primary mb-12 tracking-tighter">
+            Expertise & Family Approach
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <p className="text-xl text-primary/80 leading-relaxed">
-              Founded on the principles of trust and legal excellence, Hargarten Properties Sàrl-s has become a benchmark for luxury real estate in Luxembourg. We believe that a home is more than an asset; it is the foundation of a family's legacy.
+              Founded on the principles of trust and legal excellence, Hargarten Properties Sàrl-s
+              has become a benchmark for luxury real estate in Luxembourg. We believe that a home is
+              more than an asset; it is the foundation of a family's legacy.
             </p>
             <p className="text-xl text-primary/80 leading-relaxed">
-              Our team combines deep market knowledge with legal expertise to navigate the complexities of property acquisition and management. We provide a bridge between your vision and the reality of a secure, high-end residence.
+              Our team combines deep market knowledge with legal expertise to navigate the
+              complexities of property acquisition and management. We provide a bridge between your
+              vision and the reality of a secure, high-end residence.
             </p>
           </div>
         </motion.div>
@@ -155,7 +192,7 @@ export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) =>
 
       {/* Parallax Image Section */}
       <section ref={parallaxRef} className="relative h-[60vh] overflow-hidden">
-        <motion.div 
+        <motion.div
           style={{ y: parallaxY }}
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
@@ -172,8 +209,12 @@ export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) =>
       <section id="timeline" className="py-32 px-8 md:px-24 bg-white/50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-6xl font-serif text-primary mb-4">A Journey of Precision</h2>
-            <p className="text-primary/40 text-[10px] uppercase tracking-[0.3em]">Chronicle / 2012 - 2025</p>
+            <h2 className="text-4xl md:text-6xl font-serif text-primary mb-4">
+              A Journey of Precision
+            </h2>
+            <p className="text-primary/40 text-[10px] uppercase tracking-[0.3em]">
+              Chronicle / 2012 - {new Date().getFullYear()}
+            </p>
           </div>
 
           <div className="relative">
@@ -189,16 +230,22 @@ export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) =>
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
                   className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-0 ${
-                    idx % 2 === 0 ? 'md:flex-row-reverse' : ''
+                    idx % 2 === 0 ? "md:flex-row-reverse" : ""
                   }`}
                 >
                   {/* Dot */}
                   <div className="absolute left-0 md:left-1/2 top-0 w-3 h-3 bg-primary rounded-full -translate-x-1/2 z-10" />
-                  
+
                   {/* Content */}
-                  <div className={`w-full md:w-1/2 ${idx % 2 === 0 ? 'md:pl-16' : 'md:pr-16'} text-left md:text-right ${idx % 2 === 0 ? 'md:text-left' : ''}`}>
-                    <span className="text-3xl font-serif text-primary/20 mb-2 block">{item.year}</span>
-                    <h3 className="text-xl font-bold text-primary mb-4 tracking-tight">{item.title}</h3>
+                  <div
+                    className={`w-full md:w-1/2 ${idx % 2 === 0 ? "md:pl-16" : "md:pr-16"} text-left md:text-right ${idx % 2 === 0 ? "md:text-left" : ""}`}
+                  >
+                    <span className="text-3xl font-serif text-primary/20 mb-2 block">
+                      {item.year}
+                    </span>
+                    <h3 className="text-xl font-bold text-primary mb-4 tracking-tight">
+                      {item.title}
+                    </h3>
                     <p className="text-primary/60 leading-relaxed max-w-sm ml-auto mr-0 md:ml-0 md:mr-auto">
                       {item.desc}
                     </p>
@@ -223,7 +270,11 @@ export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) =>
                   className="absolute inset-0"
                   style={{
                     opacity: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5], [0, 1, 0]),
-                    scale: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5], [1.1, 1, 1.1]),
+                    scale: useTransform(
+                      activeValueIndex,
+                      [idx - 0.5, idx, idx + 0.5],
+                      [1.1, 1, 1.1],
+                    ),
                   }}
                 >
                   <img
@@ -245,15 +296,21 @@ export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) =>
                     key={idx}
                     className="absolute inset-0 flex flex-col justify-center"
                     style={{
-                      opacity: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5], [0, 1, 0]),
+                      opacity: useTransform(
+                        activeValueIndex,
+                        [idx - 0.5, idx, idx + 0.5],
+                        [0, 1, 0],
+                      ),
                       y: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5], [20, 0, -20]),
                     }}
                   >
-                    <span className="text-xs font-bold text-primary/30 uppercase tracking-[0.3em] mb-4">Value 0{idx + 1}</span>
-                    <h3 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter">{value.title}</h3>
-                    <p className="text-xl text-primary font-medium leading-relaxed">
-                      {value.desc}
-                    </p>
+                    <span className="text-xs font-bold text-primary/30 uppercase tracking-[0.3em] mb-4">
+                      Value 0{idx + 1}
+                    </span>
+                    <h3 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter">
+                      {value.title}
+                    </h3>
+                    <p className="text-xl text-primary font-medium leading-relaxed">{value.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -271,25 +328,26 @@ export const About = ({ onNavigate }: { onNavigate: (page: string) => void }) =>
           transition={{ duration: 1 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">Explore Our Listings</p>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">
+            Explore Our Listings
+          </p>
           <h2 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter leading-tight">
             Discover Properties Crafted for Discerning Clients
           </h2>
           <p className="text-lg text-primary/60 leading-relaxed mb-14 max-w-xl mx-auto">
-            From urban penthouses to private estates across Luxembourg — each residence selected with the same standards of precision and discretion.
+            From urban penthouses to private estates across Luxembourg, each residence selected with
+            the same standards of precision and discretion.
           </p>
-          <button
-            onClick={() => onNavigate('portfolio')}
+          <Link
+            to="/portfolio"
             className="group inline-flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
           >
-            <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">View All Properties</span>
-            <motion.span
-              animate={{ x: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 1.6 }}
-            >→</motion.span>
-          </button>
+            <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">
+              View All Properties
+            </span>
+          </Link>
         </motion.div>
       </section>
     </div>
-  );
-};
+  )
+}
