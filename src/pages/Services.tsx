@@ -215,6 +215,7 @@ export const Services = () => {
           </motion.div>
         </div>
       </section>
+      <div className="pb-32" />
     </div>
   )
 }
