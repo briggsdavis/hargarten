@@ -72,9 +72,7 @@ export const Home = () => {
               We define a new era of silence-based architecture and discreet property management.
             </h2>
             <p className="text-lg text-primary/70 leading-relaxed mb-8">
-              Hargarten Properties Sàrl-s is a family-oriented firm dedicated to providing
-              tailor-made services with absolute legal security. Our approach is minimalist,
-              focusing on the essential qualities of luxury: privacy, precision, and permanence.
+              Providing expert legal counsel and private property management.
             </p>
             <Link
               to="/about"
