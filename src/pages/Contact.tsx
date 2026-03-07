@@ -29,10 +29,10 @@ export const Contact = () => {
                     Email
                   </p>
                   <a
-                    href="mailto:contact@hargarten.lu"
+                    href="mailto:Contact@hargarten-properties.lu"
                     className="text-xl font-serif hover:text-primary/60 transition-colors interactive"
                   >
-                    contact@hargarten.lu
+                    Contact@hargarten-properties.lu
                   </a>
                 </div>
               </div>

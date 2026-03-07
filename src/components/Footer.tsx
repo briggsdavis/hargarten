@@ -41,10 +41,10 @@ export const Footer = () => {
         {/* Contact */}
         <div className="flex gap-8">
           <a
-            href="mailto:contact@hargarten.lu"
+            href="mailto:Contact@hargarten-properties.lu"
             className="text-[10px] uppercase tracking-widest text-parchment/40 hover:text-parchment transition-colors duration-200 interactive"
           >
-            contact@hargarten.lu
+            Contact@hargarten-properties.lu
           </a>
           <a
             href="tel:+35212345678"

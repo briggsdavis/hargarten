@@ -258,6 +258,67 @@ export const About = () => {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <section className="py-32 px-8 md:px-24 bg-parchment">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-20"
+          >
+            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-4">
+              The Team
+            </p>
+            <h2 className="text-4xl md:text-6xl font-serif text-primary tracking-tighter">
+              Our Partners
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            {[
+              {
+                name: "Samuel",
+                role: "Real Estate Business Introducer",
+                image:
+                  "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600",
+              },
+              {
+                name: "Laurent Hargarten",
+                role: "Lawyer / Legal Real Estate Expert",
+                image:
+                  "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600",
+              },
+            ].map((partner, idx) => (
+              <motion.div
+                key={partner.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: idx * 0.15 }}
+                className="flex flex-col items-center text-center"
+              >
+                <div className="w-56 h-56 rounded-full overflow-hidden mb-8 border border-primary/10">
+                  <img
+                    src={partner.image}
+                    alt={partner.name}
+                    className="w-full h-full object-cover object-top"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <h3 className="text-2xl font-serif text-primary tracking-tight mb-2">
+                  {partner.name}
+                </h3>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-primary/50">
+                  {partner.role}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Scroll-triggered Values Section */}
       <section id="values" ref={valuesRef} className="relative h-[300vh]">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
