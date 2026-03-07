@@ -69,10 +69,13 @@ export const Home = () => {
             transition={{ duration: 1 }}
           >
             <h2 className="text-3xl md:text-5xl font-serif text-primary mb-12 leading-tight">
-              We define a new era of silence-based architecture and discreet property management.
+              Providing expert legal counsel and private property management.
             </h2>
             <p className="text-lg text-primary/70 leading-relaxed mb-8">
-              Providing expert legal counsel and private property management.
+              At Hargarten Properties, every transaction is handled with the full weight of legal
+              expertise and personal commitment. From the first consultation to the final signature,
+              we guide families and investors through Luxembourg's premium real estate market with
+              precision, confidentiality, and an unwavering eye for long-term value.
             </p>
             <Link
               to="/about"
