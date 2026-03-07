@@ -6,7 +6,7 @@ const timelineData = [
   {
     year: "2012",
     title: "THE BLUEPRINT",
-    desc: "Elena Voss and Alber Holding collaborate to define a new era of silence-based architecture.",
+    desc: "We define a new era of silence-based architecture and discreet property management.",
   },
   {
     year: "2015",
@@ -21,7 +21,7 @@ const timelineData = [
   {
     year: "2022",
     title: "EXPANSION",
-    desc: "Integrating advanced legal security protocols into every transaction.",
+    desc: "Providing expert legal counsel and private property management.",
   },
 ]
 
