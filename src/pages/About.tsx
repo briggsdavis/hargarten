@@ -397,7 +397,7 @@ export const About = () => {
           </h2>
           <p className="text-lg text-primary/60 leading-relaxed mb-14 max-w-xl mx-auto">
             From urban penthouses to private estates across Luxembourg, each residence selected with
-            the same standards of precision and discretion.
+            the same standards of precision and care.
           </p>
           <Link
             to="/portfolio"
