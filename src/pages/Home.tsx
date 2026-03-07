@@ -94,7 +94,7 @@ export const Home = () => {
         <div className="flex justify-between items-end mb-16">
           <h2 className="text-4xl md:text-6xl font-serif text-primary">Select Residences</h2>
           <span className="text-[10px] uppercase tracking-widest opacity-50 mb-2">
-            Swipe to explore / 2024
+            Explore our properties
           </span>
         </div>
 
