@@ -12,14 +12,12 @@ const MENU_ITEMS = [
   {
     name: "About",
     id: "about",
-    image:
-      "https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/aboutt.jpg",
   },
   {
     name: "Portfolio",
     id: "portfolio",
-    image:
-      "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/final.jpg",
   },
   {
     name: "Services",
@@ -29,7 +27,7 @@ const MENU_ITEMS = [
   {
     name: "Contact",
     id: "contact",
-    image: "/contactnav.jpg",
+    image: "/finalcontact.jpg",
   },
 ]
 
