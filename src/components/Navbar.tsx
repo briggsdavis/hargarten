@@ -2,8 +2,9 @@ import { motion, AnimatePresence } from "motion/react"
 import { X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Link, NavLink, useLocation } from "react-router"
+import { useAdmin } from "../context/AdminContext"
 
-const MENU_ITEMS = [
+const ALL_MENU_ITEMS = [
   {
     name: "Home",
     id: "home",
@@ -36,6 +37,10 @@ const HERO_PATHS = ["/", "/about", "/services"]
 
 export const Navbar = () => {
   const location = useLocation()
+  const { portfolioLive } = useAdmin()
+  const MENU_ITEMS = portfolioLive
+    ? ALL_MENU_ITEMS
+    : ALL_MENU_ITEMS.filter((item) => item.id !== "portfolio")
   const [isOpen, setIsOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState(MENU_ITEMS[0])
   const [isVisible, setIsVisible] = useState(true)

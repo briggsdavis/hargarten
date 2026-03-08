@@ -53,6 +53,15 @@ export const Footer = () => {
             +352 123 456 78
           </a>
         </div>
+
+        {/* Discrete admin entry — 10pt grey, bottom-right */}
+        <Link
+          to="/admin/login"
+          className="text-[10px] text-parchment/15 hover:text-parchment/40 transition-colors duration-300 interactive ml-4 self-end"
+          style={{ fontSize: "10pt" }}
+        >
+          Admin
+        </Link>
       </div>
     </footer>
   )

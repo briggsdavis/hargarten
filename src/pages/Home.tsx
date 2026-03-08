@@ -2,10 +2,12 @@ import { motion, useScroll, useTransform } from "motion/react"
 import { useRef } from "react"
 import { Link } from "react-router"
 import { PROPERTIES, SERVICES } from "../constants"
+import { useAdmin } from "../context/AdminContext"
 
 const MotionLink = motion(Link)
 
 export const Home = () => {
+  const { portfolioLive } = useAdmin()
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
@@ -89,64 +91,93 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Featured Properties - Bento Grid */}
+      {/* Featured Properties — shown/hidden based on admin portfolio toggle */}
       <section className="py-32 px-8 md:px-24 bg-white">
-        <div className="flex justify-between items-end mb-16">
-          <h2 className="text-4xl md:text-6xl font-serif text-primary">Select Residences</h2>
-          <span className="text-[10px] uppercase tracking-widest opacity-50 mb-2">
-            Explore our properties
-          </span>
-        </div>
+        {portfolioLive ? (
+          <>
+            <div className="flex justify-between items-end mb-16">
+              <h2 className="text-4xl md:text-6xl font-serif text-primary">Select Residences</h2>
+              <span className="text-[10px] uppercase tracking-widest opacity-50 mb-2">
+                Explore our properties
+              </span>
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          {PROPERTIES.slice(0, 3).map((prop, idx) => (
-            <MotionLink
-              key={prop.id}
-              initial={{ y: 60, opacity: 0, filter: "blur(10px)" }}
-              whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: idx * 0.2 }}
-              to="/portfolio"
-              className={`${
-                idx === 0 ? "md:col-span-7" : idx === 1 ? "md:col-span-5" : "md:col-span-12"
-              } group relative overflow-hidden interactive`}
-            >
-              <div className="aspect-[16/10] overflow-hidden">
-                <motion.img
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  src={prop.image}
-                  alt={prop.title}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="mt-6 flex justify-between items-start">
-                <div>
-                  <h3 className="text-xl font-serif">{prop.title}</h3>
-                  <p className="text-xs text-primary/50 uppercase tracking-widest mt-1">
-                    {prop.location}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-medium">From ${prop.price}</p>
-                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mt-1">
-                    {prop.type}
-                  </p>
-                </div>
-              </div>
-            </MotionLink>
-          ))}
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              {PROPERTIES.slice(0, 3).map((prop, idx) => (
+                <MotionLink
+                  key={prop.id}
+                  initial={{ y: 60, opacity: 0, filter: "blur(10px)" }}
+                  whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: idx * 0.2 }}
+                  to="/portfolio"
+                  className={`${
+                    idx === 0 ? "md:col-span-7" : idx === 1 ? "md:col-span-5" : "md:col-span-12"
+                  } group relative overflow-hidden interactive`}
+                >
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <motion.img
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                      src={prop.image}
+                      alt={prop.title}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <div className="mt-6 flex justify-between items-start">
+                    <div>
+                      <h3 className="text-xl font-serif">{prop.title}</h3>
+                      <p className="text-xs text-primary/50 uppercase tracking-widest mt-1">
+                        {prop.location}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-medium">From €{prop.price}</p>
+                      <p className="text-[10px] uppercase tracking-widest text-primary/40 mt-1">
+                        {prop.type}
+                      </p>
+                    </div>
+                  </div>
+                </MotionLink>
+              ))}
+            </div>
 
-        <div className="mt-20 flex justify-center">
-          <Link
-            to="/portfolio"
-            className="bg-primary text-parchment px-12 py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive"
+            <div className="mt-20 flex justify-center">
+              <Link
+                to="/portfolio"
+                className="bg-primary text-parchment px-12 py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive"
+              >
+                Explore Buildings Portfolio
+              </Link>
+            </div>
+          </>
+        ) : (
+          /* Coming Soon block — displayed when portfolio is toggled OFF in admin */
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9 }}
+            className="flex flex-col items-start justify-center py-16 max-w-xl"
           >
-            Explore Buildings Portfolio
-          </Link>
-        </div>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">
+              Residences
+            </p>
+            <h2 className="text-4xl md:text-5xl font-serif text-primary leading-tight mb-6">
+              Property Listings are coming soon.
+            </h2>
+            <p className="text-sm text-primary/50 leading-relaxed">
+              Our curated selection of premium properties is being prepared. Please check back shortly
+              or contact us directly for exclusive early access.
+            </p>
+            <Link
+              to="/contact"
+              className="mt-10 text-xs uppercase tracking-widest font-bold border-b border-primary/30 pb-1 hover:border-primary transition-colors interactive"
+            >
+              Contact us for early access
+            </Link>
+          </motion.div>
+        )}
       </section>
 
       {/* Full-width Parallax Divider */}
