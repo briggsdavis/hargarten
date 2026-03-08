@@ -7,8 +7,7 @@ const MENU_ITEMS = [
   {
     name: "Home",
     id: "home",
-    image:
-      "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/lux.jpg",
   },
   {
     name: "About",
