@@ -69,12 +69,13 @@ export const Home = () => {
             transition={{ duration: 1 }}
           >
             <h2 className="text-3xl md:text-5xl font-serif text-primary mb-12 leading-tight">
-              We define a new era of silence-based architecture and discreet property management.
+              Providing expert legal counsel and private property management.
             </h2>
             <p className="text-lg text-primary/70 leading-relaxed mb-8">
-              Hargarten Properties Sàrl-s is a family-oriented firm dedicated to providing
-              tailor-made services with absolute legal security. Our approach is minimalist,
-              focusing on the essential qualities of luxury: privacy, precision, and permanence.
+              At Hargarten Properties, every transaction is handled with the full weight of legal
+              expertise and personal commitment. From the first consultation to the final signature,
+              we guide families and investors through Luxembourg's premium real estate market with
+              precision, confidentiality, and an unwavering eye for long-term value.
             </p>
             <Link
               to="/about"
@@ -93,7 +94,7 @@ export const Home = () => {
         <div className="flex justify-between items-end mb-16">
           <h2 className="text-4xl md:text-6xl font-serif text-primary">Select Residences</h2>
           <span className="text-[10px] uppercase tracking-widest opacity-50 mb-2">
-            Swipe to explore / 2024
+            Explore our properties
           </span>
         </div>
 
