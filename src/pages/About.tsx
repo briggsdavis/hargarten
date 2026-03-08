@@ -29,8 +29,7 @@ const valuesData = [
   {
     title: "Discretion",
     desc: "We operate with the highest level of confidentiality, protecting our clients' privacy at every stage.",
-    image:
-      "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "/discretion.jpg",
   },
   {
     title: "Legal Security",
@@ -197,7 +196,7 @@ export const About = () => {
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
           <img
-            src="https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src="/paralax.jpg"
             alt="Luxury Interior"
             className="w-full h-full object-cover"
           />
