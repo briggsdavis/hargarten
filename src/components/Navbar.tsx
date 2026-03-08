@@ -17,7 +17,7 @@ const MENU_ITEMS = [
   {
     name: "Portfolio",
     id: "portfolio",
-    image: "/luxembourg.jpg",
+    image: "/city.jpg",
   },
   {
     name: "Services",
