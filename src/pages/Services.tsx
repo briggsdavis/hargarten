@@ -179,7 +179,7 @@ export const Services = () => {
             className="relative aspect-[4/3] md:aspect-auto overflow-hidden"
           >
             <img
-              src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              src="/servicesbottom.jpg"
               alt="Portfolio"
               className="w-full h-full object-cover"
             />

@@ -40,8 +40,7 @@ const valuesData = [
   {
     title: "Family Focus",
     desc: "We understand the unique needs of families, providing homes that foster growth and security.",
-    image:
-      "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "/livingroom.jpg",
   },
 ]
 
