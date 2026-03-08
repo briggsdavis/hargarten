@@ -17,12 +17,12 @@ const MENU_ITEMS = [
   {
     name: "Portfolio",
     id: "portfolio",
-    image: "/city.jpg",
+    image: "/servicesnav.jpg",
   },
   {
     name: "Services",
     id: "services",
-    image: "/servicesnav.jpg",
+    image: "/city.jpg",
   },
   {
     name: "Contact",
