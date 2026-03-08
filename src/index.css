@@ -96,3 +96,18 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 0;
   cursor: none;
 }
+
+/* Admin portal — restore normal system cursors (overrides global cursor: none) */
+.admin-portal,
+.admin-portal * {
+  cursor: auto !important;
+}
+.admin-portal button,
+.admin-portal a,
+.admin-portal select {
+  cursor: pointer !important;
+}
+.admin-portal input,
+.admin-portal textarea {
+  cursor: text !important;
+}
