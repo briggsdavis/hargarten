@@ -1,29 +1,7 @@
 import { motion, useScroll, useTransform } from "motion/react"
-import { useRef, useState, useEffect } from "react"
+import { useRef } from "react"
 import { Link } from "react-router"
-
-const timelineData = [
-  {
-    year: "2012",
-    title: "THE BLUEPRINT",
-    desc: "We define a new era of silence-based architecture and discreet property management.",
-  },
-  {
-    year: "2015",
-    title: "SITE SELECTION",
-    desc: "Securing the topological pocket of Mara, the quietest zone in the metropolis.",
-  },
-  {
-    year: "2018",
-    title: "FOUNDATION",
-    desc: "Hargarten Properties Sàrl-s established as a family-oriented firm.",
-  },
-  {
-    year: "2022",
-    title: "EXPANSION",
-    desc: "Providing expert legal counsel and private property management.",
-  },
-]
+import { Scale } from "lucide-react"
 
 const valuesData = [
   {
@@ -45,7 +23,6 @@ const valuesData = [
 ]
 
 export const About = () => {
-  const [activeSection, setActiveSection] = useState("hero")
   const valuesRef = useRef<HTMLDivElement>(null)
   const parallaxRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLElement>(null)
@@ -70,66 +47,8 @@ export const About = () => {
 
   const activeValueIndex = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [0, 0, 1, 2])
 
-  const sidebarItems = [
-    { label: "Philosophy", id: "intro" },
-    { label: "History", id: "timeline" },
-    { label: "Values", id: "values" },
-  ]
-
-  useEffect(() => {
-    const updateActive = () => {
-      const triggerY = window.scrollY + window.innerHeight * 0.4
-      let current = sidebarItems[0].id
-      for (const item of sidebarItems) {
-        const el = document.getElementById(item.id)
-        if (el && el.getBoundingClientRect().top + window.scrollY <= triggerY) {
-          current = item.id
-        }
-      }
-      setActiveSection(current)
-    }
-    window.addEventListener("scroll", updateActive, { passive: true })
-    updateActive()
-    return () => window.removeEventListener("scroll", updateActive)
-  }, [])
-
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
   return (
     <div className="relative bg-parchment">
-      {/* Sidebar Navigation */}
-      {/* <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-6">
-        {sidebarItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => scrollToSection(item.id)}
-            className="group flex items-center justify-end gap-4 interactive"
-          >
-            <span
-              className={`text-[10px] uppercase tracking-widest transition-all duration-300 ${
-                activeSection === item.id
-                  ? "opacity-100 translate-x-0 font-bold"
-                  : "opacity-30 translate-x-2"
-              }`}
-            >
-              {item.label}
-            </span>
-            <div
-              className={`h-[1px] transition-all duration-300 ${
-                activeSection === item.id
-                  ? "w-12 bg-primary"
-                  : "w-6 bg-primary/20 group-hover:w-12 group-hover:bg-primary/50"
-              }`}
-            />
-          </button>
-        ))}
-      </div> */}
-
       {/* Hero Banner (Partial Height) */}
       <section ref={heroRef} id="hero" className="relative h-[60vh] w-full overflow-hidden">
         <motion.div
@@ -203,117 +122,133 @@ export const About = () => {
         </motion.div>
       </section>
 
-      {/* Timeline Section */}
-      <section id="timeline" className="py-32 px-8 md:px-24 bg-white/50">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-6xl font-serif text-primary mb-4">
-              A Journey of Precision
-            </h2>
-            <p className="text-primary/40 text-[10px] uppercase tracking-[0.3em]">
-              Chronicle / 2012 - {new Date().getFullYear()}
-            </p>
-          </div>
+      {/* Story Section — Three Blocks */}
+      <section className="py-32 md:py-40 px-8 md:px-24 bg-white/50">
+        <div className="max-w-4xl mx-auto space-y-32 md:space-y-40">
 
-          <div className="relative">
-            {/* Vertical Line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-primary/10 -translate-x-1/2" />
-
-            <div className="space-y-24">
-              {timelineData.map((item, idx) => (
-                <motion.div
-                  key={item.year}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-0 ${
-                    idx % 2 === 0 ? "md:flex-row-reverse" : ""
-                  }`}
-                >
-                  {/* Dot */}
-                  <div className="absolute left-0 md:left-1/2 top-0 w-3 h-3 bg-primary rounded-full -translate-x-1/2 z-10" />
-
-                  {/* Content */}
-                  <div
-                    className={`w-full md:w-1/2 ${idx % 2 === 0 ? "md:pl-16" : "md:pr-16"} text-left md:text-right ${idx % 2 === 0 ? "md:text-left" : ""}`}
-                  >
-                    <span className="text-3xl font-serif text-primary/20 mb-2 block">
-                      {item.year}
-                    </span>
-                    <h3 className="text-xl font-bold text-primary mb-4 tracking-tight">
-                      {item.title}
-                    </h3>
-                    <p className="text-primary/60 leading-relaxed max-w-sm ml-auto mr-0 md:ml-0 md:mr-auto">
-                      {item.desc}
-                    </p>
-                  </div>
-                  <div className="hidden md:block w-1/2" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Partners Section */}
-      <section className="py-32 px-8 md:px-24 bg-parchment">
-        <div className="max-w-4xl mx-auto">
+          {/* Block 1: 30 Years of Trust — photo left, text right */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="text-center mb-20"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row items-center gap-12 md:gap-20"
           >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-4">
-              The Team
-            </p>
-            <h2 className="text-4xl md:text-6xl font-serif text-primary tracking-tighter">
-              Our Partners
-            </h2>
+            <div className="shrink-0">
+              <div className="w-[30rem] h-[40rem] overflow-hidden border border-primary/10">
+                <img
+                  src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  alt="Laurent Hargarten"
+                  className="w-full h-full object-cover object-top"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
+            <div>
+              <Scale className="w-6 h-6 text-primary/25 mb-6" strokeWidth={1.5} />
+              <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6 tracking-tighter">
+                30 Years of Trust
+              </h2>
+              <p className="text-lg text-primary/70 leading-relaxed">
+                With three decades of experience as a lawyer, Laurent Hargarten brings a deep
+                understanding of contracts, negotiation, and what clients truly need — turning
+                legal complexity into clarity and confidence.
+              </p>
+            </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            {[
-              {
-                name: "Samuel",
-                role: "Real Estate Business Introducer",
-                image:
-                  "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600",
-              },
-              {
-                name: "Laurent Hargarten",
-                role: "Lawyer / Legal Real Estate Expert",
-                image:
-                  "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600",
-              },
-            ].map((partner, idx) => (
-              <motion.div
-                key={partner.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.15 }}
-                className="flex flex-col items-center text-center"
-              >
-                <div className="w-56 h-56 rounded-full overflow-hidden mb-8 border border-primary/10">
+          {/* Block 2: A New Perspective — text left, photo right */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20"
+          >
+            <div className="shrink-0">
+              <div className="w-[30rem] h-[40rem] overflow-hidden border border-primary/10">
+                <img
+                  src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  alt="Samuel"
+                  className="w-full h-full object-cover object-top"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
+            <div>
+              <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6 tracking-tighter">
+                A New Perspective
+              </h2>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40 mb-4">
+                Samuel — Real Estate Business Introducer
+              </p>
+              <p className="text-lg text-primary/70 leading-relaxed italic">
+                "Real estate is about understanding people first — their ambitions, their
+                lifestyle, their future. The right property follows naturally."
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Block 3: Together */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl mx-auto"
+          >
+            <h2 className="text-3xl md:text-5xl font-serif text-primary mb-16 tracking-tighter text-center">
+              Together
+            </h2>
+
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0">
+              {/* Laurent Card */}
+              <div className="flex flex-col items-center text-center md:w-1/2">
+                <div className="w-[22.5rem] h-[30rem] overflow-hidden mb-6 border border-primary/10">
                   <img
-                    src={partner.image}
-                    alt={partner.name}
+                    src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Laurent Hargarten"
                     className="w-full h-full object-cover object-top"
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <h3 className="text-2xl font-serif text-primary tracking-tight mb-2">
-                  {partner.name}
+                <h3 className="text-xl font-serif text-primary tracking-tight mb-1">
+                  Laurent Hargarten
                 </h3>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-primary/50">
-                  {partner.role}
+                <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40">
+                  Lawyer / Legal Real Estate Expert
                 </p>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+
+              {/* Connecting Line */}
+              <div className="hidden md:block w-16 h-[1px] bg-primary/15 -mx-4" />
+              <div className="block md:hidden w-[1px] h-12 bg-primary/15" />
+
+              {/* Samuel Card */}
+              <div className="flex flex-col items-center text-center md:w-1/2">
+                <div className="w-[22.5rem] h-[30rem] overflow-hidden mb-6 border border-primary/10">
+                  <img
+                    src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Samuel"
+                    className="w-full h-full object-cover object-top"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <h3 className="text-xl font-serif text-primary tracking-tight mb-1">
+                  Samuel
+                </h3>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40">
+                  Real Estate Business Introducer
+                </p>
+              </div>
+            </div>
+
+            <p className="text-center text-xl md:text-2xl font-serif text-primary/80 mt-16 max-w-xl mx-auto leading-relaxed tracking-tight">
+              Legal precision meets market intuition — together, we turn every transaction
+              into lasting trust.
+            </p>
+          </motion.div>
+
         </div>
       </section>
 
