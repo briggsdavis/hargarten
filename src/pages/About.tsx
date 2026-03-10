@@ -126,38 +126,47 @@ export const About = () => {
       <section className="py-32 md:py-40 px-8 md:px-24 bg-white/50">
         <div className="max-w-4xl mx-auto space-y-32 md:space-y-40">
 
-          {/* Block 1: 30 Years of Trust */}
+          {/* Block 1: 30 Years of Trust — photo left, text right */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8 }}
-            className="max-w-xl mx-auto text-center"
+            className="flex flex-col md:flex-row items-center gap-12 md:gap-20"
           >
-            <Scale className="w-8 h-8 text-primary/30 mx-auto mb-8" strokeWidth={1.5} />
-            <h2 className="text-3xl md:text-5xl font-serif text-primary mb-8 tracking-tighter">
-              30 Years of Trust
-            </h2>
-            <p className="text-lg text-primary/70 leading-relaxed">
-              With three decades of experience as a lawyer, Laurent Hargarten brings a deep
-              understanding of contracts, negotiation, and what clients truly need — turning
-              legal complexity into clarity and confidence.
-            </p>
+            <div className="shrink-0">
+              <div className="w-48 h-48 rounded-full overflow-hidden border border-primary/10">
+                <img
+                  src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  alt="Laurent Hargarten"
+                  className="w-full h-full object-cover object-top"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
+            <div>
+              <Scale className="w-6 h-6 text-primary/25 mb-6" strokeWidth={1.5} />
+              <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6 tracking-tighter">
+                30 Years of Trust
+              </h2>
+              <p className="text-lg text-primary/70 leading-relaxed">
+                With three decades of experience as a lawyer, Laurent Hargarten brings a deep
+                understanding of contracts, negotiation, and what clients truly need — turning
+                legal complexity into clarity and confidence.
+              </p>
+            </div>
           </motion.div>
 
-          {/* Block 2: A New Perspective — Samuel's Card */}
+          {/* Block 2: A New Perspective — text left, photo right */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8 }}
-            className="max-w-md mx-auto"
+            className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20"
           >
-            <h2 className="text-3xl md:text-5xl font-serif text-primary mb-12 tracking-tighter text-center">
-              A New Perspective
-            </h2>
-            <div className="flex flex-col items-center text-center">
-              <div className="w-48 h-48 rounded-full overflow-hidden mb-8 border border-primary/10">
+            <div className="shrink-0">
+              <div className="w-48 h-48 rounded-full overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Samuel"
@@ -165,13 +174,15 @@ export const About = () => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <h3 className="text-2xl font-serif text-primary tracking-tight mb-1">
-                Samuel
-              </h3>
-              <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40 mb-6">
-                Real Estate Business Introducer
+            </div>
+            <div>
+              <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6 tracking-tighter">
+                A New Perspective
+              </h2>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40 mb-4">
+                Samuel — Real Estate Business Introducer
               </p>
-              <p className="text-primary/60 leading-relaxed italic">
+              <p className="text-lg text-primary/70 leading-relaxed italic">
                 "Real estate is about understanding people first — their ambitions, their
                 lifestyle, their future. The right property follows naturally."
               </p>
