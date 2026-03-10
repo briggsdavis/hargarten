@@ -135,7 +135,7 @@ export const About = () => {
             className="flex flex-col md:flex-row items-center gap-12 md:gap-20"
           >
             <div className="shrink-0">
-              <div className="w-48 h-48 rounded-full overflow-hidden border border-primary/10">
+              <div className="w-48 h-64 overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Laurent Hargarten"
@@ -166,7 +166,7 @@ export const About = () => {
             className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20"
           >
             <div className="shrink-0">
-              <div className="w-48 h-48 rounded-full overflow-hidden border border-primary/10">
+              <div className="w-48 h-64 overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Samuel"
@@ -204,7 +204,7 @@ export const About = () => {
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0">
               {/* Laurent Card */}
               <div className="flex flex-col items-center text-center md:w-1/2">
-                <div className="w-36 h-36 rounded-full overflow-hidden mb-6 border border-primary/10">
+                <div className="w-36 h-48 overflow-hidden mb-6 border border-primary/10">
                   <img
                     src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
                     alt="Laurent Hargarten"
@@ -226,7 +226,7 @@ export const About = () => {
 
               {/* Samuel Card */}
               <div className="flex flex-col items-center text-center md:w-1/2">
-                <div className="w-36 h-36 rounded-full overflow-hidden mb-6 border border-primary/10">
+                <div className="w-36 h-48 overflow-hidden mb-6 border border-primary/10">
                   <img
                     src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
                     alt="Samuel"
