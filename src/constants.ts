@@ -80,7 +80,7 @@ export const SERVICES = [
       {
         title: "Drafting, Reviewing, and Amending Contracts",
         bullets: [
-          "We draft bespoke contracts tailored to your specific needs, conduct in-depth analysis of every clause, and adapt agreements to reflect legal changes or evolving requirements — always ensuring your interests are fully protected and every risk clearly explained.",
+          "We draft bespoke contracts tailored to your specific needs, conduct in-depth analysis of every clause, and adapt agreements to legal changes, ensuring your interests are fully protected and risks clearly explained.",
         ],
       },
       {
