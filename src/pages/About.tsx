@@ -202,45 +202,24 @@ export const About = () => {
               Together
             </h2>
 
-            <div className="flex flex-col md:flex-row items-end justify-center gap-6 md:gap-0">
-              {/* Laurent Card */}
-              <div className="flex flex-col items-center text-center flex-1 max-w-[440px] mx-auto md:mx-0">
-                <div className="w-full aspect-[3/4] overflow-hidden mb-5 border border-primary/10">
-                  <img
-                    src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Laurent Hargarten"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <h3 className="text-base font-serif text-primary tracking-tight mb-1">
-                  Laurent Hargarten
-                </h3>
-                <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">
-                  Lawyer / Legal Real Estate Expert
-                </p>
+            <div className="max-w-2xl mx-auto">
+              <div className="aspect-[4/3] overflow-hidden border border-primary/10">
+                <img
+                  src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  alt="Laurent Hargarten and Samuel"
+                  className="w-full h-full object-cover object-center"
+                  referrerPolicy="no-referrer"
+                />
               </div>
-
-              {/* Connecting Line */}
-              <div className="hidden md:block h-[1px] w-16 bg-primary/15 mb-10 shrink-0" />
-              <div className="block md:hidden w-[1px] h-10 bg-primary/15 mx-auto" />
-
-              {/* Samuel Card */}
-              <div className="flex flex-col items-center text-center flex-1 max-w-[440px] mx-auto md:mx-0">
-                <div className="w-full aspect-[3/4] overflow-hidden mb-5 border border-primary/10">
-                  <img
-                    src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Samuel"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
+              <div className="flex justify-between mt-5 px-1">
+                <div>
+                  <h3 className="text-base font-serif text-primary tracking-tight mb-0.5">Laurent Hargarten</h3>
+                  <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">Lawyer / Legal Real Estate Expert</p>
                 </div>
-                <h3 className="text-base font-serif text-primary tracking-tight mb-1">
-                  Samuel
-                </h3>
-                <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">
-                  Real Estate Business Introducer
-                </p>
+                <div className="text-right">
+                  <h3 className="text-base font-serif text-primary tracking-tight mb-0.5">Samuel</h3>
+                  <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">Real Estate Business Introducer</p>
+                </div>
               </div>
             </div>
 
