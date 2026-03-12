@@ -270,10 +270,10 @@ export const About = () => {
                     style={{
                       opacity: useTransform(
                         activeValueIndex,
-                        [idx - 0.5, idx, idx + 0.5],
-                        [0, 1, 0],
+                        [idx - 0.5, idx, idx + 0.5, idx + 1],
+                        [0, 1, 1, 0],
                       ),
-                      y: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5], [20, 0, -20]),
+                      y: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5, idx + 1], [20, 0, 0, -20]),
                     }}
                   >
                     <span className="text-xs font-bold text-primary/30 uppercase tracking-[0.3em] mb-4">
