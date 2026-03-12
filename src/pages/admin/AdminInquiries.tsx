@@ -62,7 +62,7 @@ const SAMPLE_INQUIRIES: Inquiry[] = [
     firstName: "Thomas",
     lastName: "Weber",
     email: "t.weber@weberfamily.de",
-    subject: "Relocation enquiry — Frankfurt to Luxembourg",
+    subject: "Relocation enquiry - Frankfurt to Luxembourg",
     message:
       "My family and I are relocating from Frankfurt to Luxembourg and would like to understand the luxury rental market in Limpertsberg and Belair. Budget is very flexible. We have two children and strongly prefer family homes with private gardens. Please contact me at your earliest convenience to discuss our requirements in detail.",
     read: true,

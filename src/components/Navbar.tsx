@@ -15,7 +15,7 @@ const ALL_MENU_ITEMS = [
   { nameKey: "nav_contact", id: "contact", image: "/finalcontact.jpg" },
 ]
 
-// Pages that open with a dark full-image hero — navbar text should be white at the top
+// Pages that open with a dark full-image hero - navbar text should be white at the top
 const HERO_BARE_PATHS = ["/", "/about", "/services"]
 
 /** Get the path without locale prefix */
@@ -77,7 +77,7 @@ export const Navbar = () => {
           <span className="block w-4 h-[1.5px] bg-current" />
         </button>
 
-        {/* Center: Title — absolutely centered regardless of button widths */}
+        {/* Center: Title - absolutely centered regardless of button widths */}
         <Link
           to={localePath("/")}
           className="absolute left-1/2 -translate-x-1/2 text-2xl font-serif tracking-tighter cursor-pointer interactive whitespace-nowrap"
@@ -106,7 +106,7 @@ export const Navbar = () => {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[200] flex"
           >
-            {/* Title — centred at the top, mirrors its position on the navbar */}
+            {/* Title - centred at the top, mirrors its position on the navbar */}
             <Link
               to={localePath("/")}
               className="absolute top-8 left-1/2 -translate-x-1/2 z-10 text-2xl font-serif text-primary tracking-tighter cursor-pointer interactive whitespace-nowrap"
@@ -115,7 +115,7 @@ export const Navbar = () => {
               {t("nav_brand")}
             </Link>
 
-            {/* Contact button — top-right corner of the whole overlay */}
+            {/* Contact button - top-right corner of the whole overlay */}
             <Link
               to={localePath("/contact")}
               onClick={() => setIsOpen(false)}

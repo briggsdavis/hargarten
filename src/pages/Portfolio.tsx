@@ -249,7 +249,7 @@ export const Portfolio = () => {
             )}
           </div>
 
-          {/* Amenity chips — always visible, count pinned right */}
+          {/* Amenity chips - always visible, count pinned right */}
           <div className="flex flex-wrap items-center gap-2 mt-5 pt-6 border-t border-primary/10 min-h-[2rem]">
             {selectedAmenities.map((a) => (
               <button

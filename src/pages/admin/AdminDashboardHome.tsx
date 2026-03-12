@@ -46,8 +46,8 @@ export const AdminDashboardHome = () => {
 
             <h3 className="text-lg font-sans font-semibold text-[#1a1a1a] mb-1.5 tracking-tight">
               {portfolioLive
-                ? "Live Portfolio — Visible to Public"
-                : "Portfolio Hidden — Coming Soon Mode"}
+                ? "Live Portfolio - Visible to Public"
+                : "Portfolio Hidden - Coming Soon Mode"}
             </h3>
 
             <p className="text-sm font-sans text-[#6b7280] leading-relaxed">
@@ -94,7 +94,7 @@ export const AdminDashboardHome = () => {
                 portfolioLive ? "bg-[#163b0f]" : "bg-amber-500"
               }`}
             />
-            {portfolioLive ? "Portfolio is live" : "Portfolio is offline — coming soon page active"}
+            {portfolioLive ? "Portfolio is live" : "Portfolio is offline - coming soon page active"}
           </span>
         </div>
       </div>

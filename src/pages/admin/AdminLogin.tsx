@@ -70,7 +70,7 @@ export const AdminLogin = () => {
           </form>
 
           <p className="text-[10px] font-sans text-[#9ca3af] mt-6 text-center">
-            Demo mode — any credentials grant access
+            Demo mode - any credentials grant access
           </p>
         </div>
 

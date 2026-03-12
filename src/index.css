@@ -97,7 +97,7 @@ input[type="range"]::-moz-range-thumb {
   cursor: none;
 }
 
-/* Admin portal — restore normal system cursors (overrides global cursor: none) */
+/* Admin portal - restore normal system cursors (overrides global cursor: none) */
 .admin-portal,
 .admin-portal * {
   cursor: auto !important;

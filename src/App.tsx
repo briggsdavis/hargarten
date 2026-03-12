@@ -37,7 +37,7 @@ const FrozenRoutes = ({ location }: { location: Location }) => {
   const [frozenLocation] = useState(location)
   return (
     <Routes location={frozenLocation}>
-      {/* Default locale (en) — no prefix */}
+      {/* Default locale (en) - no prefix */}
       <Route path="/">{publicRoutes}</Route>
       {/* Locale-prefixed routes */}
       <Route path="/:locale">{publicRoutes}</Route>
@@ -95,6 +95,8 @@ const AppContent = () => {
   // ── Admin routes bypass the entire public site layout ─────────────────────
   if (isAdminRoute) {
     return (
+      <>
+      <CustomCursor />
       <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
@@ -103,6 +105,7 @@ const AppContent = () => {
           <Route path="inquiries" element={<AdminInquiries />} />
         </Route>
       </Routes>
+      </>
     )
   }
 

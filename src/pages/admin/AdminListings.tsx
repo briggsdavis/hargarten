@@ -547,7 +547,7 @@ export const AdminListings = () => {
                         addAmenity()
                       }
                     }}
-                    placeholder='Type an amenity and press Enter — e.g. "High-speed Wi-Fi"'
+                    placeholder='Type an amenity and press Enter - e.g. "High-speed Wi-Fi"'
                     className="flex-1 px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4]"
                   />
                   <button

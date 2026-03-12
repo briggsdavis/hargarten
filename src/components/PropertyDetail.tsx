@@ -195,7 +195,7 @@ export const PropertyDetail = () => {
           </LocaleLink>
         </div>
 
-        {/* Hero — click to open lightbox at index 0 */}
+        {/* Hero - click to open lightbox at index 0 */}
         <section
           className="h-[70vh] relative overflow-hidden mx-8 md:mx-24 mb-20 group cursor-pointer"
           onClick={() => openLightbox(0)}

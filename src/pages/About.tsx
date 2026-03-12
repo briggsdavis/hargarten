@@ -103,10 +103,10 @@ export const About = () => {
         </motion.div>
       </section>
 
-      {/* Story Section — Three Blocks */}
+      {/* Story Section - Three Blocks */}
       <section className="py-32 md:py-40 px-8 md:px-24 bg-white/50">
         <div className="max-w-4xl mx-auto space-y-32 md:space-y-40">
-          {/* Block 1: 30 Years of Trust — photo left, text right */}
+          {/* Block 1: 30 Years of Trust - photo left, text right */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -133,7 +133,7 @@ export const About = () => {
             </div>
           </motion.div>
 
-          {/* Block 2: A New Perspective — text left, image right */}
+          {/* Block 2: A New Perspective - text left, image right */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

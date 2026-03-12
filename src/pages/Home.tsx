@@ -87,7 +87,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Featured Properties — shown/hidden based on admin portfolio toggle */}
+      {/* Featured Properties - shown/hidden based on admin portfolio toggle */}
       <section className="py-32 px-8 md:px-24 bg-white">
         {portfolioLive ? (
           <>
@@ -151,7 +151,7 @@ export const Home = () => {
             </div>
           </>
         ) : (
-          /* Coming Soon block — displayed when portfolio is toggled OFF in admin */
+          /* Coming Soon block - displayed when portfolio is toggled OFF in admin */
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -201,7 +201,7 @@ export const Home = () => {
           </p>
         </motion.div>
 
-        {/* Two-column image grid — mirrors the reference */}
+        {/* Two-column image grid - mirrors the reference */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           {SERVICES.map((service, idx) => (
             <MotionLocaleLink
@@ -213,7 +213,7 @@ export const Home = () => {
               transition={{ duration: 0.9, delay: idx * 0.15 }}
               className="group cursor-pointer interactive"
             >
-              {/* Portrait image — 30% shorter than the original 3/4 */}
+              {/* Portrait image - 30% shorter than the original 3/4 */}
               <div className="aspect-[3/2.8] overflow-hidden mb-5">
                 <motion.img
                   whileHover={{ scale: 1.04 }}
