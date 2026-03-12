@@ -241,11 +241,11 @@ export const About = () => {
                   key={idx}
                   className="absolute inset-0"
                   style={{
-                    opacity: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5], [0, 1, 0]),
+                    opacity: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5, idx + 1], [0, 1, 1, 0]),
                     scale: useTransform(
                       activeValueIndex,
-                      [idx - 0.5, idx, idx + 0.5],
-                      [1.1, 1, 1.1],
+                      [idx - 0.5, idx, idx + 0.5, idx + 1],
+                      [1.1, 1, 1, 1.1],
                     ),
                   }}
                 >
