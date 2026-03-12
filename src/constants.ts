@@ -80,9 +80,7 @@ export const SERVICES = [
       {
         title: "Drafting, Reviewing, and Amending Contracts",
         bullets: [
-          "Drafting of bespoke contracts, in-depth analysis of existing clauses, and adaptation according to needs or legal changes.",
-          "Explanation of risks, protection of the client's interests.",
-          "(Sales agreements (compromis de vente), options to purchase, reservation contracts, etc.)",
+          "We draft bespoke contracts tailored to your specific needs, conduct in-depth analysis of every clause, and adapt agreements to reflect legal changes or evolving requirements — always ensuring your interests are fully protected and every risk clearly explained.",
         ],
       },
       {
