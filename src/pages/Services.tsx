@@ -85,7 +85,7 @@ export const Services = () => {
                   >
                     <div className="pb-16">
                       {/* Top row: overview text + image */}
-                      <div className="pl-16 md:pl-24 pr-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-12">
+                      <div className="pl-16 md:pl-24 pr-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-12">
                         <motion.p
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export const Services = () => {
                           initial={{ opacity: 0, scale: 0.94, y: 12 }}
                           animate={{ opacity: 1, scale: 1, y: 0 }}
                           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-                          className="relative overflow-hidden aspect-[4/3]"
+                          className="relative overflow-hidden aspect-[80/69]"
                         >
                           <motion.img
                             src={service.image}
