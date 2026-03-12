@@ -178,11 +178,7 @@ export const Services = () => {
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative aspect-[4/3] md:aspect-auto overflow-hidden"
           >
-            <img
-              src="/servicesbottom.jpg"
-              alt="Portfolio"
-              className="w-full h-full object-cover"
-            />
+            <img src="/servicesbottom.jpg" alt="Portfolio" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-primary/10" />
           </motion.div>
 

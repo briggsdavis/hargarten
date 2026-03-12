@@ -17,13 +17,9 @@ export const AdminLogin = () => {
   return (
     <div className="admin-portal min-h-screen bg-[#f5f4f0] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-
         {/* Logo */}
         <div className="text-center mb-10">
-          <h1
-            className="font-serif text-[#163b0f] tracking-tighter"
-            style={{ fontSize: "1.6rem" }}
-          >
+          <h1 className="font-serif text-[#163b0f] tracking-tighter" style={{ fontSize: "1.6rem" }}>
             Hargarten Properties
           </h1>
           <p className="text-[10px] uppercase tracking-[0.25em] text-[#163b0f]/40 mt-2 font-sans">
@@ -36,9 +32,7 @@ export const AdminLogin = () => {
           <h2 className="text-lg font-sans font-medium text-[#1a1a1a] mb-1 tracking-tight">
             Sign in
           </h2>
-          <p className="text-sm font-sans text-[#6b7280] mb-8">
-            Access the management dashboard
-          </p>
+          <p className="text-sm font-sans text-[#6b7280] mb-8">Access the management dashboard</p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>

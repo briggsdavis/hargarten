@@ -113,11 +113,7 @@ export const About = () => {
           style={{ y: parallaxY }}
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
-          <img
-            src="/paralax.jpg"
-            alt="Luxury Interior"
-            className="w-full h-full object-cover"
-          />
+          <img src="/paralax.jpg" alt="Luxury Interior" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
       </section>
@@ -125,7 +121,6 @@ export const About = () => {
       {/* Story Section — Three Blocks */}
       <section className="py-32 md:py-40 px-8 md:px-24 bg-white/50">
         <div className="max-w-4xl mx-auto space-y-32 md:space-y-40">
-
           {/* Block 1: 30 Years of Trust — photo left, text right */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -151,8 +146,8 @@ export const About = () => {
               </h2>
               <p className="text-lg text-primary/70 leading-relaxed">
                 With three decades of experience as a lawyer, Laurent Hargarten brings a deep
-                understanding of contracts, negotiation, and what clients truly need — turning
-                legal complexity into clarity and confidence.
+                understanding of contracts, negotiation, and what clients truly need — turning legal
+                complexity into clarity and confidence.
               </p>
             </div>
           </motion.div>
@@ -183,8 +178,8 @@ export const About = () => {
                 Samuel — Real Estate Business Introducer
               </p>
               <p className="text-lg text-primary/70 leading-relaxed italic">
-                "Real estate is about understanding people first — their ambitions, their
-                lifestyle, their future. The right property follows naturally."
+                "Real estate is about understanding people first — their ambitions, their lifestyle,
+                their future. The right property follows naturally."
               </p>
             </div>
           </motion.div>
@@ -234,9 +229,7 @@ export const About = () => {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <h3 className="text-xl font-serif text-primary tracking-tight mb-1">
-                  Samuel
-                </h3>
+                <h3 className="text-xl font-serif text-primary tracking-tight mb-1">Samuel</h3>
                 <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40">
                   Real Estate Business Introducer
                 </p>
@@ -244,11 +237,10 @@ export const About = () => {
             </div>
 
             <p className="text-center text-xl md:text-2xl font-serif text-primary/80 mt-16 max-w-xl mx-auto leading-relaxed tracking-tight">
-              Legal precision meets market intuition — together, we turn every transaction
-              into lasting trust.
+              Legal precision meets market intuition — together, we turn every transaction into
+              lasting trust.
             </p>
           </motion.div>
-
         </div>
       </section>
 
