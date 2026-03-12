@@ -245,7 +245,7 @@ export const About = () => {
             </div>
 
             <p className="text-center text-lg md:text-xl font-serif text-primary/60 mt-14 max-w-md mx-auto leading-relaxed tracking-tight">
-              Legal precision meets market intuition — together, we turn every transaction
+              Legal precision meets market intuition, together we turn every transaction
               into lasting trust.
             </p>
           </motion.div>
