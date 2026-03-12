@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "motion/react"
 import { useRef } from "react"
 import { Link } from "react-router"
-import { Scale } from "lucide-react"
+import { Scale, House } from "lucide-react"
 
 const valuesData = [
   {
@@ -125,12 +125,12 @@ export const About = () => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col md:flex-row items-center gap-12 md:gap-20"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
+            className="flex flex-col md:flex-row items-center gap-14 md:gap-20"
           >
-            <div className="shrink-0">
-              <div className="w-[30rem] h-[40rem] overflow-hidden border border-primary/10">
+            <div className="shrink-0 w-full max-w-[520px] mx-auto md:mx-0">
+              <div className="aspect-[3/4] overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Laurent Hargarten"
@@ -139,9 +139,9 @@ export const About = () => {
                 />
               </div>
             </div>
-            <div>
-              <Scale className="w-6 h-6 text-primary/25 mb-6" strokeWidth={1.5} />
-              <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6 tracking-tighter">
+            <div className="flex-1">
+              <Scale className="w-5 h-5 text-primary/30 mb-5" strokeWidth={1.5} />
+              <h2 className="text-3xl md:text-4xl font-serif text-primary mb-5 tracking-tighter">
                 30 Years of Trust
               </h2>
               <p className="text-lg text-primary/70 leading-relaxed">
@@ -152,16 +152,16 @@ export const About = () => {
             </div>
           </motion.div>
 
-          {/* Block 2: A New Perspective — text left, photo right */}
+          {/* Block 2: A New Perspective — text left, image right */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
+            className="flex flex-col md:flex-row-reverse items-center gap-14 md:gap-20"
           >
-            <div className="shrink-0">
-              <div className="w-[30rem] h-[40rem] overflow-hidden border border-primary/10">
+            <div className="shrink-0 w-full max-w-[520px] mx-auto md:mx-0">
+              <div className="aspect-[3/4] overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Samuel"
@@ -170,16 +170,18 @@ export const About = () => {
                 />
               </div>
             </div>
-            <div>
-              <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6 tracking-tighter">
+            <div className="flex-1">
+              <House className="w-5 h-5 text-primary/30 mb-5" strokeWidth={1.5} />
+              <h2 className="text-3xl md:text-4xl font-serif text-primary mb-3 tracking-tighter">
                 A New Perspective
               </h2>
-              <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40 mb-4">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-primary/35 mb-5">
                 Samuel — Real Estate Business Introducer
               </p>
-              <p className="text-lg text-primary/70 leading-relaxed italic">
-                "Real estate is about understanding people first — their ambitions, their lifestyle,
-                their future. The right property follows naturally."
+              <p className="text-base text-primary/60 leading-relaxed">
+                Samuel's passion for real estate is matched by a fresh vision and deep market
+                knowledge — bringing an intuitive sense of what makes a property truly right
+                for the people who will call it home.
               </p>
             </div>
           </motion.div>
@@ -188,57 +190,37 @@ export const About = () => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl mx-auto"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
           >
-            <h2 className="text-3xl md:text-5xl font-serif text-primary mb-16 tracking-tighter text-center">
+            <h2 className="text-3xl md:text-4xl font-serif text-primary mb-16 tracking-tighter text-center">
               Together
             </h2>
 
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0">
-              {/* Laurent Card */}
-              <div className="flex flex-col items-center text-center md:w-1/2">
-                <div className="w-[22.5rem] h-[30rem] overflow-hidden mb-6 border border-primary/10">
-                  <img
-                    src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Laurent Hargarten"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <h3 className="text-xl font-serif text-primary tracking-tight mb-1">
-                  Laurent Hargarten
-                </h3>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40">
-                  Lawyer / Legal Real Estate Expert
-                </p>
+            <div className="max-w-2xl mx-auto">
+              <div className="aspect-[4/3] overflow-hidden border border-primary/10">
+                <img
+                  src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  alt="Laurent Hargarten and Samuel"
+                  className="w-full h-full object-cover object-center"
+                  referrerPolicy="no-referrer"
+                />
               </div>
-
-              {/* Connecting Line */}
-              <div className="hidden md:block w-16 h-[1px] bg-primary/15 -mx-4" />
-              <div className="block md:hidden w-[1px] h-12 bg-primary/15" />
-
-              {/* Samuel Card */}
-              <div className="flex flex-col items-center text-center md:w-1/2">
-                <div className="w-[22.5rem] h-[30rem] overflow-hidden mb-6 border border-primary/10">
-                  <img
-                    src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Samuel"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
+              <div className="flex justify-between mt-5 px-1">
+                <div>
+                  <h3 className="text-base font-serif text-primary tracking-tight mb-0.5">Laurent Hargarten</h3>
+                  <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">Lawyer / Legal Real Estate Expert</p>
                 </div>
-                <h3 className="text-xl font-serif text-primary tracking-tight mb-1">Samuel</h3>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40">
-                  Real Estate Business Introducer
-                </p>
+                <div className="text-right">
+                  <h3 className="text-base font-serif text-primary tracking-tight mb-0.5">Samuel</h3>
+                  <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">Real Estate Business Introducer</p>
+                </div>
               </div>
             </div>
 
-            <p className="text-center text-xl md:text-2xl font-serif text-primary/80 mt-16 max-w-xl mx-auto leading-relaxed tracking-tight">
-              Legal precision meets market intuition — together, we turn every transaction into
-              lasting trust.
+            <p className="text-center text-lg md:text-xl font-serif text-primary/60 mt-14 max-w-md mx-auto leading-relaxed tracking-tight">
+              Legal precision meets market intuition, together we turn every transaction
+              into lasting trust.
             </p>
           </motion.div>
         </div>
