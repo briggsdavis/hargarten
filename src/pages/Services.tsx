@@ -83,59 +83,80 @@ export const Services = () => {
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <div className="pb-16 pl-16 md:pl-24 pr-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                    <div className="pb-16 pl-16 md:pl-24 pr-8 grid grid-cols-1 md:grid-cols-[1fr_340px] gap-12 items-start">
                       {/* Text content */}
                       <div>
+                        {/* Overview */}
                         <motion.p
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.1 }}
-                          className="text-lg text-primary/80 leading-relaxed mb-4"
+                          className="text-base text-primary/65 leading-relaxed mb-8"
                         >
-                          {service.description}
+                          {service.overview}
                         </motion.p>
-                        <motion.p
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.2 }}
-                          className="text-base text-primary/55 leading-relaxed italic mb-8"
-                        >
-                          {service.details}
-                        </motion.p>
-                        <ul className="flex flex-col gap-3">
-                          {service.features.map((feature, fIdx) => (
-                            <motion.li
-                              key={fIdx}
-                              initial={{ opacity: 0, x: -12 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.25 + fIdx * 0.08 }}
-                              className="flex items-center gap-3 text-sm text-primary/70"
+
+                        {/* Optional subtitle */}
+                        {service.subtitle && (
+                          <motion.p
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.15 }}
+                            className="text-[10px] uppercase tracking-[0.3em] text-primary/40 font-bold mb-6"
+                          >
+                            {service.subtitle}
+                          </motion.p>
+                        )}
+
+                        {/* Numbered sub-services */}
+                        <div className="flex flex-col gap-7">
+                          {service.subServices.map((sub, sIdx) => (
+                            <motion.div
+                              key={sIdx}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2 + sIdx * 0.07 }}
                             >
-                              <span className="w-1.5 h-1.5 rounded-full bg-primary/40 flex-shrink-0" />
-                              {feature}
-                            </motion.li>
+                              <div className="flex items-baseline gap-4 mb-2">
+                                <span className="text-xs font-mono text-primary/25 flex-shrink-0">
+                                  {String(sIdx + 1).padStart(2, "0")}
+                                </span>
+                                <h4 className="text-sm font-semibold text-primary tracking-wide">
+                                  {sub.title}
+                                </h4>
+                              </div>
+                              <ul className="flex flex-col gap-1.5 pl-9">
+                                {sub.bullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="text-sm text-primary/55 leading-relaxed">
+                                    {bullet}
+                                  </li>
+                                ))}
+                              </ul>
+                            </motion.div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
 
-                      {/* Image with animation */}
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.94, y: 12 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-                        className="relative overflow-hidden aspect-[4/3]"
-                      >
-                        <motion.img
-                          src={service.image}
-                          alt={service.title}
-                          initial={{ scale: 1.08 }}
-                          animate={{ scale: 1 }}
-                          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                          className="w-full h-full object-cover"
-                          referrerPolicy="no-referrer"
-                        />
-                        <div className="absolute inset-0 bg-primary/10" />
-                      </motion.div>
+                      {/* Sticky image */}
+                      <div className="hidden md:block sticky top-8">
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.94, y: 12 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                          className="relative overflow-hidden aspect-[3/4]"
+                        >
+                          <motion.img
+                            src={service.image}
+                            alt={service.title}
+                            initial={{ scale: 1.08 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="absolute inset-0 bg-primary/10" />
+                        </motion.div>
+                      </div>
                     </div>
                   </motion.div>
                 )}

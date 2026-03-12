@@ -70,34 +70,76 @@ export const PROPERTIES = [
 
 export const SERVICES = [
   {
-    title: "Real Estate Agency",
-    description:
-      "A comprehensive, full-service approach to buying and selling premium properties across Luxembourg. Our agents combine deep local market knowledge with an international perspective to secure the finest outcomes for our clients.",
-    details:
-      "From initial consultation to the final signing, we manage every detail of your transaction with the precision and discretion that distinguished clientele deserves.",
-    features: [
-      "Exclusive Off-Market & Private Listings",
-      "In-depth Property Valuation & Market Analysis",
-      "Negotiation Strategy & Offer Management",
-      "Full Transaction Coordination & Oversight",
-      "Post-Sale Support, Aftercare & Relocation Assistance",
-    ],
-    image: "/realestateagency.jpg",
-  },
-  {
-    title: "Real Estate Legal Advice",
-    description:
-      "Rigorous legal expertise applied at every stage of your real estate journey. Our in-house legal team ensures every contract, clause, and compliance obligation is reviewed with absolute precision to protect your interests.",
-    details:
-      "We navigate Luxembourgish property law, cross-border regulations, and thorough due diligence with meticulous attention to detail and unwavering authority.",
-    features: [
-      "Contract Drafting, Review & Amendment",
-      "Full Due Diligence & Title Verification",
-      "Cross-Border & EU Regulation Compliance",
-      "Notarial Act Preparation & Coordination",
-      "Dispute Resolution, Mediation & Litigation Support",
-    ],
+    title: "Real Estate Legal Services",
+    overview:
+      "Our legal team provides comprehensive real estate law expertise, ensuring every transaction is secure, compliant, and fully protected from risk.",
     image:
       "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    subtitle: "Securing Purchases and Sales",
+    subServices: [
+      {
+        title: "Drafting, Reviewing, and Amending Contracts",
+        bullets: [
+          "Drafting of bespoke contracts, in-depth analysis of existing clauses, and adaptation according to needs or legal changes.",
+          "Explanation of risks, protection of the client's interests.",
+          "(Sales agreements (compromis de vente), options to purchase, reservation contracts, etc.)",
+        ],
+      },
+      {
+        title: "Drafting and Securing Leases (Residential, Commercial)",
+        bullets: [
+          "Tailor-made rental contracts adapted to the specific case, protective clauses, and legal compliance. Enhanced security.",
+        ],
+      },
+      {
+        title: "Legal and Real Estate Strategy Consulting",
+        bullets: [
+          "Thanks to our combined expertise in law and real estate, we support you on all strategic aspects. Our bespoke approach helps you optimize every decision, anticipate risks, and realize your projects with complete confidence.",
+        ],
+      },
+      {
+        title: "Comprehensive Due Diligence & Title Verification",
+        bullets: [
+          "In-depth analysis of titles, easements, urban planning, and compliance. No hidden risks: we validate the reliability of your acquisition before any commitment.",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Real Estate Services",
+    overview:
+      "From acquisition to sale, our agency delivers end-to-end real estate services across Luxembourg's premium market, combining local expertise with a personalised approach.",
+    image: "/realestateagency.jpg",
+    subtitle: null,
+    subServices: [
+      {
+        title: "Real Estate Purchase Support",
+        bullets: [
+          "From targeted searches (on & off-market) to the final signature, we identify the best opportunities and secure every step. You save time, negotiate at the best price, and invest with complete peace of mind.",
+        ],
+      },
+      {
+        title: "Real Estate Sales Support",
+        bullets: [
+          "Accurate valuation, premium marketing strategy, management of viewings, and negotiations. Your property sells quickly, at the right price, through a fluid and confidential process.",
+        ],
+      },
+      {
+        title: "Rental Support",
+        bullets: ["File analysis, etc. / listing and placement."],
+      },
+      {
+        title: "Valuation & Market Analysis",
+        bullets: [
+          "Professional estimation based on local and European data. Make informed decisions: buy, sell, or hold at the optimal time.",
+        ],
+      },
+      {
+        title: "Real Estate Investment Consulting",
+        bullets: [
+          "Profitability analysis, selection of opportunities, and long-term wealth strategy. We transform your projects into high-performing and secure investments.",
+        ],
+      },
+    ],
   },
 ]
