@@ -1,10 +1,10 @@
 import { motion, AnimatePresence } from "motion/react"
 import { useState, useRef, useEffect } from "react"
-import { Link } from "react-router"
 import { ChevronDown, X } from "lucide-react"
 import { PROPERTIES } from "../constants"
+import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
-const MotionLink = motion(Link)
+const MotionLocaleLink = motion(LocaleLink)
 
 const ALL_AMENITIES = Array.from(new Set(PROPERTIES.flatMap((p) => p.amenities))).sort()
 
@@ -40,6 +40,7 @@ const PillGroup = ({
 )
 
 export const Portfolio = () => {
+  const { t } = useLocale()
   const [statusFilter, setStatusFilter] = useState("All")
   const [typeFilter, setTypeFilter] = useState("All")
   const [minBedrooms, setMinBedrooms] = useState(0)
@@ -93,9 +94,9 @@ export const Portfolio = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-14">
-          <h1 className="text-6xl font-serif text-primary mb-2">Portfolio</h1>
+          <h1 className="text-6xl font-serif text-primary mb-2">{t("portfolio_title")}</h1>
           <p className="text-primary/50 uppercase tracking-widest text-xs">
-            Curated Selection / {new Date().getFullYear()}
+            {t("portfolio_subtitle", { year: String(new Date().getFullYear()) })}
           </p>
         </div>
 
@@ -103,22 +104,42 @@ export const Portfolio = () => {
         <div className="border-t border-b border-primary/10 py-6 mb-14">
           <div className="flex flex-wrap gap-x-12 gap-y-6 items-end">
             <PillGroup
-              label="Status"
-              options={["All", "Available", "Reserved"]}
-              value={statusFilter}
-              onChange={setStatusFilter}
+              label={t("portfolio_status")}
+              options={[t("portfolio_all"), t("portfolio_available"), t("portfolio_reserved")]}
+              value={
+                statusFilter === "All"
+                  ? t("portfolio_all")
+                  : statusFilter === "Available"
+                    ? t("portfolio_available")
+                    : t("portfolio_reserved")
+              }
+              onChange={(v) => {
+                if (v === t("portfolio_all")) setStatusFilter("All")
+                else if (v === t("portfolio_available")) setStatusFilter("Available")
+                else setStatusFilter("Reserved")
+              }}
             />
             <PillGroup
-              label="Transaction"
-              options={["All", "Rent", "Sale"]}
-              value={typeFilter}
-              onChange={setTypeFilter}
+              label={t("portfolio_transaction")}
+              options={[t("portfolio_all"), t("portfolio_rent"), t("portfolio_sale")]}
+              value={
+                typeFilter === "All"
+                  ? t("portfolio_all")
+                  : typeFilter === "Rent"
+                    ? t("portfolio_rent")
+                    : t("portfolio_sale")
+              }
+              onChange={(v) => {
+                if (v === t("portfolio_all")) setTypeFilter("All")
+                else if (v === t("portfolio_rent")) setTypeFilter("Rent")
+                else setTypeFilter("Sale")
+              }}
             />
 
             {/* Bedrooms */}
             <div className="flex flex-col gap-2">
               <span className="text-[9px] uppercase tracking-[0.2em] text-primary/40">
-                Min. Rooms
+                {t("portfolio_min_rooms")}
               </span>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((n) => (
@@ -131,7 +152,7 @@ export const Portfolio = () => {
                         : "bg-transparent text-primary/50 border-primary/20 hover:border-primary hover:text-primary"
                     }`}
                   >
-                    {n === 0 ? "Any" : `${n}+`}
+                    {n === 0 ? t("portfolio_any") : `${n}+`}
                   </button>
                 ))}
               </div>
@@ -140,9 +161,9 @@ export const Portfolio = () => {
             {/* Price */}
             <div className="flex flex-col gap-2 min-w-[160px]">
               <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-primary/40">
-                <span>Max Price</span>
+                <span>{t("portfolio_max_price")}</span>
                 <span className="text-primary font-bold">
-                  {maxPrice === 6 ? "Any" : `€${maxPrice}M`}
+                  {maxPrice === 6 ? t("portfolio_any") : `\u20AC${maxPrice}M`}
                 </span>
               </div>
               <input
@@ -155,15 +176,15 @@ export const Portfolio = () => {
                 className="w-full cursor-pointer"
               />
               <div className="flex justify-between text-[8px] text-primary/30">
-                <span>€1M</span>
-                <span>€6M+</span>
+                <span>&euro;1M</span>
+                <span>&euro;6M+</span>
               </div>
             </div>
 
             {/* Amenities Dropdown */}
             <div className="flex flex-col gap-2" ref={amenityRef}>
               <span className="text-[9px] uppercase tracking-[0.2em] text-primary/40">
-                Amenities
+                {t("portfolio_amenities")}
               </span>
               <div className="relative">
                 <button
@@ -174,7 +195,9 @@ export const Portfolio = () => {
                       : "border-primary/20 text-primary/50 hover:border-primary hover:text-primary"
                   }`}
                 >
-                  {selectedAmenities.length > 0 ? `${selectedAmenities.length} selected` : "Select"}
+                  {selectedAmenities.length > 0
+                    ? t("portfolio_selected", { count: String(selectedAmenities.length) })
+                    : t("portfolio_select")}
                   <motion.span
                     animate={{ rotate: amenityOpen ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
@@ -221,7 +244,7 @@ export const Portfolio = () => {
                 className="self-end flex items-center gap-2 text-[10px] uppercase tracking-widest text-primary/40 hover:text-primary transition-colors interactive"
               >
                 <X size={10} />
-                Clear filters
+                {t("portfolio_clear_filters")}
               </button>
             )}
           </div>
@@ -239,7 +262,9 @@ export const Portfolio = () => {
               </button>
             ))}
             <span className="ml-auto text-[10px] uppercase tracking-widest text-primary/30">
-              {filtered.length} {filtered.length === 1 ? "property" : "properties"}
+              {filtered.length === 1
+                ? t("portfolio_property", { count: String(filtered.length) })
+                : t("portfolio_properties", { count: String(filtered.length) })}
             </span>
           </div>
         </div>
@@ -248,7 +273,7 @@ export const Portfolio = () => {
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           <AnimatePresence mode="popLayout">
             {filtered.map((prop) => (
-              <MotionLink
+              <MotionLocaleLink
                 key={prop.id}
                 to={`/portfolio/${prop.id}`}
                 layout
@@ -280,11 +305,11 @@ export const Portfolio = () => {
                   <div className="text-right">
                     <p className="text-lg font-medium">${prop.price}</p>
                     <p className="text-[10px] uppercase tracking-widest text-primary/40 mt-1">
-                      {prop.sqm} SQM / {prop.bedrooms} Bed
+                      {prop.sqm} {t("portfolio_sqm")} / {prop.bedrooms} {t("portfolio_bed")}
                     </p>
                   </div>
                 </div>
-              </MotionLink>
+              </MotionLocaleLink>
             ))}
           </AnimatePresence>
         </motion.div>
@@ -296,13 +321,13 @@ export const Portfolio = () => {
             className="py-32 text-center"
           >
             <p className="text-primary/40 font-serif text-2xl italic mb-6">
-              No properties match your current filters.
+              {t("portfolio_no_match")}
             </p>
             <button
               onClick={clearAll}
               className="text-[10px] uppercase tracking-widest font-bold text-primary/50 border-b border-primary/20 pb-1 hover:text-primary hover:border-primary transition-colors interactive"
             >
-              Clear all filters
+              {t("portfolio_clear_all")}
             </button>
           </motion.div>
         )}

@@ -1,31 +1,24 @@
 import { motion, useScroll, useTransform } from "motion/react"
 import { useRef } from "react"
-import { Link } from "react-router"
-import { Scale } from "lucide-react"
-
-const valuesData = [
-  {
-    title: "Discretion",
-    desc: "We operate with the highest level of confidentiality, protecting our clients' privacy at every stage.",
-    image: "/discretion.jpg",
-  },
-  {
-    title: "Legal Security",
-    desc: "Every contract is drafted with meticulous attention to detail, ensuring absolute legal protection.",
-    image:
-      "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-  {
-    title: "Family Focus",
-    desc: "We understand the unique needs of families, providing homes that foster growth and security.",
-    image: "/livingroom.jpg",
-  },
-]
+import { Scale, House } from "lucide-react"
+import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 export const About = () => {
+  const { t } = useLocale()
   const valuesRef = useRef<HTMLDivElement>(null)
   const parallaxRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLElement>(null)
+
+  const valuesData = [
+    { title: t("about_value1_title"), desc: t("about_value1_desc"), image: "/discretion.jpg" },
+    {
+      title: t("about_value2_title"),
+      desc: t("about_value2_desc"),
+      image:
+        "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    },
+    { title: t("about_value3_title"), desc: t("about_value3_desc"), image: "/livingroom.jpg" },
+  ]
 
   const { scrollYProgress } = useScroll({
     target: valuesRef,
@@ -76,7 +69,7 @@ export const About = () => {
             transition={{ delay: 0.5, duration: 1 }}
             className="text-6xl md:text-8xl font-serif text-parchment tracking-tighter"
           >
-            Our Legacy
+            {t("about_hero_title")}
           </motion.h1>
         </div>
       </section>
@@ -90,19 +83,11 @@ export const About = () => {
           transition={{ duration: 1 }}
         >
           <h2 className="text-4xl md:text-6xl font-serif text-primary mb-12 tracking-tighter">
-            Expertise & Family Approach
+            {t("about_intro_heading")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <p className="text-xl text-primary/80 leading-relaxed">
-              Founded on the principles of trust and legal excellence, Hargarten Properties Sàrl-s
-              has become a benchmark for luxury real estate in Luxembourg. We believe that a home is
-              more than an asset; it is the foundation of a family's legacy.
-            </p>
-            <p className="text-xl text-primary/80 leading-relaxed">
-              Our team combines deep market knowledge with legal expertise to navigate the
-              complexities of property acquisition and management. We provide a bridge between your
-              vision and the reality of a secure, high-end residence.
-            </p>
+            <p className="text-xl text-primary/80 leading-relaxed">{t("about_intro_p1")}</p>
+            <p className="text-xl text-primary/80 leading-relaxed">{t("about_intro_p2")}</p>
           </div>
         </motion.div>
       </section>
@@ -125,12 +110,12 @@ export const About = () => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col md:flex-row items-center gap-12 md:gap-20"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
+            className="flex flex-col md:flex-row items-center gap-14 md:gap-20"
           >
-            <div className="shrink-0">
-              <div className="w-[30rem] h-[40rem] overflow-hidden border border-primary/10">
+            <div className="shrink-0 w-full max-w-[520px] mx-auto md:mx-0">
+              <div className="aspect-[3/4] overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Laurent Hargarten"
@@ -139,29 +124,25 @@ export const About = () => {
                 />
               </div>
             </div>
-            <div>
-              <Scale className="w-6 h-6 text-primary/25 mb-6" strokeWidth={1.5} />
-              <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6 tracking-tighter">
-                30 Years of Trust
+            <div className="flex-1">
+              <Scale className="w-5 h-5 text-primary/30 mb-5" strokeWidth={1.5} />
+              <h2 className="text-3xl md:text-4xl font-serif text-primary mb-5 tracking-tighter">
+                {t("about_story1_title")}
               </h2>
-              <p className="text-lg text-primary/70 leading-relaxed">
-                With three decades of experience as a lawyer, Laurent Hargarten brings a deep
-                understanding of contracts, negotiation, and what clients truly need — turning legal
-                complexity into clarity and confidence.
-              </p>
+              <p className="text-lg text-primary/70 leading-relaxed">{t("about_story1_text")}</p>
             </div>
           </motion.div>
 
-          {/* Block 2: A New Perspective — text left, photo right */}
+          {/* Block 2: A New Perspective — text left, image right */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
+            className="flex flex-col md:flex-row-reverse items-center gap-14 md:gap-20"
           >
-            <div className="shrink-0">
-              <div className="w-[30rem] h-[40rem] overflow-hidden border border-primary/10">
+            <div className="shrink-0 w-full max-w-[520px] mx-auto md:mx-0">
+              <div className="aspect-[3/4] overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Samuel"
@@ -170,17 +151,15 @@ export const About = () => {
                 />
               </div>
             </div>
-            <div>
-              <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6 tracking-tighter">
-                A New Perspective
+            <div className="flex-1">
+              <House className="w-5 h-5 text-primary/30 mb-5" strokeWidth={1.5} />
+              <h2 className="text-3xl md:text-4xl font-serif text-primary mb-3 tracking-tighter">
+                {t("about_story2_title")}
               </h2>
-              <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40 mb-4">
-                Samuel — Real Estate Business Introducer
+              <p className="text-[10px] uppercase tracking-[0.25em] text-primary/35 mb-5">
+                {t("about_story2_role")}
               </p>
-              <p className="text-lg text-primary/70 leading-relaxed italic">
-                "Real estate is about understanding people first — their ambitions, their lifestyle,
-                their future. The right property follows naturally."
-              </p>
+              <p className="text-base text-primary/60 leading-relaxed">{t("about_story2_desc")}</p>
             </div>
           </motion.div>
 
@@ -188,57 +167,44 @@ export const About = () => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl mx-auto"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
           >
-            <h2 className="text-3xl md:text-5xl font-serif text-primary mb-16 tracking-tighter text-center">
-              Together
+            <h2 className="text-3xl md:text-4xl font-serif text-primary mb-16 tracking-tighter text-center">
+              {t("about_together_title")}
             </h2>
 
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0">
-              {/* Laurent Card */}
-              <div className="flex flex-col items-center text-center md:w-1/2">
-                <div className="w-[22.5rem] h-[30rem] overflow-hidden mb-6 border border-primary/10">
-                  <img
-                    src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Laurent Hargarten"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <h3 className="text-xl font-serif text-primary tracking-tight mb-1">
-                  Laurent Hargarten
-                </h3>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40">
-                  Lawyer / Legal Real Estate Expert
-                </p>
+            <div className="max-w-2xl mx-auto">
+              <div className="aspect-[4/3] overflow-hidden border border-primary/10">
+                <img
+                  src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  alt="Laurent Hargarten and Samuel"
+                  className="w-full h-full object-cover object-center"
+                  referrerPolicy="no-referrer"
+                />
               </div>
-
-              {/* Connecting Line */}
-              <div className="hidden md:block w-16 h-[1px] bg-primary/15 -mx-4" />
-              <div className="block md:hidden w-[1px] h-12 bg-primary/15" />
-
-              {/* Samuel Card */}
-              <div className="flex flex-col items-center text-center md:w-1/2">
-                <div className="w-[22.5rem] h-[30rem] overflow-hidden mb-6 border border-primary/10">
-                  <img
-                    src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Samuel"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
+              <div className="flex justify-between mt-5 px-1">
+                <div>
+                  <h3 className="text-base font-serif text-primary tracking-tight mb-0.5">
+                    Laurent Hargarten
+                  </h3>
+                  <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">
+                    {t("about_laurent_role")}
+                  </p>
                 </div>
-                <h3 className="text-xl font-serif text-primary tracking-tight mb-1">Samuel</h3>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-primary/40">
-                  Real Estate Business Introducer
-                </p>
+                <div className="text-right">
+                  <h3 className="text-base font-serif text-primary tracking-tight mb-0.5">
+                    Samuel
+                  </h3>
+                  <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">
+                    {t("about_samuel_role")}
+                  </p>
+                </div>
               </div>
             </div>
 
-            <p className="text-center text-xl md:text-2xl font-serif text-primary/80 mt-16 max-w-xl mx-auto leading-relaxed tracking-tight">
-              Legal precision meets market intuition — together, we turn every transaction into
-              lasting trust.
+            <p className="text-center text-lg md:text-xl font-serif text-primary/60 mt-14 max-w-md mx-auto leading-relaxed tracking-tight">
+              {t("about_together_quote")}
             </p>
           </motion.div>
         </div>
@@ -291,7 +257,7 @@ export const About = () => {
                     }}
                   >
                     <span className="text-xs font-bold text-primary/30 uppercase tracking-[0.3em] mb-4">
-                      Value 0{idx + 1}
+                      {t("about_value_label", { index: String(idx + 1) })}
                     </span>
                     <h3 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter">
                       {value.title}
@@ -315,23 +281,22 @@ export const About = () => {
           className="max-w-3xl mx-auto text-center"
         >
           <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">
-            Explore Our Listings
+            {t("about_cta_label")}
           </p>
           <h2 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter leading-tight">
-            Discover Properties Crafted for Discerning Clients
+            {t("about_cta_heading")}
           </h2>
           <p className="text-lg text-primary/60 leading-relaxed mb-14 max-w-xl mx-auto">
-            From urban penthouses to private estates across Luxembourg, each residence selected with
-            the same standards of precision and care.
+            {t("about_cta_text")}
           </p>
-          <Link
+          <LocaleLink
             to="/portfolio"
             className="group inline-flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
           >
             <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">
-              View All Properties
+              {t("about_cta_link")}
             </span>
-          </Link>
+          </LocaleLink>
         </motion.div>
       </section>
     </div>

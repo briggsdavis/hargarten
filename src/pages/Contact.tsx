@@ -1,7 +1,10 @@
 import { motion } from "motion/react"
 import { Mail, Phone, MapPin } from "lucide-react"
+import { useLocale } from "../i18n/LocaleContext"
 
 export const Contact = () => {
+  const { t } = useLocale()
+
   return (
     <div className="pt-32 pb-32 px-8 md:px-24">
       <div className="max-w-7xl mx-auto">
@@ -12,11 +15,10 @@ export const Contact = () => {
             transition={{ duration: 1 }}
           >
             <h1 className="text-6xl md:text-8xl font-serif text-primary mb-12 tracking-tighter">
-              Get in Touch
+              {t("contact_title")}
             </h1>
             <p className="text-xl text-primary/70 mb-16 leading-relaxed max-w-md">
-              We value discretion and direct communication. Reach out to our team for a private
-              consultation regarding your real estate requirements.
+              {t("contact_intro")}
             </p>
 
             <div className="space-y-12">
@@ -26,7 +28,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-1">
-                    Email
+                    {t("contact_email")}
                   </p>
                   <a
                     href="mailto:Contact@hargarten-properties.lu"
@@ -43,7 +45,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-1">
-                    Phone
+                    {t("contact_phone")}
                   </p>
                   <a
                     href="tel:+35212345678"
@@ -60,7 +62,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-1">
-                    Office
+                    {t("contact_office")}
                   </p>
                   <p className="text-xl font-serif">
                     12, Rue de la Paix
@@ -82,7 +84,7 @@ export const Contact = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase tracking-widest text-primary/40">
-                    First Name
+                    {t("contact_first_name")}
                   </label>
                   <input
                     type="text"
@@ -91,7 +93,7 @@ export const Contact = () => {
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase tracking-widest text-primary/40">
-                    Last Name
+                    {t("contact_last_name")}
                   </label>
                   <input
                     type="text"
@@ -101,7 +103,7 @@ export const Contact = () => {
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest text-primary/40">
-                  Email Address
+                  {t("contact_email_address")}
                 </label>
                 <input
                   type="email"
@@ -110,18 +112,18 @@ export const Contact = () => {
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest text-primary/40">
-                  Subject
+                  {t("contact_subject")}
                 </label>
                 <select className="w-full bg-transparent border-b border-primary/20 py-2 focus:border-primary outline-none transition-colors appearance-none">
-                  <option>Property Inquiry</option>
-                  <option>Legal Consultation</option>
-                  <option>Management Request</option>
-                  <option>Other</option>
+                  <option>{t("contact_subject_inquiry")}</option>
+                  <option>{t("contact_subject_legal")}</option>
+                  <option>{t("contact_subject_management")}</option>
+                  <option>{t("contact_subject_other")}</option>
                 </select>
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest text-primary/40">
-                  Message
+                  {t("contact_message")}
                 </label>
                 <textarea
                   rows={4}
@@ -129,7 +131,7 @@ export const Contact = () => {
                 />
               </div>
               <button className="w-full bg-primary text-parchment py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive">
-                Send Message
+                {t("contact_send")}
               </button>
             </form>
           </motion.div>

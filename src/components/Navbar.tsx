@@ -3,41 +3,32 @@ import { X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Link, NavLink, useLocation } from "react-router"
 import { useAdmin } from "../context/AdminContext"
+import { useLocale } from "../i18n/LocaleContext"
+import { LanguageSwitcher } from "./LanguageSwitcher"
+import { isLocale } from "../i18n/locales"
 
 const ALL_MENU_ITEMS = [
-  {
-    name: "Home",
-    id: "home",
-    image: "/lux.jpg",
-  },
-  {
-    name: "About",
-    id: "about",
-    image: "/aboutt.jpg",
-  },
-  {
-    name: "Portfolio",
-    id: "portfolio",
-    image: "/servicesnav.jpg",
-  },
-  {
-    name: "Services",
-    id: "services",
-    image: "/city.jpg",
-  },
-  {
-    name: "Contact",
-    id: "contact",
-    image: "/finalcontact.jpg",
-  },
+  { nameKey: "nav_home", id: "home", image: "/lux.jpg" },
+  { nameKey: "nav_about", id: "about", image: "/aboutt.jpg" },
+  { nameKey: "nav_portfolio", id: "portfolio", image: "/servicesnav.jpg" },
+  { nameKey: "nav_services", id: "services", image: "/city.jpg" },
+  { nameKey: "nav_contact", id: "contact", image: "/finalcontact.jpg" },
 ]
 
 // Pages that open with a dark full-image hero — navbar text should be white at the top
-const HERO_PATHS = ["/", "/about", "/services"]
+const HERO_BARE_PATHS = ["/", "/about", "/services"]
+
+/** Get the path without locale prefix */
+function barePath(pathname: string): string {
+  const segments = pathname.split("/").filter(Boolean)
+  if (segments[0] && isLocale(segments[0])) return "/" + segments.slice(1).join("/")
+  return pathname === "" ? "/" : pathname
+}
 
 export const Navbar = () => {
   const location = useLocation()
   const { portfolioLive } = useAdmin()
+  const { t, localePath } = useLocale()
   const MENU_ITEMS = portfolioLive
     ? ALL_MENU_ITEMS
     : ALL_MENU_ITEMS.filter((item) => item.id !== "portfolio")
@@ -59,7 +50,8 @@ export const Navbar = () => {
   }, [])
 
   // Use white when overlapping a dark hero image, black/primary otherwise
-  const isOnHero = HERO_PATHS.includes(location.pathname) && scrollY < 80
+  const bare = barePath(location.pathname)
+  const isOnHero = HERO_BARE_PATHS.includes(bare) && scrollY < 80
   const textClass = isOnHero ? "text-white" : "text-primary"
   const borderClass = isOnHero ? "border-white" : "border-primary"
   const contactHover = isOnHero
@@ -87,19 +79,22 @@ export const Navbar = () => {
 
         {/* Center: Title — absolutely centered regardless of button widths */}
         <Link
-          to="/"
+          to={localePath("/")}
           className="absolute left-1/2 -translate-x-1/2 text-2xl font-serif tracking-tighter cursor-pointer interactive whitespace-nowrap"
         >
-          Hargarten Properties
+          {t("nav_brand")}
         </Link>
 
-        {/* Right: Contact Button */}
-        <Link
-          to="/contact"
-          className={`ml-auto text-[11.5px] uppercase tracking-widest font-bold border ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
-        >
-          Contact
-        </Link>
+        {/* Right: Language Switcher + Contact Button */}
+        <div className="ml-auto flex items-center gap-6">
+          <LanguageSwitcher />
+          <Link
+            to={localePath("/contact")}
+            className={`text-[11.5px] uppercase tracking-widest font-bold border ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
+          >
+            {t("nav_contact")}
+          </Link>
+        </div>
       </motion.nav>
 
       <AnimatePresence>
@@ -113,20 +108,20 @@ export const Navbar = () => {
           >
             {/* Title — centred at the top, mirrors its position on the navbar */}
             <Link
-              to="/"
+              to={localePath("/")}
               className="absolute top-8 left-1/2 -translate-x-1/2 z-10 text-2xl font-serif text-primary tracking-tighter cursor-pointer interactive whitespace-nowrap"
               onClick={() => setIsOpen(false)}
             >
-              Hargarten Properties
+              {t("nav_brand")}
             </Link>
 
             {/* Contact button — top-right corner of the whole overlay */}
             <Link
-              to="/contact"
+              to={localePath("/contact")}
               onClick={() => setIsOpen(false)}
               className="absolute top-8 right-8 z-10 text-[11.5px] uppercase tracking-widest font-bold border border-primary text-primary px-[18px] py-[9px] transition-all duration-300 hover:bg-primary hover:text-parchment interactive"
             >
-              Contact
+              {t("nav_contact")}
             </Link>
 
             {/* Left Side: Menu Links */}
@@ -147,7 +142,7 @@ export const Navbar = () => {
                     transition={{ delay: 0.3 + index * 0.1 }}
                   >
                     <NavLink
-                      to={item.id === "home" ? "/" : `/${item.id}`}
+                      to={localePath(item.id === "home" ? "/" : `/${item.id}`)}
                       end={item.id === "home"}
                       onMouseEnter={() => setHoveredItem(item)}
                       onClick={() => setIsOpen(false)}
@@ -157,7 +152,7 @@ export const Navbar = () => {
                         } transition-colors`
                       }
                     >
-                      {item.name}
+                      {t(item.nameKey)}
                     </NavLink>
                   </motion.div>
                 ))}

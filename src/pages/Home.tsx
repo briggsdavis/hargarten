@@ -1,13 +1,14 @@
 import { motion, useScroll, useTransform } from "motion/react"
 import { useRef } from "react"
-import { Link } from "react-router"
 import { PROPERTIES, SERVICES } from "../constants"
 import { useAdmin } from "../context/AdminContext"
+import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
-const MotionLink = motion(Link)
+const MotionLocaleLink = motion(LocaleLink)
 
 export const Home = () => {
   const { portfolioLive } = useAdmin()
+  const { t } = useLocale()
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
@@ -48,7 +49,7 @@ export const Home = () => {
             transition={{ delay: 0.5, duration: 0.9 }}
             className="text-5xl md:text-8xl text-parchment font-serif tracking-tighter mb-6"
           >
-            A Journey of Precision
+            {t("home_hero_title")}
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -56,7 +57,7 @@ export const Home = () => {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="text-parchment/80 text-sm uppercase tracking-[0.3em] font-medium"
           >
-            Chronicle / 2012 - {new Date().getFullYear()}
+            {t("home_hero_subtitle", { year: String(new Date().getFullYear()) })}
           </motion.p>
         </div>
       </section>
@@ -71,22 +72,17 @@ export const Home = () => {
             transition={{ duration: 1 }}
           >
             <h2 className="text-3xl md:text-5xl font-serif text-primary mb-12 leading-tight">
-              Providing expert legal counsel and private property management.
+              {t("home_intro_heading")}
             </h2>
-            <p className="text-lg text-primary/70 leading-relaxed mb-8">
-              At Hargarten Properties, every transaction is handled with the full weight of legal
-              expertise and personal commitment. From the first consultation to the final signature,
-              we guide families and investors through Luxembourg's premium real estate market with
-              precision, confidentiality, and an unwavering eye for long-term value.
-            </p>
-            <Link
+            <p className="text-lg text-primary/70 leading-relaxed mb-8">{t("home_intro_text")}</p>
+            <LocaleLink
               to="/about"
               className="group flex items-start gap-4 text-xs uppercase tracking-widest font-bold interactive"
             >
               <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors">
-                Discover our values
+                {t("home_discover_values")}
               </span>
-            </Link>
+            </LocaleLink>
           </motion.div>
         </div>
       </section>
@@ -96,15 +92,17 @@ export const Home = () => {
         {portfolioLive ? (
           <>
             <div className="flex justify-between items-end mb-16">
-              <h2 className="text-4xl md:text-6xl font-serif text-primary">Select Residences</h2>
+              <h2 className="text-4xl md:text-6xl font-serif text-primary">
+                {t("home_select_residences")}
+              </h2>
               <span className="text-[10px] uppercase tracking-widest opacity-50 mb-2">
-                Explore our properties
+                {t("home_explore_properties")}
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               {PROPERTIES.slice(0, 3).map((prop, idx) => (
-                <MotionLink
+                <MotionLocaleLink
                   key={prop.id}
                   initial={{ y: 60, opacity: 0, filter: "blur(10px)" }}
                   whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
@@ -133,23 +131,23 @@ export const Home = () => {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium">From €{prop.price}</p>
+                      <p className="text-sm font-medium">From &euro;{prop.price}</p>
                       <p className="text-[10px] uppercase tracking-widest text-primary/40 mt-1">
                         {prop.type}
                       </p>
                     </div>
                   </div>
-                </MotionLink>
+                </MotionLocaleLink>
               ))}
             </div>
 
             <div className="mt-20 flex justify-center">
-              <Link
+              <LocaleLink
                 to="/portfolio"
                 className="bg-primary text-parchment px-12 py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive"
               >
-                Explore Buildings Portfolio
-              </Link>
+                {t("home_explore_portfolio")}
+              </LocaleLink>
             </div>
           </>
         ) : (
@@ -161,21 +159,18 @@ export const Home = () => {
             className="flex flex-col items-start justify-center py-16 max-w-xl"
           >
             <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">
-              Residences
+              {t("home_residences")}
             </p>
             <h2 className="text-4xl md:text-5xl font-serif text-primary leading-tight mb-6">
-              Property Listings are coming soon.
+              {t("home_coming_soon_title")}
             </h2>
-            <p className="text-sm text-primary/50 leading-relaxed">
-              Our curated selection of premium properties is being prepared. Please check back
-              shortly or contact us directly for exclusive early access.
-            </p>
-            <Link
+            <p className="text-sm text-primary/50 leading-relaxed">{t("home_coming_soon_text")}</p>
+            <LocaleLink
               to="/contact"
               className="mt-10 text-xs uppercase tracking-widest font-bold border-b border-primary/30 pb-1 hover:border-primary transition-colors interactive"
             >
-              Contact us for early access
-            </Link>
+              {t("home_early_access")}
+            </LocaleLink>
           </motion.div>
         )}
       </section>
@@ -201,13 +196,15 @@ export const Home = () => {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40">What We Offer</p>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40">
+            {t("home_what_we_offer")}
+          </p>
         </motion.div>
 
         {/* Two-column image grid — mirrors the reference */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           {SERVICES.map((service, idx) => (
-            <MotionLink
+            <MotionLocaleLink
               key={service.title}
               to="/services"
               initial={{ opacity: 0, y: 40 }}
@@ -233,7 +230,7 @@ export const Home = () => {
                   {service.title}
                 </span>
               </div>
-            </MotionLink>
+            </MotionLocaleLink>
           ))}
         </div>
 
@@ -246,16 +243,16 @@ export const Home = () => {
           className="w-full"
         >
           <h2 className="text-3xl md:text-5xl font-serif text-primary mb-8 tracking-tighter leading-tight">
-            Full-spectrum expertise, from acquisition to legal certainty.
+            {t("home_services_heading")}
           </h2>
-          <Link
+          <LocaleLink
             to="/services"
             className="group flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
           >
             <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">
-              Explore All Services
+              {t("home_explore_services")}
             </span>
-          </Link>
+          </LocaleLink>
         </motion.div>
       </section>
     </div>

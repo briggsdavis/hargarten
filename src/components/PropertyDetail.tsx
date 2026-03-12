@@ -1,24 +1,10 @@
 import { motion, AnimatePresence } from "motion/react"
 import { useState, useEffect, useCallback } from "react"
 import { createPortal } from "react-dom"
-import { useParams, Link } from "react-router"
+import { useParams } from "react-router"
 import { MapPin, Maximize, Maximize2, Bed, Bath, X, ChevronLeft, ChevronRight } from "lucide-react"
 import { PROPERTIES } from "../constants"
-
-interface Property {
-  id: string
-  title: string
-  price: string
-  sqm: string
-  type: string
-  status: string
-  location: string
-  bedrooms: number
-  bathrooms: number
-  image: string
-  amenities: string[]
-  description: string
-}
+import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 const GALLERY = [
   "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1600",
@@ -186,6 +172,7 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
 }
 
 export const PropertyDetail = () => {
+  const { t } = useLocale()
   const { id } = useParams()
   const property = PROPERTIES.find((p) => p.id === id)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
@@ -200,12 +187,12 @@ export const PropertyDetail = () => {
       <div className="min-h-screen bg-parchment">
         {/* Back button */}
         <div className="pt-32 px-8 md:px-24 mb-8">
-          <Link
+          <LocaleLink
             to="/portfolio"
             className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold text-primary/50 hover:text-primary transition-colors interactive group"
           >
-            <span className="border-b border-current pb-0.5 pt-2">Back to Portfolio</span>
-          </Link>
+            <span className="border-b border-current pb-0.5 pt-2">{t("property_back")}</span>
+          </LocaleLink>
         </div>
 
         {/* Hero — click to open lightbox at index 0 */}
@@ -225,7 +212,7 @@ export const PropertyDetail = () => {
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30">
             <div className="flex items-center gap-2 text-white text-[10px] uppercase tracking-widest font-bold">
               <Maximize2 size={14} />
-              View Gallery
+              {t("property_gallery")}
             </div>
           </div>
         </section>
@@ -284,7 +271,7 @@ export const PropertyDetail = () => {
               >
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-2">
-                    Price
+                    {t("property_price")}
                   </p>
                   <p className="text-4xl font-serif">${property.price}</p>
                 </div>
@@ -293,23 +280,29 @@ export const PropertyDetail = () => {
                   <div className="text-center p-4 bg-primary/5">
                     <Maximize size={20} className="mx-auto mb-2 text-primary/40" />
                     <p className="text-xs font-bold">{property.sqm}</p>
-                    <p className="text-[8px] uppercase tracking-widest opacity-40">SQM</p>
+                    <p className="text-[8px] uppercase tracking-widest opacity-40">
+                      {t("property_sqm")}
+                    </p>
                   </div>
                   <div className="text-center p-4 bg-primary/5">
                     <Bed size={20} className="mx-auto mb-2 text-primary/40" />
                     <p className="text-xs font-bold">{property.bedrooms}</p>
-                    <p className="text-[8px] uppercase tracking-widest opacity-40">Bed</p>
+                    <p className="text-[8px] uppercase tracking-widest opacity-40">
+                      {t("property_bed")}
+                    </p>
                   </div>
                   <div className="text-center p-4 bg-primary/5">
                     <Bath size={20} className="mx-auto mb-2 text-primary/40" />
                     <p className="text-xs font-bold">{property.bathrooms}</p>
-                    <p className="text-[8px] uppercase tracking-widest opacity-40">Bath</p>
+                    <p className="text-[8px] uppercase tracking-widest opacity-40">
+                      {t("property_bath")}
+                    </p>
                   </div>
                 </div>
 
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-4">
-                    Amenities
+                    {t("property_amenities")}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {property.amenities.map((a) => (
@@ -326,18 +319,18 @@ export const PropertyDetail = () => {
                 <div className="pt-8 border-t border-primary/10">
                   <div className="flex justify-between items-center mb-8">
                     <span className="text-[10px] uppercase tracking-widest text-primary/40">
-                      Status
+                      {t("property_status")}
                     </span>
                     <span className="text-xs font-bold uppercase tracking-widest">
                       {property.status}
                     </span>
                   </div>
-                  <Link
+                  <LocaleLink
                     to="/contact"
                     className="block w-full bg-primary text-parchment py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive text-center"
                   >
-                    Inquire Now
-                  </Link>
+                    {t("property_inquire")}
+                  </LocaleLink>
                 </div>
               </motion.div>
             </div>

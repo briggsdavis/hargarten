@@ -18,19 +18,29 @@ import { AdminDashboardHome } from "./pages/admin/AdminDashboardHome"
 import { AdminListings } from "./pages/admin/AdminListings"
 import { AdminInquiries } from "./pages/admin/AdminInquiries"
 import { AdminProvider } from "./context/AdminContext"
+import { LocaleProvider } from "./i18n/LocaleContext"
 import type { Location } from "react-router"
+
+const publicRoutes = (
+  <>
+    <Route index element={<Home />} />
+    <Route path="about" element={<About />} />
+    <Route path="portfolio" element={<Portfolio />} />
+    <Route path="portfolio/:id" element={<PropertyDetail />} />
+    <Route path="services" element={<Services />} />
+    <Route path="contact" element={<Contact />} />
+  </>
+)
 
 // Freezes the location at mount so the old page stays visible during its exit animation
 const FrozenRoutes = ({ location }: { location: Location }) => {
   const [frozenLocation] = useState(location)
   return (
     <Routes location={frozenLocation}>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/portfolio" element={<Portfolio />} />
-      <Route path="/portfolio/:id" element={<PropertyDetail />} />
-      <Route path="/services" element={<Services />} />
-      <Route path="/contact" element={<Contact />} />
+      {/* Default locale (en) — no prefix */}
+      <Route path="/">{publicRoutes}</Route>
+      {/* Locale-prefixed routes */}
+      <Route path="/:locale">{publicRoutes}</Route>
       <Route path="*" element={<Home />} />
     </Routes>
   )
@@ -138,7 +148,9 @@ const AppContent = () => {
 export default function App() {
   return (
     <AdminProvider>
-      <AppContent />
+      <LocaleProvider>
+        <AppContent />
+      </LocaleProvider>
     </AdminProvider>
   )
 }

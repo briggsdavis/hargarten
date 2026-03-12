@@ -1,10 +1,11 @@
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react"
 import { useState, useRef } from "react"
 import { ChevronDown } from "lucide-react"
-import { Link } from "react-router"
 import { SERVICES } from "../constants"
+import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 export const Services = () => {
+  const { t } = useLocale()
   const [openIndex, setOpenIndex] = useState<number | null>(0)
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
@@ -35,7 +36,7 @@ export const Services = () => {
             transition={{ delay: 0.5, duration: 1 }}
             className="text-6xl md:text-8xl font-serif text-parchment tracking-tighter"
           >
-            Our Services
+            {t("services_hero_title")}
           </motion.h1>
         </div>
       </section>
@@ -48,8 +49,7 @@ export const Services = () => {
           viewport={{ once: true }}
           className="text-xl text-primary/70 max-w-2xl leading-relaxed"
         >
-          We provide a suite of services designed to secure your assets and elevate your living
-          experience. Our focus is on legal authority and personalized care.
+          {t("services_intro")}
         </motion.p>
       </div>
 
@@ -153,16 +153,12 @@ export const Services = () => {
         >
           <div className="md:w-1/3">
             <h4 className="text-xs uppercase tracking-[0.3em] font-bold mb-4 opacity-60">
-              Legal Excellence
+              {t("services_legal_label")}
             </h4>
-            <h3 className="text-4xl font-serif leading-tight">Authoritative Contract Drafting</h3>
+            <h3 className="text-4xl font-serif leading-tight">{t("services_legal_heading")}</h3>
           </div>
           <div className="md:w-2/3">
-            <p className="text-lg opacity-80 leading-relaxed">
-              Our legal department is led by experts in Luxembourgish property law. We don't just
-              facilitate sales; we architect legally sound agreements that protect your interests
-              for generations. Every clause is scrutinized, every risk mitigated.
-            </p>
+            <p className="text-lg opacity-80 leading-relaxed">{t("services_legal_text")}</p>
           </div>
         </motion.div>
       </div>
@@ -191,23 +187,22 @@ export const Services = () => {
             className="flex flex-col justify-center px-12 md:px-20 py-24"
           >
             <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-8">
-              Selected Residences
+              {t("services_cta_label")}
             </p>
             <h2 className="text-4xl md:text-5xl font-serif text-primary tracking-tighter leading-tight mb-8">
-              Each service anchored by a residence worth protecting.
+              {t("services_cta_heading")}
             </h2>
             <p className="text-base text-primary/60 leading-relaxed mb-14 max-w-sm">
-              Our portfolio spans Luxembourg's most sought-after addresses, curated with the same
-              precision we bring to every mandate.
+              {t("services_cta_text")}
             </p>
-            <Link
+            <LocaleLink
               to="/portfolio"
               className="group inline-flex items-center text-[11px] uppercase tracking-widest font-bold interactive self-start"
             >
               <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">
-                Explore the Portfolio
+                {t("services_cta_link")}
               </span>
-            </Link>
+            </LocaleLink>
           </motion.div>
         </div>
       </section>
