@@ -47,7 +47,7 @@ export const Services = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-xl text-primary/70 max-w-2xl leading-relaxed"
+          className="text-xl text-primary/70 leading-relaxed"
         >
           {t("services_intro")}
         </motion.p>
@@ -83,67 +83,23 @@ export const Services = () => {
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <div className="pb-16 pl-16 md:pl-24 pr-8 grid grid-cols-1 md:grid-cols-[1fr_340px] gap-12 items-start">
-                      {/* Text content */}
-                      <div>
-                        {/* Overview */}
+                    <div className="pb-16">
+                      {/* Top row: overview text + image */}
+                      <div className="pl-16 md:pl-24 pr-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-12">
                         <motion.p
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.1 }}
-                          className="text-base text-primary/65 leading-relaxed mb-8"
+                          className="text-base text-primary/65 leading-relaxed"
                         >
                           {service.overview}
                         </motion.p>
 
-                        {/* Optional subtitle */}
-                        {service.subtitle && (
-                          <motion.p
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.15 }}
-                            className="text-[10px] uppercase tracking-[0.3em] text-primary/40 font-bold mb-6"
-                          >
-                            {service.subtitle}
-                          </motion.p>
-                        )}
-
-                        {/* Numbered sub-services */}
-                        <div className="flex flex-col gap-7">
-                          {service.subServices.map((sub, sIdx) => (
-                            <motion.div
-                              key={sIdx}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.2 + sIdx * 0.07 }}
-                            >
-                              <div className="flex items-baseline gap-4 mb-2">
-                                <span className="text-xs font-mono text-primary/25 flex-shrink-0">
-                                  {String(sIdx + 1).padStart(2, "0")}
-                                </span>
-                                <h4 className="text-sm font-semibold text-primary tracking-wide">
-                                  {sub.title}
-                                </h4>
-                              </div>
-                              <ul className="flex flex-col gap-1.5 pl-9">
-                                {sub.bullets.map((bullet, bIdx) => (
-                                  <li key={bIdx} className="text-sm text-primary/55 leading-relaxed">
-                                    {bullet}
-                                  </li>
-                                ))}
-                              </ul>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Sticky image */}
-                      <div className="hidden md:block sticky top-8">
                         <motion.div
                           initial={{ opacity: 0, scale: 0.94, y: 12 }}
                           animate={{ opacity: 1, scale: 1, y: 0 }}
                           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-                          className="relative overflow-hidden aspect-[3/4]"
+                          className="relative overflow-hidden aspect-[4/3]"
                         >
                           <motion.img
                             src={service.image}
@@ -156,6 +112,47 @@ export const Services = () => {
                           />
                           <div className="absolute inset-0 bg-primary/10" />
                         </motion.div>
+                      </div>
+
+                      {/* Optional subtitle */}
+                      {service.subtitle && (
+                        <motion.p
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.15 }}
+                          className="text-[10px] uppercase tracking-[0.3em] text-primary/40 font-bold mb-4 pl-16 md:pl-24 pr-8"
+                        >
+                          {service.subtitle}
+                        </motion.p>
+                      )}
+
+                      {/* Numbered sub-services — full width */}
+                      <div className="flex flex-col">
+                        {service.subServices.map((sub, sIdx) => (
+                          <motion.div
+                            key={sIdx}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 + sIdx * 0.06 }}
+                            className="grid grid-cols-[64px_1fr] md:grid-cols-[96px_1fr] border-t border-primary/10 py-5 pr-8"
+                          >
+                            <span className="text-xs font-mono text-primary/25 pt-0.5">
+                              {String(sIdx + 1).padStart(2, "0")}
+                            </span>
+                            <div>
+                              <h4 className="text-sm font-semibold text-primary tracking-wide mb-1.5">
+                                {sub.title}
+                              </h4>
+                              <ul className="flex flex-col gap-1">
+                                {sub.bullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="text-sm text-primary/55 leading-relaxed">
+                                    {bullet}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </motion.div>
+                        ))}
                       </div>
                     </div>
                   </motion.div>
