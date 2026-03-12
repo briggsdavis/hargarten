@@ -124,7 +124,9 @@ export const SERVICES = [
       },
       {
         title: "Rental Support",
-        bullets: ["File analysis, etc. / listing and placement."],
+        bullets: [
+          "From tenant file analysis and selection to listing, placement, and lease management, we handle every step of the rental process with care and precision.",
+        ],
       },
       {
         title: "Valuation & Market Analysis",
