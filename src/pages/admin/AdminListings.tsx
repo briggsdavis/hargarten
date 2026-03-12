@@ -74,7 +74,7 @@ export const AdminListings = () => {
     e.preventDefault()
     if (editingId) {
       setProperties((prev) =>
-        prev.map((p) => (p.id === editingId ? { ...formData, id: editingId } : p))
+        prev.map((p) => (p.id === editingId ? { ...formData, id: editingId } : p)),
       )
     } else {
       setProperties((prev) => [...prev, { ...formData, id: String(Date.now()) }])
@@ -104,7 +104,6 @@ export const AdminListings = () => {
 
   return (
     <div className="p-8">
-
       {/* ─── Header ───────────────────────────────────────────── */}
       <div className="flex items-center justify-between mb-8">
         <div>
@@ -254,14 +253,10 @@ export const AdminListings = () => {
       {isFormOpen && (
         <>
           {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-black/25 z-20 backdrop-blur-[1px]"
-            onClick={closeForm}
-          />
+          <div className="fixed inset-0 bg-black/25 z-20 backdrop-blur-[1px]" onClick={closeForm} />
 
           {/* Panel */}
           <div className="fixed right-0 top-0 h-full w-full max-w-[680px] bg-white shadow-2xl z-30 flex flex-col">
-
             {/* Sticky Panel Header */}
             <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-8 py-5 flex items-center justify-between">
               <div>
@@ -283,8 +278,10 @@ export const AdminListings = () => {
             </div>
 
             {/* Scrollable Form */}
-            <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-8 py-7 flex flex-col gap-9">
-
+            <form
+              onSubmit={handleSubmit}
+              className="flex-1 overflow-y-auto px-8 py-7 flex flex-col gap-9"
+            >
               {/* ── Media ──────────────────────────────────────── */}
               <section>
                 <SectionHeader>Media</SectionHeader>
@@ -347,7 +344,10 @@ export const AdminListings = () => {
                         key={i}
                         className="aspect-square border-2 border-dashed border-[#e8e4df] rounded-lg flex flex-col items-center justify-center gap-1 hover:border-[#163b0f]/30 hover:bg-[#f9f8f6] transition-all group"
                       >
-                        <ImagePlus size={16} className="text-[#c4c4c4] group-hover:text-[#163b0f]/40 transition-colors" />
+                        <ImagePlus
+                          size={16}
+                          className="text-[#c4c4c4] group-hover:text-[#163b0f]/40 transition-colors"
+                        />
                         <span className="text-[8px] uppercase tracking-wider font-sans text-[#c4c4c4] group-hover:text-[#9ca3af]">
                           Add
                         </span>
@@ -475,8 +475,18 @@ export const AdminListings = () => {
 
                 <div className="grid grid-cols-3 gap-4">
                   {[
-                    { label: "Bedrooms", key: "bedrooms" as const, suffix: "rooms", type: "number" },
-                    { label: "Bathrooms", key: "bathrooms" as const, suffix: "baths", type: "number" },
+                    {
+                      label: "Bedrooms",
+                      key: "bedrooms" as const,
+                      suffix: "rooms",
+                      type: "number",
+                    },
+                    {
+                      label: "Bathrooms",
+                      key: "bathrooms" as const,
+                      suffix: "baths",
+                      type: "number",
+                    },
                     { label: "Square Metres", key: "sqm" as const, suffix: "m²", type: "text" },
                   ].map(({ label, key, suffix, type }) => (
                     <div key={key}>

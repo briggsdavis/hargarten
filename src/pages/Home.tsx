@@ -167,8 +167,8 @@ export const Home = () => {
               Property Listings are coming soon.
             </h2>
             <p className="text-sm text-primary/50 leading-relaxed">
-              Our curated selection of premium properties is being prepared. Please check back shortly
-              or contact us directly for exclusive early access.
+              Our curated selection of premium properties is being prepared. Please check back
+              shortly or contact us directly for exclusive early access.
             </p>
             <Link
               to="/contact"
@@ -186,11 +186,7 @@ export const Home = () => {
           style={{ y: dividerParallaxY }}
           className="absolute inset-0 w-full h-[130%] -top-[15%]"
         >
-          <img
-            src="/paralax.jpg"
-            alt="Luxury interior"
-            className="w-full h-full object-cover"
-          />
+          <img src="/paralax.jpg" alt="Luxury interior" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/30" />
         </motion.div>
       </section>

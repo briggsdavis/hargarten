@@ -28,13 +28,14 @@ export const AdminLayout = () => {
 
   return (
     <div className="admin-portal flex min-h-screen bg-[#f5f4f0]">
-
       {/* ─── Sidebar ──────────────────────────────────────────── */}
       <aside className="w-64 bg-white border-r border-[#e8e4df] flex flex-col fixed h-full z-10">
-
         {/* Brand */}
         <div className="px-6 py-7 border-b border-[#e8e4df]">
-          <h1 className="font-serif text-[#163b0f] tracking-tighter leading-none" style={{ fontSize: "1.2rem" }}>
+          <h1
+            className="font-serif text-[#163b0f] tracking-tighter leading-none"
+            style={{ fontSize: "1.2rem" }}
+          >
             Hargarten
           </h1>
           <p className="text-[9px] uppercase tracking-[0.2em] text-[#163b0f]/40 mt-1 font-sans">

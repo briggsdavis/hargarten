@@ -113,20 +113,15 @@ export const About = () => {
           style={{ y: parallaxY }}
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
-          <img
-            src="/paralax.jpg"
-            alt="Luxury Interior"
-            className="w-full h-full object-cover"
-          />
+          <img src="/paralax.jpg" alt="Luxury Interior" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
       </section>
 
-      {/* Story Section */}
-      <section className="py-28 md:py-36 px-8 md:px-24 bg-white/50">
-        <div className="max-w-4xl mx-auto space-y-24 md:space-y-32">
-
-          {/* Block 1: 30 Years of Trust — image left, text right */}
+      {/* Story Section — Three Blocks */}
+      <section className="py-32 md:py-40 px-8 md:px-24 bg-white/50">
+        <div className="max-w-4xl mx-auto space-y-32 md:space-y-40">
+          {/* Block 1: 30 Years of Trust — photo left, text right */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -149,10 +144,10 @@ export const About = () => {
               <h2 className="text-3xl md:text-4xl font-serif text-primary mb-5 tracking-tighter">
                 30 Years of Trust
               </h2>
-              <p className="text-base text-primary/60 leading-relaxed">
-                With three decades of legal experience, Laurent Hargarten brings a precise
-                understanding of contracts and a rare instinct for what clients truly need —
-                making every transaction feel secure and simple.
+              <p className="text-lg text-primary/70 leading-relaxed">
+                With three decades of experience as a lawyer, Laurent Hargarten brings a deep
+                understanding of contracts, negotiation, and what clients truly need — turning legal
+                complexity into clarity and confidence.
               </p>
             </div>
           </motion.div>
@@ -228,7 +223,6 @@ export const About = () => {
               into lasting trust.
             </p>
           </motion.div>
-
         </div>
       </section>
 

@@ -1,5 +1,13 @@
 import { useState } from "react"
-import { Search, ChevronDown, ChevronRight, Trash2, CheckCircle, SlidersHorizontal, Mail } from "lucide-react"
+import {
+  Search,
+  ChevronDown,
+  ChevronRight,
+  Trash2,
+  CheckCircle,
+  SlidersHorizontal,
+  Mail,
+} from "lucide-react"
 
 type Subject = "Property Inquiry" | "Legal Consultation" | "Management Request" | string
 
@@ -100,8 +108,7 @@ export const AdminInquiries = () => {
   const [showSubjectDrop, setShowSubjectDrop] = useState(false)
   const [showDateDrop, setShowDateDrop] = useState(false)
 
-  const toggleExpand = (id: string) =>
-    setExpandedId((prev) => (prev === id ? null : id))
+  const toggleExpand = (id: string) => setExpandedId((prev) => (prev === id ? null : id))
 
   const markAsRead = (id: string) =>
     setInquiries((prev) => prev.map((i) => (i.id === id ? { ...i, read: true } : i)))
@@ -120,15 +127,12 @@ export const AdminInquiries = () => {
     .filter((i) => {
       const term = search.toLowerCase()
       const matchSearch =
-        !term ||
-        `${i.firstName} ${i.lastName} ${i.email}`.toLowerCase().includes(term)
+        !term || `${i.firstName} ${i.lastName} ${i.email}`.toLowerCase().includes(term)
 
       const KNOWN = ["Property Inquiry", "Legal Consultation", "Management Request"]
       const matchSubject =
         subjectFilter === "All Subjects" ||
-        (subjectFilter === "Other"
-          ? !KNOWN.includes(i.subject)
-          : i.subject === subjectFilter)
+        (subjectFilter === "Other" ? !KNOWN.includes(i.subject) : i.subject === subjectFilter)
 
       return matchSearch && matchSubject
     })
@@ -142,7 +146,6 @@ export const AdminInquiries = () => {
   return (
     // Close dropdowns when clicking outside
     <div className="p-8" onClick={closeDrop}>
-
       {/* ─── Header ───────────────────────────────────────────── */}
       <div className="flex items-center justify-between mb-8">
         <div>
@@ -163,7 +166,6 @@ export const AdminInquiries = () => {
 
       {/* ─── Search & Filter Bar ──────────────────────────────── */}
       <div className="flex gap-3 mb-6 flex-wrap" onClick={(e) => e.stopPropagation()}>
-
         {/* Search */}
         <div className="relative flex-1 min-w-[200px] max-w-sm">
           <Search size={13} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#9ca3af]" />
@@ -188,7 +190,10 @@ export const AdminInquiries = () => {
           >
             <SlidersHorizontal size={12} />
             <span>{subjectFilter}</span>
-            <ChevronDown size={12} className={`transition-transform ${showSubjectDrop ? "rotate-180" : ""}`} />
+            <ChevronDown
+              size={12}
+              className={`transition-transform ${showSubjectDrop ? "rotate-180" : ""}`}
+            />
           </button>
           {showSubjectDrop && (
             <div className="absolute top-full mt-1 left-0 bg-white border border-[#e8e4df] shadow-lg z-20 min-w-[190px] py-1">
@@ -222,7 +227,10 @@ export const AdminInquiries = () => {
             className="flex items-center gap-2 px-4 py-2.5 border border-[#e5e7eb] bg-white text-sm font-sans text-[#6b7280] hover:border-[#163b0f]/30 transition-colors"
           >
             <span>{dateSort}</span>
-            <ChevronDown size={12} className={`transition-transform ${showDateDrop ? "rotate-180" : ""}`} />
+            <ChevronDown
+              size={12}
+              className={`transition-transform ${showDateDrop ? "rotate-180" : ""}`}
+            />
           </button>
           {showDateDrop && (
             <div className="absolute top-full mt-1 left-0 bg-white border border-[#e8e4df] shadow-lg z-20 min-w-[150px] py-1">
@@ -278,9 +286,7 @@ export const AdminInquiries = () => {
                     key={inquiry.id}
                     onClick={() => toggleExpand(inquiry.id)}
                     className={`border-b border-[#e8e4df] transition-colors ${
-                      expandedId === inquiry.id
-                        ? "bg-[#f9f8f6]"
-                        : "hover:bg-[#fafaf8]"
+                      expandedId === inquiry.id ? "bg-[#f9f8f6]" : "hover:bg-[#fafaf8]"
                     } ${!inquiry.read ? "" : ""}`}
                     style={{ cursor: "pointer" }}
                   >
@@ -335,11 +341,14 @@ export const AdminInquiries = () => {
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-2">
                         {!inquiry.read && (
-                          <span className="w-2 h-2 rounded-full bg-[#163b0f] flex-shrink-0" title="Unread" />
+                          <span
+                            className="w-2 h-2 rounded-full bg-[#163b0f] flex-shrink-0"
+                            title="Unread"
+                          />
                         )}
                         <span
                           className={`text-[10px] font-sans font-semibold px-2.5 py-1 rounded-full border ${getSubjectStyle(
-                            inquiry.subject
+                            inquiry.subject,
                           )}`}
                         >
                           {inquiry.subject.length > 28
@@ -352,9 +361,11 @@ export const AdminInquiries = () => {
 
                   {/* ── Expanded Message Row ────────────────────── */}
                   {expandedId === inquiry.id && (
-                    <tr key={`${inquiry.id}-exp`} className="bg-[#f9f8f6] border-b border-[#e8e4df]">
+                    <tr
+                      key={`${inquiry.id}-exp`}
+                      className="bg-[#f9f8f6] border-b border-[#e8e4df]"
+                    >
                       <td colSpan={6} className="px-10 py-6">
-
                         {/* Full subject line (in case it was truncated) */}
                         {inquiry.subject.length > 28 && (
                           <p className="text-[10px] uppercase tracking-widest font-sans font-bold text-[#9ca3af] mb-2">

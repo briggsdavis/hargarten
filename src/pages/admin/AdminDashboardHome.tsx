@@ -12,7 +12,6 @@ export const AdminDashboardHome = () => {
 
   return (
     <div className="p-8 max-w-4xl">
-
       {/* ─── Page Header ──────────────────────────────────────── */}
       <div className="mb-10">
         <p className="text-[10px] uppercase tracking-widest text-[#9ca3af] font-sans mb-1">
@@ -29,9 +28,7 @@ export const AdminDashboardHome = () => {
       {/* ─── Portfolio Visibility Toggle (prominent card) ─────── */}
       <div
         className={`rounded-xl border-2 p-6 mb-8 transition-all duration-500 ${
-          portfolioLive
-            ? "bg-[#163b0f]/[0.04] border-[#163b0f]/20"
-            : "bg-amber-50 border-amber-200"
+          portfolioLive ? "bg-[#163b0f]/[0.04] border-[#163b0f]/20" : "bg-amber-50 border-amber-200"
         }`}
       >
         <div className="flex items-start justify-between gap-6">
@@ -48,7 +45,9 @@ export const AdminDashboardHome = () => {
             </div>
 
             <h3 className="text-lg font-sans font-semibold text-[#1a1a1a] mb-1.5 tracking-tight">
-              {portfolioLive ? "Live Portfolio — Visible to Public" : "Portfolio Hidden — Coming Soon Mode"}
+              {portfolioLive
+                ? "Live Portfolio — Visible to Public"
+                : "Portfolio Hidden — Coming Soon Mode"}
             </h3>
 
             <p className="text-sm font-sans text-[#6b7280] leading-relaxed">
@@ -87,9 +86,7 @@ export const AdminDashboardHome = () => {
         <div className="mt-5 pt-4 border-t border-current/10 flex items-center gap-2">
           <span
             className={`inline-flex items-center gap-1.5 text-[10px] font-sans font-semibold px-3 py-1 rounded-full ${
-              portfolioLive
-                ? "bg-[#163b0f]/10 text-[#163b0f]"
-                : "bg-amber-100 text-amber-700"
+              portfolioLive ? "bg-[#163b0f]/10 text-[#163b0f]" : "bg-amber-100 text-amber-700"
             }`}
           >
             <span
@@ -131,12 +128,12 @@ export const AdminDashboardHome = () => {
             key={label}
             className="bg-white border border-[#e8e4df] rounded-xl p-5 hover:shadow-sm transition-shadow"
           >
-            <div
-              className={`w-9 h-9 ${iconBg} rounded-lg flex items-center justify-center mb-4`}
-            >
+            <div className={`w-9 h-9 ${iconBg} rounded-lg flex items-center justify-center mb-4`}>
               <Icon size={15} className={iconColor} />
             </div>
-            <p className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">{value}</p>
+            <p className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">
+              {value}
+            </p>
             <p className="text-[11px] font-sans text-[#6b7280] mt-0.5">{label}</p>
           </div>
         ))}
@@ -172,7 +169,9 @@ export const AdminDashboardHome = () => {
               </p>
               <p className="text-xs font-sans text-[#6b7280] mt-0.5">{item.desc}</p>
             </div>
-            <span className="text-[#9ca3af] group-hover:text-[#163b0f] transition-colors text-lg">→</span>
+            <span className="text-[#9ca3af] group-hover:text-[#163b0f] transition-colors text-lg">
+              →
+            </span>
           </a>
         ))}
       </div>

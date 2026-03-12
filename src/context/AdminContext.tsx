@@ -12,10 +12,10 @@ const AdminContext = createContext<AdminContextType | null>(null)
 
 export const AdminProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(
-    () => localStorage.getItem("hp_admin_auth") === "true"
+    () => localStorage.getItem("hp_admin_auth") === "true",
   )
   const [portfolioLive, setPortfolioLiveState] = useState(
-    () => localStorage.getItem("hp_portfolio_live") !== "false"
+    () => localStorage.getItem("hp_portfolio_live") !== "false",
   )
 
   const login = () => {
@@ -34,7 +34,9 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AdminContext.Provider value={{ isAuthenticated, portfolioLive, login, logout, setPortfolioLive }}>
+    <AdminContext.Provider
+      value={{ isAuthenticated, portfolioLive, login, logout, setPortfolioLive }}
+    >
       {children}
     </AdminContext.Provider>
   )
