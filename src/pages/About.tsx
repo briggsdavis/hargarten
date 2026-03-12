@@ -134,7 +134,7 @@ export const About = () => {
             transition={{ duration: 0.9 }}
             className="flex flex-col md:flex-row items-center gap-14 md:gap-20"
           >
-            <div className="shrink-0 w-full max-w-[260px] mx-auto md:mx-0">
+            <div className="shrink-0 w-full max-w-[520px] mx-auto md:mx-0">
               <div className="aspect-[3/4] overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -165,7 +165,7 @@ export const About = () => {
             transition={{ duration: 0.9 }}
             className="flex flex-col md:flex-row-reverse items-center gap-14 md:gap-20"
           >
-            <div className="shrink-0 w-full max-w-[260px] mx-auto md:mx-0">
+            <div className="shrink-0 w-full max-w-[520px] mx-auto md:mx-0">
               <div className="aspect-[3/4] overflow-hidden border border-primary/10">
                 <img
                   src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -198,9 +198,13 @@ export const About = () => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.9 }}
           >
+            <h2 className="text-3xl md:text-4xl font-serif text-primary mb-16 tracking-tighter text-center">
+              Together
+            </h2>
+
             <div className="flex flex-col md:flex-row items-end justify-center gap-6 md:gap-0">
               {/* Laurent Card */}
-              <div className="flex flex-col items-center text-center flex-1 max-w-[220px] mx-auto md:mx-0">
+              <div className="flex flex-col items-center text-center flex-1 max-w-[440px] mx-auto md:mx-0">
                 <div className="w-full aspect-[3/4] overflow-hidden mb-5 border border-primary/10">
                   <img
                     src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -222,7 +226,7 @@ export const About = () => {
               <div className="block md:hidden w-[1px] h-10 bg-primary/15 mx-auto" />
 
               {/* Samuel Card */}
-              <div className="flex flex-col items-center text-center flex-1 max-w-[220px] mx-auto md:mx-0">
+              <div className="flex flex-col items-center text-center flex-1 max-w-[440px] mx-auto md:mx-0">
                 <div className="w-full aspect-[3/4] overflow-hidden mb-5 border border-primary/10">
                   <img
                     src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
