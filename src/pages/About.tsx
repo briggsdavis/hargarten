@@ -137,9 +137,6 @@ export const About = () => {
           </motion.div>
 
           <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-[18px] md:left-[22px] top-0 bottom-0 w-px bg-primary/15" />
-
             <div className="space-y-16 md:space-y-20">
               {[
                 {
@@ -172,10 +169,11 @@ export const About = () => {
                   className="flex gap-10 md:gap-16"
                 >
                   {/* Step dot */}
-                  <div className="shrink-0 w-9 md:w-11 flex flex-col items-center">
-                    <div className="relative z-10 w-9 h-9 md:w-11 md:h-11 rounded-full border border-primary/20 bg-parchment flex items-center justify-center">
+                  <div className="shrink-0 w-9 md:w-11 flex flex-col items-center self-stretch">
+                    <div className="w-9 h-9 md:w-11 md:h-11 rounded-full border border-primary/20 bg-parchment flex items-center justify-center shrink-0">
                       <span className="text-[10px] font-bold tracking-widest text-primary/50">{item.step}</span>
                     </div>
+                    {idx < 3 && <div className="flex-1 w-px bg-primary/15 mt-2" />}
                   </div>
 
                   {/* Content */}
