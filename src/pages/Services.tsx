@@ -5,7 +5,7 @@ import { SERVICES } from "../constants"
 import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 export const Services = () => {
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
   const [openIndex, setOpenIndex] = useState<number | null>(0)
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
@@ -128,7 +128,7 @@ export const Services = () => {
 
                       {/* Numbered sub-services — full width */}
                       <div className="flex flex-col">
-                        {service.subServices.map((sub, sIdx) => (
+                        {(service.localizedSubServices?.[locale] ?? service.subServices).map((sub, sIdx) => (
                           <motion.div
                             key={sIdx}
                             initial={{ opacity: 0, y: 8 }}

@@ -141,5 +141,39 @@ export const SERVICES = [
         ],
       },
     ],
+    localizedSubServices: {
+      fr: [
+        {
+          title: "Accompagnement à l'Achat immobilier",
+          bullets: [
+            "De la recherche ciblée (on & off-market) à la signature finale, nous identifions les meilleures opportunités et sécurisons chaque étape. Vous gagnez du temps, négociez au meilleur prix et investissez en toute sérénité.",
+          ],
+        },
+        {
+          title: "Accompagnement à la Vente immobilière",
+          bullets: [
+            "Estimation précise et réaliste, stratégie de mise en marché ciblée, gestion des visites et négociations efficaces. Votre bien se vend au juste prix, de manière fluide et confidentielle, avec un accompagnement attentif à chaque étape.",
+          ],
+        },
+        {
+          title: "Accompagnement à la location immobilière",
+          bullets: [
+            "De la mise en location de vos biens à la signature de baux sur mesure, nous combinons expertise immobilière et rédaction contractuelle sécurisée. Sélection rigoureuse des locataires, valorisation optimale de votre patrimoine et protection juridique complète pour des locations sereines et rentables.",
+          ],
+        },
+        {
+          title: "Évaluation & Analyse de Marché",
+          bullets: [
+            "Estimation professionnelle basée sur les données locales et européennes. Prenez des décisions éclairées : acheter, vendre ou conserver au moment optimal.",
+          ],
+        },
+        {
+          title: "Conseil en Investissement Immobilier",
+          bullets: [
+            "Analyse de rentabilité, sélection d'opportunités, stratégie patrimoniale à long terme. Nous transformons vos projets en investissements performants et sécurisés.",
+          ],
+        },
+      ],
+    },
   },
 ]
