@@ -9,33 +9,21 @@ export const About = () => {
   const heroRef = useRef<HTMLElement>(null)
 
   const valuesData = [
-    { title: t("about_value1_title"), desc: t("about_value1_desc"), image: "/about.jpg" },
-    { title: t("about_value2_title"), desc: t("about_value2_desc"), image: "/discretion.jpg" },
+    { title: t("about_value1_title"), desc: t("about_value1_desc"), quote: t("about_value1_quote"), image: "/about.jpg" },
+    { title: t("about_value2_title"), desc: t("about_value2_desc"), quote: t("about_value2_quote"), image: "/discretion.jpg" },
     {
       title: t("about_value3_title"),
       desc: t("about_value3_desc"),
-      image:
-        "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      quote: t("about_value3_quote"),
+      image: "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
     },
-    { title: t("about_value4_title"), desc: t("about_value4_desc"), image: "/livingroom.jpg" },
-    { title: t("about_value5_title"), desc: t("about_value5_desc"), image: "/aboutt.jpg" },
+    { title: t("about_value4_title"), desc: t("about_value4_desc"), quote: "", image: "/livingroom.jpg" },
+    { title: t("about_value5_title"), desc: t("about_value5_desc"), quote: t("about_value5_quote"), image: "/aboutt.jpg" },
     {
       title: t("about_value6_title"),
       desc: t("about_value6_desc"),
-      image:
-        "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
-    {
-      title: t("about_value7_title"),
-      desc: t("about_value7_desc"),
-      image:
-        "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
-    {
-      title: t("about_value8_title"),
-      desc: t("about_value8_desc"),
-      image:
-        "https://images.pexels.com/photos/1560932/pexels-photo-1560932.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      quote: "",
+      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200",
     },
   ]
 
@@ -57,7 +45,7 @@ export const About = () => {
   const parallaxY = useTransform(parallaxScroll, [0, 1], ["-10%", "10%"])
   const heroParallaxY = useTransform(heroScroll, [0, 1], ["0%", "30%"])
 
-  const activeValueIndex = useTransform(scrollYProgress, [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1], [0, 0, 1, 2, 3, 4, 5, 6, 7])
+  const activeValueIndex = useTransform(scrollYProgress, [0, 0.167, 0.333, 0.5, 0.667, 0.833, 1], [0, 0, 1, 2, 3, 4, 5])
 
   return (
     <div className="relative bg-parchment">
@@ -192,7 +180,7 @@ export const About = () => {
       </section>
 
       {/* Scroll-triggered Values Section */}
-      <section id="values" ref={valuesRef} className="relative h-[800vh]">
+      <section id="values" ref={valuesRef} className="relative h-[600vh]">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <div className="w-full h-full flex flex-col md:flex-row">
             {/* Left Side: Images */}
@@ -244,6 +232,9 @@ export const About = () => {
                       {value.title}
                     </h3>
                     <p className="text-xl text-primary font-medium leading-relaxed">{value.desc}</p>
+                    {value.quote && (
+                      <p className="mt-5 text-base italic text-primary/50 leading-relaxed">{value.quote}</p>
+                    )}
                   </motion.div>
                 ))}
               </div>
