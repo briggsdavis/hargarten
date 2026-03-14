@@ -92,7 +92,7 @@ export const Services = () => {
                           transition={{ delay: 0.1 }}
                           className="text-base text-primary/65 leading-relaxed"
                         >
-                          {service.overview}
+                          {service.localizedOverview?.[locale] ?? service.overview}
                         </motion.p>
 
                         <motion.div
@@ -115,14 +115,14 @@ export const Services = () => {
                       </div>
 
                       {/* Optional subtitle */}
-                      {service.subtitle && (
+                      {(service.localizedSubtitle?.[locale] ?? service.subtitle) && (
                         <motion.p
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 }}
                           className="text-[10px] uppercase tracking-[0.3em] text-primary/40 font-bold mb-4 pl-16 md:pl-24 pr-8"
                         >
-                          {service.subtitle}
+                          {service.localizedSubtitle?.[locale] ?? service.subtitle}
                         </motion.p>
                       )}
 

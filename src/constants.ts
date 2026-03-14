@@ -110,6 +110,49 @@ export const SERVICES = [
         ],
       },
     ],
+    localizedOverview: {
+      fr: "Chez Hargarten-Properties, nous réunissons au sein d'une même structure l'expertise juridique et la maîtrise du marché immobilier. Cette synergie unique nous permet d'accompagner nos clients dans chaque étape de leur projet : acquisition, vente, location ou investissement. Grâce à cette approche intégrée, vous bénéficiez d'un accompagnement sur mesure, d'une prise de décision éclairée et d'une sécurité renforcée dans toutes vos opérations immobilières.",
+    },
+    localizedSubtitle: {
+      fr: "Alliance entre expertise juridique et expertise immobilière",
+    },
+    localizedSubServices: {
+      fr: [
+        {
+          title: "Rédaction, révision et modification de contrats",
+          bullets: [
+            "Élaboration de contrats sur mesure, analyse approfondie des clauses existantes et adaptation en fonction des besoins ou changements juridiques.",
+            "Explication des risques, protection des intérêts du client.",
+            "(Compromis de vente, promesses, contrats de réservation, etc.)",
+          ],
+        },
+        {
+          title: "Rédaction et sécurisation des baux (habitation, commercial)",
+          bullets: [
+            "Contrats de location sur mesure adaptés au cas concret, clauses de protection, conformité légale. Sécurité renforcée.",
+          ],
+        },
+        {
+          title: "Conseil en stratégie juridique et immobilière",
+          bullets: [
+            "Grâce à notre expertise combinée en droit et en immobilier, nous vous accompagnons sur tous les aspects stratégiques. Notre approche sur mesure vous aide à optimiser chaque décision, à anticiper les risques et à concrétiser vos projets en toute confiance.",
+            "Explication des risques, protection des intérêts du client.",
+          ],
+        },
+        {
+          title: "Due Diligence Complète & Vérification Titres",
+          bullets: [
+            "Analyse approfondie des titres, servitudes, urbanisme et conformité. Aucun risque caché : nous validons la fiabilité de votre acquisition avant tout engagement.",
+          ],
+        },
+        {
+          title: "Gestion des Litiges Immobiliers",
+          bullets: [
+            "En cas de conflit — vices cachés, loyers impayés, litiges locatifs ou copropriété — nous intervenons avec expertise et discrétion. Négociation amiable, médiation stratégique et représentation judiciaire : nous protégeons vos intérêts avec efficacité et pragmatisme pour une résolution rapide et définitive.",
+          ],
+        },
+      ],
+    },
   },
   {
     title: "Real Estate Services",
