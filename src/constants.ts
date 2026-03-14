@@ -72,36 +72,87 @@ export const SERVICES = [
   {
     title: "Real Estate Legal Services",
     overview:
-      "Our legal team provides comprehensive real estate law expertise, ensuring every transaction is secure, compliant, and fully protected from risk.",
+      "At Hargarten-Properties, we bridge the gap between legal mastery and real estate market expertise within a single firm. This unique synergy allows us to guide our clients through every phase of their property journey: acquisition, sale, leasing, or investment. Through this integrated approach, you benefit from bespoke advisory, informed decision-making, and unparalleled security in all your real estate transactions.",
     image:
       "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
     subtitle: "Securing Purchases and Sales",
     subServices: [
       {
-        title: "Drafting, Reviewing, and Amending Contracts",
+        title: "Drafting, Reviewing, and Negotiating Contracts",
         bullets: [
-          "We draft bespoke contracts tailored to your specific needs, conduct in-depth analysis of every clause, and adapt agreements to legal changes, ensuring your interests are fully protected and risks clearly explained.",
+          "Crafting bespoke agreements, performing rigorous clause analysis, and adapting contracts to reflect regulatory changes or specific client needs.",
+          "Identifying risks and ensuring your interests are fully protected.",
+          "(Sales agreements, purchase offers, reservation contracts, etc.)",
         ],
       },
       {
-        title: "Drafting and Securing Leases (Residential, Commercial)",
+        title: "Structuring and Securing Lease Agreements",
         bullets: [
-          "Tailor-made rental contracts adapted to the specific case, protective clauses, and legal compliance. Enhanced security.",
+          "Custom residential and commercial leases tailored to specific requirements, featuring robust protective clauses and guaranteed legal compliance.",
         ],
       },
       {
-        title: "Legal and Real Estate Strategy Consulting",
+        title: "Strategic Legal & Property Consulting",
         bullets: [
-          "Thanks to our combined expertise in law and real estate, we support you on all strategic aspects. Our bespoke approach helps you optimize every decision, anticipate risks, and realize your projects with complete confidence.",
+          "Leveraging our dual expertise to provide high-level strategic guidance. Our personalized approach helps you optimize decision-making, mitigate risk, and execute your vision with absolute confidence.",
         ],
       },
       {
         title: "Comprehensive Due Diligence & Title Verification",
         bullets: [
-          "In-depth analysis of titles, easements, urban planning, and compliance. No hidden risks: we validate the reliability of your acquisition before any commitment.",
+          "Exhaustive analysis of property titles, easements, zoning, and compliance. We ensure there are no hidden liabilities, validating the integrity of your acquisition before you commit.",
+        ],
+      },
+      {
+        title: "Real Estate Litigation & Dispute Resolution",
+        bullets: [
+          "In the event of a conflict—such as latent defects (vices cachés), rent arrears, or co-ownership disputes—we intervene with discretion and expertise. From amicable negotiations and strategic mediation to court representation, we protect your interests with a pragmatic, results-driven approach.",
         ],
       },
     ],
+    localizedOverview: {
+      fr: "Chez Hargarten-Properties, nous réunissons au sein d'une même structure l'expertise juridique et la maîtrise du marché immobilier. Cette synergie unique nous permet d'accompagner nos clients dans chaque étape de leur projet : acquisition, vente, location ou investissement. Grâce à cette approche intégrée, vous bénéficiez d'un accompagnement sur mesure, d'une prise de décision éclairée et d'une sécurité renforcée dans toutes vos opérations immobilières.",
+    },
+    localizedSubtitle: {
+      fr: "Alliance entre expertise juridique et expertise immobilière",
+    },
+    localizedSubServices: {
+      fr: [
+        {
+          title: "Rédaction, révision et modification de contrats",
+          bullets: [
+            "Élaboration de contrats sur mesure, analyse approfondie des clauses existantes et adaptation en fonction des besoins ou changements juridiques.",
+            "Explication des risques, protection des intérêts du client.",
+            "(Compromis de vente, promesses, contrats de réservation, etc.)",
+          ],
+        },
+        {
+          title: "Rédaction et sécurisation des baux (habitation, commercial)",
+          bullets: [
+            "Contrats de location sur mesure adaptés au cas concret, clauses de protection, conformité légale. Sécurité renforcée.",
+          ],
+        },
+        {
+          title: "Conseil en stratégie juridique et immobilière",
+          bullets: [
+            "Grâce à notre expertise combinée en droit et en immobilier, nous vous accompagnons sur tous les aspects stratégiques. Notre approche sur mesure vous aide à optimiser chaque décision, à anticiper les risques et à concrétiser vos projets en toute confiance.",
+            "Explication des risques, protection des intérêts du client.",
+          ],
+        },
+        {
+          title: "Due Diligence Complète & Vérification Titres",
+          bullets: [
+            "Analyse approfondie des titres, servitudes, urbanisme et conformité. Aucun risque caché : nous validons la fiabilité de votre acquisition avant tout engagement.",
+          ],
+        },
+        {
+          title: "Gestion des Litiges Immobiliers",
+          bullets: [
+            "En cas de conflit — vices cachés, loyers impayés, litiges locatifs ou copropriété — nous intervenons avec expertise et discrétion. Négociation amiable, médiation stratégique et représentation judiciaire : nous protégeons vos intérêts avec efficacité et pragmatisme pour une résolution rapide et définitive.",
+          ],
+        },
+      ],
+    },
   },
   {
     title: "Real Estate Services",
@@ -111,35 +162,69 @@ export const SERVICES = [
     subtitle: null,
     subServices: [
       {
-        title: "Real Estate Purchase Support",
+        title: "Buyer Representation & Acquisition",
         bullets: [
-          "From targeted searches (on & off-market) to the final signature, we identify the best opportunities and secure every step. You save time, negotiate at the best price, and invest with complete peace of mind.",
+          "From targeted searches (including off-market opportunities) to the final closing, we identify prime assets and secure every step of the process. Save time, negotiate from a position of strength, and invest with peace of mind.",
         ],
       },
       {
-        title: "Real Estate Sales Support",
+        title: "Seller Representation & Listing Services",
         bullets: [
-          "Accurate valuation, premium marketing strategy, management of viewings, and negotiations. Your property sells quickly, at the right price, through a fluid and confidential process.",
+          "Precise market valuations, bespoke marketing strategies, and expert negotiation. We ensure your property is sold at its true value, maintaining total confidentiality throughout a seamless process.",
         ],
       },
       {
-        title: "Rental Support",
+        title: "Leasing & Asset Management",
         bullets: [
-          "From tenant file analysis and selection to listing, placement, and lease management, we handle every step of the rental process with care and precision.",
+          "From property placement to drafting secure, bespoke leases, we combine market knowledge with legal precision. We focus on rigorous tenant screening and asset optimization to ensure a stable, profitable return.",
         ],
       },
       {
-        title: "Valuation & Market Analysis",
+        title: "Market Analysis & Professional Valuation",
         bullets: [
-          "Professional estimation based on local and European data. Make informed decisions: buy, sell, or hold at the optimal time.",
+          "Data-driven valuations based on local and European market trends. We empower you to make informed decisions on whether to buy, sell, or hold at the optimal moment.",
         ],
       },
       {
-        title: "Real Estate Investment Consulting",
+        title: "Real Estate Investment Strategy",
         bullets: [
-          "Profitability analysis, selection of opportunities, and long-term wealth strategy. We transform your projects into high-performing and secure investments.",
+          "Yield analysis, opportunity sourcing, and long-term portfolio strategy. We transform your objectives into high-performing, secure real estate investments.",
         ],
       },
     ],
+    localizedSubServices: {
+      fr: [
+        {
+          title: "Accompagnement à l'Achat immobilier",
+          bullets: [
+            "De la recherche ciblée (on & off-market) à la signature finale, nous identifions les meilleures opportunités et sécurisons chaque étape. Vous gagnez du temps, négociez au meilleur prix et investissez en toute sérénité.",
+          ],
+        },
+        {
+          title: "Accompagnement à la Vente immobilière",
+          bullets: [
+            "Estimation précise et réaliste, stratégie de mise en marché ciblée, gestion des visites et négociations efficaces. Votre bien se vend au juste prix, de manière fluide et confidentielle, avec un accompagnement attentif à chaque étape.",
+          ],
+        },
+        {
+          title: "Accompagnement à la location immobilière",
+          bullets: [
+            "De la mise en location de vos biens à la signature de baux sur mesure, nous combinons expertise immobilière et rédaction contractuelle sécurisée. Sélection rigoureuse des locataires, valorisation optimale de votre patrimoine et protection juridique complète pour des locations sereines et rentables.",
+          ],
+        },
+        {
+          title: "Évaluation & Analyse de Marché",
+          bullets: [
+            "Estimation professionnelle basée sur les données locales et européennes. Prenez des décisions éclairées : acheter, vendre ou conserver au moment optimal.",
+          ],
+        },
+        {
+          title: "Conseil en Investissement Immobilier",
+          bullets: [
+            "Analyse de rentabilité, sélection d'opportunités, stratégie patrimoniale à long terme. Nous transformons vos projets en investissements performants et sécurisés.",
+          ],
+        },
+      ],
+    },
   },
 ]
