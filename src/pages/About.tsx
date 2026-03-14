@@ -188,6 +188,22 @@ export const About = () => {
                 </motion.div>
               ))}
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7 }}
+              className="mt-20 pt-16 border-t border-primary/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
+            >
+              <p className="text-2xl md:text-3xl font-serif text-primary tracking-tighter">Ready to start your project?</p>
+              <LocaleLink
+                to="/contact"
+                className="shrink-0 inline-block px-8 py-4 border border-primary text-xs uppercase tracking-widest font-bold text-primary hover:bg-primary hover:text-parchment transition-colors duration-300"
+              >
+                Contact Us
+              </LocaleLink>
+            </motion.div>
           </div>
         </div>
       </section>
