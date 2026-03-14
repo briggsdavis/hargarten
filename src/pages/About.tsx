@@ -132,33 +132,17 @@ export const About = () => {
             transition={{ duration: 0.9 }}
             className="mb-20"
           >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-4">How We Work</p>
-            <h2 className="text-4xl md:text-5xl font-serif text-primary tracking-tighter">Our Process</h2>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-4">{t("about_process_label")}</p>
+            <h2 className="text-4xl md:text-5xl font-serif text-primary tracking-tighter">{t("about_process_heading")}</h2>
           </motion.div>
 
           <div className="relative">
             <div className="space-y-16 md:space-y-20">
               {[
-                {
-                  step: "01",
-                  title: "Understanding Your Needs",
-                  text: "Explore our expertise to see how our dual legal and real estate background can serve your specific goals, whether selling, renting, or investing.",
-                },
-                {
-                  step: "02",
-                  title: "Expert Consultation",
-                  text: "Contact us for an initial, no-obligation discussion. This is a confidential space for you to share your expectations and project vision.",
-                },
-                {
-                  step: "03",
-                  title: "Tailored Strategy",
-                  text: "Together, we design the ideal roadmap—whether it involves transaction support, contract drafting, or investment advisory. A plan 100% adapted to your situation.",
-                },
-                {
-                  step: "04",
-                  title: "Executing Your Vision",
-                  text: "We work in close collaboration: with rigorous follow-up and informed decision-making, we ensure your project reaches a successful and secure conclusion.",
-                },
+                { step: "01", title: t("about_process_step1_title"), text: t("about_process_step1_text") },
+                { step: "02", title: t("about_process_step2_title"), text: t("about_process_step2_text") },
+                { step: "03", title: t("about_process_step3_title"), text: t("about_process_step3_text") },
+                { step: "04", title: t("about_process_step4_title"), text: t("about_process_step4_text") },
               ].map((item, idx) => (
                 <motion.div
                   key={idx}
@@ -194,12 +178,12 @@ export const About = () => {
               transition={{ duration: 0.7 }}
               className="mt-20 pt-16 border-t border-primary/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
             >
-              <p className="text-2xl md:text-3xl font-serif text-primary tracking-tighter">Ready to start your project?</p>
+              <p className="text-2xl md:text-3xl font-serif text-primary tracking-tighter">{t("about_process_cta")}</p>
               <LocaleLink
                 to="/contact"
                 className="shrink-0 inline-block px-8 py-4 border border-primary text-xs uppercase tracking-widest font-bold text-primary hover:bg-primary hover:text-parchment transition-colors duration-300"
               >
-                Contact Us
+                {t("about_process_cta_button")}
               </LocaleLink>
             </motion.div>
           </div>
