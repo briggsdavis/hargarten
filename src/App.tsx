@@ -51,7 +51,10 @@ const AppContent = () => {
   const [isLoading, setIsLoading] = useState(true)
   const lenisRef = useRef<Lenis | null>(null)
   const location = useLocation()
-  const isAdminRoute = location.pathname.startsWith("/admin")
+  // Match /admin or locale-prefixed admin paths like /fr/admin, /lb/admin
+  const isAdminRoute =
+    location.pathname.startsWith("/admin") ||
+    /^\/[a-z]{2}\/admin(\/|$)/.test(location.pathname)
 
   // Scroll-to-top on page change (site only)
   useEffect(() => {
@@ -100,6 +103,13 @@ const AppContent = () => {
       <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboardHome />} />
+          <Route path="listings" element={<AdminListings />} />
+          <Route path="inquiries" element={<AdminInquiries />} />
+        </Route>
+        {/* Locale-prefixed admin routes (e.g. /fr/admin/login, /lb/admin) */}
+        <Route path="/:locale/admin/login" element={<AdminLogin />} />
+        <Route path="/:locale/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboardHome />} />
           <Route path="listings" element={<AdminListings />} />
           <Route path="inquiries" element={<AdminInquiries />} />
