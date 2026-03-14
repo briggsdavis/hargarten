@@ -72,33 +72,41 @@ export const SERVICES = [
   {
     title: "Real Estate Legal Services",
     overview:
-      "Our legal team provides comprehensive real estate law expertise, ensuring every transaction is secure, compliant, and fully protected from risk.",
+      "At Hargarten-Properties, we bridge the gap between legal mastery and real estate market expertise within a single firm. This unique synergy allows us to guide our clients through every phase of their property journey: acquisition, sale, leasing, or investment. Through this integrated approach, you benefit from bespoke advisory, informed decision-making, and unparalleled security in all your real estate transactions.",
     image:
       "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
     subtitle: "Securing Purchases and Sales",
     subServices: [
       {
-        title: "Drafting, Reviewing, and Amending Contracts",
+        title: "Drafting, Reviewing, and Negotiating Contracts",
         bullets: [
-          "We draft bespoke contracts tailored to your specific needs, conduct in-depth analysis of every clause, and adapt agreements to legal changes, ensuring your interests are fully protected and risks clearly explained.",
+          "Crafting bespoke agreements, performing rigorous clause analysis, and adapting contracts to reflect regulatory changes or specific client needs.",
+          "Identifying risks and ensuring your interests are fully protected.",
+          "(Sales agreements, purchase offers, reservation contracts, etc.)",
         ],
       },
       {
-        title: "Drafting and Securing Leases (Residential, Commercial)",
+        title: "Structuring and Securing Lease Agreements",
         bullets: [
-          "Tailor-made rental contracts adapted to the specific case, protective clauses, and legal compliance. Enhanced security.",
+          "Custom residential and commercial leases tailored to specific requirements, featuring robust protective clauses and guaranteed legal compliance.",
         ],
       },
       {
-        title: "Legal and Real Estate Strategy Consulting",
+        title: "Strategic Legal & Property Consulting",
         bullets: [
-          "Thanks to our combined expertise in law and real estate, we support you on all strategic aspects. Our bespoke approach helps you optimize every decision, anticipate risks, and realize your projects with complete confidence.",
+          "Leveraging our dual expertise to provide high-level strategic guidance. Our personalized approach helps you optimize decision-making, mitigate risk, and execute your vision with absolute confidence.",
         ],
       },
       {
         title: "Comprehensive Due Diligence & Title Verification",
         bullets: [
-          "In-depth analysis of titles, easements, urban planning, and compliance. No hidden risks: we validate the reliability of your acquisition before any commitment.",
+          "Exhaustive analysis of property titles, easements, zoning, and compliance. We ensure there are no hidden liabilities, validating the integrity of your acquisition before you commit.",
+        ],
+      },
+      {
+        title: "Real Estate Litigation & Dispute Resolution",
+        bullets: [
+          "In the event of a conflict—such as latent defects (vices cachés), rent arrears, or co-ownership disputes—we intervene with discretion and expertise. From amicable negotiations and strategic mediation to court representation, we protect your interests with a pragmatic, results-driven approach.",
         ],
       },
     ],
