@@ -82,21 +82,91 @@ export const About = () => {
       </section>
 
       {/* Intro Section */}
-      <section id="intro" className="py-32 px-8 md:px-24 max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <h2 className="text-4xl md:text-6xl font-serif text-primary mb-12 tracking-tighter">
-            {t("about_intro_heading")}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+      <section id="intro" className="py-32 px-8 md:px-24">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 1 }}
+            className="space-y-8 mb-20"
+          >
             <p className="text-xl text-primary/80 leading-relaxed">{t("about_intro_p1")}</p>
             <p className="text-xl text-primary/80 leading-relaxed">{t("about_intro_p2")}</p>
-          </div>
-        </motion.div>
+            <p className="text-xl text-primary/80 leading-relaxed">{t("about_intro_p3")}</p>
+          </motion.div>
+
+          {/* Synergy heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
+            className="text-3xl md:text-4xl font-serif text-primary tracking-tighter mb-16"
+          >
+            {t("about_intro_synergy_heading")}
+          </motion.h2>
+
+          {/* Headshots */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
+            className="grid grid-cols-2 gap-8 md:gap-14 mb-20"
+          >
+            {[
+              {
+                src: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600",
+                alt: t("about_intro_samuel_name"),
+                name: t("about_intro_samuel_name"),
+                role: t("about_intro_samuel_role"),
+              },
+              {
+                src: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600",
+                alt: t("about_intro_laurent_name"),
+                name: t("about_intro_laurent_name"),
+                role: t("about_intro_laurent_role"),
+              },
+            ].map((person) => (
+              <div key={person.name}>
+                <div className="aspect-[3/4] overflow-hidden border border-primary/10 mb-4">
+                  <img
+                    src={person.src}
+                    alt={person.alt}
+                    className="w-full h-full object-cover object-top"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <h3 className="font-serif text-primary tracking-tight text-lg mb-1">{person.name}</h3>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-primary/40">{person.role}</p>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Body text */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.9 }}
+            className="space-y-12"
+          >
+            <p className="text-lg text-primary/75 leading-relaxed">{t("about_intro_body1")}</p>
+            <div>
+              <h3 className="text-2xl md:text-3xl font-serif text-primary tracking-tighter mb-4">
+                {t("about_intro_body2_heading")}
+              </h3>
+              <p className="text-lg text-primary/75 leading-relaxed">{t("about_intro_body2")}</p>
+            </div>
+            <div>
+              <h3 className="text-2xl md:text-3xl font-serif text-primary tracking-tighter mb-4">
+                {t("about_intro_body3_heading")}
+              </h3>
+              <p className="text-lg text-primary/75 leading-relaxed">{t("about_intro_body3")}</p>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Parallax Image Section */}
