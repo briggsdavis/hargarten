@@ -91,9 +91,9 @@ export const About = () => {
             transition={{ duration: 1 }}
             className="space-y-8 mb-20"
           >
-            <p className="text-xl text-primary/80 leading-relaxed">{t("about_intro_p1")}</p>
-            <p className="text-xl text-primary/80 leading-relaxed">{t("about_intro_p2")}</p>
-            <p className="text-xl text-primary/80 leading-relaxed">{t("about_intro_p3")}</p>
+            {[t("about_intro_p1"), t("about_intro_p2"), t("about_intro_p3")].filter(Boolean).map((text, i) => (
+              <p key={i} className="text-xl text-primary/80 leading-relaxed">{text}</p>
+            ))}
           </motion.div>
 
           {/* Synergy heading */}
