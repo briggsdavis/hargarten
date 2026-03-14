@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 export const CustomCursor = () => {
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
+  const isTouchDevice =
+    typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
 
   const springConfig = { damping: 30, stiffness: 500, mass: 0.3 }
   const cursorXSpring = useSpring(cursorX, springConfig)
@@ -42,6 +44,8 @@ export const CustomCursor = () => {
       window.removeEventListener("mouseup", handleMouseUp)
     }
   }, [cursorX, cursorY])
+
+  if (isTouchDevice) return null
 
   return (
     <motion.div

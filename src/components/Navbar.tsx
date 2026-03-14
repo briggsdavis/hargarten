@@ -66,7 +66,7 @@ export const Navbar = () => {
         initial={{ y: 0 }}
         animate={{ y: isVisible ? 0 : -150 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 w-full z-[100] px-8 py-8 flex items-center transition-colors duration-300 ${textClass} ${bgClass}`}
+        className={`fixed top-0 left-0 w-full z-[100] px-4 py-5 md:px-8 md:py-8 flex items-center transition-colors duration-300 ${textClass} ${bgClass}`}
       >
         {/* Left: Hamburger */}
         <button
@@ -86,11 +86,11 @@ export const Navbar = () => {
         </Link>
 
         {/* Right: Language Switcher + Contact Button */}
-        <div className="ml-auto flex items-center gap-6">
+        <div className="ml-auto flex items-center gap-4 md:gap-6">
           <LanguageSwitcher />
           <Link
             to={localePath("/contact")}
-            className={`text-[11.5px] uppercase tracking-widest font-bold border ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
+            className={`hidden md:inline-block text-[11.5px] uppercase tracking-widest font-bold border ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
           >
             {t("nav_contact")}
           </Link>
@@ -115,11 +115,11 @@ export const Navbar = () => {
               {t("nav_brand")}
             </Link>
 
-            {/* Contact button - top-right corner of the whole overlay */}
+            {/* Contact button - top-right corner of the whole overlay (desktop only) */}
             <Link
               to={localePath("/contact")}
               onClick={() => setIsOpen(false)}
-              className="absolute top-8 right-8 z-10 text-[11.5px] uppercase tracking-widest font-bold border border-primary text-primary px-[18px] py-[9px] transition-all duration-300 hover:bg-primary hover:text-parchment interactive"
+              className="hidden md:block absolute top-8 right-8 z-10 text-[11.5px] uppercase tracking-widest font-bold border border-primary text-primary px-[18px] py-[9px] transition-all duration-300 hover:bg-primary hover:text-parchment interactive"
             >
               {t("nav_contact")}
             </Link>
