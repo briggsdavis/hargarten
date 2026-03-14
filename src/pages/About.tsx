@@ -186,6 +186,7 @@ export const About = () => {
                 {t("about_process_cta_button")}
               </LocaleLink>
             </motion.div>
+            <p className="mt-6 text-sm italic text-primary/40">{t("about_process_slogan")}</p>
           </div>
         </div>
       </section>
