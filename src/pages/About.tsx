@@ -173,7 +173,7 @@ export const About = () => {
                 >
                   {/* Step dot */}
                   <div className="shrink-0 w-9 md:w-11 flex flex-col items-center">
-                    <div className="w-9 h-9 md:w-11 md:h-11 rounded-full border border-primary/20 bg-parchment flex items-center justify-center">
+                    <div className="relative z-10 w-9 h-9 md:w-11 md:h-11 rounded-full border border-primary/20 bg-parchment flex items-center justify-center">
                       <span className="text-[10px] font-bold tracking-widest text-primary/50">{item.step}</span>
                     </div>
                   </div>
