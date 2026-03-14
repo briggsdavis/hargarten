@@ -111,33 +111,33 @@ export const SERVICES = [
     subtitle: null,
     subServices: [
       {
-        title: "Real Estate Purchase Support",
+        title: "Buyer Representation & Acquisition",
         bullets: [
-          "From targeted searches (on & off-market) to the final signature, we identify the best opportunities and secure every step. You save time, negotiate at the best price, and invest with complete peace of mind.",
+          "From targeted searches (including off-market opportunities) to the final closing, we identify prime assets and secure every step of the process. Save time, negotiate from a position of strength, and invest with peace of mind.",
         ],
       },
       {
-        title: "Real Estate Sales Support",
+        title: "Seller Representation & Listing Services",
         bullets: [
-          "Accurate valuation, premium marketing strategy, management of viewings, and negotiations. Your property sells quickly, at the right price, through a fluid and confidential process.",
+          "Precise market valuations, bespoke marketing strategies, and expert negotiation. We ensure your property is sold at its true value, maintaining total confidentiality throughout a seamless process.",
         ],
       },
       {
-        title: "Rental Support",
+        title: "Leasing & Asset Management",
         bullets: [
-          "From tenant file analysis and selection to listing, placement, and lease management, we handle every step of the rental process with care and precision.",
+          "From property placement to drafting secure, bespoke leases, we combine market knowledge with legal precision. We focus on rigorous tenant screening and asset optimization to ensure a stable, profitable return.",
         ],
       },
       {
-        title: "Valuation & Market Analysis",
+        title: "Market Analysis & Professional Valuation",
         bullets: [
-          "Professional estimation based on local and European data. Make informed decisions: buy, sell, or hold at the optimal time.",
+          "Data-driven valuations based on local and European market trends. We empower you to make informed decisions on whether to buy, sell, or hold at the optimal moment.",
         ],
       },
       {
-        title: "Real Estate Investment Consulting",
+        title: "Real Estate Investment Strategy",
         bullets: [
-          "Profitability analysis, selection of opportunities, and long-term wealth strategy. We transform your projects into high-performing and secure investments.",
+          "Yield analysis, opportunity sourcing, and long-term portfolio strategy. We transform your objectives into high-performing, secure real estate investments.",
         ],
       },
     ],
