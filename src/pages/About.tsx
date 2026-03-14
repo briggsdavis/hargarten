@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from "motion/react"
 import { useRef } from "react"
-import { Scale, House } from "lucide-react"
 import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 export const About = () => {
@@ -123,110 +122,73 @@ export const About = () => {
         </motion.div>
       </section>
 
-      {/* Story Section - Three Blocks */}
+      {/* Process Timeline Section */}
       <section className="py-32 md:py-40 px-8 md:px-24 bg-white/50">
-        <div className="max-w-4xl mx-auto space-y-32 md:space-y-40">
-          {/* Block 1: 30 Years of Trust - photo left, text right */}
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.9 }}
-            className="flex flex-col md:flex-row items-center gap-14 md:gap-20"
+            className="mb-20"
           >
-            <div className="shrink-0 w-full max-w-[520px] mx-auto md:mx-0">
-              <div className="aspect-[3/4] overflow-hidden border border-primary/10">
-                <img
-                  src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="Laurent Hargarten"
-                  className="w-full h-full object-cover object-top"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-            </div>
-            <div className="flex-1">
-              <Scale className="w-5 h-5 text-primary/30 mb-5" strokeWidth={1.5} />
-              <h2 className="text-3xl md:text-4xl font-serif text-primary mb-5 tracking-tighter">
-                {t("about_story1_title")}
-              </h2>
-              <p className="text-lg text-primary/70 leading-relaxed">{t("about_story1_text")}</p>
-            </div>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-4">How We Work</p>
+            <h2 className="text-4xl md:text-5xl font-serif text-primary tracking-tighter">Our Process</h2>
           </motion.div>
 
-          {/* Block 2: A New Perspective - text left, image right */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.9 }}
-            className="flex flex-col md:flex-row-reverse items-center gap-14 md:gap-20"
-          >
-            <div className="shrink-0 w-full max-w-[520px] mx-auto md:mx-0">
-              <div className="aspect-[3/4] overflow-hidden border border-primary/10">
-                <img
-                  src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="Samuel"
-                  className="w-full h-full object-cover object-top"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-            </div>
-            <div className="flex-1">
-              <House className="w-5 h-5 text-primary/30 mb-5" strokeWidth={1.5} />
-              <h2 className="text-3xl md:text-4xl font-serif text-primary mb-3 tracking-tighter">
-                {t("about_story2_title")}
-              </h2>
-              <p className="text-[10px] uppercase tracking-[0.25em] text-primary/35 mb-5">
-                {t("about_story2_role")}
-              </p>
-              <p className="text-base text-primary/60 leading-relaxed">{t("about_story2_desc")}</p>
-            </div>
-          </motion.div>
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-[18px] md:left-[22px] top-0 bottom-0 w-px bg-primary/15" />
 
-          {/* Block 3: Together */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.9 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-serif text-primary mb-16 tracking-tighter text-center">
-              {t("about_together_title")}
-            </h2>
+            <div className="space-y-16 md:space-y-20">
+              {[
+                {
+                  step: "01",
+                  title: "Understanding Your Needs",
+                  text: "Explore our expertise to see how our dual legal and real estate background can serve your specific goals, whether selling, renting, or investing.",
+                },
+                {
+                  step: "02",
+                  title: "Expert Consultation",
+                  text: "Contact us for an initial, no-obligation discussion. This is a confidential space for you to share your expectations and project vision.",
+                },
+                {
+                  step: "03",
+                  title: "Tailored Strategy",
+                  text: "Together, we design the ideal roadmap—whether it involves transaction support, contract drafting, or investment advisory. A plan 100% adapted to your situation.",
+                },
+                {
+                  step: "04",
+                  title: "Executing Your Vision",
+                  text: "We work in close collaboration: with rigorous follow-up and informed decision-making, we ensure your project reaches a successful and secure conclusion.",
+                },
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.7, delay: idx * 0.1 }}
+                  className="flex gap-10 md:gap-16"
+                >
+                  {/* Step dot */}
+                  <div className="shrink-0 w-9 md:w-11 flex flex-col items-center">
+                    <div className="w-9 h-9 md:w-11 md:h-11 rounded-full border border-primary/20 bg-parchment flex items-center justify-center">
+                      <span className="text-[10px] font-bold tracking-widest text-primary/50">{item.step}</span>
+                    </div>
+                  </div>
 
-            <div className="max-w-2xl mx-auto">
-              <div className="aspect-[4/3] overflow-hidden border border-primary/10">
-                <img
-                  src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                  alt="Laurent Hargarten and Samuel"
-                  className="w-full h-full object-cover object-center"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="flex justify-between mt-5 px-1">
-                <div>
-                  <h3 className="text-base font-serif text-primary tracking-tight mb-0.5">
-                    Laurent Hargarten
-                  </h3>
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">
-                    {t("about_laurent_role")}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <h3 className="text-base font-serif text-primary tracking-tight mb-0.5">
-                    Samuel
-                  </h3>
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-primary/35">
-                    {t("about_samuel_role")}
-                  </p>
-                </div>
-              </div>
+                  {/* Content */}
+                  <div className="flex-1 pb-2">
+                    <h3 className="text-2xl md:text-3xl font-serif text-primary mb-4 tracking-tighter">
+                      {item.title}
+                    </h3>
+                    <p className="text-lg text-primary/65 leading-relaxed">{item.text}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-
-            <p className="text-center text-lg md:text-xl font-serif text-primary/60 mt-14 max-w-md mx-auto leading-relaxed tracking-tight">
-              {t("about_together_quote")}
-            </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
