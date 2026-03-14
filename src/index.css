@@ -97,6 +97,17 @@ input[type="range"]::-moz-range-thumb {
   cursor: none;
 }
 
+/* Touch devices - restore normal system cursors */
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+  a,
+  button {
+    cursor: pointer !important;
+  }
+}
+
 /* Admin portal - restore normal system cursors (overrides global cursor: none) */
 .admin-portal,
 .admin-portal * {
