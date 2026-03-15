@@ -62,7 +62,7 @@ export const About = () => {
             className="absolute inset-0 w-full h-[130%] -top-[15%]"
           >
             <img
-              src="/finalhero.jpg"
+              src="/potential.jpg"
               alt="About Hargarten"
               className="w-full h-full object-cover"
             />
