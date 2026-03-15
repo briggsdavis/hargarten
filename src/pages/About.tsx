@@ -19,12 +19,7 @@ export const About = () => {
     },
     { title: t("about_value4_title"), desc: t("about_value4_desc"), quote: "", image: "/livingroom.jpg" },
     { title: t("about_value5_title"), desc: t("about_value5_desc"), quote: t("about_value5_quote"), image: "/aboutt.jpg" },
-    {
-      title: t("about_value6_title"),
-      desc: t("about_value6_desc"),
-      quote: "",
-      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
+    { title: t("about_value6_title"), desc: t("about_value6_desc"), quote: "", image: "/partnership.jpg" },
   ]
 
   const { scrollYProgress } = useScroll({
