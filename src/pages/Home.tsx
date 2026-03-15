@@ -8,7 +8,7 @@ const MotionLocaleLink = motion(LocaleLink)
 
 export const Home = () => {
   const { portfolioLive } = useAdmin()
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
@@ -241,7 +241,7 @@ export const Home = () => {
               {/* Caption row */}
               <div className="flex items-center justify-between border-t border-primary/10 pt-5">
                 <span className="border-b border-primary/30 pb-1 group-hover:border-primary text-[11px] uppercase tracking-[0.25em] font-bold text-primary/60 group-hover:text-primary transition-colors duration-300">
-                  {service.title}
+                  {service.localizedTitle?.[locale] ?? service.title}
                 </span>
               </div>
             </MotionLocaleLink>

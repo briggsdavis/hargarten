@@ -64,7 +64,7 @@ export const Services = () => {
               >
                 <div className="flex items-center gap-8">
                   <span className="text-xs font-medium text-primary/30 font-mono">0{idx + 1}</span>
-                  <h3 className="text-3xl md:text-4xl font-serif">{service.title}</h3>
+                  <h3 className="text-3xl md:text-4xl font-serif">{service.localizedTitle?.[locale] ?? service.title}</h3>
                 </div>
                 <motion.div
                   animate={{ rotate: openIndex === idx ? 180 : 0 }}
