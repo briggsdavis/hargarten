@@ -59,6 +59,19 @@ export const Home = () => {
           >
             {t("home_hero_subtitle", { year: String(new Date().getFullYear()) })}
           </motion.p>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 1.1, duration: 0.8 }}
+            className="md:hidden mt-10"
+          >
+            <LocaleLink
+              to="/contact"
+              className="inline-block border border-parchment/60 text-parchment px-8 py-3 text-xs uppercase tracking-widest font-bold hover:bg-parchment hover:text-primary transition-colors duration-300 interactive"
+            >
+              {t("contact_title")}
+            </LocaleLink>
+          </motion.div>
         </div>
       </section>
 
