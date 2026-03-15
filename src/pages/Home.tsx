@@ -47,7 +47,7 @@ export const Home = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.9 }}
-            className="text-5xl md:text-8xl text-parchment font-serif tracking-tighter mb-6"
+            className="text-3xl md:text-5xl text-parchment font-serif tracking-tighter mb-6"
           >
             {t("home_hero_title")}
           </motion.h1>

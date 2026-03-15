@@ -78,7 +78,7 @@ export const SERVICES = [
     subtitle: "Securing Purchases and Sales",
     subServices: [
       {
-        title: "Drafting, Reviewing, and Negotiating Contracts",
+        title: "Drafting, Reviewing and Amending Contracts",
         bullets: [
           "Crafting bespoke agreements, performing rigorous clause analysis, and adapting contracts to reflect regulatory changes or specific client needs.",
           "Identifying risks and ensuring your interests are fully protected.",
