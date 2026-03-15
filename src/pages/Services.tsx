@@ -184,7 +184,7 @@ export const Services = () => {
             <h4 className="text-xs uppercase tracking-[0.3em] font-bold mb-4 opacity-60">
               {t("services_legal_label")}
             </h4>
-            <h3 className="text-4xl font-serif leading-tight">{t("services_legal_heading")}</h3>
+            <h3 className={`font-serif leading-tight ${locale === "lb" ? "text-2xl" : "text-4xl"}`}>{t("services_legal_heading")}</h3>
           </div>
           <div className="md:w-2/3">
             <p className="text-lg opacity-80 leading-relaxed">{t("services_legal_text")}</p>
