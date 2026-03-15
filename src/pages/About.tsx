@@ -9,7 +9,7 @@ export const About = () => {
   const heroRef = useRef<HTMLElement>(null)
 
   const valuesData = [
-    { title: t("about_value1_title"), desc: t("about_value1_desc"), quote: t("about_value1_quote"), image: "/about.jpg" },
+    { title: t("about_value1_title"), desc: t("about_value1_desc"), quote: t("about_value1_quote"), image: "/trust.jpg" },
     { title: t("about_value2_title"), desc: t("about_value2_desc"), quote: t("about_value2_quote"), image: "/discretion.jpg" },
     {
       title: t("about_value3_title"),
@@ -62,7 +62,7 @@ export const About = () => {
             className="absolute inset-0 w-full h-[130%] -top-[15%]"
           >
             <img
-              src="/luxembourg.jpg"
+              src="/finalhero.jpg"
               alt="About Hargarten"
               className="w-full h-full object-cover"
             />
