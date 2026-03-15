@@ -64,7 +64,7 @@ export const Services = () => {
               >
                 <div className="flex items-center gap-8">
                   <span className="text-xs font-medium text-primary/30 font-mono">0{idx + 1}</span>
-                  <h3 className="text-3xl md:text-4xl font-serif">{service.title}</h3>
+                  <h3 className="text-3xl md:text-4xl font-serif">{service.localizedTitle?.[locale] ?? service.title}</h3>
                 </div>
                 <motion.div
                   animate={{ rotate: openIndex === idx ? 180 : 0 }}
@@ -162,6 +162,17 @@ export const Services = () => {
           ))}
         </div>
 
+        {/* Slogan */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-16 text-sm italic text-primary/40 text-center"
+        >
+          {t("about_process_slogan")}
+        </motion.p>
+
         {/* Legal Authority Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -173,7 +184,7 @@ export const Services = () => {
             <h4 className="text-xs uppercase tracking-[0.3em] font-bold mb-4 opacity-60">
               {t("services_legal_label")}
             </h4>
-            <h3 className="text-4xl font-serif leading-tight">{t("services_legal_heading")}</h3>
+            <h3 className={`font-serif leading-tight ${locale === "lb" ? "text-2xl" : "text-4xl"}`}>{t("services_legal_heading")}</h3>
           </div>
           <div className="md:w-2/3">
             <p className="text-lg opacity-80 leading-relaxed">{t("services_legal_text")}</p>

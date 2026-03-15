@@ -137,6 +137,14 @@ export const Contact = () => {
           </motion.div>
         </div>
       </div>
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.4 }}
+        className="max-w-7xl mx-auto mt-24 text-sm italic text-primary/40"
+      >
+        {t("about_process_slogan")}
+      </motion.p>
     </div>
   )
 }

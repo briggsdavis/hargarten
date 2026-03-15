@@ -110,11 +110,17 @@ export const SERVICES = [
         ],
       },
     ],
+    localizedTitle: {
+      fr: "Services Juridiques Immobiliers",
+      lb: "Juristesch Immobiliëservicer",
+    },
     localizedOverview: {
       fr: "Chez Hargarten-Properties, nous réunissons au sein d'une même structure l'expertise juridique et la maîtrise du marché immobilier. Cette synergie unique nous permet d'accompagner nos clients dans chaque étape de leur projet : acquisition, vente, location ou investissement. Grâce à cette approche intégrée, vous bénéficiez d'un accompagnement sur mesure, d'une prise de décision éclairée et d'une sécurité renforcée dans toutes vos opérations immobilières.",
+      lb: "Bei Hargarten-Properties verbannen mir juristesch Expertise a Marktkenntnis am Lëtzebuerger Immobiliësektor ënner engem Daach. Dës eenzegaarteg Synergie erlaabt eis, eis Clienten duerch all Phase vun hirem Projet ze begleeden: Kaf, Verkaf, Locatioun oder Investitioun. Mat eisem integréierte Usaz profitéiert Dir vun engem personaliséierten Accompagnement, fundéierten Entscheedungen a maximaler Sécherheet bei all Immobilientransaktioun.",
     },
     localizedSubtitle: {
       fr: "Alliance entre expertise juridique et expertise immobilière",
+      lb: "Keefen a Verkafen sécherstellen",
     },
     localizedSubServices: {
       fr: [
@@ -149,6 +155,40 @@ export const SERVICES = [
           title: "Gestion des Litiges Immobiliers",
           bullets: [
             "En cas de conflit — vices cachés, loyers impayés, litiges locatifs ou copropriété — nous intervenons avec expertise et discrétion. Négociation amiable, médiation stratégique et représentation judiciaire : nous protégeons vos intérêts avec efficacité et pragmatisme pour une résolution rapide et définitive.",
+          ],
+        },
+      ],
+      lb: [
+        {
+          title: "Kontrakter rédéieren, iwwerpréiwen a verhandelen",
+          bullets: [
+            "Redaktioun vun individuellen Ofkommes, déif Analyse vu Klauselen an Uppassung un juristesch Ännerungen oder Clientsbedürfnisser.",
+            "Risiken erkläre a Clientsinteressen schützen.",
+            "(Virkafskompromisser, Keefversprochen, Reservatiounskontrakter, asw.)",
+          ],
+        },
+        {
+          title: "Mietverträg opstellen a sécheren",
+          bullets: [
+            "Individuell Mietverträg fir Wunnen a Commerce, mat robusten Schutzklauselen a voller juristescher Conformitéit. Méi Sécherheet fir all Parteien.",
+          ],
+        },
+        {
+          title: "Strategesch juristesch a immobiliäresch Berodung",
+          bullets: [
+            "Duerch eis kombinéiert Expertise a Recht an Immobilien begleede mir Iech strategesch a all wichtegen Aspekter. Eise personaliséierten Usaz hëlleft Iech bei fundéierten Entscheedungen, Risikominimierung a souveräner Ëmsetzung vun Äre Projeten.",
+          ],
+        },
+        {
+          title: "Vollstänneg Due Diligence & Titelverifikatioun",
+          bullets: [
+            "Ëmfaassend Analyse vu Besëtzrechter, Servituten, Urbanismus a Conformitéit. Keng verstoppten Obligatiounen: mir validéieren Är Acquisitioun ier Dir Iech engagéiert.",
+          ],
+        },
+        {
+          title: "Immobiliëstreidissachen & Konfliktléisung",
+          bullets: [
+            "Bei Konflikter — verstoppten Mängel, ausseständeg Loyeren oder Mateegentümerstreidissachen — intervenéiere mir mat Diskretioun a Fachwëssen. Vun gudder Verhandlung a Mediatioun bis hin zu Geriichtsvertriede schütze mir Är Interessen mat engem pragmateschen a resultatsorientéierte Usaz.",
           ],
         },
       ],
@@ -192,6 +232,14 @@ export const SERVICES = [
         ],
       },
     ],
+    localizedTitle: {
+      fr: "Services Immobiliers",
+      lb: "Immobiliëservicer",
+    },
+    localizedOverview: {
+      fr: "De l'acquisition à la vente, notre agence délivre des services immobiliers complets sur le marché premium luxembourgeois, alliant expertise locale et approche personnalisée.",
+      lb: "Vum Kaf bis zum Verkaf bitt eis Agence e komplette Servicepaket am Lëtzebuerger Premium-Immobiliëmaart — mat lokaler Expertise a personaliséiertem Accompagnement.",
+    },
     localizedSubServices: {
       fr: [
         {
@@ -222,6 +270,38 @@ export const SERVICES = [
           title: "Conseil en Investissement Immobilier",
           bullets: [
             "Analyse de rentabilité, sélection d'opportunités, stratégie patrimoniale à long terme. Nous transformons vos projets en investissements performants et sécurisés.",
+          ],
+        },
+      ],
+      lb: [
+        {
+          title: "Begleedung beim Immobiliëkaf",
+          bullets: [
+            "Vun der gezielter Sich (inkl. Off-Market Opportunitéiten) bis zur Ënnerschrëft beim Notaire: mir identifizéieren déi beschten Objeten a sécheren all Schrëtt. Spuert Zäit, verhandelt aus enger Stärkepositioun a investéiert mat Zouverlässegkeet.",
+          ],
+        },
+        {
+          title: "Begleedung beim Immobiliëverkaf",
+          bullets: [
+            "Präzis Maartevaluatioun, individuell Vermarktungsstrategie an effektiv Verhandlungen. Mir souergen dofir, datt Äre Besëtz zu sengem richtege Wäert verkaaft gëtt — diskret, glat a professionell.",
+          ],
+        },
+        {
+          title: "Locatiounsgestioun & Asset Management",
+          bullets: [
+            "Vum Vermieten vun Äre Biens bis zur Redaktioun vu sécheren, individuellen Mietverträg kombinéiere mir Marktwëssen mat juristescher Präzisioun. Mir fokusséieren op grëndlech Mieterauswiel an Objektsoptimiséierung fir eng stabel a rentabel Rendite.",
+          ],
+        },
+        {
+          title: "Maartanalyse & Professionell Evaluatioun",
+          bullets: [
+            "Faktebaséiert Evaluatioune baséiert op lokalen a europäesche Markttrenndsen. Mir ginn Iech d'Grondlag fir fundéiert Entscheedungen: kafe, verkafen oder halen zum richtege Moment.",
+          ],
+        },
+        {
+          title: "Immobiliëinvestitiounsstrategie",
+          bullets: [
+            "Renditanalyse, Opportunitéitssichung a laangfristeg Portfoliostrategie. Mir transforméieren Är Ziler a héich-performante, sécher Immobiliëinvestitioune.",
           ],
         },
       ],

@@ -8,7 +8,7 @@ const MotionLocaleLink = motion(LocaleLink)
 
 export const Home = () => {
   const { portfolioLive } = useAdmin()
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
@@ -59,6 +59,19 @@ export const Home = () => {
           >
             {t("home_hero_subtitle", { year: String(new Date().getFullYear()) })}
           </motion.p>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 1.1, duration: 0.8 }}
+            className="md:hidden mt-10"
+          >
+            <LocaleLink
+              to="/contact"
+              className="inline-block border border-parchment/60 text-parchment px-8 py-3 text-xs uppercase tracking-widest font-bold hover:bg-parchment hover:text-primary transition-colors duration-300 interactive"
+            >
+              {t("contact_title")}
+            </LocaleLink>
+          </motion.div>
         </div>
       </section>
 
@@ -83,6 +96,7 @@ export const Home = () => {
                 {t("home_discover_values")}
               </span>
             </LocaleLink>
+            <p className="mt-8 text-sm italic text-primary/40">{t("about_process_slogan")}</p>
           </motion.div>
         </div>
       </section>
@@ -227,7 +241,7 @@ export const Home = () => {
               {/* Caption row */}
               <div className="flex items-center justify-between border-t border-primary/10 pt-5">
                 <span className="border-b border-primary/30 pb-1 group-hover:border-primary text-[11px] uppercase tracking-[0.25em] font-bold text-primary/60 group-hover:text-primary transition-colors duration-300">
-                  {service.title}
+                  {service.localizedTitle?.[locale] ?? service.title}
                 </span>
               </div>
             </MotionLocaleLink>
