@@ -1,15 +1,25 @@
-import { motion, useScroll, useTransform } from "motion/react"
-import { useRef } from "react"
+import { motion, useScroll, useTransform, AnimatePresence } from "motion/react"
+import { useRef, useState, useEffect } from "react"
 import { PROPERTIES, SERVICES } from "../constants"
 import { useAdmin } from "../context/AdminContext"
 import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 const MotionLocaleLink = motion(LocaleLink)
 
+const HERO_IMAGES = ["/hr.jpg", "/potential.jpg", "/potential1.jpg"]
+
 export const Home = () => {
   const { portfolioLive } = useAdmin()
   const { t, locale } = useLocale()
   const heroRef = useRef<HTMLElement>(null)
+  const [heroIndex, setHeroIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroIndex((i) => (i + 1) % HERO_IMAGES.length)
+    }, 6000)
+    return () => clearInterval(interval)
+  }, [])
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
 
@@ -37,7 +47,18 @@ export const Home = () => {
             style={{ y: parallaxY }}
             className="absolute inset-0 w-full h-[130%] -top-[15%]"
           >
-            <img src="/finalhero.jpg" alt="Luxembourg" className="w-full h-full object-cover" />
+            <AnimatePresence mode="sync">
+              <motion.img
+                key={heroIndex}
+                src={HERO_IMAGES[heroIndex]}
+                alt="Hero"
+                className="absolute inset-0 w-full h-full object-cover"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+              />
+            </AnimatePresence>
           </motion.div>
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
