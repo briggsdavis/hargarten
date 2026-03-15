@@ -162,6 +162,17 @@ export const Services = () => {
           ))}
         </div>
 
+        {/* Slogan */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-16 text-sm italic text-primary/40 text-center"
+        >
+          {t("about_process_slogan")}
+        </motion.p>
+
         {/* Legal Authority Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}

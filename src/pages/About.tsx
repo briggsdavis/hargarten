@@ -165,6 +165,7 @@ export const About = () => {
               </h3>
               <p className="text-lg text-primary/75 leading-relaxed">{t("about_intro_body3")}</p>
             </div>
+            <p className="text-sm italic text-primary/40">{t("about_process_slogan")}</p>
           </motion.div>
         </div>
       </section>

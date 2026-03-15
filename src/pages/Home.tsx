@@ -83,6 +83,7 @@ export const Home = () => {
                 {t("home_discover_values")}
               </span>
             </LocaleLink>
+            <p className="mt-8 text-sm italic text-primary/40">{t("about_process_slogan")}</p>
           </motion.div>
         </div>
       </section>

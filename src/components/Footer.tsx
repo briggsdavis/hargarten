@@ -19,12 +19,15 @@ export const Footer = () => {
       {/* Wordmark zone */}
       <div className="px-8 md:px-16 pt-16 pb-10 border-b border-parchment/10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <h2
-            className="font-serif leading-none tracking-tighter text-parchment/90"
-            style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
-          >
-            {t("nav_brand")}
-          </h2>
+          <div>
+            <h2
+              className="font-serif leading-none tracking-tighter text-parchment/90"
+              style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
+            >
+              {t("nav_brand")}
+            </h2>
+            <p className="mt-4 text-sm italic text-parchment/40">{t("about_process_slogan")}</p>
+          </div>
         </div>
       </div>
 
