@@ -8,6 +8,7 @@ import {
   SlidersHorizontal,
   Mail,
 } from "lucide-react"
+import { useAdmin } from "../../context/AdminContext"
 
 type Subject = "Property Inquiry" | "Legal Consultation" | "Management Request" | string
 
@@ -89,17 +90,29 @@ const SUBJECT_COLORS: Record<string, string> = {
 const getSubjectStyle = (subject: string) =>
   SUBJECT_COLORS[subject] || "bg-[#f5f4f0] text-[#6b7280] border-[#e8e4df]"
 
-const SUBJECT_OPTIONS = [
-  "All Subjects",
-  "Property Inquiry",
-  "Legal Consultation",
-  "Management Request",
-  "Other",
+// Internal filter values stay as English keys; display is translated
+const SUBJECT_FILTER_KEYS = [
+  { value: "All Subjects", translationKey: "admin_all_subjects" },
+  { value: "Property Inquiry", translationKey: "admin_subject_inquiry" },
+  { value: "Legal Consultation", translationKey: "admin_subject_legal" },
+  { value: "Management Request", translationKey: "admin_subject_management" },
+  { value: "Other", translationKey: "admin_subject_other" },
 ]
 
-const DATE_OPTIONS = ["Newest First", "Oldest First"]
+const DATE_SORT_KEYS = [
+  { value: "Newest First", translationKey: "admin_newest_first" },
+  { value: "Oldest First", translationKey: "admin_oldest_first" },
+]
+
+// Map English subject values to translation keys for badge display
+const SUBJECT_TRANSLATION_KEY: Record<string, string> = {
+  "Property Inquiry": "admin_subject_inquiry",
+  "Legal Consultation": "admin_subject_legal",
+  "Management Request": "admin_subject_management",
+}
 
 export const AdminInquiries = () => {
+  const { adminT } = useAdmin()
   const [inquiries, setInquiries] = useState<Inquiry[]>(SAMPLE_INQUIRIES)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [search, setSearch] = useState("")
@@ -143,28 +156,35 @@ export const AdminInquiries = () => {
 
   const unreadCount = inquiries.filter((i) => !i.read).length
 
+  const translateSubject = (subject: string): string => {
+    const key = SUBJECT_TRANSLATION_KEY[subject]
+    return key ? adminT(key) : subject
+  }
+
+  const currentSubjectLabel = SUBJECT_FILTER_KEYS.find((k) => k.value === subjectFilter)
+  const currentDateLabel = DATE_SORT_KEYS.find((k) => k.value === dateSort)
+
   return (
-    // Close dropdowns when clicking outside
     <div className="p-8" onClick={closeDrop}>
-      {/* ─── Header ───────────────────────────────────────────── */}
+      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-[10px] uppercase tracking-widest text-[#9ca3af] font-sans mb-1">
-            CRM Inbox
+            {adminT("admin_crm_inbox")}
           </p>
           <h2 className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">
-            Inquiries
+            {adminT("admin_inquiries_title")}
           </h2>
           <p className="text-sm font-sans text-[#6b7280] mt-1">
-            {inquiries.length} total ·{" "}
-            <span className={unreadCount > 0 ? "text-[#163b0f] font-semibold" : ""}>
-              {unreadCount} unread
-            </span>
+            {adminT("admin_inquiries_count", {
+              total: inquiries.length,
+              unread: unreadCount,
+            })}
           </p>
         </div>
       </div>
 
-      {/* ─── Search & Filter Bar ──────────────────────────────── */}
+      {/* Search & Filter Bar */}
       <div className="flex gap-3 mb-6 flex-wrap" onClick={(e) => e.stopPropagation()}>
         {/* Search */}
         <div className="relative flex-1 min-w-[200px] max-w-sm">
@@ -173,7 +193,7 @@ export const AdminInquiries = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by name or email…"
+            placeholder={adminT("admin_search_placeholder")}
             className="w-full pl-9 pr-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors bg-white placeholder:text-[#c4c4c4]"
           />
         </div>
@@ -189,7 +209,7 @@ export const AdminInquiries = () => {
             className="flex items-center gap-2 px-4 py-2.5 border border-[#e5e7eb] bg-white text-sm font-sans text-[#6b7280] hover:border-[#163b0f]/30 transition-colors"
           >
             <SlidersHorizontal size={12} />
-            <span>{subjectFilter}</span>
+            <span>{currentSubjectLabel ? adminT(currentSubjectLabel.translationKey) : subjectFilter}</span>
             <ChevronDown
               size={12}
               className={`transition-transform ${showSubjectDrop ? "rotate-180" : ""}`}
@@ -197,19 +217,19 @@ export const AdminInquiries = () => {
           </button>
           {showSubjectDrop && (
             <div className="absolute top-full mt-1 left-0 bg-white border border-[#e8e4df] shadow-lg z-20 min-w-[190px] py-1">
-              {SUBJECT_OPTIONS.map((opt) => (
+              {SUBJECT_FILTER_KEYS.map(({ value, translationKey }) => (
                 <button
-                  key={opt}
+                  key={value}
                   onClick={(e) => {
                     e.stopPropagation()
-                    setSubjectFilter(opt)
+                    setSubjectFilter(value)
                     setShowSubjectDrop(false)
                   }}
                   className={`block w-full text-left px-4 py-2 text-sm font-sans hover:bg-[#f5f4f0] transition-colors ${
-                    subjectFilter === opt ? "text-[#163b0f] font-semibold" : "text-[#6b7280]"
+                    subjectFilter === value ? "text-[#163b0f] font-semibold" : "text-[#6b7280]"
                   }`}
                 >
-                  {opt}
+                  {adminT(translationKey)}
                 </button>
               ))}
             </div>
@@ -226,7 +246,7 @@ export const AdminInquiries = () => {
             }}
             className="flex items-center gap-2 px-4 py-2.5 border border-[#e5e7eb] bg-white text-sm font-sans text-[#6b7280] hover:border-[#163b0f]/30 transition-colors"
           >
-            <span>{dateSort}</span>
+            <span>{currentDateLabel ? adminT(currentDateLabel.translationKey) : dateSort}</span>
             <ChevronDown
               size={12}
               className={`transition-transform ${showDateDrop ? "rotate-180" : ""}`}
@@ -234,19 +254,19 @@ export const AdminInquiries = () => {
           </button>
           {showDateDrop && (
             <div className="absolute top-full mt-1 left-0 bg-white border border-[#e8e4df] shadow-lg z-20 min-w-[150px] py-1">
-              {DATE_OPTIONS.map((opt) => (
+              {DATE_SORT_KEYS.map(({ value, translationKey }) => (
                 <button
-                  key={opt}
+                  key={value}
                   onClick={(e) => {
                     e.stopPropagation()
-                    setDateSort(opt)
+                    setDateSort(value)
                     setShowDateDrop(false)
                   }}
                   className={`block w-full text-left px-4 py-2 text-sm font-sans hover:bg-[#f5f4f0] transition-colors ${
-                    dateSort === opt ? "text-[#163b0f] font-semibold" : "text-[#6b7280]"
+                    dateSort === value ? "text-[#163b0f] font-semibold" : "text-[#6b7280]"
                   }`}
                 >
-                  {opt}
+                  {adminT(translationKey)}
                 </button>
               ))}
             </div>
@@ -254,20 +274,28 @@ export const AdminInquiries = () => {
         </div>
       </div>
 
-      {/* ─── Inquiries Table ──────────────────────────────────── */}
+      {/* Inquiries Table */}
       <div className="bg-white border border-[#e8e4df] rounded-xl overflow-hidden">
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#e8e4df] bg-[#f9f8f6]">
               <th className="w-8 px-4 py-3.5" />
-              {["Date Received", "First Name", "Last Name", "Email", "Subject"].map((h) => (
-                <th
-                  key={h}
-                  className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold"
-                >
-                  {h}
-                </th>
-              ))}
+              {/* Date Received is translatable; First Name / Last Name / Email stay in English */}
+              <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
+                {adminT("admin_col_date")}
+              </th>
+              <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
+                First Name
+              </th>
+              <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
+                Last Name
+              </th>
+              <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
+                Email
+              </th>
+              <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
+                {adminT("admin_col_subject")}
+              </th>
             </tr>
           </thead>
 
@@ -275,19 +303,19 @@ export const AdminInquiries = () => {
             {filtered.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-5 py-16 text-center text-sm font-sans text-[#9ca3af]">
-                  No inquiries match your filters.
+                  {adminT("admin_no_inquiries")}
                 </td>
               </tr>
             ) : (
               filtered.map((inquiry) => (
                 <>
-                  {/* ── Main Row ───────────────────────────────── */}
+                  {/* Main Row */}
                   <tr
                     key={inquiry.id}
                     onClick={() => toggleExpand(inquiry.id)}
                     className={`border-b border-[#e8e4df] transition-colors ${
                       expandedId === inquiry.id ? "bg-[#f9f8f6]" : "hover:bg-[#fafaf8]"
-                    } ${!inquiry.read ? "" : ""}`}
+                    }`}
                     style={{ cursor: "pointer" }}
                   >
                     {/* Expand chevron */}
@@ -351,15 +379,15 @@ export const AdminInquiries = () => {
                             inquiry.subject,
                           )}`}
                         >
-                          {inquiry.subject.length > 28
-                            ? inquiry.subject.slice(0, 26) + "…"
-                            : inquiry.subject}
+                          {translateSubject(inquiry.subject).length > 28
+                            ? translateSubject(inquiry.subject).slice(0, 26) + "…"
+                            : translateSubject(inquiry.subject)}
                         </span>
                       </div>
                     </td>
                   </tr>
 
-                  {/* ── Expanded Message Row ────────────────────── */}
+                  {/* Expanded Message Row */}
                   {expandedId === inquiry.id && (
                     <tr
                       key={`${inquiry.id}-exp`}
@@ -367,16 +395,16 @@ export const AdminInquiries = () => {
                     >
                       <td colSpan={6} className="px-10 py-6">
                         {/* Full subject line (in case it was truncated) */}
-                        {inquiry.subject.length > 28 && (
+                        {translateSubject(inquiry.subject).length > 28 && (
                           <p className="text-[10px] uppercase tracking-widest font-sans font-bold text-[#9ca3af] mb-2">
-                            {inquiry.subject}
+                            {translateSubject(inquiry.subject)}
                           </p>
                         )}
 
                         {/* Message body */}
                         <div className="bg-white border border-[#e8e4df] rounded-lg px-5 py-4 mb-5">
                           <p className="text-[9px] uppercase tracking-widest font-sans font-bold text-[#9ca3af] mb-2.5">
-                            Message
+                            {adminT("admin_message_label")}
                           </p>
                           <p className="text-sm font-sans text-[#1a1a1a] leading-relaxed">
                             {inquiry.message}
@@ -394,7 +422,7 @@ export const AdminInquiries = () => {
                               className="flex items-center gap-1.5 px-4 py-2 text-[10px] uppercase tracking-widest font-sans font-bold text-[#163b0f] border border-[#163b0f]/25 hover:bg-[#163b0f] hover:text-[#fbf6f1] hover:border-[#163b0f] transition-all rounded-sm"
                             >
                               <CheckCircle size={12} />
-                              Mark as Read
+                              {adminT("admin_mark_read")}
                             </button>
                           )}
 
@@ -406,7 +434,7 @@ export const AdminInquiries = () => {
                             className="flex items-center gap-1.5 px-4 py-2 text-[10px] uppercase tracking-widest font-sans font-bold text-red-500 border border-red-200 hover:bg-red-50 transition-all rounded-sm"
                           >
                             <Trash2 size={12} />
-                            Delete
+                            {adminT("admin_delete")}
                           </button>
 
                           <a
@@ -415,7 +443,7 @@ export const AdminInquiries = () => {
                             className="flex items-center gap-1.5 px-4 py-2 text-[10px] uppercase tracking-widest font-sans font-bold text-[#6b7280] border border-[#e5e7eb] hover:bg-white hover:border-[#163b0f]/30 transition-all rounded-sm ml-auto"
                           >
                             <Mail size={12} />
-                            Reply via Email
+                            {adminT("admin_reply_email")}
                           </a>
                         </div>
                       </td>

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Plus, Pencil, Trash2, X, Upload, ImagePlus, Check, ChevronRight, ChevronLeft } from "lucide-react"
 import { PROPERTIES } from "../../constants"
+import { useAdmin } from "../../context/AdminContext"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -67,41 +68,6 @@ const EMPTY_FORM: FormData = {
   description_lb: "",
 }
 
-// ─── Step definitions ─────────────────────────────────────────────────────────
-
-const STEPS = [
-  {
-    number: 1,
-    title: "Hero Photo",
-    subtitle: "Upload the main photo of the property. This is the first image visitors will see — make it count.",
-    hint: "Upload a high-quality photo of the exterior or the most impressive room. Supported formats: JPG, PNG. Maximum size: 10 MB.",
-  },
-  {
-    number: 2,
-    title: "Property Information",
-    subtitle: "Enter the core details about this property: its name in all three languages, location, asking price, availability, and transaction type.",
-    hint: "The property name must be provided in English, Luxembourgish, and French so that the listing displays correctly for all visitors.",
-  },
-  {
-    number: 3,
-    title: "Specifications",
-    subtitle: "Enter the technical specifications: number of bedrooms, bathrooms, and total surface area in square metres.",
-    hint: "Use whole numbers for bedrooms and bathrooms. For surface area you can write decimals, e.g. 142.5.",
-  },
-  {
-    number: 4,
-    title: "Description",
-    subtitle: "Write a short, compelling introduction for this property in all three languages. This text appears on the property detail page.",
-    hint: "Keep it concise — 1 to 3 sentences. Focus on what makes this property special. You must provide all three language versions.",
-  },
-  {
-    number: 5,
-    title: "Amenities",
-    subtitle: "Select all the amenities this property offers by clicking on them. If an amenity is not in the list, use the form at the bottom to add it with its translation in all three languages.",
-    hint: "Amenities that are already used on other listings appear below. Tick all that apply. To add a brand-new amenity, fill in the three fields at the bottom and click \"Add Amenity\".",
-  },
-]
-
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
@@ -163,6 +129,7 @@ const LangInput = ({
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export const AdminListings = () => {
+  const { adminT } = useAdmin()
   const [properties, setProperties] = useState<Property[]>(PROPERTIES as Property[])
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -172,6 +139,40 @@ export const AdminListings = () => {
   const [knownAmenities, setKnownAmenities] = useState<AmenityOption[]>(SEED_AMENITIES)
   const [newAmenity, setNewAmenity] = useState({ en: "", fr: "", lb: "" })
   const [showAddAmenity, setShowAddAmenity] = useState(false)
+
+  // Steps are computed from translations so they update when language changes
+  const STEPS = [
+    {
+      number: 1,
+      title: adminT("admin_step1_title"),
+      subtitle: adminT("admin_step1_subtitle"),
+      hint: adminT("admin_step1_hint"),
+    },
+    {
+      number: 2,
+      title: adminT("admin_step2_title"),
+      subtitle: adminT("admin_step2_subtitle"),
+      hint: adminT("admin_step2_hint"),
+    },
+    {
+      number: 3,
+      title: adminT("admin_step3_title"),
+      subtitle: adminT("admin_step3_subtitle"),
+      hint: adminT("admin_step3_hint"),
+    },
+    {
+      number: 4,
+      title: adminT("admin_step4_title"),
+      subtitle: adminT("admin_step4_subtitle"),
+      hint: adminT("admin_step4_hint"),
+    },
+    {
+      number: 5,
+      title: adminT("admin_step5_title"),
+      subtitle: adminT("admin_step5_subtitle"),
+      hint: adminT("admin_step5_hint"),
+    },
+  ]
 
   const openAdd = () => {
     setFormData(EMPTY_FORM)
@@ -252,19 +253,23 @@ export const AdminListings = () => {
 
   const stepInfo = STEPS[currentStep - 1]
 
+  const noun = properties.length === 1
+    ? adminT("admin_listings_noun_single")
+    : adminT("admin_listings_noun_plural")
+
   return (
     <div className="p-8">
-      {/* ─── Header ───────────────────────────────────────────── */}
+      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-[10px] uppercase tracking-widest text-[#9ca3af] font-sans mb-1">
-            Management
+            {adminT("admin_management")}
           </p>
           <h2 className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">
-            Property Listings
+            {adminT("admin_listings_title")}
           </h2>
           <p className="text-sm font-sans text-[#6b7280] mt-1">
-            {properties.length} {properties.length === 1 ? "property" : "properties"} in portfolio
+            {adminT("admin_listings_count", { count: properties.length, noun })}
           </p>
         </div>
         <button
@@ -272,18 +277,19 @@ export const AdminListings = () => {
           className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-5 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors rounded-sm"
         >
           <Plus size={13} />
-          Add New Property
+          {adminT("admin_add_new")}
         </button>
       </div>
 
-      {/* ─── Table ────────────────────────────────────────────── */}
+      {/* Table */}
       <div className="bg-white border border-[#e8e4df] rounded-xl overflow-hidden">
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#e8e4df] bg-[#f9f8f6]">
-              {["Property", "Location", "Price", "Type", "Status", ""].map((h) => (
+              {/* "Property" and "Location" column headers stay in English per requirement */}
+              {["Property", "Location", adminT("admin_col_price"), adminT("admin_col_type"), adminT("admin_col_status"), ""].map((h, i) => (
                 <th
-                  key={h}
+                  key={i}
                   className="text-left px-5 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold"
                 >
                   {h}
@@ -319,7 +325,7 @@ export const AdminListings = () => {
                 </td>
                 <td className="px-5 py-4">
                   <span className="text-[10px] uppercase tracking-wider font-sans text-[#6b7280]">
-                    {property.type}
+                    {property.type === "Sale" ? adminT("admin_for_sale") : adminT("admin_for_rent")}
                   </span>
                 </td>
                 <td className="px-5 py-4">
@@ -335,7 +341,9 @@ export const AdminListings = () => {
                         property.status === "Available" ? "bg-emerald-500" : "bg-amber-500"
                       }`}
                     />
-                    {property.status}
+                    {property.status === "Available"
+                      ? adminT("admin_status_available")
+                      : adminT("admin_status_reserved")}
                   </span>
                 </td>
                 <td className="px-5 py-4">
@@ -353,13 +361,13 @@ export const AdminListings = () => {
                           onClick={() => handleDelete(property.id)}
                           className="text-[10px] font-sans font-bold text-red-600 hover:underline"
                         >
-                          Confirm
+                          {adminT("admin_confirm")}
                         </button>
                         <button
                           onClick={() => setDeleteConfirmId(null)}
                           className="text-[10px] font-sans text-[#6b7280] hover:underline"
                         >
-                          Cancel
+                          {adminT("admin_cancel")}
                         </button>
                       </div>
                     ) : (
@@ -380,32 +388,32 @@ export const AdminListings = () => {
 
         {properties.length === 0 && (
           <div className="py-16 text-center">
-            <p className="text-sm font-sans text-[#9ca3af]">No properties in portfolio yet.</p>
+            <p className="text-sm font-sans text-[#9ca3af]">{adminT("admin_no_properties")}</p>
             <button
               onClick={openAdd}
               className="mt-4 text-[10px] uppercase tracking-widest font-sans font-bold text-[#163b0f] hover:underline"
             >
-              Add your first property →
+              {adminT("admin_add_first")} →
             </button>
           </div>
         )}
       </div>
 
-      {/* ─── Full-screen Property Form ─────────────────────────────────────── */}
+      {/* Full-screen Property Form */}
       {isFormOpen && (
         <div className="fixed inset-0 z-50 bg-[#fbf6f1] flex flex-col overflow-hidden">
 
-          {/* ── Top Bar ──────────────────────────────────────────────────────── */}
+          {/* Top Bar */}
           <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-6 md:px-10 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <img src="/logo.png" alt="Hargarten Properties" className="h-8 w-auto object-contain" />
               <div className="w-px h-6 bg-[#e8e4df]" />
               <div>
                 <p className="text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans">
-                  {editingId ? "Editing Existing Listing" : "Creating New Listing"}
+                  {editingId ? adminT("admin_editing_listing") : adminT("admin_creating_listing")}
                 </p>
                 <p className="text-sm font-sans font-semibold text-[#1a1a1a] leading-tight">
-                  {editingId ? (formData.title || "Property") : "New Property"}
+                  {editingId ? (formData.title || adminT("admin_col_property")) : adminT("admin_new_property")}
                 </p>
               </div>
             </div>
@@ -414,16 +422,15 @@ export const AdminListings = () => {
               className="flex items-center gap-2 text-[11px] uppercase tracking-widest font-sans font-bold text-[#6b7280] hover:text-[#1a1a1a] transition-colors px-4 py-2 border border-[#e8e4df] hover:border-[#1a1a1a] bg-white"
             >
               <X size={13} />
-              Cancel
+              {adminT("admin_cancel")}
             </button>
           </div>
 
-          {/* ── Step Progress Bar ─────────────────────────────────────────────── */}
+          {/* Step Progress Bar */}
           <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-6 md:px-10 py-4">
             <div className="flex items-start max-w-3xl">
               {STEPS.map((step, idx) => (
                 <div key={step.number} className="flex-1 flex flex-col items-center relative">
-                  {/* Connector line — drawn from centre of previous dot to centre of this dot */}
                   {idx > 0 && (
                     <div
                       className={`absolute top-3 right-1/2 w-full h-px transition-colors ${
@@ -431,7 +438,6 @@ export const AdminListings = () => {
                       }`}
                     />
                   )}
-                  {/* Dot button */}
                   <button
                     type="button"
                     onClick={() => setCurrentStep(step.number)}
@@ -453,7 +459,6 @@ export const AdminListings = () => {
                   >
                     {currentStep > step.number ? <Check size={11} /> : step.number}
                   </button>
-                  {/* Label below dot */}
                   <span
                     className={`mt-1.5 text-[9px] uppercase tracking-wider font-sans font-bold text-center hidden md:block transition-colors leading-tight ${
                       currentStep === step.number ? "text-[#163b0f]" : "text-[#9ca3af]"
@@ -466,7 +471,7 @@ export const AdminListings = () => {
             </div>
           </div>
 
-          {/* ── Scrollable Content ────────────────────────────────────────────── */}
+          {/* Scrollable Content */}
           <form
             id="property-form"
             onSubmit={handleSubmit}
@@ -477,7 +482,7 @@ export const AdminListings = () => {
               {/* Step header */}
               <div className="mb-8">
                 <p className="text-[9px] uppercase tracking-[0.25em] font-sans font-bold text-[#9ca3af] mb-2">
-                  Step {stepInfo.number} of {STEPS.length}
+                  {adminT("admin_step_of", { current: stepInfo.number, total: STEPS.length })}
                 </p>
                 <h2 className="text-2xl md:text-3xl font-serif text-[#1a1a1a] tracking-tight mb-2">
                   {stepInfo.title}
@@ -487,18 +492,17 @@ export const AdminListings = () => {
                 </p>
                 <div className="mt-4 px-4 py-3 bg-[#163b0f]/5 border border-[#163b0f]/10 rounded-lg">
                   <p className="text-[11px] font-sans text-[#163b0f] leading-relaxed">
-                    <span className="font-bold uppercase tracking-wider">Tip: </span>
+                    <span className="font-bold uppercase tracking-wider">{adminT("admin_tip")}: </span>
                     {stepInfo.hint}
                   </p>
                 </div>
               </div>
 
-              {/* ── STEP 1: Hero Photo ─────────────────────────────────────────── */}
+              {/* STEP 1: Hero Photo */}
               {currentStep === 1 && (
                 <div className="space-y-6">
-                  {/* Hero drop zone */}
                   <div>
-                    <SectionLabel>Hero Image (required)</SectionLabel>
+                    <SectionLabel>{adminT("admin_hero_image")}</SectionLabel>
                     <div className="border-2 border-dashed border-[#e8e4df] rounded-xl overflow-hidden hover:border-[#163b0f]/40 transition-colors group cursor-pointer bg-white">
                       {formData.image ? (
                         <div className="relative">
@@ -510,7 +514,7 @@ export const AdminListings = () => {
                           <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                             <div className="flex items-center gap-2 text-white text-sm font-sans font-medium">
                               <Upload size={16} />
-                              Click to replace image
+                              {adminT("admin_click_replace")}
                             </div>
                           </div>
                         </div>
@@ -521,23 +525,20 @@ export const AdminListings = () => {
                           </div>
                           <div>
                             <p className="text-base font-sans font-semibold text-[#1a1a1a]">
-                              Click here to upload the hero image
+                              {adminT("admin_upload_hero")}
                             </p>
                             <p className="text-sm font-sans text-[#9ca3af] mt-1">
-                              JPG or PNG · Maximum 10 MB
+                              {adminT("admin_jpg_png")}
                             </p>
                           </div>
                         </div>
                       )}
                     </div>
-                    <FieldHint>
-                      This is the large image displayed at the top of the property page. Choose the most impressive photo available.
-                    </FieldHint>
+                    <FieldHint>{adminT("admin_hero_hint")}</FieldHint>
                   </div>
 
-                  {/* Gallery images */}
                   <div>
-                    <SectionLabel>Gallery Images (optional)</SectionLabel>
+                    <SectionLabel>{adminT("admin_gallery_images")}</SectionLabel>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                       {Array.from({ length: 4 }).map((_, i) => (
                         <div
@@ -549,27 +550,25 @@ export const AdminListings = () => {
                             className="text-[#c4c4c4] group-hover:text-[#163b0f]/40 transition-colors"
                           />
                           <span className="text-[9px] uppercase tracking-wider font-sans text-[#c4c4c4] group-hover:text-[#9ca3af]">
-                            Add photo
+                            {adminT("admin_add_photo")}
                           </span>
                         </div>
                       ))}
                     </div>
-                    <FieldHint>
-                      Add up to 4 additional photos that will appear in the gallery carousel on the property page.
-                    </FieldHint>
+                    <FieldHint>{adminT("admin_gallery_hint")}</FieldHint>
                   </div>
                 </div>
               )}
 
-              {/* ── STEP 2: Property Information ──────────────────────────────── */}
+              {/* STEP 2: Property Information */}
               {currentStep === 2 && (
                 <div className="space-y-7">
 
-                  {/* Property Name - multilingual */}
+                  {/* Property Name - multilingual. Label stays in English per requirement */}
                   <div>
                     <SectionLabel>Property Name — in all three languages (required)</SectionLabel>
                     <p className="text-xs font-sans text-[#6b7280] mb-3">
-                      Enter the name of the property in each language. All three are required so the listing displays correctly for every visitor.
+                      {adminT("admin_prop_name_hint")}
                     </p>
                     <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4">
                       <LangInput
@@ -601,7 +600,7 @@ export const AdminListings = () => {
                     </div>
                   </div>
 
-                  {/* Location */}
+                  {/* Location - label stays in English per requirement */}
                   <div>
                     <SectionLabel>Location (required)</SectionLabel>
                     <input
@@ -618,7 +617,7 @@ export const AdminListings = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {/* Price */}
                     <div>
-                      <SectionLabel>Asking Price (required)</SectionLabel>
+                      <SectionLabel>{adminT("admin_asking_price")}</SectionLabel>
                       <div className="relative">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#6b7280] font-sans">€</span>
                         <input
@@ -630,12 +629,12 @@ export const AdminListings = () => {
                           className="w-full pl-8 pr-4 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white rounded-lg"
                         />
                       </div>
-                      <FieldHint>Write the price as displayed, e.g. "1.2M" for sale or "4500/mo" for rent.</FieldHint>
+                      <FieldHint>{adminT("admin_price_hint")}</FieldHint>
                     </div>
 
                     {/* Status */}
                     <div>
-                      <SectionLabel>Availability Status</SectionLabel>
+                      <SectionLabel>{adminT("admin_availability")}</SectionLabel>
                       <button
                         type="button"
                         onClick={() =>
@@ -653,19 +652,21 @@ export const AdminListings = () => {
                               formData.status === "Available" ? "bg-emerald-500" : "bg-amber-500"
                             }`}
                           />
-                          {formData.status}
+                          {formData.status === "Available"
+                            ? adminT("admin_status_available")
+                            : adminT("admin_status_reserved")}
                         </span>
                         <span className="text-[9px] uppercase tracking-wider opacity-60">
-                          Click to toggle
+                          {adminT("admin_click_toggle")}
                         </span>
                       </button>
-                      <FieldHint>"Available" means the property can be visited. "Reserved" means it is under offer.</FieldHint>
+                      <FieldHint>{adminT("admin_available_reserved_hint")}</FieldHint>
                     </div>
                   </div>
 
                   {/* Transaction Type */}
                   <div>
-                    <SectionLabel>Transaction Type</SectionLabel>
+                    <SectionLabel>{adminT("admin_transaction_type")}</SectionLabel>
                     <div className="flex border border-[#e5e7eb] overflow-hidden rounded-lg">
                       {(["Sale", "Rent"] as const).map((t) => (
                         <button
@@ -678,47 +679,47 @@ export const AdminListings = () => {
                               : "bg-white text-[#6b7280] hover:bg-[#f9f8f6]"
                           }`}
                         >
-                          {t === "Sale" ? "For Sale" : "For Rent"}
+                          {t === "Sale" ? adminT("admin_for_sale") : adminT("admin_for_rent")}
                         </button>
                       ))}
                     </div>
-                    <FieldHint>Choose whether this property is being sold or rented.</FieldHint>
+                    <FieldHint>{adminT("admin_transaction_hint")}</FieldHint>
                   </div>
                 </div>
               )}
 
-              {/* ── STEP 3: Specifications ────────────────────────────────────── */}
+              {/* STEP 3: Specifications */}
               {currentStep === 3 && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {[
                       {
-                        label: "Number of Bedrooms",
+                        labelKey: "admin_bedrooms",
                         key: "bedrooms" as const,
-                        suffix: "rooms",
+                        suffixKey: "admin_rooms_suffix",
                         type: "number",
-                        hint: "Count only full bedrooms, not offices or dressing rooms.",
+                        hintKey: "admin_bedrooms_hint",
                         placeholder: "e.g. 3",
                       },
                       {
-                        label: "Number of Bathrooms",
+                        labelKey: "admin_bathrooms",
                         key: "bathrooms" as const,
-                        suffix: "baths",
+                        suffixKey: "admin_baths_suffix",
                         type: "number",
-                        hint: "Include en-suite bathrooms. Toilets without a shower do not count.",
+                        hintKey: "admin_bathrooms_hint",
                         placeholder: "e.g. 2",
                       },
                       {
-                        label: "Surface Area",
+                        labelKey: "admin_surface",
                         key: "sqm" as const,
-                        suffix: "m²",
+                        suffixKey: "admin_sqm_suffix",
                         type: "text",
-                        hint: "Total living area in square metres. Decimals are accepted.",
+                        hintKey: "admin_surface_hint",
                         placeholder: "e.g. 142.5",
                       },
-                    ].map(({ label, key, suffix, type, hint, placeholder }) => (
+                    ].map(({ labelKey, key, suffixKey, type, hintKey, placeholder }) => (
                       <div key={key}>
-                        <SectionLabel>{label}</SectionLabel>
+                        <SectionLabel>{adminT(labelKey)}</SectionLabel>
                         <div className="relative">
                           <input
                             type={type}
@@ -731,23 +732,23 @@ export const AdminListings = () => {
                             className="w-full px-4 pr-12 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white rounded-lg"
                           />
                           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-[#9ca3af] font-sans uppercase tracking-wider">
-                            {suffix}
+                            {adminT(suffixKey)}
                           </span>
                         </div>
-                        <FieldHint>{hint}</FieldHint>
+                        <FieldHint>{adminT(hintKey)}</FieldHint>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* ── STEP 4: Description ───────────────────────────────────────── */}
+              {/* STEP 4: Description */}
               {currentStep === 4 && (
                 <div className="space-y-5">
                   <div>
-                    <SectionLabel>Introduction Text — in all three languages (required)</SectionLabel>
+                    <SectionLabel>{adminT("admin_desc_section")}</SectionLabel>
                     <p className="text-xs font-sans text-[#6b7280] mb-3">
-                      Write 1 to 3 sentences that capture the essence of this property. This text appears directly below the title on the property page.
+                      {adminT("admin_desc_hint_text")}
                     </p>
                     <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4">
                       <LangInput
@@ -784,14 +785,13 @@ export const AdminListings = () => {
                 </div>
               )}
 
-              {/* ── STEP 5: Amenities ─────────────────────────────────────────── */}
+              {/* STEP 5: Amenities */}
               {currentStep === 5 && (
                 <div className="space-y-6">
 
-                  {/* Selection grid */}
                   <div>
                     <SectionLabel>
-                      Select amenities — {formData.amenities.length} selected
+                      {adminT("admin_amenities_selected", { count: formData.amenities.length })}
                     </SectionLabel>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
                       {knownAmenities.map((amenity) => {
@@ -843,10 +843,10 @@ export const AdminListings = () => {
                         </div>
                         <div>
                           <p className="text-sm font-sans font-semibold text-[#1a1a1a]">
-                            Add a new amenity
+                            {adminT("admin_add_amenity_heading")}
                           </p>
                           <p className="text-[11px] font-sans text-[#9ca3af]">
-                            Not in the list above? Create it here with all three language translations.
+                            {adminT("admin_add_amenity_subtitle")}
                           </p>
                         </div>
                       </div>
@@ -859,7 +859,7 @@ export const AdminListings = () => {
                     {showAddAmenity && (
                       <div className="border-t border-[#e8e4df] px-5 py-5 bg-[#fafaf8]">
                         <p className="text-xs font-sans text-[#6b7280] mb-4">
-                          Enter the name of the new amenity in all three languages. Once added, it will appear in the list above and will be automatically selected for this property.
+                          {adminT("admin_add_amenity_desc")}
                         </p>
                         <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4 mb-4">
                           {[
@@ -887,7 +887,7 @@ export const AdminListings = () => {
                             className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-5 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed rounded-sm"
                           >
                             <Plus size={11} />
-                            Add Amenity
+                            {adminT("admin_add_amenity_button")}
                           </button>
                           <button
                             type="button"
@@ -897,7 +897,7 @@ export const AdminListings = () => {
                             }}
                             className="px-5 py-2.5 border border-[#e5e7eb] text-[#6b7280] text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#f5f4f0] transition-colors rounded-sm"
                           >
-                            Cancel
+                            {adminT("admin_cancel")}
                           </button>
                         </div>
                       </div>
@@ -909,7 +909,7 @@ export const AdminListings = () => {
             </div>
           </form>
 
-          {/* ── Bottom Navigation Bar ─────────────────────────────────────────── */}
+          {/* Bottom Navigation Bar */}
           <div className="flex-shrink-0 bg-white border-t border-[#e8e4df] px-6 md:px-10 py-4 flex items-center justify-between">
             <button
               type="button"
@@ -918,11 +918,11 @@ export const AdminListings = () => {
               className="flex items-center gap-2 px-5 py-2.5 border border-[#e5e7eb] text-[#6b7280] text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#f5f4f0] transition-colors disabled:opacity-30 disabled:cursor-not-allowed rounded-sm"
             >
               <ChevronLeft size={13} />
-              Previous
+              {adminT("admin_previous")}
             </button>
 
             <p className="text-[10px] font-sans text-[#9ca3af] uppercase tracking-wider hidden md:block">
-              Step {currentStep} of {STEPS.length}
+              {adminT("admin_step_of", { current: currentStep, total: STEPS.length })}
             </p>
 
             {currentStep < STEPS.length ? (
@@ -931,7 +931,7 @@ export const AdminListings = () => {
                 onClick={goNext}
                 className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-6 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors rounded-sm"
               >
-                Next Step
+                {adminT("admin_next_step")}
                 <ChevronRight size={13} />
               </button>
             ) : (
@@ -941,7 +941,7 @@ export const AdminListings = () => {
                 className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-6 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors rounded-sm"
               >
                 <Check size={13} />
-                {editingId ? "Save Changes" : "Create Listing"}
+                {editingId ? adminT("admin_save_changes") : adminT("admin_create_listing")}
               </button>
             )}
           </div>
