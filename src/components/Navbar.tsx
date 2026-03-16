@@ -117,7 +117,7 @@ export const Navbar = () => {
               onClick={() => setIsOpen(false)}
             >
               <img
-                src="/logo.png"
+                src="/inverted.png"
                 alt="Hargarten Properties"
                 className="h-9 md:h-11 w-auto object-contain"
               />
