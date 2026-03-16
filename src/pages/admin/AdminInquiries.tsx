@@ -280,15 +280,14 @@ export const AdminInquiries = () => {
           <thead>
             <tr className="border-b border-[#e8e4df] bg-[#f9f8f6]">
               <th className="w-8 px-4 py-3.5" />
-              {/* Date Received is translatable; First Name / Last Name / Email stay in English */}
               <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
                 {adminT("admin_col_date")}
               </th>
               <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
-                First Name
+                {adminT("admin_col_first_name")}
               </th>
               <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
-                Last Name
+                {adminT("admin_col_last_name")}
               </th>
               <th className="text-left px-4 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold">
                 Email

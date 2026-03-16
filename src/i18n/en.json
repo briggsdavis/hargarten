@@ -192,6 +192,8 @@
   "admin_newest_first": "Newest First",
   "admin_oldest_first": "Oldest First",
   "admin_col_date": "Date Received",
+  "admin_col_first_name": "First Name",
+  "admin_col_last_name": "Last Name",
   "admin_col_subject": "Subject",
   "admin_message_label": "Message",
   "admin_mark_read": "Mark as Read",

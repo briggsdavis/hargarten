@@ -286,8 +286,7 @@ export const AdminListings = () => {
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#e8e4df] bg-[#f9f8f6]">
-              {/* "Property" and "Location" column headers stay in English per requirement */}
-              {["Property", "Location", adminT("admin_col_price"), adminT("admin_col_type"), adminT("admin_col_status"), ""].map((h, i) => (
+              {[adminT("admin_col_property"), "Location", adminT("admin_col_price"), adminT("admin_col_type"), adminT("admin_col_status"), ""].map((h, i) => (
                 <th
                   key={i}
                   className="text-left px-5 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold"

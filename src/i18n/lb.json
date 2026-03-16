@@ -192,6 +192,8 @@
   "admin_newest_first": "Neist zuéischt",
   "admin_oldest_first": "Ältst zuéischt",
   "admin_col_date": "Empfangsdatum",
+  "admin_col_first_name": "Virnumm",
+  "admin_col_last_name": "Familljennumm",
   "admin_col_subject": "Sujet",
   "admin_message_label": "Message",
   "admin_mark_read": "Als gelies markéieren",

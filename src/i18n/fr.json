@@ -192,6 +192,8 @@
   "admin_newest_first": "Plus r\u00e9cent d\u2019abord",
   "admin_oldest_first": "Plus ancien d\u2019abord",
   "admin_col_date": "Date de r\u00e9ception",
+  "admin_col_first_name": "Pr\u00e9nom",
+  "admin_col_last_name": "Nom de famille",
   "admin_col_subject": "Sujet",
   "admin_message_label": "Message",
   "admin_mark_read": "Marquer comme lu",
