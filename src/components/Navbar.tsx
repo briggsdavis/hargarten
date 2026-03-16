@@ -77,12 +77,16 @@ export const Navbar = () => {
           <span className="block w-4 h-[1.5px] bg-current" />
         </button>
 
-        {/* Center: Title - absolutely centered regardless of button widths */}
+        {/* Center: Logo - absolutely centered regardless of button widths */}
         <Link
           to={localePath("/")}
-          className="absolute left-1/2 -translate-x-1/2 text-2xl font-serif tracking-tighter cursor-pointer interactive whitespace-nowrap"
+          className="absolute left-1/2 -translate-x-1/2 cursor-pointer interactive"
         >
-          {t("nav_brand")}
+          <img
+            src="/logo.png"
+            alt="Hargarten Properties"
+            className={`h-9 md:h-11 w-auto object-contain transition-all duration-300 ${isOnHero ? "brightness-0 invert" : ""}`}
+          />
         </Link>
 
         {/* Right: Language Switcher + Contact Button */}
@@ -106,13 +110,17 @@ export const Navbar = () => {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[200] flex"
           >
-            {/* Title - centred at the top, mirrors its position on the navbar */}
+            {/* Logo - centred at the top, mirrors its position on the navbar */}
             <Link
               to={localePath("/")}
-              className="absolute top-8 left-1/2 -translate-x-1/2 z-10 text-2xl font-serif text-primary tracking-tighter cursor-pointer interactive whitespace-nowrap"
+              className="absolute top-8 left-1/2 -translate-x-1/2 z-10 cursor-pointer interactive"
               onClick={() => setIsOpen(false)}
             >
-              {t("nav_brand")}
+              <img
+                src="/logo.png"
+                alt="Hargarten Properties"
+                className="h-9 md:h-11 w-auto object-contain"
+              />
             </Link>
 
             {/* Contact button - top-right corner of the whole overlay (desktop only) */}
