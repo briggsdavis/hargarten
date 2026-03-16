@@ -83,7 +83,7 @@ export const Navbar = () => {
           className="absolute left-1/2 -translate-x-1/2 cursor-pointer interactive"
         >
           <img
-            src="/logo.png"
+            src={isOnHero ? "/logo.png" : "/inverted.png"}
             alt="Hargarten Properties"
             className={`h-9 md:h-11 w-auto object-contain transition-all duration-300 ${isOnHero ? "brightness-0 invert" : ""}`}
           />
