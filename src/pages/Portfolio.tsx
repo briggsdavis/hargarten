@@ -44,7 +44,8 @@ export const Portfolio = () => {
   const [statusFilter, setStatusFilter] = useState("All")
   const [typeFilter, setTypeFilter] = useState("All")
   const [minBedrooms, setMinBedrooms] = useState(0)
-  const [maxPrice, setMaxPrice] = useState(6)
+  const [maxSalePrice, setMaxSalePrice] = useState(6)
+  const [maxRentPrice, setMaxRentPrice] = useState(10000)
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([])
   const [amenityOpen, setAmenityOpen] = useState(false)
   const amenityRef = useRef<HTMLDivElement>(null)
@@ -63,11 +64,14 @@ export const Portfolio = () => {
     setSelectedAmenities((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]))
   }
 
+  const isRentMode = typeFilter === "Rent"
+
   const activeFilterCount = [
     statusFilter !== "All",
     typeFilter !== "All",
     minBedrooms > 0,
-    maxPrice < 6,
+    maxSalePrice < 6,
+    maxRentPrice < 10000,
     selectedAmenities.length > 0,
   ].filter(Boolean).length
 
@@ -75,7 +79,8 @@ export const Portfolio = () => {
     setStatusFilter("All")
     setTypeFilter("All")
     setMinBedrooms(0)
-    setMaxPrice(6)
+    setMaxSalePrice(6)
+    setMaxRentPrice(10000)
     setSelectedAmenities([])
   }
 
@@ -83,7 +88,11 @@ export const Portfolio = () => {
     if (statusFilter !== "All" && p.status !== statusFilter) return false
     if (typeFilter !== "All" && p.type !== typeFilter) return false
     if (p.bedrooms < minBedrooms) return false
-    if (parseFloat(p.price.replace("M", "")) > maxPrice) return false
+    if (p.type === "Rent" && "monthlyRent" in p) {
+      if ((p as typeof p & { monthlyRent: number }).monthlyRent > maxRentPrice) return false
+    } else if (p.type === "Sale") {
+      if (parseFloat(p.price.replace("M", "")) > maxSalePrice) return false
+    }
     if (selectedAmenities.length > 0 && !selectedAmenities.every((a) => p.amenities.includes(a)))
       return false
     return true
@@ -102,6 +111,7 @@ export const Portfolio = () => {
 
         {/* Filter Bar */}
         <div className="border-t border-b border-primary/10 py-6 mb-14">
+          {/* Row 1: Status, Transaction, Bedrooms, Amenities */}
           <div className="flex flex-wrap gap-x-12 gap-y-6 items-end">
             <PillGroup
               label={t("portfolio_status")}
@@ -155,29 +165,6 @@ export const Portfolio = () => {
                     {n === 0 ? t("portfolio_any") : `${n}+`}
                   </button>
                 ))}
-              </div>
-            </div>
-
-            {/* Price */}
-            <div className="flex flex-col gap-2 min-w-[160px]">
-              <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-primary/40">
-                <span>{t("portfolio_max_price")}</span>
-                <span className="text-primary font-bold">
-                  {maxPrice === 6 ? t("portfolio_any") : `\u20AC${maxPrice}M`}
-                </span>
-              </div>
-              <input
-                type="range"
-                min="1"
-                max="6"
-                step="0.1"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
-                className="w-full cursor-pointer"
-              />
-              <div className="flex justify-between text-[8px] text-primary/30">
-                <span>&euro;1M</span>
-                <span>&euro;6M+</span>
               </div>
             </div>
 
@@ -246,6 +233,55 @@ export const Portfolio = () => {
                 <X size={10} />
                 {t("portfolio_clear_filters")}
               </button>
+            )}
+          </div>
+
+          {/* Row 2: Price Slider */}
+          <div className="mt-6 pt-6 border-t border-primary/10">
+            {isRentMode ? (
+              <div className="flex flex-col gap-2 max-w-sm">
+                <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-primary/40">
+                  <span>{t("portfolio_max_price")} / mo</span>
+                  <span className="text-primary font-bold">
+                    {maxRentPrice === 10000 ? t("portfolio_any") : `\u20AC${maxRentPrice.toLocaleString()}/mo`}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="1000"
+                  max="10000"
+                  step="100"
+                  value={maxRentPrice}
+                  onChange={(e) => setMaxRentPrice(parseInt(e.target.value))}
+                  className="w-full cursor-pointer"
+                />
+                <div className="flex justify-between text-[8px] text-primary/30">
+                  <span>&euro;1,000/mo</span>
+                  <span>&euro;10,000+/mo</span>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2 max-w-sm">
+                <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-primary/40">
+                  <span>{t("portfolio_max_price")}</span>
+                  <span className="text-primary font-bold">
+                    {maxSalePrice === 6 ? t("portfolio_any") : maxSalePrice < 1 ? `\u20AC${Math.round(maxSalePrice * 1000)}K` : `\u20AC${maxSalePrice}M`}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="0.3"
+                  max="6"
+                  step="0.1"
+                  value={maxSalePrice}
+                  onChange={(e) => setMaxSalePrice(parseFloat(e.target.value))}
+                  className="w-full cursor-pointer"
+                />
+                <div className="flex justify-between text-[8px] text-primary/30">
+                  <span>&euro;300K</span>
+                  <span>&euro;6M+</span>
+                </div>
+              </div>
             )}
           </div>
 

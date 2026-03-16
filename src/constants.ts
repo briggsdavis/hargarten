@@ -50,6 +50,7 @@ export const PROPERTIES = [
       "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Private Garden", "Double Garage", "Fireplace"],
     description: "A serene oasis combining historical charm with modern luxury.",
+    monthlyRent: 6500,
   },
   {
     id: "4",
@@ -140,6 +141,7 @@ export const PROPERTIES = [
       "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Smart Home", "Concierge"],
     description: "A contemporary loft in the emerging Hollerich creative quarter with industrial-chic interiors.",
+    monthlyRent: 3200,
   },
   {
     id: "10",
@@ -155,6 +157,7 @@ export const PROPERTIES = [
       "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Private Garden", "Double Garage", "Fireplace"],
     description: "A refined townhouse offering generous proportions and a private garden in central Bonnevoie.",
+    monthlyRent: 5500,
   },
   {
     id: "11",
@@ -170,6 +173,7 @@ export const PROPERTIES = [
       "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Smart Home", "Concierge", "Floor-to-ceiling Windows"],
     description: "Elegant apartment in the verdant Limpertsberg neighbourhood, steps from top schools and parks.",
+    monthlyRent: 4000,
   },
   {
     id: "12",
@@ -185,6 +189,7 @@ export const PROPERTIES = [
       "https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Floor-to-ceiling Windows", "Smart Home", "Concierge", "Roof Terrace"],
     description: "A sleek executive suite at the heart of Luxembourg's financial district, ideal for senior professionals.",
+    monthlyRent: 7800,
   },
 ]
 
