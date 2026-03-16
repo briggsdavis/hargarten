@@ -419,39 +419,48 @@ export const AdminListings = () => {
           </div>
 
           {/* ── Step Progress Bar ─────────────────────────────────────────────── */}
-          <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-6 md:px-10 py-3">
-            <div className="flex items-center gap-0 max-w-3xl">
+          <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-6 md:px-10 py-4">
+            <div className="flex items-start max-w-3xl">
               {STEPS.map((step, idx) => (
-                <div key={step.number} className="flex items-center flex-1 min-w-0">
-                  {/* Step dot + label */}
+                <div key={step.number} className="flex-1 flex flex-col items-center relative">
+                  {/* Connector line — drawn from centre of previous dot to centre of this dot */}
+                  {idx > 0 && (
+                    <div
+                      className={`absolute top-3 right-1/2 w-full h-px transition-colors ${
+                        currentStep > idx ? "bg-[#163b0f]/30" : "bg-[#e8e4df]"
+                      }`}
+                    />
+                  )}
+                  {/* Dot button */}
                   <button
                     type="button"
                     onClick={() => setCurrentStep(step.number)}
-                    className="flex items-center gap-2 group shrink-0"
-                  >
-                    <span
-                      className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-sans font-bold transition-all ${
+                    className="relative z-10 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-sans font-bold transition-all flex-shrink-0"
+                    style={{
+                      background:
                         currentStep === step.number
-                          ? "bg-[#163b0f] text-white"
+                          ? "#163b0f"
                           : currentStep > step.number
-                          ? "bg-[#163b0f]/15 text-[#163b0f]"
-                          : "bg-[#e8e4df] text-[#9ca3af]"
-                      }`}
-                    >
-                      {currentStep > step.number ? <Check size={11} /> : step.number}
-                    </span>
-                    <span
-                      className={`text-[10px] uppercase tracking-wider font-sans font-bold hidden md:block whitespace-nowrap transition-colors ${
-                        currentStep === step.number ? "text-[#163b0f]" : "text-[#9ca3af]"
-                      }`}
-                    >
-                      {step.title}
-                    </span>
+                          ? "rgba(22,59,15,0.15)"
+                          : "#e8e4df",
+                      color:
+                        currentStep === step.number
+                          ? "#fff"
+                          : currentStep > step.number
+                          ? "#163b0f"
+                          : "#9ca3af",
+                    }}
+                  >
+                    {currentStep > step.number ? <Check size={11} /> : step.number}
                   </button>
-                  {/* Connector line */}
-                  {idx < STEPS.length - 1 && (
-                    <div className="flex-1 h-px mx-2 md:mx-3 bg-[#e8e4df]" />
-                  )}
+                  {/* Label below dot */}
+                  <span
+                    className={`mt-1.5 text-[9px] uppercase tracking-wider font-sans font-bold text-center hidden md:block transition-colors leading-tight ${
+                      currentStep === step.number ? "text-[#163b0f]" : "text-[#9ca3af]"
+                    }`}
+                  >
+                    {step.title}
+                  </span>
                 </div>
               ))}
             </div>
