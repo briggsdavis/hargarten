@@ -5,27 +5,27 @@ import { Building2, MessageSquare, Eye, EyeOff, CheckSquare } from "lucide-react
 const UNREAD_INQUIRIES_COUNT = 3
 
 export const AdminDashboardHome = () => {
-  const { portfolioLive, setPortfolioLive } = useAdmin()
+  const { portfolioLive, setPortfolioLive, adminT } = useAdmin()
 
   const availableCount = PROPERTIES.filter((p) => p.status === "Available").length
   const totalCount = PROPERTIES.length
 
   return (
     <div className="p-8 max-w-4xl">
-      {/* ─── Page Header ──────────────────────────────────────── */}
+      {/* Page Header */}
       <div className="mb-10">
         <p className="text-[10px] uppercase tracking-widest text-[#9ca3af] font-sans mb-1">
-          Overview
+          {adminT("admin_overview")}
         </p>
         <h2 className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">
-          Dashboard
+          {adminT("admin_dashboard_title")}
         </h2>
         <p className="text-sm font-sans text-[#6b7280] mt-1">
-          Manage your property portfolio and client inquiries.
+          {adminT("admin_dashboard_subtitle")}
         </p>
       </div>
 
-      {/* ─── Portfolio Visibility Toggle (prominent card) ─────── */}
+      {/* Portfolio Visibility Toggle */}
       <div
         className={`rounded-xl border-2 p-6 mb-8 transition-all duration-500 ${
           portfolioLive ? "bg-[#163b0f]/[0.04] border-[#163b0f]/20" : "bg-amber-50 border-amber-200"
@@ -40,20 +40,20 @@ export const AdminDashboardHome = () => {
                 <EyeOff size={15} className="text-amber-600" />
               )}
               <span className="text-[9px] uppercase tracking-[0.2em] font-sans font-bold text-[#6b7280]">
-                Portfolio Visibility
+                {adminT("admin_portfolio_visibility")}
               </span>
             </div>
 
             <h3 className="text-lg font-sans font-semibold text-[#1a1a1a] mb-1.5 tracking-tight">
               {portfolioLive
-                ? "Live Portfolio - Visible to Public"
-                : "Portfolio Hidden - Coming Soon Mode"}
+                ? adminT("admin_portfolio_live_title")
+                : adminT("admin_portfolio_hidden_title")}
             </h3>
 
             <p className="text-sm font-sans text-[#6b7280] leading-relaxed">
               {portfolioLive
-                ? "All active property listings are publicly visible. The Portfolio link appears in the main navigation menu."
-                : "The Portfolio section is offline. The navigation link is removed and visitors see a tasteful \u2018Property Listings are coming soon\u2019 message on the homepage."}
+                ? adminT("admin_portfolio_live_desc")
+                : adminT("admin_portfolio_hidden_desc")}
             </p>
           </div>
 
@@ -77,7 +77,7 @@ export const AdminDashboardHome = () => {
                 portfolioLive ? "text-[#163b0f]" : "text-[#9ca3af]"
               }`}
             >
-              {portfolioLive ? "ON" : "OFF"}
+              {portfolioLive ? adminT("admin_portfolio_on") : adminT("admin_portfolio_off")}
             </span>
           </div>
         </div>
@@ -94,38 +94,40 @@ export const AdminDashboardHome = () => {
                 portfolioLive ? "bg-[#163b0f]" : "bg-amber-500"
               }`}
             />
-            {portfolioLive ? "Portfolio is live" : "Portfolio is offline - coming soon page active"}
+            {portfolioLive
+              ? adminT("admin_portfolio_live_status")
+              : adminT("admin_portfolio_offline_status")}
           </span>
         </div>
       </div>
 
-      {/* ─── Quick Stats ──────────────────────────────────────── */}
+      {/* Quick Stats */}
       <div className="grid grid-cols-3 gap-4 mb-10">
         {[
           {
-            label: "Total Listings",
+            labelKey: "admin_stat_total",
             value: totalCount,
             icon: Building2,
             iconColor: "text-[#163b0f]",
             iconBg: "bg-[#163b0f]/8",
           },
           {
-            label: "Available Units",
+            labelKey: "admin_stat_available",
             value: availableCount,
             icon: CheckSquare,
             iconColor: "text-emerald-600",
             iconBg: "bg-emerald-50",
           },
           {
-            label: "Unread Inquiries",
+            labelKey: "admin_stat_unread",
             value: UNREAD_INQUIRIES_COUNT,
             icon: MessageSquare,
             iconColor: "text-blue-600",
             iconBg: "bg-blue-50",
           },
-        ].map(({ label, value, icon: Icon, iconColor, iconBg }) => (
+        ].map(({ labelKey, value, icon: Icon, iconColor, iconBg }) => (
           <div
-            key={label}
+            key={labelKey}
             className="bg-white border border-[#e8e4df] rounded-xl p-5 hover:shadow-sm transition-shadow"
           >
             <div className={`w-9 h-9 ${iconBg} rounded-lg flex items-center justify-center mb-4`}>
@@ -134,27 +136,29 @@ export const AdminDashboardHome = () => {
             <p className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">
               {value}
             </p>
-            <p className="text-[11px] font-sans text-[#6b7280] mt-0.5">{label}</p>
+            <p className="text-[11px] font-sans text-[#6b7280] mt-0.5">{adminT(labelKey)}</p>
           </div>
         ))}
       </div>
 
-      {/* ─── Quick Links ──────────────────────────────────────── */}
+      {/* Quick Links */}
       <div className="bg-white border border-[#e8e4df] rounded-xl overflow-hidden">
         <div className="px-6 py-4 border-b border-[#e8e4df]">
           <p className="text-[10px] uppercase tracking-widest font-sans font-bold text-[#9ca3af]">
-            Quick Actions
+            {adminT("admin_quick_actions")}
           </p>
         </div>
         {[
           {
-            title: "Manage Property Listings",
-            desc: "Add, edit, or remove properties from your public portfolio.",
+            titleKey: "admin_manage_listings",
+            descKey: "admin_manage_listings_desc",
+            descParams: undefined as Record<string, string | number> | undefined,
             href: "/admin/listings",
           },
           {
-            title: "Review Client Inquiries",
-            desc: `${UNREAD_INQUIRIES_COUNT} unread messages awaiting your attention.`,
+            titleKey: "admin_review_inquiries",
+            descKey: "admin_review_inquiries_desc",
+            descParams: { count: UNREAD_INQUIRIES_COUNT },
             href: "/admin/inquiries",
           },
         ].map((item, i) => (
@@ -165,9 +169,11 @@ export const AdminDashboardHome = () => {
           >
             <div>
               <p className="text-sm font-sans font-medium text-[#1a1a1a] group-hover:text-[#163b0f] transition-colors">
-                {item.title}
+                {adminT(item.titleKey)}
               </p>
-              <p className="text-xs font-sans text-[#6b7280] mt-0.5">{item.desc}</p>
+              <p className="text-xs font-sans text-[#6b7280] mt-0.5">
+                {adminT(item.descKey, item.descParams)}
+              </p>
             </div>
             <span className="text-[#9ca3af] group-hover:text-[#163b0f] transition-colors text-lg">
               →
