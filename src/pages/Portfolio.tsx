@@ -237,7 +237,7 @@ export const Portfolio = () => {
           </div>
 
           {/* Row 2: Price Slider */}
-          <div className="mt-6 pt-6 border-t border-primary/10">
+          <div className="mt-6 pt-6">
             {isRentMode ? (
               <div className="flex flex-col gap-2 max-w-sm">
                 <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-primary/40">
@@ -333,14 +333,14 @@ export const Portfolio = () => {
                 </div>
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-2xl font-serif">{prop.title}</h3>
-                    <p className="text-xs text-primary/50 uppercase tracking-widest mt-1">
+                    <h3 className="text-base font-serif tracking-tight">{prop.title}</h3>
+                    <p className="text-[9px] text-primary/40 uppercase tracking-widest mt-0.5">
                       {prop.location}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-medium">${prop.price}</p>
-                    <p className="text-[10px] uppercase tracking-widest text-primary/40 mt-1">
+                    <p className="text-sm font-medium text-primary/70">${prop.price}</p>
+                    <p className="text-[9px] uppercase tracking-widest text-primary/30 mt-0.5">
                       {prop.sqm} {t("portfolio_sqm")} / {prop.bedrooms} {t("portfolio_bed")}
                     </p>
                   </div>
