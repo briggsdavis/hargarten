@@ -1,6 +1,14 @@
 import { useState } from "react"
-import { Plus, Pencil, Trash2, X, Upload, ImagePlus } from "lucide-react"
+import { Plus, Pencil, Trash2, X, Upload, ImagePlus, Check, ChevronRight, ChevronLeft } from "lucide-react"
 import { PROPERTIES } from "../../constants"
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type AmenityOption = {
+  en: string
+  fr: string
+  lb: string
+}
 
 type Property = {
   id: string
@@ -17,10 +25,34 @@ type Property = {
   description: string
 }
 
-type FormData = Omit<Property, "id">
+type FormData = Omit<Property, "id"> & {
+  title_fr: string
+  title_lb: string
+  description_fr: string
+  description_lb: string
+}
+
+// ─── Known amenities (pre-seeded, with all three language translations) ───────
+
+const SEED_AMENITIES: AmenityOption[] = [
+  { en: "Concierge",               fr: "Conciergerie",              lb: "Conciergerie" },
+  { en: "Double Garage",           fr: "Double Garage",             lb: "Doppel Garag" },
+  { en: "Fireplace",               fr: "Cheminée",                  lb: "Kamin" },
+  { en: "Floor-to-ceiling Windows",fr: "Fenêtres sol-plafond",      lb: "Buedefen-Fënsteren" },
+  { en: "Guest House",             fr: "Maison d'hôtes",            lb: "Gasthaus" },
+  { en: "Home Cinema",             fr: "Cinéma privé",              lb: "Heemkino" },
+  { en: "Infinity Pool",           fr: "Piscine à débordement",     lb: "Infinity Pool" },
+  { en: "Private Elevator",        fr: "Ascenseur privé",           lb: "Privat Lift" },
+  { en: "Private Garden",          fr: "Jardin privé",              lb: "Privaten Gaart" },
+  { en: "Roof Terrace",            fr: "Terrasse sur le toit",      lb: "Daachterras" },
+  { en: "Smart Home",              fr: "Maison connectée",          lb: "Smart Home" },
+  { en: "Wine Cellar",             fr: "Cave à vin",                lb: "Wäikeller" },
+]
 
 const EMPTY_FORM: FormData = {
   title: "",
+  title_fr: "",
+  title_lb: "",
   price: "",
   sqm: "",
   type: "Sale",
@@ -31,35 +63,138 @@ const EMPTY_FORM: FormData = {
   image: "",
   amenities: [],
   description: "",
+  description_fr: "",
+  description_lb: "",
 }
 
-const SectionHeader = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex items-center gap-3 mb-5">
-    <h4 className="text-[9px] uppercase tracking-[0.2em] font-sans font-bold text-[#9ca3af] whitespace-nowrap">
-      {children}
-    </h4>
-    <div className="flex-1 h-px bg-[#e8e4df]" />
+// ─── Step definitions ─────────────────────────────────────────────────────────
+
+const STEPS = [
+  {
+    number: 1,
+    title: "Hero Photo",
+    subtitle: "Upload the main photo of the property. This is the first image visitors will see — make it count.",
+    hint: "Upload a high-quality photo of the exterior or the most impressive room. Supported formats: JPG, PNG. Maximum size: 10 MB.",
+  },
+  {
+    number: 2,
+    title: "Property Information",
+    subtitle: "Enter the core details about this property: its name in all three languages, location, asking price, availability, and transaction type.",
+    hint: "The property name must be provided in English, Luxembourgish, and French so that the listing displays correctly for all visitors.",
+  },
+  {
+    number: 3,
+    title: "Specifications",
+    subtitle: "Enter the technical specifications: number of bedrooms, bathrooms, and total surface area in square metres.",
+    hint: "Use whole numbers for bedrooms and bathrooms. For surface area you can write decimals, e.g. 142.5.",
+  },
+  {
+    number: 4,
+    title: "Description",
+    subtitle: "Write a short, compelling introduction for this property in all three languages. This text appears on the property detail page.",
+    hint: "Keep it concise — 1 to 3 sentences. Focus on what makes this property special. You must provide all three language versions.",
+  },
+  {
+    number: 5,
+    title: "Amenities",
+    subtitle: "Select all the amenities this property offers by clicking on them. If an amenity is not in the list, use the form at the bottom to add it with its translation in all three languages.",
+    hint: "Amenities that are already used on other listings appear below. Tick all that apply. To add a brand-new amenity, fill in the three fields at the bottom and click \"Add Amenity\".",
+  },
+]
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[9px] uppercase tracking-[0.22em] font-sans font-bold text-[#9ca3af] mb-1.5">
+    {children}
+  </p>
+)
+
+const FieldHint = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[11px] font-sans text-[#9ca3af] mt-1">{children}</p>
+)
+
+const LangInput = ({
+  lang,
+  flag,
+  value,
+  onChange,
+  placeholder,
+  multiline = false,
+  required = false,
+}: {
+  lang: string
+  flag: string
+  value: string
+  onChange: (v: string) => void
+  placeholder: string
+  multiline?: boolean
+  required?: boolean
+}) => (
+  <div className="flex gap-3 items-start">
+    <div className="flex-shrink-0 mt-2.5 flex items-center gap-1.5">
+      <span className="text-base leading-none">{flag}</span>
+      <span className="text-[9px] uppercase tracking-widest font-sans font-bold text-[#9ca3af] w-5">
+        {lang}
+      </span>
+    </div>
+    {multiline ? (
+      <textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        rows={3}
+        required={required}
+        className="flex-1 px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors resize-none placeholder:text-[#c4c4c4] bg-white"
+      />
+    ) : (
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        required={required}
+        className="flex-1 px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white"
+      />
+    )}
   </div>
 )
+
+// ─── Main component ───────────────────────────────────────────────────────────
 
 export const AdminListings = () => {
   const [properties, setProperties] = useState<Property[]>(PROPERTIES as Property[])
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM)
-  const [amenityInput, setAmenityInput] = useState("")
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
+  const [currentStep, setCurrentStep] = useState(1)
+  const [knownAmenities, setKnownAmenities] = useState<AmenityOption[]>(SEED_AMENITIES)
+  const [newAmenity, setNewAmenity] = useState({ en: "", fr: "", lb: "" })
+  const [showAddAmenity, setShowAddAmenity] = useState(false)
 
   const openAdd = () => {
     setFormData(EMPTY_FORM)
     setEditingId(null)
+    setCurrentStep(1)
+    setShowAddAmenity(false)
+    setNewAmenity({ en: "", fr: "", lb: "" })
     setIsFormOpen(true)
   }
 
   const openEdit = (property: Property) => {
     const { id, ...rest } = property
-    setFormData(rest as FormData)
+    setFormData({
+      ...rest,
+      title_fr: "",
+      title_lb: "",
+      description_fr: "",
+      description_lb: "",
+    } as FormData)
     setEditingId(id)
+    setCurrentStep(1)
+    setShowAddAmenity(false)
+    setNewAmenity({ en: "", fr: "", lb: "" })
     setIsFormOpen(true)
   }
 
@@ -67,17 +202,20 @@ export const AdminListings = () => {
     setIsFormOpen(false)
     setEditingId(null)
     setFormData(EMPTY_FORM)
-    setAmenityInput("")
+    setCurrentStep(1)
+    setShowAddAmenity(false)
+    setNewAmenity({ en: "", fr: "", lb: "" })
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const { title_fr: _tf, title_lb: _tl, description_fr: _df, description_lb: _dl, ...base } = formData
     if (editingId) {
       setProperties((prev) =>
-        prev.map((p) => (p.id === editingId ? { ...formData, id: editingId } : p)),
+        prev.map((p) => (p.id === editingId ? { ...base, id: editingId } : p)),
       )
     } else {
-      setProperties((prev) => [...prev, { ...formData, id: String(Date.now()) }])
+      setProperties((prev) => [...prev, { ...base, id: String(Date.now()) }])
     }
     closeForm()
   }
@@ -87,20 +225,32 @@ export const AdminListings = () => {
     setDeleteConfirmId(null)
   }
 
-  const addAmenity = () => {
-    const val = amenityInput.trim()
-    if (val && !formData.amenities.includes(val)) {
-      setFormData((prev) => ({ ...prev, amenities: [...prev.amenities, val] }))
-      setAmenityInput("")
-    }
-  }
-
-  const removeAmenity = (tag: string) => {
-    setFormData((prev) => ({ ...prev, amenities: prev.amenities.filter((a) => a !== tag) }))
-  }
-
-  const field = (key: keyof FormData, value: string | number) =>
+  const field = <K extends keyof FormData>(key: K, value: FormData[K]) =>
     setFormData((prev) => ({ ...prev, [key]: value }))
+
+  const toggleAmenity = (en: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      amenities: prev.amenities.includes(en)
+        ? prev.amenities.filter((a) => a !== en)
+        : [...prev.amenities, en],
+    }))
+  }
+
+  const addNewAmenity = () => {
+    const { en, fr, lb } = newAmenity
+    if (!en.trim() || !fr.trim() || !lb.trim()) return
+    const newOpt = { en: en.trim(), fr: fr.trim(), lb: lb.trim() }
+    setKnownAmenities((prev) => [...prev, newOpt])
+    setFormData((prev) => ({ ...prev, amenities: [...prev.amenities, newOpt.en] }))
+    setNewAmenity({ en: "", fr: "", lb: "" })
+    setShowAddAmenity(false)
+  }
+
+  const goNext = () => setCurrentStep((s) => Math.min(s + 1, STEPS.length))
+  const goPrev = () => setCurrentStep((s) => Math.max(s - 1, 1))
+
+  const stepInfo = STEPS[currentStep - 1]
 
   return (
     <div className="p-8">
@@ -147,7 +297,6 @@ export const AdminListings = () => {
                 key={property.id}
                 className="border-b border-[#e8e4df] last:border-none hover:bg-[#fafaf8] transition-colors"
               >
-                {/* Thumbnail + Name */}
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-3.5">
                     <img
@@ -160,23 +309,19 @@ export const AdminListings = () => {
                     </span>
                   </div>
                 </td>
-
                 <td className="px-5 py-4">
                   <span className="text-sm font-sans text-[#6b7280]">{property.location}</span>
                 </td>
-
                 <td className="px-5 py-4">
                   <span className="text-sm font-sans font-medium text-[#1a1a1a]">
                     €{property.price}
                   </span>
                 </td>
-
                 <td className="px-5 py-4">
                   <span className="text-[10px] uppercase tracking-wider font-sans text-[#6b7280]">
                     {property.type}
                   </span>
                 </td>
-
                 <td className="px-5 py-4">
                   <span
                     className={`inline-flex items-center gap-1.5 text-[10px] font-sans font-semibold px-2.5 py-1 rounded-full ${
@@ -193,8 +338,6 @@ export const AdminListings = () => {
                     {property.status}
                   </span>
                 </td>
-
-                {/* Actions */}
                 <td className="px-5 py-4">
                   <div className="flex items-center justify-end gap-1">
                     <button
@@ -204,7 +347,6 @@ export const AdminListings = () => {
                     >
                       <Pencil size={13} />
                     </button>
-
                     {deleteConfirmId === property.id ? (
                       <div className="flex items-center gap-2 ml-1">
                         <button
@@ -249,361 +391,552 @@ export const AdminListings = () => {
         )}
       </div>
 
-      {/* ─── Slide-in Form Panel ──────────────────────────────── */}
+      {/* ─── Full-screen Property Form ─────────────────────────────────────── */}
       {isFormOpen && (
-        <>
-          {/* Backdrop */}
-          <div className="fixed inset-0 bg-black/25 z-20 backdrop-blur-[1px]" onClick={closeForm} />
+        <div className="fixed inset-0 z-50 bg-[#fbf6f1] flex flex-col overflow-hidden">
 
-          {/* Panel */}
-          <div className="fixed right-0 top-0 h-full w-full max-w-[680px] bg-white shadow-2xl z-30 flex flex-col">
-            {/* Sticky Panel Header */}
-            <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-8 py-5 flex items-center justify-between">
+          {/* ── Top Bar ──────────────────────────────────────────────────────── */}
+          <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-6 md:px-10 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <img src="/logo.png" alt="Hargarten Properties" className="h-8 w-auto object-contain" />
+              <div className="w-px h-6 bg-[#e8e4df]" />
               <div>
-                <h3 className="text-base font-sans font-semibold text-[#1a1a1a]">
-                  {editingId ? "Edit Property" : "Add New Property"}
-                </h3>
-                <p className="text-xs font-sans text-[#6b7280] mt-0.5">
-                  {editingId
-                    ? "Update the listing details below."
-                    : "Fill in the details to create a new listing."}
+                <p className="text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans">
+                  {editingId ? "Editing Existing Listing" : "Creating New Listing"}
+                </p>
+                <p className="text-sm font-sans font-semibold text-[#1a1a1a] leading-tight">
+                  {editingId ? (formData.title || "Property") : "New Property"}
                 </p>
               </div>
-              <button
-                onClick={closeForm}
-                className="p-2 hover:bg-[#f5f4f0] rounded-md transition-colors text-[#6b7280] hover:text-[#1a1a1a]"
-              >
-                <X size={17} />
-              </button>
             </div>
-
-            {/* Scrollable Form */}
-            <form
-              onSubmit={handleSubmit}
-              className="flex-1 overflow-y-auto px-8 py-7 flex flex-col gap-9"
+            <button
+              onClick={closeForm}
+              className="flex items-center gap-2 text-[11px] uppercase tracking-widest font-sans font-bold text-[#6b7280] hover:text-[#1a1a1a] transition-colors px-4 py-2 border border-[#e8e4df] hover:border-[#1a1a1a] bg-white"
             >
-              {/* ── Media ──────────────────────────────────────── */}
-              <section>
-                <SectionHeader>Media</SectionHeader>
+              <X size={13} />
+              Cancel
+            </button>
+          </div>
 
-                {/* Hero image URL input */}
-                <div className="mb-4">
-                  <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-1.5">
-                    Hero Image URL
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.image}
-                    onChange={(e) => field("image", e.target.value)}
-                    placeholder="https://images.pexels.com/..."
-                    className="w-full px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors text-[#1a1a1a] placeholder:text-[#c4c4c4]"
-                  />
-                </div>
-
-                {/* Hero Drop Zone */}
-                <div className="border-2 border-dashed border-[#e8e4df] rounded-lg mb-5 overflow-hidden hover:border-[#163b0f]/40 transition-colors group">
-                  {formData.image ? (
-                    <div className="relative">
-                      <img
-                        src={formData.image}
-                        alt="Hero preview"
-                        className="w-full h-44 object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="flex items-center gap-2 text-white text-xs font-sans font-medium">
-                          <Upload size={14} />
-                          Replace Image
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="p-8 flex flex-col items-center gap-3 text-center">
-                      <div className="w-12 h-12 rounded-full bg-[#f5f4f0] flex items-center justify-center">
-                        <Upload size={18} className="text-[#9ca3af]" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-sans font-medium text-[#1a1a1a]">
-                          Upload Hero Image
-                        </p>
-                        <p className="text-xs font-sans text-[#9ca3af] mt-0.5">
-                          Drag & drop or click to browse · PNG, JPG up to 10 MB
-                        </p>
-                      </div>
-                    </div>
+          {/* ── Step Progress Bar ─────────────────────────────────────────────── */}
+          <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-6 md:px-10 py-3">
+            <div className="flex items-center gap-0 max-w-3xl">
+              {STEPS.map((step, idx) => (
+                <div key={step.number} className="flex items-center flex-1 min-w-0">
+                  {/* Step dot + label */}
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(step.number)}
+                    className="flex items-center gap-2 group shrink-0"
+                  >
+                    <span
+                      className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-sans font-bold transition-all ${
+                        currentStep === step.number
+                          ? "bg-[#163b0f] text-white"
+                          : currentStep > step.number
+                          ? "bg-[#163b0f]/15 text-[#163b0f]"
+                          : "bg-[#e8e4df] text-[#9ca3af]"
+                      }`}
+                    >
+                      {currentStep > step.number ? <Check size={11} /> : step.number}
+                    </span>
+                    <span
+                      className={`text-[10px] uppercase tracking-wider font-sans font-bold hidden md:block whitespace-nowrap transition-colors ${
+                        currentStep === step.number ? "text-[#163b0f]" : "text-[#9ca3af]"
+                      }`}
+                    >
+                      {step.title}
+                    </span>
+                  </button>
+                  {/* Connector line */}
+                  {idx < STEPS.length - 1 && (
+                    <div className="flex-1 h-px mx-2 md:mx-3 bg-[#e8e4df]" />
                   )}
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Gallery Grid */}
-                <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-2">
-                    Gallery Images
-                  </label>
-                  <div className="grid grid-cols-4 gap-2">
-                    {Array.from({ length: 4 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="aspect-square border-2 border-dashed border-[#e8e4df] rounded-lg flex flex-col items-center justify-center gap-1 hover:border-[#163b0f]/30 hover:bg-[#f9f8f6] transition-all group"
-                      >
-                        <ImagePlus
-                          size={16}
-                          className="text-[#c4c4c4] group-hover:text-[#163b0f]/40 transition-colors"
-                        />
-                        <span className="text-[8px] uppercase tracking-wider font-sans text-[#c4c4c4] group-hover:text-[#9ca3af]">
-                          Add
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-[9px] font-sans text-[#9ca3af] mt-1.5">
-                    Drag to reorder · Multiple images supported
+          {/* ── Scrollable Content ────────────────────────────────────────────── */}
+          <form
+            id="property-form"
+            onSubmit={handleSubmit}
+            className="flex-1 overflow-y-auto"
+          >
+            <div className="max-w-3xl mx-auto px-6 md:px-0 py-10">
+
+              {/* Step header */}
+              <div className="mb-8">
+                <p className="text-[9px] uppercase tracking-[0.25em] font-sans font-bold text-[#9ca3af] mb-2">
+                  Step {stepInfo.number} of {STEPS.length}
+                </p>
+                <h2 className="text-2xl md:text-3xl font-serif text-[#1a1a1a] tracking-tight mb-2">
+                  {stepInfo.title}
+                </h2>
+                <p className="text-sm font-sans text-[#6b7280] leading-relaxed max-w-xl">
+                  {stepInfo.subtitle}
+                </p>
+                <div className="mt-4 px-4 py-3 bg-[#163b0f]/5 border border-[#163b0f]/10 rounded-lg">
+                  <p className="text-[11px] font-sans text-[#163b0f] leading-relaxed">
+                    <span className="font-bold uppercase tracking-wider">Tip: </span>
+                    {stepInfo.hint}
                   </p>
                 </div>
-              </section>
+              </div>
 
-              {/* ── Core Details ───────────────────────────────── */}
-              <section>
-                <SectionHeader>Core Details</SectionHeader>
-
-                <div className="grid grid-cols-2 gap-4 mb-4">
+              {/* ── STEP 1: Hero Photo ─────────────────────────────────────────── */}
+              {currentStep === 1 && (
+                <div className="space-y-6">
+                  {/* Hero drop zone */}
                   <div>
-                    <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-1.5">
-                      Property Name
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.title}
-                      onChange={(e) => field("title", e.target.value)}
-                      placeholder="e.g. The Penthouse Suite"
-                      required
-                      className="w-full px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4]"
-                    />
+                    <SectionLabel>Hero Image (required)</SectionLabel>
+                    <div className="border-2 border-dashed border-[#e8e4df] rounded-xl overflow-hidden hover:border-[#163b0f]/40 transition-colors group cursor-pointer bg-white">
+                      {formData.image ? (
+                        <div className="relative">
+                          <img
+                            src={formData.image}
+                            alt="Hero preview"
+                            className="w-full h-64 object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="flex items-center gap-2 text-white text-sm font-sans font-medium">
+                              <Upload size={16} />
+                              Click to replace image
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="py-16 flex flex-col items-center gap-4 text-center px-8">
+                          <div className="w-16 h-16 rounded-full bg-[#f5f4f0] flex items-center justify-center">
+                            <Upload size={22} className="text-[#9ca3af]" />
+                          </div>
+                          <div>
+                            <p className="text-base font-sans font-semibold text-[#1a1a1a]">
+                              Click here to upload the hero image
+                            </p>
+                            <p className="text-sm font-sans text-[#9ca3af] mt-1">
+                              JPG or PNG · Maximum 10 MB
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <FieldHint>
+                      This is the large image displayed at the top of the property page. Choose the most impressive photo available.
+                    </FieldHint>
                   </div>
+
+                  {/* Gallery images */}
                   <div>
-                    <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-1.5">
-                      Location
-                    </label>
+                    <SectionLabel>Gallery Images (optional)</SectionLabel>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="aspect-square border-2 border-dashed border-[#e8e4df] rounded-xl flex flex-col items-center justify-center gap-2 hover:border-[#163b0f]/30 hover:bg-[#f9f8f6] transition-all group cursor-pointer bg-white"
+                        >
+                          <ImagePlus
+                            size={20}
+                            className="text-[#c4c4c4] group-hover:text-[#163b0f]/40 transition-colors"
+                          />
+                          <span className="text-[9px] uppercase tracking-wider font-sans text-[#c4c4c4] group-hover:text-[#9ca3af]">
+                            Add photo
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <FieldHint>
+                      Add up to 4 additional photos that will appear in the gallery carousel on the property page.
+                    </FieldHint>
+                  </div>
+                </div>
+              )}
+
+              {/* ── STEP 2: Property Information ──────────────────────────────── */}
+              {currentStep === 2 && (
+                <div className="space-y-7">
+
+                  {/* Property Name - multilingual */}
+                  <div>
+                    <SectionLabel>Property Name — in all three languages (required)</SectionLabel>
+                    <p className="text-xs font-sans text-[#6b7280] mb-3">
+                      Enter the name of the property in each language. All three are required so the listing displays correctly for every visitor.
+                    </p>
+                    <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4">
+                      <LangInput
+                        lang="EN"
+                        flag="🇬🇧"
+                        value={formData.title}
+                        onChange={(v) => field("title", v)}
+                        placeholder="e.g. The Penthouse Suite"
+                        required
+                      />
+                      <div className="h-px bg-[#f0ede9]" />
+                      <LangInput
+                        lang="LB"
+                        flag="🇱🇺"
+                        value={formData.title_lb}
+                        onChange={(v) => field("title_lb", v)}
+                        placeholder="e.g. D'Penthouse Suite"
+                        required
+                      />
+                      <div className="h-px bg-[#f0ede9]" />
+                      <LangInput
+                        lang="FR"
+                        flag="🇫🇷"
+                        value={formData.title_fr}
+                        onChange={(v) => field("title_fr", v)}
+                        placeholder="e.g. La Suite Penthouse"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Location */}
+                  <div>
+                    <SectionLabel>Location (required)</SectionLabel>
                     <input
                       type="text"
                       value={formData.location}
                       onChange={(e) => field("location", e.target.value)}
                       placeholder="e.g. Kirchberg, Luxembourg"
                       required
-                      className="w-full px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4]"
+                      className="w-full px-4 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white rounded-lg"
                     />
+                    <FieldHint>Enter the neighbourhood and city, e.g. "Limpertsberg, Luxembourg City".</FieldHint>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* Price */}
+                    <div>
+                      <SectionLabel>Asking Price (required)</SectionLabel>
+                      <div className="relative">
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#6b7280] font-sans">€</span>
+                        <input
+                          type="text"
+                          value={formData.price}
+                          onChange={(e) => field("price", e.target.value)}
+                          placeholder="e.g. 2.5M or 3500/mo"
+                          required
+                          className="w-full pl-8 pr-4 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white rounded-lg"
+                        />
+                      </div>
+                      <FieldHint>Write the price as displayed, e.g. "1.2M" for sale or "4500/mo" for rent.</FieldHint>
+                    </div>
+
+                    {/* Status */}
+                    <div>
+                      <SectionLabel>Availability Status</SectionLabel>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          field("status", formData.status === "Available" ? "Reserved" : "Available")
+                        }
+                        className={`w-full flex items-center justify-between px-4 py-3 border text-sm font-sans font-medium transition-all rounded-lg ${
+                          formData.status === "Available"
+                            ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                            : "border-amber-200 bg-amber-50 text-amber-700"
+                        }`}
+                      >
+                        <span className="flex items-center gap-2">
+                          <span
+                            className={`w-2 h-2 rounded-full ${
+                              formData.status === "Available" ? "bg-emerald-500" : "bg-amber-500"
+                            }`}
+                          />
+                          {formData.status}
+                        </span>
+                        <span className="text-[9px] uppercase tracking-wider opacity-60">
+                          Click to toggle
+                        </span>
+                      </button>
+                      <FieldHint>"Available" means the property can be visited. "Reserved" means it is under offer.</FieldHint>
+                    </div>
+                  </div>
+
+                  {/* Transaction Type */}
+                  <div>
+                    <SectionLabel>Transaction Type</SectionLabel>
+                    <div className="flex border border-[#e5e7eb] overflow-hidden rounded-lg">
+                      {(["Sale", "Rent"] as const).map((t) => (
+                        <button
+                          key={t}
+                          type="button"
+                          onClick={() => field("type", t)}
+                          className={`flex-1 py-3 text-[10px] uppercase tracking-widest font-sans font-bold transition-all ${
+                            formData.type === t
+                              ? "bg-[#163b0f] text-[#fbf6f1]"
+                              : "bg-white text-[#6b7280] hover:bg-[#f9f8f6]"
+                          }`}
+                        >
+                          {t === "Sale" ? "For Sale" : "For Rent"}
+                        </button>
+                      ))}
+                    </div>
+                    <FieldHint>Choose whether this property is being sold or rented.</FieldHint>
                   </div>
                 </div>
+              )}
 
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  {/* Price */}
+              {/* ── STEP 3: Specifications ────────────────────────────────────── */}
+              {currentStep === 3 && (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {[
+                      {
+                        label: "Number of Bedrooms",
+                        key: "bedrooms" as const,
+                        suffix: "rooms",
+                        type: "number",
+                        hint: "Count only full bedrooms, not offices or dressing rooms.",
+                        placeholder: "e.g. 3",
+                      },
+                      {
+                        label: "Number of Bathrooms",
+                        key: "bathrooms" as const,
+                        suffix: "baths",
+                        type: "number",
+                        hint: "Include en-suite bathrooms. Toilets without a shower do not count.",
+                        placeholder: "e.g. 2",
+                      },
+                      {
+                        label: "Surface Area",
+                        key: "sqm" as const,
+                        suffix: "m²",
+                        type: "text",
+                        hint: "Total living area in square metres. Decimals are accepted.",
+                        placeholder: "e.g. 142.5",
+                      },
+                    ].map(({ label, key, suffix, type, hint, placeholder }) => (
+                      <div key={key}>
+                        <SectionLabel>{label}</SectionLabel>
+                        <div className="relative">
+                          <input
+                            type={type}
+                            value={formData[key]}
+                            onChange={(e) =>
+                              field(key, type === "number" ? Number(e.target.value) : e.target.value)
+                            }
+                            min={type === "number" ? 0 : undefined}
+                            placeholder={placeholder}
+                            className="w-full px-4 pr-12 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white rounded-lg"
+                          />
+                          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-[#9ca3af] font-sans uppercase tracking-wider">
+                            {suffix}
+                          </span>
+                        </div>
+                        <FieldHint>{hint}</FieldHint>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ── STEP 4: Description ───────────────────────────────────────── */}
+              {currentStep === 4 && (
+                <div className="space-y-5">
                   <div>
-                    <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-1.5">
-                      Price
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#6b7280] font-sans">
-                        €
-                      </span>
-                      <input
-                        type="text"
-                        value={formData.price}
-                        onChange={(e) => field("price", e.target.value)}
-                        placeholder="e.g. 2.5M"
+                    <SectionLabel>Introduction Text — in all three languages (required)</SectionLabel>
+                    <p className="text-xs font-sans text-[#6b7280] mb-3">
+                      Write 1 to 3 sentences that capture the essence of this property. This text appears directly below the title on the property page.
+                    </p>
+                    <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4">
+                      <LangInput
+                        lang="EN"
+                        flag="🇬🇧"
+                        value={formData.description}
+                        onChange={(v) => field("description", v)}
+                        placeholder="e.g. A masterpiece of modern architecture offering horizon-deep views and expansive ceilings."
+                        multiline
                         required
-                        className="w-full pl-8 pr-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4]"
+                      />
+                      <div className="h-px bg-[#f0ede9]" />
+                      <LangInput
+                        lang="LB"
+                        flag="🇱🇺"
+                        value={formData.description_lb}
+                        onChange={(v) => field("description_lb", v)}
+                        placeholder="e.g. E Meeschterwierk vun der moderner Architektur mat wäitem Horizont an héije Plaffong."
+                        multiline
+                        required
+                      />
+                      <div className="h-px bg-[#f0ede9]" />
+                      <LangInput
+                        lang="FR"
+                        flag="🇫🇷"
+                        value={formData.description_fr}
+                        onChange={(v) => field("description_fr", v)}
+                        placeholder="e.g. Un chef-d'oeuvre d'architecture moderne offrant des vues infinies et des plafonds généreux."
+                        multiline
+                        required
                       />
                     </div>
                   </div>
+                </div>
+              )}
 
-                  {/* Status toggle button */}
+              {/* ── STEP 5: Amenities ─────────────────────────────────────────── */}
+              {currentStep === 5 && (
+                <div className="space-y-6">
+
+                  {/* Selection grid */}
                   <div>
-                    <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-1.5">
-                      Status
-                    </label>
+                    <SectionLabel>
+                      Select amenities — {formData.amenities.length} selected
+                    </SectionLabel>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
+                      {knownAmenities.map((amenity) => {
+                        const selected = formData.amenities.includes(amenity.en)
+                        return (
+                          <button
+                            key={amenity.en}
+                            type="button"
+                            onClick={() => toggleAmenity(amenity.en)}
+                            className={`flex items-center justify-between gap-2 px-4 py-3 border rounded-lg text-left transition-all ${
+                              selected
+                                ? "border-[#163b0f] bg-[#163b0f]/5 text-[#163b0f]"
+                                : "border-[#e5e7eb] bg-white text-[#6b7280] hover:border-[#163b0f]/30 hover:bg-[#f9f8f6]"
+                            }`}
+                          >
+                            <div className="min-w-0">
+                              <p className="text-[11px] font-sans font-semibold leading-tight truncate">
+                                {amenity.en}
+                              </p>
+                              <p className="text-[9px] font-sans text-current opacity-60 mt-0.5 truncate">
+                                {amenity.fr} · {amenity.lb}
+                              </p>
+                            </div>
+                            <span
+                              className={`flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-all ${
+                                selected
+                                  ? "bg-[#163b0f] border-[#163b0f]"
+                                  : "border-[#d1d5db] bg-white"
+                              }`}
+                            >
+                              {selected && <Check size={9} className="text-white" />}
+                            </span>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Add new amenity */}
+                  <div className="border border-[#e8e4df] rounded-xl bg-white overflow-hidden">
                     <button
                       type="button"
-                      onClick={() =>
-                        field("status", formData.status === "Available" ? "Reserved" : "Available")
-                      }
-                      className={`w-full flex items-center justify-between px-4 py-2.5 border text-sm font-sans font-medium transition-all ${
-                        formData.status === "Available"
-                          ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                          : "border-amber-200 bg-amber-50 text-amber-700"
-                      }`}
+                      onClick={() => setShowAddAmenity((v) => !v)}
+                      className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#f9f8f6] transition-colors"
                     >
-                      <span className="flex items-center gap-2">
-                        <span
-                          className={`w-2 h-2 rounded-full ${
-                            formData.status === "Available" ? "bg-emerald-500" : "bg-amber-500"
-                          }`}
-                        />
-                        {formData.status}
-                      </span>
-                      <span className="text-[9px] uppercase tracking-wider opacity-60">
-                        Click to toggle
-                      </span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Transaction Type */}
-                <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-1.5">
-                    Transaction Type
-                  </label>
-                  <div className="flex border border-[#e5e7eb] overflow-hidden">
-                    {(["Sale", "Rent"] as const).map((t) => (
-                      <button
-                        key={t}
-                        type="button"
-                        onClick={() => field("type", t)}
-                        className={`flex-1 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold transition-all ${
-                          formData.type === t
-                            ? "bg-[#163b0f] text-[#fbf6f1]"
-                            : "bg-white text-[#6b7280] hover:bg-[#f9f8f6]"
-                        }`}
-                      >
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </section>
-
-              {/* ── Specifications ─────────────────────────────── */}
-              <section>
-                <SectionHeader>Specifications</SectionHeader>
-
-                <div className="grid grid-cols-3 gap-4">
-                  {[
-                    {
-                      label: "Bedrooms",
-                      key: "bedrooms" as const,
-                      suffix: "rooms",
-                      type: "number",
-                    },
-                    {
-                      label: "Bathrooms",
-                      key: "bathrooms" as const,
-                      suffix: "baths",
-                      type: "number",
-                    },
-                    { label: "Square Metres", key: "sqm" as const, suffix: "m²", type: "text" },
-                  ].map(({ label, key, suffix, type }) => (
-                    <div key={key}>
-                      <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-1.5">
-                        {label}
-                      </label>
-                      <div className="relative">
-                        <input
-                          type={type}
-                          value={formData[key]}
-                          onChange={(e) =>
-                            field(key, type === "number" ? Number(e.target.value) : e.target.value)
-                          }
-                          min={type === "number" ? 0 : undefined}
-                          placeholder="0"
-                          className="w-full px-4 pr-10 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4]"
-                        />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-[#9ca3af] font-sans uppercase tracking-wider">
-                          {suffix}
-                        </span>
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-full bg-[#163b0f]/8 flex items-center justify-center">
+                          <Plus size={11} className="text-[#163b0f]" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-sans font-semibold text-[#1a1a1a]">
+                            Add a new amenity
+                          </p>
+                          <p className="text-[11px] font-sans text-[#9ca3af]">
+                            Not in the list above? Create it here with all three language translations.
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
+                      <ChevronRight
+                        size={15}
+                        className={`text-[#9ca3af] transition-transform ${showAddAmenity ? "rotate-90" : ""}`}
+                      />
+                    </button>
 
-              {/* ── Content ────────────────────────────────────── */}
-              <section>
-                <SectionHeader>Content</SectionHeader>
-
-                <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] font-sans font-medium mb-1.5">
-                    Introductory Text
-                  </label>
-                  <textarea
-                    value={formData.description}
-                    onChange={(e) => field("description", e.target.value)}
-                    rows={4}
-                    placeholder="A brief, compelling description of the property…"
-                    className="w-full px-4 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors resize-none placeholder:text-[#c4c4c4]"
-                  />
-                </div>
-              </section>
-
-              {/* ── Amenities ──────────────────────────────────── */}
-              <section>
-                <SectionHeader>Amenities</SectionHeader>
-
-                {/* Tag input */}
-                <div className="flex gap-2 mb-3">
-                  <input
-                    type="text"
-                    value={amenityInput}
-                    onChange={(e) => setAmenityInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault()
-                        addAmenity()
-                      }
-                    }}
-                    placeholder='Type an amenity and press Enter - e.g. "High-speed Wi-Fi"'
-                    className="flex-1 px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4]"
-                  />
-                  <button
-                    type="button"
-                    onClick={addAmenity}
-                    className="px-4 py-2.5 bg-[#163b0f] text-[#fbf6f1] text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors"
-                  >
-                    Add
-                  </button>
-                </div>
-
-                {/* Amenity pills */}
-                {formData.amenities.length > 0 ? (
-                  <div className="flex flex-wrap gap-2">
-                    {formData.amenities.map((tag) => (
-                      <span
-                        key={tag}
-                        className="flex items-center gap-1.5 bg-[#163b0f]/6 text-[#163b0f] text-[11px] font-sans font-medium px-3 py-1.5 rounded-full border border-[#163b0f]/10"
-                      >
-                        {tag}
-                        <button
-                          type="button"
-                          onClick={() => removeAmenity(tag)}
-                          className="hover:text-red-500 transition-colors ml-0.5"
-                        >
-                          <X size={10} />
-                        </button>
-                      </span>
-                    ))}
+                    {showAddAmenity && (
+                      <div className="border-t border-[#e8e4df] px-5 py-5 bg-[#fafaf8]">
+                        <p className="text-xs font-sans text-[#6b7280] mb-4">
+                          Enter the name of the new amenity in all three languages. Once added, it will appear in the list above and will be automatically selected for this property.
+                        </p>
+                        <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4 mb-4">
+                          {[
+                            { lang: "EN", flag: "🇬🇧", key: "en" as const, placeholder: "e.g. Heated Floors" },
+                            { lang: "LB", flag: "🇱🇺", key: "lb" as const, placeholder: "e.g. Geheizte Buedem" },
+                            { lang: "FR", flag: "🇫🇷", key: "fr" as const, placeholder: "e.g. Plancher chauffant" },
+                          ].map(({ lang, flag, key, placeholder }) => (
+                            <div key={key}>
+                              <LangInput
+                                lang={lang}
+                                flag={flag}
+                                value={newAmenity[key]}
+                                onChange={(v) => setNewAmenity((prev) => ({ ...prev, [key]: v }))}
+                                placeholder={placeholder}
+                              />
+                              {key !== "fr" && <div className="h-px bg-[#f0ede9] mt-2.5" />}
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex gap-3">
+                          <button
+                            type="button"
+                            onClick={addNewAmenity}
+                            disabled={!newAmenity.en.trim() || !newAmenity.fr.trim() || !newAmenity.lb.trim()}
+                            className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-5 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed rounded-sm"
+                          >
+                            <Plus size={11} />
+                            Add Amenity
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setShowAddAmenity(false)
+                              setNewAmenity({ en: "", fr: "", lb: "" })
+                            }}
+                            className="px-5 py-2.5 border border-[#e5e7eb] text-[#6b7280] text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#f5f4f0] transition-colors rounded-sm"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <p className="text-xs font-sans text-[#9ca3af] italic">
-                    No amenities added. Type above and press Enter to add.
-                  </p>
-                )}
-              </section>
+                </div>
+              )}
 
-              {/* ── Submit ─────────────────────────────────────── */}
-              <div className="flex gap-3 pt-4 border-t border-[#e8e4df] sticky bottom-0 bg-white -mx-8 px-8 py-5 -mb-7">
-                <button
-                  type="submit"
-                  className="flex-1 bg-[#163b0f] text-[#fbf6f1] py-3 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors"
-                >
-                  {editingId ? "Save Changes" : "Create Listing"}
-                </button>
-                <button
-                  type="button"
-                  onClick={closeForm}
-                  className="px-6 py-3 border border-[#e5e7eb] text-[#6b7280] text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#f5f4f0] transition-colors"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
+            </div>
+          </form>
+
+          {/* ── Bottom Navigation Bar ─────────────────────────────────────────── */}
+          <div className="flex-shrink-0 bg-white border-t border-[#e8e4df] px-6 md:px-10 py-4 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={currentStep === 1}
+              className="flex items-center gap-2 px-5 py-2.5 border border-[#e5e7eb] text-[#6b7280] text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#f5f4f0] transition-colors disabled:opacity-30 disabled:cursor-not-allowed rounded-sm"
+            >
+              <ChevronLeft size={13} />
+              Previous
+            </button>
+
+            <p className="text-[10px] font-sans text-[#9ca3af] uppercase tracking-wider hidden md:block">
+              Step {currentStep} of {STEPS.length}
+            </p>
+
+            {currentStep < STEPS.length ? (
+              <button
+                type="button"
+                onClick={goNext}
+                className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-6 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors rounded-sm"
+              >
+                Next Step
+                <ChevronRight size={13} />
+              </button>
+            ) : (
+              <button
+                type="submit"
+                form="property-form"
+                className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-6 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors rounded-sm"
+              >
+                <Check size={13} />
+                {editingId ? "Save Changes" : "Create Listing"}
+              </button>
+            )}
           </div>
-        </>
+        </div>
       )}
     </div>
   )
