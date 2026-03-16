@@ -1,5 +1,15 @@
+import {
+  Plus,
+  Pencil,
+  Trash2,
+  X,
+  Upload,
+  ImagePlus,
+  Check,
+  ChevronRight,
+  ChevronLeft,
+} from "lucide-react"
 import { useState } from "react"
-import { Plus, Pencil, Trash2, X, Upload, ImagePlus, Check, ChevronRight, ChevronLeft } from "lucide-react"
 import { PROPERTIES } from "../../constants"
 import { useAdmin } from "../../context/AdminContext"
 
@@ -36,18 +46,22 @@ type FormData = Omit<Property, "id"> & {
 // ─── Known amenities (pre-seeded, with all three language translations) ───────
 
 const SEED_AMENITIES: AmenityOption[] = [
-  { en: "Concierge",               fr: "Conciergerie",              lb: "Conciergerie" },
-  { en: "Double Garage",           fr: "Double Garage",             lb: "Doppel Garag" },
-  { en: "Fireplace",               fr: "Cheminée",                  lb: "Kamin" },
-  { en: "Floor-to-ceiling Windows",fr: "Fenêtres sol-plafond",      lb: "Buedefen-Fënsteren" },
-  { en: "Guest House",             fr: "Maison d'hôtes",            lb: "Gasthaus" },
-  { en: "Home Cinema",             fr: "Cinéma privé",              lb: "Heemkino" },
-  { en: "Infinity Pool",           fr: "Piscine à débordement",     lb: "Infinity Pool" },
-  { en: "Private Elevator",        fr: "Ascenseur privé",           lb: "Privat Lift" },
-  { en: "Private Garden",          fr: "Jardin privé",              lb: "Privaten Gaart" },
-  { en: "Roof Terrace",            fr: "Terrasse sur le toit",      lb: "Daachterras" },
-  { en: "Smart Home",              fr: "Maison connectée",          lb: "Smart Home" },
-  { en: "Wine Cellar",             fr: "Cave à vin",                lb: "Wäikeller" },
+  { en: "Concierge", fr: "Conciergerie", lb: "Conciergerie" },
+  { en: "Double Garage", fr: "Double Garage", lb: "Doppel Garag" },
+  { en: "Fireplace", fr: "Cheminée", lb: "Kamin" },
+  {
+    en: "Floor-to-ceiling Windows",
+    fr: "Fenêtres sol-plafond",
+    lb: "Buedefen-Fënsteren",
+  },
+  { en: "Guest House", fr: "Maison d'hôtes", lb: "Gasthaus" },
+  { en: "Home Cinema", fr: "Cinéma privé", lb: "Heemkino" },
+  { en: "Infinity Pool", fr: "Piscine à débordement", lb: "Infinity Pool" },
+  { en: "Private Elevator", fr: "Ascenseur privé", lb: "Privat Lift" },
+  { en: "Private Garden", fr: "Jardin privé", lb: "Privaten Gaart" },
+  { en: "Roof Terrace", fr: "Terrasse sur le toit", lb: "Daachterras" },
+  { en: "Smart Home", fr: "Maison connectée", lb: "Smart Home" },
+  { en: "Wine Cellar", fr: "Cave à vin", lb: "Wäikeller" },
 ]
 
 const EMPTY_FORM: FormData = {
@@ -71,13 +85,13 @@ const EMPTY_FORM: FormData = {
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-[9px] uppercase tracking-[0.22em] font-sans font-bold text-[#9ca3af] mb-1.5">
+  <p className="mb-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#9ca3af] uppercase">
     {children}
   </p>
 )
 
 const FieldHint = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-[11px] font-sans text-[#9ca3af] mt-1">{children}</p>
+  <p className="mt-1 font-sans text-[11px] text-[#9ca3af]">{children}</p>
 )
 
 const LangInput = ({
@@ -97,10 +111,10 @@ const LangInput = ({
   multiline?: boolean
   required?: boolean
 }) => (
-  <div className="flex gap-3 items-start">
-    <div className="flex-shrink-0 mt-2.5 flex items-center gap-1.5">
+  <div className="flex items-start gap-3">
+    <div className="mt-2.5 flex flex-shrink-0 items-center gap-1.5">
       <span className="text-base leading-none">{flag}</span>
-      <span className="text-[9px] uppercase tracking-widest font-sans font-bold text-[#9ca3af] w-5">
+      <span className="w-5 font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase">
         {lang}
       </span>
     </div>
@@ -111,7 +125,7 @@ const LangInput = ({
         placeholder={placeholder}
         rows={3}
         required={required}
-        className="flex-1 px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors resize-none placeholder:text-[#c4c4c4] bg-white"
+        className="flex-1 resize-none border border-[#e5e7eb] bg-white px-4 py-2.5 font-sans text-sm transition-colors placeholder:text-[#c4c4c4] focus:border-[#163b0f] focus:outline-none"
       />
     ) : (
       <input
@@ -120,7 +134,7 @@ const LangInput = ({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         required={required}
-        className="flex-1 px-4 py-2.5 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white"
+        className="flex-1 border border-[#e5e7eb] bg-white px-4 py-2.5 font-sans text-sm transition-colors placeholder:text-[#c4c4c4] focus:border-[#163b0f] focus:outline-none"
       />
     )}
   </div>
@@ -130,13 +144,16 @@ const LangInput = ({
 
 export const AdminListings = () => {
   const { adminT } = useAdmin()
-  const [properties, setProperties] = useState<Property[]>(PROPERTIES as Property[])
+  const [properties, setProperties] = useState<Property[]>(
+    PROPERTIES as Property[],
+  )
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM)
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
   const [currentStep, setCurrentStep] = useState(1)
-  const [knownAmenities, setKnownAmenities] = useState<AmenityOption[]>(SEED_AMENITIES)
+  const [knownAmenities, setKnownAmenities] =
+    useState<AmenityOption[]>(SEED_AMENITIES)
   const [newAmenity, setNewAmenity] = useState({ en: "", fr: "", lb: "" })
   const [showAddAmenity, setShowAddAmenity] = useState(false)
 
@@ -210,7 +227,13 @@ export const AdminListings = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const { title_fr: _tf, title_lb: _tl, description_fr: _df, description_lb: _dl, ...base } = formData
+    const {
+      title_fr: _tf,
+      title_lb: _tl,
+      description_fr: _df,
+      description_lb: _dl,
+      ...base
+    } = formData
     if (editingId) {
       setProperties((prev) =>
         prev.map((p) => (p.id === editingId ? { ...base, id: editingId } : p)),
@@ -243,7 +266,10 @@ export const AdminListings = () => {
     if (!en.trim() || !fr.trim() || !lb.trim()) return
     const newOpt = { en: en.trim(), fr: fr.trim(), lb: lb.trim() }
     setKnownAmenities((prev) => [...prev, newOpt])
-    setFormData((prev) => ({ ...prev, amenities: [...prev.amenities, newOpt.en] }))
+    setFormData((prev) => ({
+      ...prev,
+      amenities: [...prev.amenities, newOpt.en],
+    }))
     setNewAmenity({ en: "", fr: "", lb: "" })
     setShowAddAmenity(false)
   }
@@ -253,28 +279,29 @@ export const AdminListings = () => {
 
   const stepInfo = STEPS[currentStep - 1]
 
-  const noun = properties.length === 1
-    ? adminT("admin_listings_noun_single")
-    : adminT("admin_listings_noun_plural")
+  const noun =
+    properties.length === 1
+      ? adminT("admin_listings_noun_single")
+      : adminT("admin_listings_noun_plural")
 
   return (
     <div className="p-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="mb-8 flex items-center justify-between">
         <div>
-          <p className="text-[10px] uppercase tracking-widest text-[#9ca3af] font-sans mb-1">
+          <p className="mb-1 font-sans text-[10px] tracking-widest text-[#9ca3af] uppercase">
             {adminT("admin_management")}
           </p>
-          <h2 className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">
+          <h2 className="font-sans text-2xl font-semibold tracking-tight text-[#1a1a1a]">
             {adminT("admin_listings_title")}
           </h2>
-          <p className="text-sm font-sans text-[#6b7280] mt-1">
+          <p className="mt-1 font-sans text-sm text-[#6b7280]">
             {adminT("admin_listings_count", { count: properties.length, noun })}
           </p>
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-5 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors rounded-sm"
+          className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-5 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
         >
           <Plus size={13} />
           {adminT("admin_add_new")}
@@ -282,14 +309,21 @@ export const AdminListings = () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white border border-[#e8e4df] rounded-xl overflow-hidden">
+      <div className="overflow-hidden rounded-xl border border-[#e8e4df] bg-white">
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#e8e4df] bg-[#f9f8f6]">
-              {[adminT("admin_col_property"), "Location", adminT("admin_col_price"), adminT("admin_col_type"), adminT("admin_col_status"), ""].map((h, i) => (
+              {[
+                adminT("admin_col_property"),
+                "Location",
+                adminT("admin_col_price"),
+                adminT("admin_col_type"),
+                adminT("admin_col_status"),
+                "",
+              ].map((h, i) => (
                 <th
                   key={i}
-                  className="text-left px-5 py-3.5 text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans font-bold"
+                  className="px-5 py-3.5 text-left font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase"
                 >
                   {h}
                 </th>
@@ -300,44 +334,50 @@ export const AdminListings = () => {
             {properties.map((property) => (
               <tr
                 key={property.id}
-                className="border-b border-[#e8e4df] last:border-none hover:bg-[#fafaf8] transition-colors"
+                className="border-b border-[#e8e4df] transition-colors last:border-none hover:bg-[#fafaf8]"
               >
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-3.5">
                     <img
                       src={property.image}
                       alt={property.title}
-                      className="w-14 h-10 object-cover rounded-md flex-shrink-0 bg-[#f5f4f0]"
+                      className="h-10 w-14 flex-shrink-0 rounded-md bg-[#f5f4f0] object-cover"
                     />
-                    <span className="text-sm font-sans font-medium text-[#1a1a1a]">
+                    <span className="font-sans text-sm font-medium text-[#1a1a1a]">
                       {property.title}
                     </span>
                   </div>
                 </td>
                 <td className="px-5 py-4">
-                  <span className="text-sm font-sans text-[#6b7280]">{property.location}</span>
+                  <span className="font-sans text-sm text-[#6b7280]">
+                    {property.location}
+                  </span>
                 </td>
                 <td className="px-5 py-4">
-                  <span className="text-sm font-sans font-medium text-[#1a1a1a]">
+                  <span className="font-sans text-sm font-medium text-[#1a1a1a]">
                     €{property.price}
                   </span>
                 </td>
                 <td className="px-5 py-4">
-                  <span className="text-[10px] uppercase tracking-wider font-sans text-[#6b7280]">
-                    {property.type === "Sale" ? adminT("admin_for_sale") : adminT("admin_for_rent")}
+                  <span className="font-sans text-[10px] tracking-wider text-[#6b7280] uppercase">
+                    {property.type === "Sale"
+                      ? adminT("admin_for_sale")
+                      : adminT("admin_for_rent")}
                   </span>
                 </td>
                 <td className="px-5 py-4">
                   <span
-                    className={`inline-flex items-center gap-1.5 text-[10px] font-sans font-semibold px-2.5 py-1 rounded-full ${
+                    className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-sans text-[10px] font-semibold ${
                       property.status === "Available"
                         ? "bg-emerald-50 text-emerald-700"
                         : "bg-amber-50 text-amber-700"
                     }`}
                   >
                     <span
-                      className={`w-1.5 h-1.5 rounded-full ${
-                        property.status === "Available" ? "bg-emerald-500" : "bg-amber-500"
+                      className={`h-1.5 w-1.5 rounded-full ${
+                        property.status === "Available"
+                          ? "bg-emerald-500"
+                          : "bg-amber-500"
                       }`}
                     />
                     {property.status === "Available"
@@ -350,21 +390,21 @@ export const AdminListings = () => {
                     <button
                       onClick={() => openEdit(property)}
                       title="Edit property"
-                      className="p-2 text-[#9ca3af] hover:text-[#163b0f] hover:bg-[#163b0f]/5 rounded-md transition-colors"
+                      className="rounded-md p-2 text-[#9ca3af] transition-colors hover:bg-[#163b0f]/5 hover:text-[#163b0f]"
                     >
                       <Pencil size={13} />
                     </button>
                     {deleteConfirmId === property.id ? (
-                      <div className="flex items-center gap-2 ml-1">
+                      <div className="ml-1 flex items-center gap-2">
                         <button
                           onClick={() => handleDelete(property.id)}
-                          className="text-[10px] font-sans font-bold text-red-600 hover:underline"
+                          className="font-sans text-[10px] font-bold text-red-600 hover:underline"
                         >
                           {adminT("admin_confirm")}
                         </button>
                         <button
                           onClick={() => setDeleteConfirmId(null)}
-                          className="text-[10px] font-sans text-[#6b7280] hover:underline"
+                          className="font-sans text-[10px] text-[#6b7280] hover:underline"
                         >
                           {adminT("admin_cancel")}
                         </button>
@@ -373,7 +413,7 @@ export const AdminListings = () => {
                       <button
                         onClick={() => setDeleteConfirmId(property.id)}
                         title="Delete property"
-                        className="p-2 text-[#9ca3af] hover:text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                        className="rounded-md p-2 text-[#9ca3af] transition-colors hover:bg-red-50 hover:text-red-500"
                       >
                         <Trash2 size={13} />
                       </button>
@@ -387,10 +427,12 @@ export const AdminListings = () => {
 
         {properties.length === 0 && (
           <div className="py-16 text-center">
-            <p className="text-sm font-sans text-[#9ca3af]">{adminT("admin_no_properties")}</p>
+            <p className="font-sans text-sm text-[#9ca3af]">
+              {adminT("admin_no_properties")}
+            </p>
             <button
               onClick={openAdd}
-              className="mt-4 text-[10px] uppercase tracking-widest font-sans font-bold text-[#163b0f] hover:underline"
+              className="mt-4 font-sans text-[10px] font-bold tracking-widest text-[#163b0f] uppercase hover:underline"
             >
               {adminT("admin_add_first")} →
             </button>
@@ -400,25 +442,32 @@ export const AdminListings = () => {
 
       {/* Full-screen Property Form */}
       {isFormOpen && (
-        <div className="fixed inset-0 z-50 bg-[#fbf6f1] flex flex-col overflow-hidden">
-
+        <div className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-[#fbf6f1]">
           {/* Top Bar */}
-          <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-6 md:px-10 py-4 flex items-center justify-between">
+          <div className="flex flex-shrink-0 items-center justify-between border-b border-[#e8e4df] bg-white px-6 py-4 md:px-10">
             <div className="flex items-center gap-4">
-              <img src="/logo.png" alt="Hargarten Properties" className="h-8 w-auto object-contain" />
-              <div className="w-px h-6 bg-[#e8e4df]" />
+              <img
+                src="/logo.png"
+                alt="Hargarten Properties"
+                className="h-8 w-auto object-contain"
+              />
+              <div className="h-6 w-px bg-[#e8e4df]" />
               <div>
-                <p className="text-[9px] uppercase tracking-widest text-[#9ca3af] font-sans">
-                  {editingId ? adminT("admin_editing_listing") : adminT("admin_creating_listing")}
+                <p className="font-sans text-[9px] tracking-widest text-[#9ca3af] uppercase">
+                  {editingId
+                    ? adminT("admin_editing_listing")
+                    : adminT("admin_creating_listing")}
                 </p>
-                <p className="text-sm font-sans font-semibold text-[#1a1a1a] leading-tight">
-                  {editingId ? (formData.title || adminT("admin_col_property")) : adminT("admin_new_property")}
+                <p className="font-sans text-sm leading-tight font-semibold text-[#1a1a1a]">
+                  {editingId
+                    ? formData.title || adminT("admin_col_property")
+                    : adminT("admin_new_property")}
                 </p>
               </div>
             </div>
             <button
               onClick={closeForm}
-              className="flex items-center gap-2 text-[11px] uppercase tracking-widest font-sans font-bold text-[#6b7280] hover:text-[#1a1a1a] transition-colors px-4 py-2 border border-[#e8e4df] hover:border-[#1a1a1a] bg-white"
+              className="flex items-center gap-2 border border-[#e8e4df] bg-white px-4 py-2 font-sans text-[11px] font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:border-[#1a1a1a] hover:text-[#1a1a1a]"
             >
               <X size={13} />
               {adminT("admin_cancel")}
@@ -426,13 +475,16 @@ export const AdminListings = () => {
           </div>
 
           {/* Step Progress Bar */}
-          <div className="flex-shrink-0 bg-white border-b border-[#e8e4df] px-6 md:px-10 py-4">
-            <div className="flex items-start max-w-3xl">
+          <div className="flex-shrink-0 border-b border-[#e8e4df] bg-white px-6 py-4 md:px-10">
+            <div className="flex max-w-3xl items-start">
               {STEPS.map((step, idx) => (
-                <div key={step.number} className="flex-1 flex flex-col items-center relative">
+                <div
+                  key={step.number}
+                  className="relative flex flex-1 flex-col items-center"
+                >
                   {idx > 0 && (
                     <div
-                      className={`absolute top-3 right-1/2 w-full h-px transition-colors ${
+                      className={`absolute top-3 right-1/2 h-px w-full transition-colors ${
                         currentStep > idx ? "bg-[#163b0f]/30" : "bg-[#e8e4df]"
                       }`}
                     />
@@ -440,27 +492,33 @@ export const AdminListings = () => {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(step.number)}
-                    className="relative z-10 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-sans font-bold transition-all flex-shrink-0"
+                    className="relative z-10 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full font-sans text-[10px] font-bold transition-all"
                     style={{
                       background:
                         currentStep === step.number
                           ? "#163b0f"
                           : currentStep > step.number
-                          ? "rgba(22,59,15,0.15)"
-                          : "#e8e4df",
+                            ? "rgba(22,59,15,0.15)"
+                            : "#e8e4df",
                       color:
                         currentStep === step.number
                           ? "#fff"
                           : currentStep > step.number
-                          ? "#163b0f"
-                          : "#9ca3af",
+                            ? "#163b0f"
+                            : "#9ca3af",
                     }}
                   >
-                    {currentStep > step.number ? <Check size={11} /> : step.number}
+                    {currentStep > step.number ? (
+                      <Check size={11} />
+                    ) : (
+                      step.number
+                    )}
                   </button>
                   <span
-                    className={`mt-1.5 text-[9px] uppercase tracking-wider font-sans font-bold text-center hidden md:block transition-colors leading-tight ${
-                      currentStep === step.number ? "text-[#163b0f]" : "text-[#9ca3af]"
+                    className={`mt-1.5 hidden text-center font-sans text-[9px] leading-tight font-bold tracking-wider uppercase transition-colors md:block ${
+                      currentStep === step.number
+                        ? "text-[#163b0f]"
+                        : "text-[#9ca3af]"
                     }`}
                   >
                     {step.title}
@@ -476,22 +534,26 @@ export const AdminListings = () => {
             onSubmit={handleSubmit}
             className="flex-1 overflow-y-auto"
           >
-            <div className="max-w-3xl mx-auto px-6 md:px-0 py-10">
-
+            <div className="mx-auto max-w-3xl px-6 py-10 md:px-0">
               {/* Step header */}
               <div className="mb-8">
-                <p className="text-[9px] uppercase tracking-[0.25em] font-sans font-bold text-[#9ca3af] mb-2">
-                  {adminT("admin_step_of", { current: stepInfo.number, total: STEPS.length })}
+                <p className="mb-2 font-sans text-[9px] font-bold tracking-[0.25em] text-[#9ca3af] uppercase">
+                  {adminT("admin_step_of", {
+                    current: stepInfo.number,
+                    total: STEPS.length,
+                  })}
                 </p>
-                <h2 className="text-2xl md:text-3xl font-serif text-[#1a1a1a] tracking-tight mb-2">
+                <h2 className="mb-2 font-serif text-2xl tracking-tight text-[#1a1a1a] md:text-3xl">
                   {stepInfo.title}
                 </h2>
-                <p className="text-sm font-sans text-[#6b7280] leading-relaxed max-w-xl">
+                <p className="max-w-xl font-sans text-sm leading-relaxed text-[#6b7280]">
                   {stepInfo.subtitle}
                 </p>
-                <div className="mt-4 px-4 py-3 bg-[#163b0f]/5 border border-[#163b0f]/10 rounded-lg">
-                  <p className="text-[11px] font-sans text-[#163b0f] leading-relaxed">
-                    <span className="font-bold uppercase tracking-wider">{adminT("admin_tip")}: </span>
+                <div className="mt-4 rounded-lg border border-[#163b0f]/10 bg-[#163b0f]/5 px-4 py-3">
+                  <p className="font-sans text-[11px] leading-relaxed text-[#163b0f]">
+                    <span className="font-bold tracking-wider uppercase">
+                      {adminT("admin_tip")}:{" "}
+                    </span>
                     {stepInfo.hint}
                   </p>
                 </div>
@@ -502,31 +564,31 @@ export const AdminListings = () => {
                 <div className="space-y-6">
                   <div>
                     <SectionLabel>{adminT("admin_hero_image")}</SectionLabel>
-                    <div className="border-2 border-dashed border-[#e8e4df] rounded-xl overflow-hidden hover:border-[#163b0f]/40 transition-colors group cursor-pointer bg-white">
+                    <div className="group cursor-pointer overflow-hidden rounded-xl border-2 border-dashed border-[#e8e4df] bg-white transition-colors hover:border-[#163b0f]/40">
                       {formData.image ? (
                         <div className="relative">
                           <img
                             src={formData.image}
                             alt="Hero preview"
-                            className="w-full h-64 object-cover"
+                            className="h-64 w-full object-cover"
                           />
-                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div className="flex items-center gap-2 text-white text-sm font-sans font-medium">
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                            <div className="flex items-center gap-2 font-sans text-sm font-medium text-white">
                               <Upload size={16} />
                               {adminT("admin_click_replace")}
                             </div>
                           </div>
                         </div>
                       ) : (
-                        <div className="py-16 flex flex-col items-center gap-4 text-center px-8">
-                          <div className="w-16 h-16 rounded-full bg-[#f5f4f0] flex items-center justify-center">
+                        <div className="flex flex-col items-center gap-4 px-8 py-16 text-center">
+                          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#f5f4f0]">
                             <Upload size={22} className="text-[#9ca3af]" />
                           </div>
                           <div>
-                            <p className="text-base font-sans font-semibold text-[#1a1a1a]">
+                            <p className="font-sans text-base font-semibold text-[#1a1a1a]">
                               {adminT("admin_upload_hero")}
                             </p>
-                            <p className="text-sm font-sans text-[#9ca3af] mt-1">
+                            <p className="mt-1 font-sans text-sm text-[#9ca3af]">
                               {adminT("admin_jpg_png")}
                             </p>
                           </div>
@@ -537,18 +599,20 @@ export const AdminListings = () => {
                   </div>
 
                   <div>
-                    <SectionLabel>{adminT("admin_gallery_images")}</SectionLabel>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <SectionLabel>
+                      {adminT("admin_gallery_images")}
+                    </SectionLabel>
+                    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
                       {Array.from({ length: 4 }).map((_, i) => (
                         <div
                           key={i}
-                          className="aspect-square border-2 border-dashed border-[#e8e4df] rounded-xl flex flex-col items-center justify-center gap-2 hover:border-[#163b0f]/30 hover:bg-[#f9f8f6] transition-all group cursor-pointer bg-white"
+                          className="group flex aspect-square cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#e8e4df] bg-white transition-all hover:border-[#163b0f]/30 hover:bg-[#f9f8f6]"
                         >
                           <ImagePlus
                             size={20}
-                            className="text-[#c4c4c4] group-hover:text-[#163b0f]/40 transition-colors"
+                            className="text-[#c4c4c4] transition-colors group-hover:text-[#163b0f]/40"
                           />
-                          <span className="text-[9px] uppercase tracking-wider font-sans text-[#c4c4c4] group-hover:text-[#9ca3af]">
+                          <span className="font-sans text-[9px] tracking-wider text-[#c4c4c4] uppercase group-hover:text-[#9ca3af]">
                             {adminT("admin_add_photo")}
                           </span>
                         </div>
@@ -562,14 +626,15 @@ export const AdminListings = () => {
               {/* STEP 2: Property Information */}
               {currentStep === 2 && (
                 <div className="space-y-7">
-
                   {/* Property Name - multilingual. Label stays in English per requirement */}
                   <div>
-                    <SectionLabel>Property Name — in all three languages (required)</SectionLabel>
-                    <p className="text-xs font-sans text-[#6b7280] mb-3">
+                    <SectionLabel>
+                      Property Name — in all three languages (required)
+                    </SectionLabel>
+                    <p className="mb-3 font-sans text-xs text-[#6b7280]">
                       {adminT("admin_prop_name_hint")}
                     </p>
-                    <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4">
+                    <div className="space-y-2.5 rounded-lg border border-[#e5e7eb] bg-white p-4">
                       <LangInput
                         lang="EN"
                         flag="🇬🇧"
@@ -608,24 +673,31 @@ export const AdminListings = () => {
                       onChange={(e) => field("location", e.target.value)}
                       placeholder="e.g. Kirchberg, Luxembourg"
                       required
-                      className="w-full px-4 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white rounded-lg"
+                      className="w-full rounded-lg border border-[#e5e7eb] bg-white px-4 py-3 font-sans text-sm transition-colors placeholder:text-[#c4c4c4] focus:border-[#163b0f] focus:outline-none"
                     />
-                    <FieldHint>Enter the neighbourhood and city, e.g. "Limpertsberg, Luxembourg City".</FieldHint>
+                    <FieldHint>
+                      Enter the neighbourhood and city, e.g. "Limpertsberg,
+                      Luxembourg City".
+                    </FieldHint>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                     {/* Price */}
                     <div>
-                      <SectionLabel>{adminT("admin_asking_price")}</SectionLabel>
+                      <SectionLabel>
+                        {adminT("admin_asking_price")}
+                      </SectionLabel>
                       <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#6b7280] font-sans">€</span>
+                        <span className="absolute top-1/2 left-4 -translate-y-1/2 font-sans text-sm text-[#6b7280]">
+                          €
+                        </span>
                         <input
                           type="text"
                           value={formData.price}
                           onChange={(e) => field("price", e.target.value)}
                           placeholder="e.g. 2.5M or 3500/mo"
                           required
-                          className="w-full pl-8 pr-4 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white rounded-lg"
+                          className="w-full rounded-lg border border-[#e5e7eb] bg-white py-3 pr-4 pl-8 font-sans text-sm transition-colors placeholder:text-[#c4c4c4] focus:border-[#163b0f] focus:outline-none"
                         />
                       </div>
                       <FieldHint>{adminT("admin_price_hint")}</FieldHint>
@@ -633,13 +705,20 @@ export const AdminListings = () => {
 
                     {/* Status */}
                     <div>
-                      <SectionLabel>{adminT("admin_availability")}</SectionLabel>
+                      <SectionLabel>
+                        {adminT("admin_availability")}
+                      </SectionLabel>
                       <button
                         type="button"
                         onClick={() =>
-                          field("status", formData.status === "Available" ? "Reserved" : "Available")
+                          field(
+                            "status",
+                            formData.status === "Available"
+                              ? "Reserved"
+                              : "Available",
+                          )
                         }
-                        className={`w-full flex items-center justify-between px-4 py-3 border text-sm font-sans font-medium transition-all rounded-lg ${
+                        className={`flex w-full items-center justify-between rounded-lg border px-4 py-3 font-sans text-sm font-medium transition-all ${
                           formData.status === "Available"
                             ? "border-emerald-200 bg-emerald-50 text-emerald-700"
                             : "border-amber-200 bg-amber-50 text-amber-700"
@@ -647,38 +726,46 @@ export const AdminListings = () => {
                       >
                         <span className="flex items-center gap-2">
                           <span
-                            className={`w-2 h-2 rounded-full ${
-                              formData.status === "Available" ? "bg-emerald-500" : "bg-amber-500"
+                            className={`h-2 w-2 rounded-full ${
+                              formData.status === "Available"
+                                ? "bg-emerald-500"
+                                : "bg-amber-500"
                             }`}
                           />
                           {formData.status === "Available"
                             ? adminT("admin_status_available")
                             : adminT("admin_status_reserved")}
                         </span>
-                        <span className="text-[9px] uppercase tracking-wider opacity-60">
+                        <span className="text-[9px] tracking-wider uppercase opacity-60">
                           {adminT("admin_click_toggle")}
                         </span>
                       </button>
-                      <FieldHint>{adminT("admin_available_reserved_hint")}</FieldHint>
+                      <FieldHint>
+                        {adminT("admin_available_reserved_hint")}
+                      </FieldHint>
                     </div>
                   </div>
 
                   {/* Transaction Type */}
                   <div>
-                    <SectionLabel>{adminT("admin_transaction_type")}</SectionLabel>
-                    <div className="flex border border-[#e5e7eb] overflow-hidden rounded-lg">
+                    <SectionLabel>
+                      {adminT("admin_transaction_type")}
+                    </SectionLabel>
+                    <div className="flex overflow-hidden rounded-lg border border-[#e5e7eb]">
                       {(["Sale", "Rent"] as const).map((t) => (
                         <button
                           key={t}
                           type="button"
                           onClick={() => field("type", t)}
-                          className={`flex-1 py-3 text-[10px] uppercase tracking-widest font-sans font-bold transition-all ${
+                          className={`flex-1 py-3 font-sans text-[10px] font-bold tracking-widest uppercase transition-all ${
                             formData.type === t
                               ? "bg-[#163b0f] text-[#fbf6f1]"
                               : "bg-white text-[#6b7280] hover:bg-[#f9f8f6]"
                           }`}
                         >
-                          {t === "Sale" ? adminT("admin_for_sale") : adminT("admin_for_rent")}
+                          {t === "Sale"
+                            ? adminT("admin_for_sale")
+                            : adminT("admin_for_rent")}
                         </button>
                       ))}
                     </div>
@@ -690,7 +777,7 @@ export const AdminListings = () => {
               {/* STEP 3: Specifications */}
               {currentStep === 3 && (
                 <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
                     {[
                       {
                         labelKey: "admin_bedrooms",
@@ -716,27 +803,41 @@ export const AdminListings = () => {
                         hintKey: "admin_surface_hint",
                         placeholder: "e.g. 142.5",
                       },
-                    ].map(({ labelKey, key, suffixKey, type, hintKey, placeholder }) => (
-                      <div key={key}>
-                        <SectionLabel>{adminT(labelKey)}</SectionLabel>
-                        <div className="relative">
-                          <input
-                            type={type}
-                            value={formData[key]}
-                            onChange={(e) =>
-                              field(key, type === "number" ? Number(e.target.value) : e.target.value)
-                            }
-                            min={type === "number" ? 0 : undefined}
-                            placeholder={placeholder}
-                            className="w-full px-4 pr-12 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors placeholder:text-[#c4c4c4] bg-white rounded-lg"
-                          />
-                          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-[#9ca3af] font-sans uppercase tracking-wider">
-                            {adminT(suffixKey)}
-                          </span>
+                    ].map(
+                      ({
+                        labelKey,
+                        key,
+                        suffixKey,
+                        type,
+                        hintKey,
+                        placeholder,
+                      }) => (
+                        <div key={key}>
+                          <SectionLabel>{adminT(labelKey)}</SectionLabel>
+                          <div className="relative">
+                            <input
+                              type={type}
+                              value={formData[key]}
+                              onChange={(e) =>
+                                field(
+                                  key,
+                                  type === "number"
+                                    ? Number(e.target.value)
+                                    : e.target.value,
+                                )
+                              }
+                              min={type === "number" ? 0 : undefined}
+                              placeholder={placeholder}
+                              className="w-full rounded-lg border border-[#e5e7eb] bg-white px-4 py-3 pr-12 font-sans text-sm transition-colors placeholder:text-[#c4c4c4] focus:border-[#163b0f] focus:outline-none"
+                            />
+                            <span className="absolute top-1/2 right-4 -translate-y-1/2 font-sans text-[10px] tracking-wider text-[#9ca3af] uppercase">
+                              {adminT(suffixKey)}
+                            </span>
+                          </div>
+                          <FieldHint>{adminT(hintKey)}</FieldHint>
                         </div>
-                        <FieldHint>{adminT(hintKey)}</FieldHint>
-                      </div>
-                    ))}
+                      ),
+                    )}
                   </div>
                 </div>
               )}
@@ -746,10 +847,10 @@ export const AdminListings = () => {
                 <div className="space-y-5">
                   <div>
                     <SectionLabel>{adminT("admin_desc_section")}</SectionLabel>
-                    <p className="text-xs font-sans text-[#6b7280] mb-3">
+                    <p className="mb-3 font-sans text-xs text-[#6b7280]">
                       {adminT("admin_desc_hint_text")}
                     </p>
-                    <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4">
+                    <div className="space-y-2.5 rounded-lg border border-[#e5e7eb] bg-white p-4">
                       <LangInput
                         lang="EN"
                         flag="🇬🇧"
@@ -787,12 +888,13 @@ export const AdminListings = () => {
               {/* STEP 5: Amenities */}
               {currentStep === 5 && (
                 <div className="space-y-6">
-
                   <div>
                     <SectionLabel>
-                      {adminT("admin_amenities_selected", { count: formData.amenities.length })}
+                      {adminT("admin_amenities_selected", {
+                        count: formData.amenities.length,
+                      })}
                     </SectionLabel>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
+                    <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3">
                       {knownAmenities.map((amenity) => {
                         const selected = formData.amenities.includes(amenity.en)
                         return (
@@ -800,28 +902,30 @@ export const AdminListings = () => {
                             key={amenity.en}
                             type="button"
                             onClick={() => toggleAmenity(amenity.en)}
-                            className={`flex items-center justify-between gap-2 px-4 py-3 border rounded-lg text-left transition-all ${
+                            className={`flex items-center justify-between gap-2 rounded-lg border px-4 py-3 text-left transition-all ${
                               selected
                                 ? "border-[#163b0f] bg-[#163b0f]/5 text-[#163b0f]"
                                 : "border-[#e5e7eb] bg-white text-[#6b7280] hover:border-[#163b0f]/30 hover:bg-[#f9f8f6]"
                             }`}
                           >
                             <div className="min-w-0">
-                              <p className="text-[11px] font-sans font-semibold leading-tight truncate">
+                              <p className="truncate font-sans text-[11px] leading-tight font-semibold">
                                 {amenity.en}
                               </p>
-                              <p className="text-[9px] font-sans text-current opacity-60 mt-0.5 truncate">
+                              <p className="mt-0.5 truncate font-sans text-[9px] text-current opacity-60">
                                 {amenity.fr} · {amenity.lb}
                               </p>
                             </div>
                             <span
-                              className={`flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-all ${
+                              className={`flex h-4 w-4 flex-shrink-0 items-center justify-center rounded border transition-all ${
                                 selected
-                                  ? "bg-[#163b0f] border-[#163b0f]"
+                                  ? "border-[#163b0f] bg-[#163b0f]"
                                   : "border-[#d1d5db] bg-white"
                               }`}
                             >
-                              {selected && <Check size={9} className="text-white" />}
+                              {selected && (
+                                <Check size={9} className="text-white" />
+                              )}
                             </span>
                           </button>
                         )
@@ -830,21 +934,21 @@ export const AdminListings = () => {
                   </div>
 
                   {/* Add new amenity */}
-                  <div className="border border-[#e8e4df] rounded-xl bg-white overflow-hidden">
+                  <div className="overflow-hidden rounded-xl border border-[#e8e4df] bg-white">
                     <button
                       type="button"
                       onClick={() => setShowAddAmenity((v) => !v)}
-                      className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#f9f8f6] transition-colors"
+                      className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-[#f9f8f6]"
                     >
                       <div className="flex items-center gap-2.5">
-                        <div className="w-6 h-6 rounded-full bg-[#163b0f]/8 flex items-center justify-center">
+                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#163b0f]/8">
                           <Plus size={11} className="text-[#163b0f]" />
                         </div>
                         <div>
-                          <p className="text-sm font-sans font-semibold text-[#1a1a1a]">
+                          <p className="font-sans text-sm font-semibold text-[#1a1a1a]">
                             {adminT("admin_add_amenity_heading")}
                           </p>
-                          <p className="text-[11px] font-sans text-[#9ca3af]">
+                          <p className="font-sans text-[11px] text-[#9ca3af]">
                             {adminT("admin_add_amenity_subtitle")}
                           </p>
                         </div>
@@ -856,25 +960,47 @@ export const AdminListings = () => {
                     </button>
 
                     {showAddAmenity && (
-                      <div className="border-t border-[#e8e4df] px-5 py-5 bg-[#fafaf8]">
-                        <p className="text-xs font-sans text-[#6b7280] mb-4">
+                      <div className="border-t border-[#e8e4df] bg-[#fafaf8] px-5 py-5">
+                        <p className="mb-4 font-sans text-xs text-[#6b7280]">
                           {adminT("admin_add_amenity_desc")}
                         </p>
-                        <div className="space-y-2.5 bg-white border border-[#e5e7eb] rounded-lg p-4 mb-4">
+                        <div className="mb-4 space-y-2.5 rounded-lg border border-[#e5e7eb] bg-white p-4">
                           {[
-                            { lang: "EN", flag: "🇬🇧", key: "en" as const, placeholder: "e.g. Heated Floors" },
-                            { lang: "LB", flag: "🇱🇺", key: "lb" as const, placeholder: "e.g. Geheizte Buedem" },
-                            { lang: "FR", flag: "🇫🇷", key: "fr" as const, placeholder: "e.g. Plancher chauffant" },
+                            {
+                              lang: "EN",
+                              flag: "🇬🇧",
+                              key: "en" as const,
+                              placeholder: "e.g. Heated Floors",
+                            },
+                            {
+                              lang: "LB",
+                              flag: "🇱🇺",
+                              key: "lb" as const,
+                              placeholder: "e.g. Geheizte Buedem",
+                            },
+                            {
+                              lang: "FR",
+                              flag: "🇫🇷",
+                              key: "fr" as const,
+                              placeholder: "e.g. Plancher chauffant",
+                            },
                           ].map(({ lang, flag, key, placeholder }) => (
                             <div key={key}>
                               <LangInput
                                 lang={lang}
                                 flag={flag}
                                 value={newAmenity[key]}
-                                onChange={(v) => setNewAmenity((prev) => ({ ...prev, [key]: v }))}
+                                onChange={(v) =>
+                                  setNewAmenity((prev) => ({
+                                    ...prev,
+                                    [key]: v,
+                                  }))
+                                }
                                 placeholder={placeholder}
                               />
-                              {key !== "fr" && <div className="h-px bg-[#f0ede9] mt-2.5" />}
+                              {key !== "fr" && (
+                                <div className="mt-2.5 h-px bg-[#f0ede9]" />
+                              )}
                             </div>
                           ))}
                         </div>
@@ -882,8 +1008,12 @@ export const AdminListings = () => {
                           <button
                             type="button"
                             onClick={addNewAmenity}
-                            disabled={!newAmenity.en.trim() || !newAmenity.fr.trim() || !newAmenity.lb.trim()}
-                            className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-5 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed rounded-sm"
+                            disabled={
+                              !newAmenity.en.trim() ||
+                              !newAmenity.fr.trim() ||
+                              !newAmenity.lb.trim()
+                            }
+                            className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-5 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90 disabled:cursor-not-allowed disabled:opacity-40"
                           >
                             <Plus size={11} />
                             {adminT("admin_add_amenity_button")}
@@ -894,7 +1024,7 @@ export const AdminListings = () => {
                               setShowAddAmenity(false)
                               setNewAmenity({ en: "", fr: "", lb: "" })
                             }}
-                            className="px-5 py-2.5 border border-[#e5e7eb] text-[#6b7280] text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#f5f4f0] transition-colors rounded-sm"
+                            className="rounded-sm border border-[#e5e7eb] px-5 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:bg-[#f5f4f0]"
                           >
                             {adminT("admin_cancel")}
                           </button>
@@ -904,31 +1034,33 @@ export const AdminListings = () => {
                   </div>
                 </div>
               )}
-
             </div>
           </form>
 
           {/* Bottom Navigation Bar */}
-          <div className="flex-shrink-0 bg-white border-t border-[#e8e4df] px-6 md:px-10 py-4 flex items-center justify-between">
+          <div className="flex flex-shrink-0 items-center justify-between border-t border-[#e8e4df] bg-white px-6 py-4 md:px-10">
             <button
               type="button"
               onClick={goPrev}
               disabled={currentStep === 1}
-              className="flex items-center gap-2 px-5 py-2.5 border border-[#e5e7eb] text-[#6b7280] text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#f5f4f0] transition-colors disabled:opacity-30 disabled:cursor-not-allowed rounded-sm"
+              className="flex items-center gap-2 rounded-sm border border-[#e5e7eb] px-5 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:bg-[#f5f4f0] disabled:cursor-not-allowed disabled:opacity-30"
             >
               <ChevronLeft size={13} />
               {adminT("admin_previous")}
             </button>
 
-            <p className="text-[10px] font-sans text-[#9ca3af] uppercase tracking-wider hidden md:block">
-              {adminT("admin_step_of", { current: currentStep, total: STEPS.length })}
+            <p className="hidden font-sans text-[10px] tracking-wider text-[#9ca3af] uppercase md:block">
+              {adminT("admin_step_of", {
+                current: currentStep,
+                total: STEPS.length,
+              })}
             </p>
 
             {currentStep < STEPS.length ? (
               <button
                 type="button"
                 onClick={goNext}
-                className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-6 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors rounded-sm"
+                className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-6 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
               >
                 {adminT("admin_next_step")}
                 <ChevronRight size={13} />
@@ -937,10 +1069,12 @@ export const AdminListings = () => {
               <button
                 type="submit"
                 form="property-form"
-                className="flex items-center gap-2 bg-[#163b0f] text-[#fbf6f1] px-6 py-2.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors rounded-sm"
+                className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-6 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
               >
                 <Check size={13} />
-                {editingId ? adminT("admin_save_changes") : adminT("admin_create_listing")}
+                {editingId
+                  ? adminT("admin_save_changes")
+                  : adminT("admin_create_listing")}
               </button>
             )}
           </div>

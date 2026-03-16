@@ -142,6 +142,18 @@
   "property_inquire": "Elo ufroen",
 
   "footer_admin": "Admin",
+  "footer_cookie_settings": "Cookie-Astellungen",
+
+  "cookie_title": "Dese Site benotzt Cookies",
+  "cookie_description": "Mir benotze Cookies fir de Site-Traffic z'analyseieren an Aert Erliefnis ze verbesseren. Essential Cookies si emmer aktiv. Analyse-Cookies ginn nëmmen mat Arem Averstaandnes gesat.",
+  "cookie_accept": "Akzeptéieren",
+  "cookie_reject": "Oflehnen",
+  "cookie_show_details": "Detailer weisen",
+  "cookie_hide_details": "Detailer verstoppen",
+  "cookie_essential_title": "Essentiell (emmer aktiv)",
+  "cookie_essential_desc": "Noutwenneg fir d'Basisfunktioun vum Site wéi Navigatioun a Secherheet. Dës kennen net deaktivéiert ginn.",
+  "cookie_analytics_title": "Analyse (optional)",
+  "cookie_analytics_desc": "Google Analytics sammelt anonym Notzungsdaten fir eis ze hellefen ze verstoen wéi Besicher mam Site interagéieren. Keng perseenlech Date gi mat Dretten gedeelt.",
 
   "admin_portal": "Admin-Portal",
   "admin_nav_section": "Navigatioun",

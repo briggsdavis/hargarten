@@ -1,56 +1,66 @@
-import { useAdmin } from "../../context/AdminContext"
+import {
+  Building2,
+  MessageSquare,
+  Eye,
+  EyeOff,
+  CheckSquare,
+} from "lucide-react"
 import { PROPERTIES } from "../../constants"
-import { Building2, MessageSquare, Eye, EyeOff, CheckSquare } from "lucide-react"
+import { useAdmin } from "../../context/AdminContext"
 
 const UNREAD_INQUIRIES_COUNT = 3
 
 export const AdminDashboardHome = () => {
   const { portfolioLive, setPortfolioLive, adminT } = useAdmin()
 
-  const availableCount = PROPERTIES.filter((p) => p.status === "Available").length
+  const availableCount = PROPERTIES.filter(
+    (p) => p.status === "Available",
+  ).length
   const totalCount = PROPERTIES.length
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="max-w-4xl p-8">
       {/* Page Header */}
       <div className="mb-10">
-        <p className="text-[10px] uppercase tracking-widest text-[#9ca3af] font-sans mb-1">
+        <p className="mb-1 font-sans text-[10px] tracking-widest text-[#9ca3af] uppercase">
           {adminT("admin_overview")}
         </p>
-        <h2 className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">
+        <h2 className="font-sans text-2xl font-semibold tracking-tight text-[#1a1a1a]">
           {adminT("admin_dashboard_title")}
         </h2>
-        <p className="text-sm font-sans text-[#6b7280] mt-1">
+        <p className="mt-1 font-sans text-sm text-[#6b7280]">
           {adminT("admin_dashboard_subtitle")}
         </p>
       </div>
 
       {/* Portfolio Visibility Toggle */}
       <div
-        className={`rounded-xl border-2 p-6 mb-8 transition-all duration-500 ${
-          portfolioLive ? "bg-[#163b0f]/[0.04] border-[#163b0f]/20" : "bg-amber-50 border-amber-200"
+        className={`mb-8 rounded-xl border-2 p-6 transition-all duration-500 ${
+          portfolioLive
+            ? "border-[#163b0f]/20 bg-[#163b0f]/[0.04]"
+            : "border-amber-200 bg-amber-50"
         }`}
       >
         <div className="flex items-start justify-between gap-6">
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="mb-2 flex items-center gap-2">
               {portfolioLive ? (
                 <Eye size={15} className="text-[#163b0f]" />
               ) : (
                 <EyeOff size={15} className="text-amber-600" />
               )}
-              <span className="text-[9px] uppercase tracking-[0.2em] font-sans font-bold text-[#6b7280]">
+              <span className="font-sans text-[9px] font-bold tracking-[0.2em] text-[#6b7280] uppercase">
                 {adminT("admin_portfolio_visibility")}
               </span>
             </div>
 
-            <h3 className="text-lg font-sans font-semibold text-[#1a1a1a] mb-1.5 tracking-tight">
+            <h3 className="mb-1.5 font-sans text-lg font-semibold tracking-tight text-[#1a1a1a]">
               {portfolioLive
                 ? adminT("admin_portfolio_live_title")
                 : adminT("admin_portfolio_hidden_title")}
             </h3>
 
-            <p className="text-sm font-sans text-[#6b7280] leading-relaxed">
+            <p className="font-sans text-sm leading-relaxed text-[#6b7280]">
               {portfolioLive
                 ? adminT("admin_portfolio_live_desc")
                 : adminT("admin_portfolio_hidden_desc")}
@@ -58,39 +68,43 @@ export const AdminDashboardHome = () => {
           </div>
 
           {/* Toggle Switch */}
-          <div className="flex flex-col items-center gap-2 flex-shrink-0">
+          <div className="flex flex-shrink-0 flex-col items-center gap-2">
             <button
               onClick={() => setPortfolioLive(!portfolioLive)}
-              className={`relative w-14 h-7 rounded-full transition-all duration-400 focus:outline-none ${
+              className={`relative h-7 w-14 rounded-full transition-all duration-400 focus:outline-none ${
                 portfolioLive ? "bg-[#163b0f]" : "bg-[#d1d5db]"
               }`}
               aria-label="Toggle portfolio visibility"
             >
               <span
-                className={`absolute top-1 w-5 h-5 rounded-full bg-white shadow transition-all duration-300 ${
+                className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-all duration-300 ${
                   portfolioLive ? "left-8" : "left-1"
                 }`}
               />
             </button>
             <span
-              className={`text-[9px] uppercase tracking-widest font-sans font-bold ${
+              className={`font-sans text-[9px] font-bold tracking-widest uppercase ${
                 portfolioLive ? "text-[#163b0f]" : "text-[#9ca3af]"
               }`}
             >
-              {portfolioLive ? adminT("admin_portfolio_on") : adminT("admin_portfolio_off")}
+              {portfolioLive
+                ? adminT("admin_portfolio_on")
+                : adminT("admin_portfolio_off")}
             </span>
           </div>
         </div>
 
         {/* Status pill */}
-        <div className="mt-5 pt-4 border-t border-current/10 flex items-center gap-2">
+        <div className="mt-5 flex items-center gap-2 border-t border-current/10 pt-4">
           <span
-            className={`inline-flex items-center gap-1.5 text-[10px] font-sans font-semibold px-3 py-1 rounded-full ${
-              portfolioLive ? "bg-[#163b0f]/10 text-[#163b0f]" : "bg-amber-100 text-amber-700"
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-sans text-[10px] font-semibold ${
+              portfolioLive
+                ? "bg-[#163b0f]/10 text-[#163b0f]"
+                : "bg-amber-100 text-amber-700"
             }`}
           >
             <span
-              className={`w-1.5 h-1.5 rounded-full ${
+              className={`h-1.5 w-1.5 rounded-full ${
                 portfolioLive ? "bg-[#163b0f]" : "bg-amber-500"
               }`}
             />
@@ -102,7 +116,7 @@ export const AdminDashboardHome = () => {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-10">
+      <div className="mb-10 grid grid-cols-3 gap-4">
         {[
           {
             labelKey: "admin_stat_total",
@@ -128,23 +142,27 @@ export const AdminDashboardHome = () => {
         ].map(({ labelKey, value, icon: Icon, iconColor, iconBg }) => (
           <div
             key={labelKey}
-            className="bg-white border border-[#e8e4df] rounded-xl p-5 hover:shadow-sm transition-shadow"
+            className="rounded-xl border border-[#e8e4df] bg-white p-5 transition-shadow hover:shadow-sm"
           >
-            <div className={`w-9 h-9 ${iconBg} rounded-lg flex items-center justify-center mb-4`}>
+            <div
+              className={`h-9 w-9 ${iconBg} mb-4 flex items-center justify-center rounded-lg`}
+            >
               <Icon size={15} className={iconColor} />
             </div>
-            <p className="text-2xl font-sans font-semibold text-[#1a1a1a] tracking-tight">
+            <p className="font-sans text-2xl font-semibold tracking-tight text-[#1a1a1a]">
               {value}
             </p>
-            <p className="text-[11px] font-sans text-[#6b7280] mt-0.5">{adminT(labelKey)}</p>
+            <p className="mt-0.5 font-sans text-[11px] text-[#6b7280]">
+              {adminT(labelKey)}
+            </p>
           </div>
         ))}
       </div>
 
       {/* Quick Links */}
-      <div className="bg-white border border-[#e8e4df] rounded-xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-[#e8e4df]">
-          <p className="text-[10px] uppercase tracking-widest font-sans font-bold text-[#9ca3af]">
+      <div className="overflow-hidden rounded-xl border border-[#e8e4df] bg-white">
+        <div className="border-b border-[#e8e4df] px-6 py-4">
+          <p className="font-sans text-[10px] font-bold tracking-widest text-[#9ca3af] uppercase">
             {adminT("admin_quick_actions")}
           </p>
         </div>
@@ -152,7 +170,9 @@ export const AdminDashboardHome = () => {
           {
             titleKey: "admin_manage_listings",
             descKey: "admin_manage_listings_desc",
-            descParams: undefined as Record<string, string | number> | undefined,
+            descParams: undefined as
+              | Record<string, string | number>
+              | undefined,
             href: "/admin/listings",
           },
           {
@@ -165,17 +185,17 @@ export const AdminDashboardHome = () => {
           <a
             key={i}
             href={item.href}
-            className="flex items-center justify-between px-6 py-4 hover:bg-[#f9f8f6] transition-colors border-b border-[#e8e4df] last:border-none group"
+            className="group flex items-center justify-between border-b border-[#e8e4df] px-6 py-4 transition-colors last:border-none hover:bg-[#f9f8f6]"
           >
             <div>
-              <p className="text-sm font-sans font-medium text-[#1a1a1a] group-hover:text-[#163b0f] transition-colors">
+              <p className="font-sans text-sm font-medium text-[#1a1a1a] transition-colors group-hover:text-[#163b0f]">
                 {adminT(item.titleKey)}
               </p>
-              <p className="text-xs font-sans text-[#6b7280] mt-0.5">
+              <p className="mt-0.5 font-sans text-xs text-[#6b7280]">
                 {adminT(item.descKey, item.descParams)}
               </p>
             </div>
-            <span className="text-[#9ca3af] group-hover:text-[#163b0f] transition-colors text-lg">
+            <span className="text-lg text-[#9ca3af] transition-colors group-hover:text-[#163b0f]">
               →
             </span>
           </a>

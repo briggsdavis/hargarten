@@ -1,12 +1,14 @@
+import { ChevronDown, X } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 import { useState, useRef, useEffect } from "react"
-import { ChevronDown, X } from "lucide-react"
 import { PROPERTIES } from "../constants"
 import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 const MotionLocaleLink = motion(LocaleLink)
 
-const ALL_AMENITIES = Array.from(new Set(PROPERTIES.flatMap((p) => p.amenities))).sort()
+const ALL_AMENITIES = Array.from(
+  new Set(PROPERTIES.flatMap((p) => p.amenities)),
+).sort()
 
 const PillGroup = ({
   label,
@@ -20,16 +22,18 @@ const PillGroup = ({
   onChange: (v: string) => void
 }) => (
   <div className="flex flex-col gap-2">
-    <span className="text-[9px] uppercase tracking-[0.2em] text-primary/40">{label}</span>
+    <span className="text-primary/40 text-[9px] tracking-[0.2em] uppercase">
+      {label}
+    </span>
     <div className="flex gap-2">
       {options.map((opt) => (
         <button
           key={opt}
           onClick={() => onChange(opt)}
-          className={`px-3 py-1.5 text-[10px] uppercase tracking-widest font-bold border transition-all duration-200 interactive ${
+          className={`interactive border px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all duration-200 ${
             value === opt
               ? "bg-primary text-parchment border-primary"
-              : "bg-transparent text-primary/50 border-primary/20 hover:border-primary hover:text-primary"
+              : "text-primary/50 border-primary/20 hover:border-primary hover:text-primary bg-transparent"
           }`}
         >
           {opt}
@@ -52,7 +56,10 @@ export const Portfolio = () => {
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (amenityRef.current && !amenityRef.current.contains(e.target as Node)) {
+      if (
+        amenityRef.current &&
+        !amenityRef.current.contains(e.target as Node)
+      ) {
         setAmenityOpen(false)
       }
     }
@@ -61,7 +68,9 @@ export const Portfolio = () => {
   }, [])
 
   const toggleAmenity = (a: string) => {
-    setSelectedAmenities((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]))
+    setSelectedAmenities((prev) =>
+      prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a],
+    )
   }
 
   const isRentMode = typeFilter === "Rent"
@@ -89,33 +98,45 @@ export const Portfolio = () => {
     if (typeFilter !== "All" && p.type !== typeFilter) return false
     if (p.bedrooms < minBedrooms) return false
     if (p.type === "Rent" && "monthlyRent" in p) {
-      if ((p as typeof p & { monthlyRent: number }).monthlyRent > maxRentPrice) return false
+      if ((p as typeof p & { monthlyRent: number }).monthlyRent > maxRentPrice)
+        return false
     } else if (p.type === "Sale") {
       if (parseFloat(p.price.replace("M", "")) > maxSalePrice) return false
     }
-    if (selectedAmenities.length > 0 && !selectedAmenities.every((a) => p.amenities.includes(a)))
+    if (
+      selectedAmenities.length > 0 &&
+      !selectedAmenities.every((a) => p.amenities.includes(a))
+    )
       return false
     return true
   })
 
   return (
-    <div className="pt-32 pb-32 px-8 md:px-24">
-      <div className="max-w-7xl mx-auto">
+    <div className="px-8 pt-32 pb-32 md:px-24">
+      <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-14">
-          <h1 className="text-6xl font-serif text-primary mb-2">{t("portfolio_title")}</h1>
-          <p className="text-primary/50 uppercase tracking-widest text-xs">
-            {t("portfolio_subtitle", { year: String(new Date().getFullYear()) })}
+          <h1 className="text-primary mb-2 font-serif text-6xl">
+            {t("portfolio_title")}
+          </h1>
+          <p className="text-primary/50 text-xs tracking-widest uppercase">
+            {t("portfolio_subtitle", {
+              year: String(new Date().getFullYear()),
+            })}
           </p>
         </div>
 
         {/* Filter Bar */}
-        <div className="border-t border-b border-primary/10 py-6 mb-14">
+        <div className="border-primary/10 mb-14 border-t border-b py-6">
           {/* Row 1: Status, Transaction, Bedrooms, Amenities */}
-          <div className="flex flex-wrap gap-x-12 gap-y-6 items-end">
+          <div className="flex flex-wrap items-end gap-x-12 gap-y-6">
             <PillGroup
               label={t("portfolio_status")}
-              options={[t("portfolio_all"), t("portfolio_available"), t("portfolio_reserved")]}
+              options={[
+                t("portfolio_all"),
+                t("portfolio_available"),
+                t("portfolio_reserved"),
+              ]}
               value={
                 statusFilter === "All"
                   ? t("portfolio_all")
@@ -125,13 +146,18 @@ export const Portfolio = () => {
               }
               onChange={(v) => {
                 if (v === t("portfolio_all")) setStatusFilter("All")
-                else if (v === t("portfolio_available")) setStatusFilter("Available")
+                else if (v === t("portfolio_available"))
+                  setStatusFilter("Available")
                 else setStatusFilter("Reserved")
               }}
             />
             <PillGroup
               label={t("portfolio_transaction")}
-              options={[t("portfolio_all"), t("portfolio_rent"), t("portfolio_sale")]}
+              options={[
+                t("portfolio_all"),
+                t("portfolio_rent"),
+                t("portfolio_sale"),
+              ]}
               value={
                 typeFilter === "All"
                   ? t("portfolio_all")
@@ -148,7 +174,7 @@ export const Portfolio = () => {
 
             {/* Bedrooms */}
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] uppercase tracking-[0.2em] text-primary/40">
+              <span className="text-primary/40 text-[9px] tracking-[0.2em] uppercase">
                 {t("portfolio_min_rooms")}
               </span>
               <div className="flex gap-2">
@@ -156,10 +182,10 @@ export const Portfolio = () => {
                   <button
                     key={n}
                     onClick={() => setMinBedrooms(n)}
-                    className={`w-8 h-8 text-[10px] font-bold border transition-all duration-200 interactive ${
+                    className={`interactive h-8 w-8 border text-[10px] font-bold transition-all duration-200 ${
                       minBedrooms === n
                         ? "bg-primary text-parchment border-primary"
-                        : "bg-transparent text-primary/50 border-primary/20 hover:border-primary hover:text-primary"
+                        : "text-primary/50 border-primary/20 hover:border-primary hover:text-primary bg-transparent"
                     }`}
                   >
                     {n === 0 ? t("portfolio_any") : `${n}+`}
@@ -170,20 +196,22 @@ export const Portfolio = () => {
 
             {/* Amenities Dropdown */}
             <div className="flex flex-col gap-2" ref={amenityRef}>
-              <span className="text-[9px] uppercase tracking-[0.2em] text-primary/40">
+              <span className="text-primary/40 text-[9px] tracking-[0.2em] uppercase">
                 {t("portfolio_amenities")}
               </span>
               <div className="relative">
                 <button
                   onClick={() => setAmenityOpen((v) => !v)}
-                  className={`flex items-center gap-3 px-4 py-2 border text-[10px] uppercase tracking-widest font-bold transition-all duration-200 interactive ${
+                  className={`interactive flex items-center gap-3 border px-4 py-2 text-[10px] font-bold tracking-widest uppercase transition-all duration-200 ${
                     selectedAmenities.length > 0
                       ? "border-primary text-primary bg-primary/5"
                       : "border-primary/20 text-primary/50 hover:border-primary hover:text-primary"
                   }`}
                 >
                   {selectedAmenities.length > 0
-                    ? t("portfolio_selected", { count: String(selectedAmenities.length) })
+                    ? t("portfolio_selected", {
+                        count: String(selectedAmenities.length),
+                      })
                     : t("portfolio_select")}
                   <motion.span
                     animate={{ rotate: amenityOpen ? 180 : 0 }}
@@ -200,21 +228,21 @@ export const Portfolio = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 mt-2 w-56 bg-white border border-primary/10 shadow-lg z-20 py-2"
+                      className="border-primary/10 absolute top-full left-0 z-20 mt-2 w-56 border bg-white py-2 shadow-lg"
                     >
                       {ALL_AMENITIES.map((a) => (
                         <button
                           key={a}
                           onClick={() => toggleAmenity(a)}
-                          className={`w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest transition-colors interactive flex items-center justify-between ${
+                          className={`interactive flex w-full items-center justify-between px-4 py-2.5 text-left text-[10px] tracking-widest uppercase transition-colors ${
                             selectedAmenities.includes(a)
-                              ? "text-primary font-bold bg-primary/5"
+                              ? "text-primary bg-primary/5 font-bold"
                               : "text-primary/50 hover:text-primary hover:bg-primary/3"
                           }`}
                         >
                           {a}
                           {selectedAmenities.includes(a) && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+                            <span className="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
                           )}
                         </button>
                       ))}
@@ -228,7 +256,7 @@ export const Portfolio = () => {
             {activeFilterCount > 0 && (
               <button
                 onClick={clearAll}
-                className="self-end flex items-center gap-2 text-[10px] uppercase tracking-widest text-primary/40 hover:text-primary transition-colors interactive"
+                className="text-primary/40 hover:text-primary interactive flex items-center gap-2 self-end text-[10px] tracking-widest uppercase transition-colors"
               >
                 <X size={10} />
                 {t("portfolio_clear_filters")}
@@ -239,11 +267,13 @@ export const Portfolio = () => {
           {/* Row 2: Price Slider */}
           <div className="mt-6 pt-6">
             {isRentMode ? (
-              <div className="flex flex-col gap-2 max-w-sm">
-                <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-primary/40">
+              <div className="flex max-w-sm flex-col gap-2">
+                <div className="text-primary/40 flex justify-between text-[9px] tracking-[0.2em] uppercase">
                   <span>{t("portfolio_max_price")} / mo</span>
                   <span className="text-primary font-bold">
-                    {maxRentPrice === 10000 ? t("portfolio_any") : `\u20AC${maxRentPrice.toLocaleString()}/mo`}
+                    {maxRentPrice === 10000
+                      ? t("portfolio_any")
+                      : `\u20AC${maxRentPrice.toLocaleString()}/mo`}
                   </span>
                 </div>
                 <input
@@ -255,17 +285,21 @@ export const Portfolio = () => {
                   onChange={(e) => setMaxRentPrice(parseInt(e.target.value))}
                   className="w-full cursor-pointer"
                 />
-                <div className="flex justify-between text-[8px] text-primary/30">
+                <div className="text-primary/30 flex justify-between text-[8px]">
                   <span>&euro;1,000/mo</span>
                   <span>&euro;10,000+/mo</span>
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col gap-2 max-w-sm">
-                <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-primary/40">
+              <div className="flex max-w-sm flex-col gap-2">
+                <div className="text-primary/40 flex justify-between text-[9px] tracking-[0.2em] uppercase">
                   <span>{t("portfolio_max_price")}</span>
                   <span className="text-primary font-bold">
-                    {maxSalePrice === 6 ? t("portfolio_any") : maxSalePrice < 1 ? `\u20AC${Math.round(maxSalePrice * 1000)}K` : `\u20AC${maxSalePrice}M`}
+                    {maxSalePrice === 6
+                      ? t("portfolio_any")
+                      : maxSalePrice < 1
+                        ? `\u20AC${Math.round(maxSalePrice * 1000)}K`
+                        : `\u20AC${maxSalePrice}M`}
                   </span>
                 </div>
                 <input
@@ -277,7 +311,7 @@ export const Portfolio = () => {
                   onChange={(e) => setMaxSalePrice(parseFloat(e.target.value))}
                   className="w-full cursor-pointer"
                 />
-                <div className="flex justify-between text-[8px] text-primary/30">
+                <div className="text-primary/30 flex justify-between text-[8px]">
                   <span>&euro;300K</span>
                   <span>&euro;6M+</span>
                 </div>
@@ -286,18 +320,18 @@ export const Portfolio = () => {
           </div>
 
           {/* Amenity chips - always visible, count pinned right */}
-          <div className="flex flex-wrap items-center gap-2 mt-5 pt-6 border-t border-primary/10 min-h-[2rem]">
+          <div className="border-primary/10 mt-5 flex min-h-[2rem] flex-wrap items-center gap-2 border-t pt-6">
             {selectedAmenities.map((a) => (
               <button
                 key={a}
                 onClick={() => toggleAmenity(a)}
-                className="flex items-center gap-2 px-3 py-1 bg-primary text-parchment text-[9px] uppercase tracking-widest font-bold interactive hover:bg-primary/80 transition-colors"
+                className="bg-primary text-parchment interactive hover:bg-primary/80 flex items-center gap-2 px-3 py-1 text-[9px] font-bold tracking-widest uppercase transition-colors"
               >
                 {a}
                 <X size={8} />
               </button>
             ))}
-            <span className="ml-auto text-[10px] uppercase tracking-widest text-primary/30">
+            <span className="text-primary/30 ml-auto text-[10px] tracking-widest uppercase">
               {filtered.length === 1
                 ? t("portfolio_property", { count: String(filtered.length) })
                 : t("portfolio_properties", { count: String(filtered.length) })}
@@ -306,7 +340,10 @@ export const Portfolio = () => {
         </div>
 
         {/* Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <motion.div
+          layout
+          className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3"
+        >
           <AnimatePresence mode="popLayout">
             {filtered.map((prop) => (
               <MotionLocaleLink
@@ -319,29 +356,34 @@ export const Portfolio = () => {
                 transition={{ duration: 0.4 }}
                 className="group interactive"
               >
-                <div className="aspect-[4/5] overflow-hidden mb-6 relative">
+                <div className="relative mb-6 aspect-[4/5] overflow-hidden">
                   <motion.img
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.8 }}
                     src={prop.image}
                     alt={prop.title}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                   />
-                  <div className="absolute top-4 right-4 bg-parchment/90 backdrop-blur-sm px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-primary">
+                  <div className="bg-parchment/90 text-primary absolute top-4 right-4 px-3 py-1 text-[10px] font-bold tracking-widest uppercase backdrop-blur-sm">
                     {prop.status}
                   </div>
                 </div>
-                <div className="flex justify-between items-start">
+                <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-base font-serif tracking-tight">{prop.title}</h3>
-                    <p className="text-[9px] text-primary/40 uppercase tracking-widest mt-0.5">
+                    <h3 className="font-serif text-base tracking-tight">
+                      {prop.title}
+                    </h3>
+                    <p className="text-primary/40 mt-0.5 text-[9px] tracking-widest uppercase">
                       {prop.location}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-primary/70">${prop.price}</p>
-                    <p className="text-[9px] uppercase tracking-widest text-primary/30 mt-0.5">
-                      {prop.sqm} {t("portfolio_sqm")} / {prop.bedrooms} {t("portfolio_bed")}
+                    <p className="text-primary/70 text-sm font-medium">
+                      ${prop.price}
+                    </p>
+                    <p className="text-primary/30 mt-0.5 text-[9px] tracking-widest uppercase">
+                      {prop.sqm} {t("portfolio_sqm")} / {prop.bedrooms}{" "}
+                      {t("portfolio_bed")}
                     </p>
                   </div>
                 </div>
@@ -356,12 +398,12 @@ export const Portfolio = () => {
             animate={{ opacity: 1 }}
             className="py-32 text-center"
           >
-            <p className="text-primary/40 font-serif text-2xl italic mb-6">
+            <p className="text-primary/40 mb-6 font-serif text-2xl italic">
               {t("portfolio_no_match")}
             </p>
             <button
               onClick={clearAll}
-              className="text-[10px] uppercase tracking-widest font-bold text-primary/50 border-b border-primary/20 pb-1 hover:text-primary hover:border-primary transition-colors interactive"
+              className="text-primary/50 border-primary/20 hover:text-primary hover:border-primary interactive border-b pb-1 text-[10px] font-bold tracking-widest uppercase transition-colors"
             >
               {t("portfolio_clear_all")}
             </button>

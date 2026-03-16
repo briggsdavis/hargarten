@@ -49,7 +49,8 @@ export const PROPERTIES = [
     image:
       "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Private Garden", "Double Garage", "Fireplace"],
-    description: "A serene oasis combining historical charm with modern luxury.",
+    description:
+      "A serene oasis combining historical charm with modern luxury.",
     monthlyRent: 6500,
   },
   {
@@ -65,7 +66,8 @@ export const PROPERTIES = [
     image:
       "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Infinity Pool", "Home Cinema", "Guest House"],
-    description: "Ultimate privacy meets sophisticated design in this forest-side retreat.",
+    description:
+      "Ultimate privacy meets sophisticated design in this forest-side retreat.",
   },
   {
     id: "5",
@@ -80,7 +82,8 @@ export const PROPERTIES = [
     image:
       "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Private Garden", "Double Garage", "Smart Home"],
-    description: "A stately Belair manor blending classical architecture with contemporary refinement.",
+    description:
+      "A stately Belair manor blending classical architecture with contemporary refinement.",
   },
   {
     id: "6",
@@ -95,7 +98,8 @@ export const PROPERTIES = [
     image:
       "https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Roof Terrace", "Concierge", "Smart Home"],
-    description: "A luminous terrace apartment in the sought-after Clausen district with panoramic city views.",
+    description:
+      "A luminous terrace apartment in the sought-after Clausen district with panoramic city views.",
   },
   {
     id: "7",
@@ -109,8 +113,14 @@ export const PROPERTIES = [
     bathrooms: 4,
     image:
       "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    amenities: ["Private Garden", "Wine Cellar", "Home Cinema", "Double Garage"],
-    description: "Generous family living in one of Luxembourg's most prestigious residential quarters.",
+    amenities: [
+      "Private Garden",
+      "Wine Cellar",
+      "Home Cinema",
+      "Double Garage",
+    ],
+    description:
+      "Generous family living in one of Luxembourg's most prestigious residential quarters.",
   },
   {
     id: "8",
@@ -125,7 +135,8 @@ export const PROPERTIES = [
     image:
       "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Infinity Pool", "Guest House", "Wine Cellar", "Home Cinema"],
-    description: "An exceptional estate offering unrivalled space, privacy, and heritage in Weimershof.",
+    description:
+      "An exceptional estate offering unrivalled space, privacy, and heritage in Weimershof.",
   },
   {
     id: "9",
@@ -140,7 +151,8 @@ export const PROPERTIES = [
     image:
       "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Smart Home", "Concierge"],
-    description: "A contemporary loft in the emerging Hollerich creative quarter with industrial-chic interiors.",
+    description:
+      "A contemporary loft in the emerging Hollerich creative quarter with industrial-chic interiors.",
     monthlyRent: 3200,
   },
   {
@@ -156,7 +168,8 @@ export const PROPERTIES = [
     image:
       "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Private Garden", "Double Garage", "Fireplace"],
-    description: "A refined townhouse offering generous proportions and a private garden in central Bonnevoie.",
+    description:
+      "A refined townhouse offering generous proportions and a private garden in central Bonnevoie.",
     monthlyRent: 5500,
   },
   {
@@ -172,7 +185,8 @@ export const PROPERTIES = [
     image:
       "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=1200",
     amenities: ["Smart Home", "Concierge", "Floor-to-ceiling Windows"],
-    description: "Elegant apartment in the verdant Limpertsberg neighbourhood, steps from top schools and parks.",
+    description:
+      "Elegant apartment in the verdant Limpertsberg neighbourhood, steps from top schools and parks.",
     monthlyRent: 4000,
   },
   {
@@ -187,8 +201,14 @@ export const PROPERTIES = [
     bathrooms: 2,
     image:
       "https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    amenities: ["Floor-to-ceiling Windows", "Smart Home", "Concierge", "Roof Terrace"],
-    description: "A sleek executive suite at the heart of Luxembourg's financial district, ideal for senior professionals.",
+    amenities: [
+      "Floor-to-ceiling Windows",
+      "Smart Home",
+      "Concierge",
+      "Roof Terrace",
+    ],
+    description:
+      "A sleek executive suite at the heart of Luxembourg's financial district, ideal for senior professionals.",
     monthlyRent: 7800,
   },
 ]

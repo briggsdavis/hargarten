@@ -1,11 +1,11 @@
-import { motion, AnimatePresence } from "motion/react"
 import { X } from "lucide-react"
+import { motion, AnimatePresence } from "motion/react"
 import { useState, useEffect } from "react"
 import { Link, NavLink, useLocation } from "react-router"
 import { useAdmin } from "../context/AdminContext"
 import { useLocale } from "../i18n/LocaleContext"
-import { LanguageSwitcher } from "./LanguageSwitcher"
 import { isLocale } from "../i18n/locales"
+import { LanguageSwitcher } from "./LanguageSwitcher"
 
 const ALL_MENU_ITEMS = [
   { nameKey: "nav_home", id: "home", image: "/lux.jpg" },
@@ -21,7 +21,8 @@ const HERO_BARE_PATHS = ["/", "/about", "/services"]
 /** Get the path without locale prefix */
 function barePath(pathname: string): string {
   const segments = pathname.split("/").filter(Boolean)
-  if (segments[0] && isLocale(segments[0])) return "/" + segments.slice(1).join("/")
+  if (segments[0] && isLocale(segments[0]))
+    return "/" + segments.slice(1).join("/")
   return pathname === "" ? "/" : pathname
 }
 
@@ -66,26 +67,26 @@ export const Navbar = () => {
         initial={{ y: 0 }}
         animate={{ y: isVisible ? 0 : -150 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 w-full z-[100] px-4 py-5 md:px-8 md:py-8 flex items-center transition-colors duration-300 ${textClass} ${bgClass}`}
+        className={`fixed top-0 left-0 z-[100] flex w-full items-center px-4 py-5 transition-colors duration-300 md:px-8 md:py-8 ${textClass} ${bgClass}`}
       >
         {/* Left: Hamburger */}
         <button
           onClick={() => setIsOpen(true)}
-          className="flex flex-col gap-[6px] group interactive p-2"
+          className="group interactive flex flex-col gap-[6px] p-2"
         >
-          <span className="block w-6 h-[1.5px] bg-current" />
-          <span className="block w-4 h-[1.5px] bg-current" />
+          <span className="block h-[1.5px] w-6 bg-current" />
+          <span className="block h-[1.5px] w-4 bg-current" />
         </button>
 
         {/* Center: Logo - absolutely centered regardless of button widths */}
         <Link
           to={localePath("/")}
-          className="absolute left-1/2 -translate-x-1/2 cursor-pointer interactive"
+          className="interactive absolute left-1/2 -translate-x-1/2 cursor-pointer"
         >
           <img
             src={isOnHero ? "/logo.png" : "/inverted.png"}
             alt="Hargarten Properties"
-            className={`h-9 md:h-11 w-auto object-contain transition-all duration-300 ${isOnHero ? "brightness-0 invert" : ""}`}
+            className={`h-9 w-auto object-contain transition-all duration-300 md:h-11 ${isOnHero ? "brightness-0 invert" : ""}`}
           />
         </Link>
 
@@ -94,7 +95,7 @@ export const Navbar = () => {
           <LanguageSwitcher />
           <Link
             to={localePath("/contact")}
-            className={`hidden md:inline-block text-[11.5px] uppercase tracking-widest font-bold border ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
+            className={`hidden border text-[11.5px] font-bold tracking-widest uppercase md:inline-block ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
           >
             {t("nav_contact")}
           </Link>
@@ -113,13 +114,13 @@ export const Navbar = () => {
             {/* Logo - centred at the top, mirrors its position on the navbar */}
             <Link
               to={localePath("/")}
-              className="absolute top-8 left-1/2 -translate-x-1/2 z-10 cursor-pointer interactive"
+              className="interactive absolute top-8 left-1/2 z-10 -translate-x-1/2 cursor-pointer"
               onClick={() => setIsOpen(false)}
             >
               <img
                 src="/inverted.png"
                 alt="Hargarten Properties"
-                className="h-9 md:h-11 w-auto object-contain"
+                className="h-9 w-auto object-contain md:h-11"
               />
             </Link>
 
@@ -127,16 +128,16 @@ export const Navbar = () => {
             <Link
               to={localePath("/contact")}
               onClick={() => setIsOpen(false)}
-              className="hidden md:block absolute top-8 right-8 z-10 text-[11.5px] uppercase tracking-widest font-bold border border-primary text-primary px-[18px] py-[9px] transition-all duration-300 hover:bg-primary hover:text-parchment interactive"
+              className="border-primary text-primary hover:bg-primary hover:text-parchment interactive absolute top-8 right-8 z-10 hidden border px-[18px] py-[9px] text-[11.5px] font-bold tracking-widest uppercase transition-all duration-300 md:block"
             >
               {t("nav_contact")}
             </Link>
 
             {/* Left Side: Menu Links */}
-            <div className="w-full md:w-3/5 bg-parchment h-full flex flex-col justify-center px-12 md:px-24 relative">
+            <div className="bg-parchment relative flex h-full w-full flex-col justify-center px-12 md:w-3/5 md:px-24">
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-8 left-8 text-primary interactive"
+                className="text-primary interactive absolute top-8 left-8"
               >
                 <X size={32} />
               </button>
@@ -155,8 +156,10 @@ export const Navbar = () => {
                       onMouseEnter={() => setHoveredItem(item)}
                       onClick={() => setIsOpen(false)}
                       className={({ isActive }: { isActive: boolean }) =>
-                        `text-[1.3rem] md:text-[2.1rem] font-serif text-left interactive ${
-                          isActive ? "text-primary" : "text-primary/30 hover:text-primary"
+                        `interactive text-left font-serif text-[1.3rem] md:text-[2.1rem] ${
+                          isActive
+                            ? "text-primary"
+                            : "text-primary/30 hover:text-primary"
                         } transition-colors`
                       }
                     >
@@ -168,8 +171,8 @@ export const Navbar = () => {
             </div>
 
             {/* Right Side: Image inset so edges don't touch the screen border */}
-            <div className="hidden md:flex w-2/5 h-full bg-parchment items-center justify-center p-10">
-              <div className="relative w-full h-[75%] overflow-hidden">
+            <div className="bg-parchment hidden h-full w-2/5 items-center justify-center p-10 md:flex">
+              <div className="relative h-[75%] w-full overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={hoveredItem.id}
@@ -178,7 +181,7 @@ export const Navbar = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.04 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 </AnimatePresence>
               </div>

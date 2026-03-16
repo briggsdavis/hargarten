@@ -9,17 +9,43 @@ export const About = () => {
   const heroRef = useRef<HTMLElement>(null)
 
   const valuesData = [
-    { title: t("about_value1_title"), desc: t("about_value1_desc"), quote: t("about_value1_quote"), image: "/trust.jpg" },
-    { title: t("about_value2_title"), desc: t("about_value2_desc"), quote: t("about_value2_quote"), image: "/discretion.jpg" },
+    {
+      title: t("about_value1_title"),
+      desc: t("about_value1_desc"),
+      quote: t("about_value1_quote"),
+      image: "/trust.jpg",
+    },
+    {
+      title: t("about_value2_title"),
+      desc: t("about_value2_desc"),
+      quote: t("about_value2_quote"),
+      image: "/discretion.jpg",
+    },
     {
       title: t("about_value3_title"),
       desc: t("about_value3_desc"),
       quote: t("about_value3_quote"),
-      image: "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      image:
+        "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
     },
-    { title: t("about_value4_title"), desc: t("about_value4_desc"), quote: "", image: "/livingroom.jpg" },
-    { title: t("about_value5_title"), desc: t("about_value5_desc"), quote: t("about_value5_quote"), image: "/aboutt.jpg" },
-    { title: t("about_value6_title"), desc: t("about_value6_desc"), quote: "", image: "/partnership.jpg" },
+    {
+      title: t("about_value4_title"),
+      desc: t("about_value4_desc"),
+      quote: "",
+      image: "/livingroom.jpg",
+    },
+    {
+      title: t("about_value5_title"),
+      desc: t("about_value5_desc"),
+      quote: t("about_value5_quote"),
+      image: "/aboutt.jpg",
+    },
+    {
+      title: t("about_value6_title"),
+      desc: t("about_value6_desc"),
+      quote: "",
+      image: "/partnership.jpg",
+    },
   ]
 
   const { scrollYProgress } = useScroll({
@@ -40,12 +66,20 @@ export const About = () => {
   const parallaxY = useTransform(parallaxScroll, [0, 1], ["-10%", "10%"])
   const heroParallaxY = useTransform(heroScroll, [0, 1], ["0%", "30%"])
 
-  const activeValueIndex = useTransform(scrollYProgress, [0, 0.167, 0.333, 0.5, 0.667, 0.833, 1], [0, 0, 1, 2, 3, 4, 5])
+  const activeValueIndex = useTransform(
+    scrollYProgress,
+    [0, 0.167, 0.333, 0.5, 0.667, 0.833, 1],
+    [0, 0, 1, 2, 3, 4, 5],
+  )
 
   return (
-    <div className="relative bg-parchment">
+    <div className="bg-parchment relative">
       {/* Hero Banner (Partial Height) */}
-      <section ref={heroRef} id="hero" className="relative h-[60vh] w-full overflow-hidden">
+      <section
+        ref={heroRef}
+        id="hero"
+        className="relative h-[60vh] w-full overflow-hidden"
+      >
         <motion.div
           initial={{ scale: 1.1, filter: "blur(10px)" }}
           animate={{ scale: 1, filter: "blur(0px)" }}
@@ -54,12 +88,12 @@ export const About = () => {
         >
           <motion.div
             style={{ y: heroParallaxY }}
-            className="absolute inset-0 w-full h-[130%] -top-[15%]"
+            className="absolute inset-0 -top-[15%] h-[130%] w-full"
           >
             <img
               src="/potential.jpg"
               alt="About Hargarten"
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </motion.div>
           <div className="absolute inset-0 bg-black/30" />
@@ -69,7 +103,7 @@ export const About = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="text-6xl md:text-8xl font-serif text-parchment tracking-tighter"
+            className="text-parchment font-serif text-6xl tracking-tighter md:text-8xl"
           >
             {t("about_hero_title")}
           </motion.h1>
@@ -77,18 +111,22 @@ export const About = () => {
       </section>
 
       {/* Intro Section */}
-      <section id="intro" className="py-32 px-8 md:px-24">
-        <div className="max-w-4xl mx-auto">
+      <section id="intro" className="px-8 py-32 md:px-24">
+        <div className="mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 1 }}
-            className="space-y-8 mb-20"
+            className="mb-20 space-y-8"
           >
-            {[t("about_intro_p1"), t("about_intro_p2"), t("about_intro_p3")].filter(Boolean).map((text, i) => (
-              <p key={i} className="text-xl text-primary/80 leading-relaxed">{text}</p>
-            ))}
+            {[t("about_intro_p1"), t("about_intro_p2"), t("about_intro_p3")]
+              .filter(Boolean)
+              .map((text, i) => (
+                <p key={i} className="text-primary/80 text-xl leading-relaxed">
+                  {text}
+                </p>
+              ))}
           </motion.div>
 
           {/* Synergy heading */}
@@ -97,7 +135,7 @@ export const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.9 }}
-            className="text-3xl md:text-4xl font-serif text-primary tracking-tighter mb-16"
+            className="text-primary mb-16 font-serif text-3xl tracking-tighter md:text-4xl"
           >
             {t("about_intro_synergy_heading")}
           </motion.h2>
@@ -108,7 +146,7 @@ export const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.9 }}
-            className="grid grid-cols-2 gap-8 md:gap-14 mb-20"
+            className="mb-20 grid grid-cols-2 gap-8 md:gap-14"
           >
             {[
               {
@@ -125,16 +163,20 @@ export const About = () => {
               },
             ].map((person) => (
               <div key={person.name}>
-                <div className="aspect-[3/4] overflow-hidden border border-primary/10 mb-4">
+                <div className="border-primary/10 mb-4 aspect-[3/4] overflow-hidden border">
                   <img
                     src={person.src}
                     alt={person.alt}
-                    className="w-full h-full object-cover object-top"
+                    className="h-full w-full object-cover object-top"
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <h3 className="font-serif text-primary tracking-tight text-lg mb-1">{person.name}</h3>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-primary/40">{person.role}</p>
+                <h3 className="text-primary mb-1 font-serif text-lg tracking-tight">
+                  {person.name}
+                </h3>
+                <p className="text-primary/40 text-[10px] tracking-[0.2em] uppercase">
+                  {person.role}
+                </p>
               </div>
             ))}
           </motion.div>
@@ -147,20 +189,28 @@ export const About = () => {
             transition={{ duration: 0.9 }}
             className="space-y-12"
           >
-            <p className="text-lg text-primary/75 leading-relaxed">{t("about_intro_body1")}</p>
+            <p className="text-primary/75 text-lg leading-relaxed">
+              {t("about_intro_body1")}
+            </p>
             <div>
-              <h3 className="text-2xl md:text-3xl font-serif text-primary tracking-tighter mb-4">
+              <h3 className="text-primary mb-4 font-serif text-2xl tracking-tighter md:text-3xl">
                 {t("about_intro_body2_heading")}
               </h3>
-              <p className="text-lg text-primary/75 leading-relaxed">{t("about_intro_body2")}</p>
+              <p className="text-primary/75 text-lg leading-relaxed">
+                {t("about_intro_body2")}
+              </p>
             </div>
             <div>
-              <h3 className="text-2xl md:text-3xl font-serif text-primary tracking-tighter mb-4">
+              <h3 className="text-primary mb-4 font-serif text-2xl tracking-tighter md:text-3xl">
                 {t("about_intro_body3_heading")}
               </h3>
-              <p className="text-lg text-primary/75 leading-relaxed">{t("about_intro_body3")}</p>
+              <p className="text-primary/75 text-lg leading-relaxed">
+                {t("about_intro_body3")}
+              </p>
             </div>
-            <p className="text-sm italic text-primary/40">{t("about_process_slogan")}</p>
+            <p className="text-primary/40 text-sm italic">
+              {t("about_process_slogan")}
+            </p>
           </motion.div>
         </div>
       </section>
@@ -169,25 +219,33 @@ export const About = () => {
       <section ref={parallaxRef} className="relative h-[60vh] overflow-hidden">
         <motion.div
           style={{ y: parallaxY }}
-          className="absolute inset-0 w-full h-[120%] -top-[10%]"
+          className="absolute inset-0 -top-[10%] h-[120%] w-full"
         >
-          <img src="/paralax.jpg" alt="Luxury Interior" className="w-full h-full object-cover" />
+          <img
+            src="/paralax.jpg"
+            alt="Luxury Interior"
+            className="h-full w-full object-cover"
+          />
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
       </section>
 
       {/* Scroll-triggered Values Section */}
       <section id="values" ref={valuesRef} className="relative h-[600vh]">
-        <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
-          <div className="w-full h-full flex flex-col md:flex-row">
+        <div className="sticky top-0 flex h-screen w-full items-center overflow-hidden">
+          <div className="flex h-full w-full flex-col md:flex-row">
             {/* Left Side: Images */}
-            <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden">
+            <div className="relative h-1/2 w-full overflow-hidden md:h-full md:w-1/2">
               {valuesData.map((value, idx) => (
                 <motion.div
                   key={idx}
                   className="absolute inset-0"
                   style={{
-                    opacity: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5, idx + 1], [0, 1, 1, 0]),
+                    opacity: useTransform(
+                      activeValueIndex,
+                      [idx - 0.5, idx, idx + 0.5, idx + 1],
+                      [0, 1, 1, 0],
+                    ),
                     scale: useTransform(
                       activeValueIndex,
                       [idx - 0.5, idx, idx + 0.5, idx + 1],
@@ -198,17 +256,17 @@ export const About = () => {
                   <img
                     src={value.image}
                     alt={value.title}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-primary/20" />
+                  <div className="bg-primary/20 absolute inset-0" />
                 </motion.div>
               ))}
             </div>
 
             {/* Right Side: Text */}
-            <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center px-10 py-12 md:px-16 md:py-16 bg-white">
-              <div className="w-full max-w-lg relative h-64">
+            <div className="flex h-1/2 w-full items-center justify-center bg-white px-10 py-12 md:h-full md:w-1/2 md:px-16 md:py-16">
+              <div className="relative h-64 w-full max-w-lg">
                 {valuesData.map((value, idx) => (
                   <motion.div
                     key={idx}
@@ -219,18 +277,26 @@ export const About = () => {
                         [idx - 0.5, idx, idx + 0.5, idx + 1],
                         [0, 1, 1, 0],
                       ),
-                      y: useTransform(activeValueIndex, [idx - 0.5, idx, idx + 0.5, idx + 1], [20, 0, 0, -20]),
+                      y: useTransform(
+                        activeValueIndex,
+                        [idx - 0.5, idx, idx + 0.5, idx + 1],
+                        [20, 0, 0, -20],
+                      ),
                     }}
                   >
-                    <span className="text-xs font-bold text-primary/30 uppercase tracking-[0.3em] mb-4">
+                    <span className="text-primary/30 mb-4 text-xs font-bold tracking-[0.3em] uppercase">
                       {t("about_value_label", { index: String(idx + 1) })}
                     </span>
-                    <h3 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter">
+                    <h3 className="text-primary mb-8 font-serif text-4xl tracking-tighter md:text-6xl">
                       {value.title}
                     </h3>
-                    <p className="text-xl text-primary font-medium leading-relaxed">{value.desc}</p>
+                    <p className="text-primary text-xl leading-relaxed font-medium">
+                      {value.desc}
+                    </p>
                     {value.quote && (
-                      <p className="mt-5 text-base italic text-primary/50 leading-relaxed">{value.quote}</p>
+                      <p className="text-primary/50 mt-5 text-base leading-relaxed italic">
+                        {value.quote}
+                      </p>
                     )}
                   </motion.div>
                 ))}
@@ -241,28 +307,28 @@ export const About = () => {
       </section>
 
       {/* Portfolio CTA */}
-      <section className="py-32 px-8 md:px-24 bg-parchment">
+      <section className="bg-parchment px-8 py-32 md:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="max-w-3xl mx-auto text-center"
+          className="mx-auto max-w-3xl text-center"
         >
-          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">
+          <p className="text-primary/40 mb-6 text-[10px] tracking-[0.3em] uppercase">
             {t("about_cta_label")}
           </p>
-          <h2 className="text-4xl md:text-6xl font-serif text-primary mb-8 tracking-tighter leading-tight">
+          <h2 className="text-primary mb-8 font-serif text-4xl leading-tight tracking-tighter md:text-6xl">
             {t("about_cta_heading")}
           </h2>
-          <p className="text-lg text-primary/60 leading-relaxed mb-14 max-w-xl mx-auto">
+          <p className="text-primary/60 mx-auto mb-14 max-w-xl text-lg leading-relaxed">
             {t("about_cta_text")}
           </p>
           <LocaleLink
             to="/portfolio"
-            className="group inline-flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
+            className="group interactive inline-flex items-center gap-5 text-xs font-bold tracking-widest uppercase"
           >
-            <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">
+            <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors duration-300">
               {t("about_cta_link")}
             </span>
           </LocaleLink>

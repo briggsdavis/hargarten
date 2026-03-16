@@ -142,6 +142,18 @@
   "property_inquire": "Inquire Now",
 
   "footer_admin": "Admin",
+  "footer_cookie_settings": "Cookie Settings",
+
+  "cookie_title": "This website uses cookies",
+  "cookie_description": "We use cookies to analyse site traffic and improve your experience. Essential cookies are always active. Analytics cookies are only set with your consent.",
+  "cookie_accept": "Accept",
+  "cookie_reject": "Reject",
+  "cookie_show_details": "Show details",
+  "cookie_hide_details": "Hide details",
+  "cookie_essential_title": "Essential (always active)",
+  "cookie_essential_desc": "Required for basic site functionality such as navigation and security. These cannot be disabled.",
+  "cookie_analytics_title": "Analytics (optional)",
+  "cookie_analytics_desc": "Google Analytics collects anonymous usage data to help us understand how visitors interact with the site. No personal data is shared with third parties.",
 
   "admin_portal": "Admin Portal",
   "admin_nav_section": "Navigation",

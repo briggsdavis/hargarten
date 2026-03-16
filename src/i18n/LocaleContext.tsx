@@ -1,9 +1,9 @@
 import { createContext, useContext, useMemo } from "react"
 import { useLocation, Link, type LinkProps } from "react-router"
-import { defaultLocale, isLocale, type Locale } from "./locales"
 import en from "./en.json"
 import fr from "./fr.json"
 import lb from "./lb.json"
+import { defaultLocale, isLocale, type Locale } from "./locales"
 
 type Messages = Record<string, string>
 const messages: Record<Locale, Messages> = { en, fr, lb }

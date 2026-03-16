@@ -1,8 +1,14 @@
-import { createContext, useContext, useState, useMemo, type ReactNode } from "react"
-import type { Locale } from "../i18n/locales"
+import {
+  createContext,
+  useContext,
+  useState,
+  useMemo,
+  type ReactNode,
+} from "react"
 import en from "../i18n/en.json"
 import fr from "../i18n/fr.json"
 import lb from "../i18n/lb.json"
+import type { Locale } from "../i18n/locales"
 
 const messages: Record<Locale, Record<string, string>> = { en, fr, lb }
 

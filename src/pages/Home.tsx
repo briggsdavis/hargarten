@@ -20,7 +20,10 @@ export const Home = () => {
     }, 6000)
     return () => clearInterval(interval)
   }, [])
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  })
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
 
   const dividerRef = useRef<HTMLElement>(null)
@@ -35,7 +38,7 @@ export const Home = () => {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative h-screen w-full flex items-center justify-center overflow-hidden"
+        className="relative flex h-screen w-full items-center justify-center overflow-hidden"
       >
         <motion.div
           initial={{ scale: 0.6, filter: "blur(20px)" }}
@@ -45,14 +48,14 @@ export const Home = () => {
         >
           <motion.div
             style={{ y: parallaxY }}
-            className="absolute inset-0 w-full h-[130%] -top-[15%]"
+            className="absolute inset-0 -top-[15%] h-[130%] w-full"
           >
             <AnimatePresence mode="sync">
               <motion.img
                 key={heroIndex}
                 src={HERO_IMAGES[heroIndex]}
                 alt="Hero"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -63,12 +66,12 @@ export const Home = () => {
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
 
-        <div className="relative z-10 text-center px-4">
+        <div className="relative z-10 px-4 text-center">
           <motion.h1
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.9 }}
-            className="text-3xl md:text-5xl text-parchment font-serif tracking-tighter mb-6"
+            className="text-parchment mb-6 font-serif text-3xl tracking-tighter md:text-5xl"
           >
             {t("home_hero_title")}
           </motion.h1>
@@ -76,19 +79,21 @@ export const Home = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="text-parchment/80 text-sm uppercase tracking-[0.3em] font-medium"
+            className="text-parchment/80 text-sm font-medium tracking-[0.3em] uppercase"
           >
-            {t("home_hero_subtitle", { year: String(new Date().getFullYear()) })}
+            {t("home_hero_subtitle", {
+              year: String(new Date().getFullYear()),
+            })}
           </motion.p>
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="md:hidden mt-10"
+            className="mt-10 md:hidden"
           >
             <LocaleLink
               to="/contact"
-              className="inline-block border border-parchment/60 text-parchment px-8 py-3 text-xs uppercase tracking-widest font-bold hover:bg-parchment hover:text-primary transition-colors duration-300 interactive"
+              className="border-parchment/60 text-parchment hover:bg-parchment hover:text-primary interactive inline-block border px-8 py-3 text-xs font-bold tracking-widest uppercase transition-colors duration-300"
             >
               {t("contact_title")}
             </LocaleLink>
@@ -97,45 +102,49 @@ export const Home = () => {
       </section>
 
       {/* Intro Section */}
-      <section className="py-32 px-8 md:px-24 bg-parchment">
-        <div className="max-w-4xl mx-auto">
+      <section className="bg-parchment px-8 py-32 md:px-24">
+        <div className="mx-auto max-w-4xl">
           <motion.div
             initial={{ y: 40, opacity: 0, filter: "blur(10px)" }}
             whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <h2 className="text-3xl md:text-5xl font-serif text-primary mb-12 leading-tight">
+            <h2 className="text-primary mb-12 font-serif text-3xl leading-tight md:text-5xl">
               {t("home_intro_heading")}
             </h2>
-            <p className="text-lg text-primary/70 leading-relaxed mb-8">{t("home_intro_text")}</p>
+            <p className="text-primary/70 mb-8 text-lg leading-relaxed">
+              {t("home_intro_text")}
+            </p>
             <LocaleLink
               to="/about"
-              className="group flex items-start gap-4 text-xs uppercase tracking-widest font-bold interactive"
+              className="group interactive flex items-start gap-4 text-xs font-bold tracking-widest uppercase"
             >
-              <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors">
+              <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors">
                 {t("home_discover_values")}
               </span>
             </LocaleLink>
-            <p className="mt-8 text-sm italic text-primary/40">{t("about_process_slogan")}</p>
+            <p className="text-primary/40 mt-8 text-sm italic">
+              {t("about_process_slogan")}
+            </p>
           </motion.div>
         </div>
       </section>
 
       {/* Featured Properties - shown/hidden based on admin portfolio toggle */}
-      <section className="py-32 px-8 md:px-24 bg-white">
+      <section className="bg-white px-8 py-32 md:px-24">
         {portfolioLive ? (
           <>
-            <div className="flex justify-between items-end mb-16">
-              <h2 className="text-4xl md:text-6xl font-serif text-primary">
+            <div className="mb-16 flex items-end justify-between">
+              <h2 className="text-primary font-serif text-4xl md:text-6xl">
                 {t("home_select_residences")}
               </h2>
-              <span className="text-[10px] uppercase tracking-widest opacity-50 mb-2">
+              <span className="mb-2 text-[10px] tracking-widest uppercase opacity-50">
                 {t("home_explore_properties")}
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
               {PROPERTIES.slice(0, 3).map((prop, idx) => (
                 <MotionLocaleLink
                   key={prop.id}
@@ -145,8 +154,12 @@ export const Home = () => {
                   transition={{ duration: 0.8, delay: idx * 0.2 }}
                   to="/portfolio"
                   className={`${
-                    idx === 0 ? "md:col-span-7" : idx === 1 ? "md:col-span-5" : "md:col-span-12"
-                  } group relative overflow-hidden interactive`}
+                    idx === 0
+                      ? "md:col-span-7"
+                      : idx === 1
+                        ? "md:col-span-5"
+                        : "md:col-span-12"
+                  } group interactive relative overflow-hidden`}
                 >
                   <div className="aspect-[16/10] overflow-hidden">
                     <motion.img
@@ -154,20 +167,22 @@ export const Home = () => {
                       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                       src={prop.image}
                       alt={prop.title}
-                      className="w-full h-full object-cover"
+                      className="h-full w-full object-cover"
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <div className="mt-6 flex justify-between items-start">
+                  <div className="mt-6 flex items-start justify-between">
                     <div>
-                      <h3 className="text-xl font-serif">{prop.title}</h3>
-                      <p className="text-xs text-primary/50 uppercase tracking-widest mt-1">
+                      <h3 className="font-serif text-xl">{prop.title}</h3>
+                      <p className="text-primary/50 mt-1 text-xs tracking-widest uppercase">
                         {prop.location}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium">From &euro;{prop.price}</p>
-                      <p className="text-[10px] uppercase tracking-widest text-primary/40 mt-1">
+                      <p className="text-sm font-medium">
+                        From &euro;{prop.price}
+                      </p>
+                      <p className="text-primary/40 mt-1 text-[10px] tracking-widest uppercase">
                         {prop.type}
                       </p>
                     </div>
@@ -179,7 +194,7 @@ export const Home = () => {
             <div className="mt-20 flex justify-center">
               <LocaleLink
                 to="/portfolio"
-                className="bg-primary text-parchment px-12 py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive"
+                className="bg-primary text-parchment hover:bg-primary/90 interactive px-12 py-4 text-xs font-bold tracking-widest uppercase transition-colors"
               >
                 {t("home_explore_portfolio")}
               </LocaleLink>
@@ -191,18 +206,20 @@ export const Home = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9 }}
-            className="flex flex-col items-start justify-center py-16 max-w-xl"
+            className="flex max-w-xl flex-col items-start justify-center py-16"
           >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-6">
+            <p className="text-primary/40 mb-6 text-[10px] tracking-[0.3em] uppercase">
               {t("home_residences")}
             </p>
-            <h2 className="text-4xl md:text-5xl font-serif text-primary leading-tight mb-6">
+            <h2 className="text-primary mb-6 font-serif text-4xl leading-tight md:text-5xl">
               {t("home_coming_soon_title")}
             </h2>
-            <p className="text-sm text-primary/50 leading-relaxed">{t("home_coming_soon_text")}</p>
+            <p className="text-primary/50 text-sm leading-relaxed">
+              {t("home_coming_soon_text")}
+            </p>
             <LocaleLink
               to="/contact"
-              className="mt-10 text-xs uppercase tracking-widest font-bold border-b border-primary/30 pb-1 hover:border-primary transition-colors interactive"
+              className="border-primary/30 hover:border-primary interactive mt-10 border-b pb-1 text-xs font-bold tracking-widest uppercase transition-colors"
             >
               {t("home_early_access")}
             </LocaleLink>
@@ -211,18 +228,25 @@ export const Home = () => {
       </section>
 
       {/* Full-width Parallax Divider */}
-      <section ref={dividerRef} className="relative h-[70vh] w-full overflow-hidden">
+      <section
+        ref={dividerRef}
+        className="relative h-[70vh] w-full overflow-hidden"
+      >
         <motion.div
           style={{ y: dividerParallaxY }}
-          className="absolute inset-0 w-full h-[130%] -top-[15%]"
+          className="absolute inset-0 -top-[15%] h-[130%] w-full"
         >
-          <img src="/paralax.jpg" alt="Luxury interior" className="w-full h-full object-cover" />
+          <img
+            src="/paralax.jpg"
+            alt="Luxury interior"
+            className="h-full w-full object-cover"
+          />
           <div className="absolute inset-0 bg-black/30" />
         </motion.div>
       </section>
 
       {/* Services Showcase */}
-      <section className="bg-parchment py-24 px-8 md:px-16">
+      <section className="bg-parchment px-8 py-24 md:px-16">
         {/* Section label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -231,13 +255,13 @@ export const Home = () => {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40">
+          <p className="text-primary/40 text-[10px] tracking-[0.3em] uppercase">
             {t("home_what_we_offer")}
           </p>
         </motion.div>
 
         {/* Two-column image grid - mirrors the reference */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2">
           {SERVICES.map((service, idx) => (
             <MotionLocaleLink
               key={service.title}
@@ -246,22 +270,22 @@ export const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, delay: idx * 0.15 }}
-              className="group cursor-pointer interactive"
+              className="group interactive cursor-pointer"
             >
               {/* Portrait image - 30% shorter than the original 3/4 */}
-              <div className="aspect-[3/2.8] overflow-hidden mb-5">
+              <div className="mb-5 aspect-[3/2.8] overflow-hidden">
                 <motion.img
                   whileHover={{ scale: 1.04 }}
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
 
               {/* Caption row */}
-              <div className="flex items-center justify-between border-t border-primary/10 pt-5">
-                <span className="border-b border-primary/30 pb-1 group-hover:border-primary text-[11px] uppercase tracking-[0.25em] font-bold text-primary/60 group-hover:text-primary transition-colors duration-300">
+              <div className="border-primary/10 flex items-center justify-between border-t pt-5">
+                <span className="border-primary/30 group-hover:border-primary text-primary/60 group-hover:text-primary border-b pb-1 text-[11px] font-bold tracking-[0.25em] uppercase transition-colors duration-300">
                   {service.localizedTitle?.[locale] ?? service.title}
                 </span>
               </div>
@@ -277,14 +301,14 @@ export const Home = () => {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="w-full"
         >
-          <h2 className="text-3xl md:text-5xl font-serif text-primary mb-8 tracking-tighter leading-tight">
+          <h2 className="text-primary mb-8 font-serif text-3xl leading-tight tracking-tighter md:text-5xl">
             {t("home_services_heading")}
           </h2>
           <LocaleLink
             to="/services"
-            className="group flex items-center gap-5 text-xs uppercase tracking-widest font-bold interactive"
+            className="group interactive flex items-center gap-5 text-xs font-bold tracking-widest uppercase"
           >
-            <span className="border-b border-primary/30 pb-1 group-hover:border-primary transition-colors duration-300">
+            <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors duration-300">
               {t("home_explore_services")}
             </span>
           </LocaleLink>

@@ -1,7 +1,9 @@
+import { useCookieConsent } from "../context/CookieConsentContext"
 import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 export const Footer = () => {
   const { t } = useLocale()
+  const { openSettings } = useCookieConsent()
 
   const navItems = [
     { key: "nav_home", path: "/" },
@@ -14,32 +16,34 @@ export const Footer = () => {
   return (
     <footer className="bg-primary text-parchment">
       {/* Top rule */}
-      <div className="h-px bg-parchment/10 w-full" />
+      <div className="bg-parchment/10 h-px w-full" />
 
       {/* Wordmark zone */}
-      <div className="px-8 md:px-16 pt-16 pb-10 border-b border-parchment/10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div className="border-parchment/10 border-b px-8 pt-16 pb-10 md:px-16">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <h2
-              className="font-serif leading-none tracking-tighter text-parchment/90"
+              className="text-parchment/90 font-serif leading-none tracking-tighter"
               style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
             >
               {t("nav_brand")}
             </h2>
-            <p className="mt-4 text-sm italic text-parchment/40">{t("about_process_slogan")}</p>
+            <p className="text-parchment/40 mt-4 text-sm italic">
+              {t("about_process_slogan")}
+            </p>
           </div>
         </div>
       </div>
 
       {/* Bottom strip */}
-      <div className="px-8 md:px-16 py-7 flex flex-col gap-6 md:grid md:grid-cols-3 md:items-center">
+      <div className="flex flex-col gap-6 px-8 py-7 md:grid md:grid-cols-3 md:items-center md:px-16">
         {/* Nav */}
         <div className="flex flex-wrap gap-x-8 gap-y-3">
           {navItems.map((item) => (
             <LocaleLink
               key={item.key}
               to={item.path}
-              className="text-[10px] uppercase tracking-widest text-parchment/40 hover:text-parchment transition-colors duration-200 interactive"
+              className="text-parchment/40 hover:text-parchment interactive text-[10px] tracking-widest uppercase transition-colors duration-200"
             >
               {t(item.key)}
             </LocaleLink>
@@ -47,27 +51,33 @@ export const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <p className="text-[10px] uppercase tracking-widest text-parchment/20 md:text-center">
+        <p className="text-parchment/20 text-[10px] tracking-widest uppercase md:text-center">
           &copy; {new Date().getFullYear()} Sarl-s
         </p>
 
         {/* Contact + admin */}
-        <div className="flex flex-wrap gap-x-8 gap-y-3 md:justify-end md:items-center">
+        <div className="flex flex-wrap gap-x-8 gap-y-3 md:items-center md:justify-end">
           <a
             href="mailto:Contact@hargarten-properties.lu"
-            className="text-[10px] uppercase tracking-widest text-parchment/40 hover:text-parchment transition-colors duration-200 interactive"
+            className="text-parchment/40 hover:text-parchment interactive text-[10px] tracking-widest uppercase transition-colors duration-200"
           >
             Contact@hargarten-properties.lu
           </a>
           <a
             href="tel:+35212345678"
-            className="text-[10px] uppercase tracking-widest text-parchment/40 hover:text-parchment transition-colors duration-200 interactive"
+            className="text-parchment/40 hover:text-parchment interactive text-[10px] tracking-widest uppercase transition-colors duration-200"
           >
             +352 123 456 78
           </a>
+          <button
+            onClick={openSettings}
+            className="text-parchment/40 hover:text-parchment interactive text-[10px] tracking-widest uppercase transition-colors duration-200"
+          >
+            {t("footer_cookie_settings")}
+          </button>
           <LocaleLink
             to="/admin/login"
-            className="text-[10px] text-parchment/15 hover:text-parchment/40 transition-colors duration-300 interactive"
+            className="text-parchment/15 hover:text-parchment/40 interactive text-[10px] transition-colors duration-300"
           >
             {t("footer_admin")}
           </LocaleLink>

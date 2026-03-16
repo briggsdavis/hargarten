@@ -1,25 +1,27 @@
+import Lenis from "lenis"
+import { AnimatePresence, motion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 import { Routes, Route, useLocation } from "react-router"
-import { AnimatePresence, motion } from "motion/react"
-import Lenis from "lenis"
+import type { Location } from "react-router"
+import { CookieConsent } from "./components/CookieConsent"
+import { CustomCursor } from "./components/CustomCursor"
+import { Footer } from "./components/Footer"
 import { LoadingScreen } from "./components/LoadingScreen"
 import { Navbar } from "./components/Navbar"
-import { CustomCursor } from "./components/CustomCursor"
-import { Home } from "./pages/Home"
+import { PropertyDetail } from "./components/PropertyDetail"
+import { AdminProvider } from "./context/AdminContext"
+import { CookieConsentProvider } from "./context/CookieConsentContext"
+import { LocaleProvider } from "./i18n/LocaleContext"
 import { About } from "./pages/About"
+import { AdminDashboardHome } from "./pages/admin/AdminDashboardHome"
+import { AdminInquiries } from "./pages/admin/AdminInquiries"
+import { AdminLayout } from "./pages/admin/AdminLayout"
+import { AdminListings } from "./pages/admin/AdminListings"
+import { AdminLogin } from "./pages/admin/AdminLogin"
+import { Contact } from "./pages/Contact"
+import { Home } from "./pages/Home"
 import { Portfolio } from "./pages/Portfolio"
 import { Services } from "./pages/Services"
-import { Contact } from "./pages/Contact"
-import { Footer } from "./components/Footer"
-import { PropertyDetail } from "./components/PropertyDetail"
-import { AdminLogin } from "./pages/admin/AdminLogin"
-import { AdminLayout } from "./pages/admin/AdminLayout"
-import { AdminDashboardHome } from "./pages/admin/AdminDashboardHome"
-import { AdminListings } from "./pages/admin/AdminListings"
-import { AdminInquiries } from "./pages/admin/AdminInquiries"
-import { AdminProvider } from "./context/AdminContext"
-import { LocaleProvider } from "./i18n/LocaleContext"
-import type { Location } from "react-router"
 
 const publicRoutes = (
   <>
@@ -99,22 +101,22 @@ const AppContent = () => {
   if (isAdminRoute) {
     return (
       <>
-      <CustomCursor />
-      <Routes>
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboardHome />} />
-          <Route path="listings" element={<AdminListings />} />
-          <Route path="inquiries" element={<AdminInquiries />} />
-        </Route>
-        {/* Locale-prefixed admin routes (e.g. /fr/admin/login, /lb/admin) */}
-        <Route path="/:locale/admin/login" element={<AdminLogin />} />
-        <Route path="/:locale/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboardHome />} />
-          <Route path="listings" element={<AdminListings />} />
-          <Route path="inquiries" element={<AdminInquiries />} />
-        </Route>
-      </Routes>
+        <CustomCursor />
+        <Routes>
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboardHome />} />
+            <Route path="listings" element={<AdminListings />} />
+            <Route path="inquiries" element={<AdminInquiries />} />
+          </Route>
+          {/* Locale-prefixed admin routes (e.g. /fr/admin/login, /lb/admin) */}
+          <Route path="/:locale/admin/login" element={<AdminLogin />} />
+          <Route path="/:locale/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboardHome />} />
+            <Route path="listings" element={<AdminListings />} />
+            <Route path="inquiries" element={<AdminInquiries />} />
+          </Route>
+        </Routes>
       </>
     )
   }
@@ -123,6 +125,7 @@ const AppContent = () => {
   return (
     <div className="relative min-h-screen">
       <CustomCursor />
+      <CookieConsent />
 
       <AnimatePresence mode="wait">
         {isLoading ? (
@@ -160,10 +163,12 @@ const AppContent = () => {
 
 export default function App() {
   return (
-    <AdminProvider>
-      <LocaleProvider>
-        <AppContent />
-      </LocaleProvider>
-    </AdminProvider>
+    <CookieConsentProvider>
+      <AdminProvider>
+        <LocaleProvider>
+          <AppContent />
+        </LocaleProvider>
+      </AdminProvider>
+    </CookieConsentProvider>
   )
 }

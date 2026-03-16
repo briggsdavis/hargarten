@@ -1,15 +1,16 @@
-import { motion, useMotionValue, useSpring } from "motion/react"
+import { motion, useMotionValue } from "motion/react"
 import { useEffect, useState } from "react"
 
 export const CustomCursor = () => {
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
   const isTouchDevice =
-    typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches
 
-  const springConfig = { damping: 30, stiffness: 500, mass: 0.3 }
-  const cursorXSpring = useSpring(cursorX, springConfig)
-  const cursorYSpring = useSpring(cursorY, springConfig)
+  // const springConfig = { damping: 30, stiffness: 500, mass: 0.3 }
+  // const cursorXSpring = useSpring(cursorX, springConfig)
+  // const cursorYSpring = useSpring(cursorY, springConfig)
 
   const [isHovering, setIsHovering] = useState(false)
   const [isMouseDown, setIsMouseDown] = useState(false)
@@ -49,17 +50,17 @@ export const CustomCursor = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+      className="pointer-events-none fixed top-0 left-0 z-[10000] mix-blend-difference"
       style={{
-        x: cursorXSpring,
-        y: cursorYSpring,
+        x: cursorX,
+        y: cursorY,
         translateX: "-50%",
         translateY: "-50%",
       }}
     >
       {/* Main Dot */}
       <motion.div
-        className="absolute w-1.5 h-1.5 bg-white rounded-full"
+        className="absolute h-1.5 w-1.5 rounded-full bg-white"
         style={{
           translateX: "-50%",
           translateY: "-50%",
@@ -68,7 +69,7 @@ export const CustomCursor = () => {
       />
       {/* Outer Ring */}
       <motion.div
-        className="absolute w-8 h-8 border border-white rounded-full"
+        className="absolute h-8 w-8 rounded-full border border-white"
         style={{
           translateX: "-50%",
           translateY: "-50%",

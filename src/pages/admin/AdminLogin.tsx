@@ -22,17 +22,17 @@ export const AdminLogin = () => {
   }
 
   return (
-    <div className="admin-portal min-h-screen bg-[#f5f4f0] flex items-center justify-center px-4">
+    <div className="admin-portal flex min-h-screen items-center justify-center bg-[#f5f4f0] px-4">
       {/* Language switcher - top right */}
       <div className="fixed top-5 right-6 flex items-center gap-1">
         {LOCALES.map(({ code, label }) => (
           <button
             key={code}
             onClick={() => setAdminLocale(code)}
-            className={`px-3 py-1.5 text-[9px] uppercase tracking-widest font-sans font-bold rounded transition-all ${
+            className={`rounded px-3 py-1.5 font-sans text-[9px] font-bold tracking-widest uppercase transition-all ${
               adminLocale === code
                 ? "bg-[#163b0f] text-[#fbf6f1]"
-                : "text-[#9ca3af] hover:text-[#1a1a1a] hover:bg-white"
+                : "text-[#9ca3af] hover:bg-white hover:text-[#1a1a1a]"
             }`}
           >
             {label}
@@ -42,25 +42,30 @@ export const AdminLogin = () => {
 
       <div className="w-full max-w-md">
         {/* Logo */}
-        <div className="text-center mb-10">
-          <h1 className="font-serif text-[#163b0f] tracking-tighter" style={{ fontSize: "1.6rem" }}>
+        <div className="mb-10 text-center">
+          <h1
+            className="font-serif tracking-tighter text-[#163b0f]"
+            style={{ fontSize: "1.6rem" }}
+          >
             Hargarten Properties
           </h1>
-          <p className="text-[10px] uppercase tracking-[0.25em] text-[#163b0f]/40 mt-2 font-sans">
+          <p className="mt-2 font-sans text-[10px] tracking-[0.25em] text-[#163b0f]/40 uppercase">
             {adminT("admin_login_portal")}
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-white border border-[#e8e4df] p-10 shadow-sm">
-          <h2 className="text-lg font-sans font-medium text-[#1a1a1a] mb-1 tracking-tight">
+        <div className="border border-[#e8e4df] bg-white p-10 shadow-sm">
+          <h2 className="mb-1 font-sans text-lg font-medium tracking-tight text-[#1a1a1a]">
             {adminT("admin_login_heading")}
           </h2>
-          <p className="text-sm font-sans text-[#6b7280] mb-8">{adminT("admin_login_subtitle")}</p>
+          <p className="mb-8 font-sans text-sm text-[#6b7280]">
+            {adminT("admin_login_subtitle")}
+          </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] mb-2 font-sans font-medium">
+              <label className="mb-2 block font-sans text-[10px] font-medium tracking-widest text-[#6b7280] uppercase">
                 {adminT("admin_login_email")}
               </label>
               <input
@@ -68,12 +73,12 @@ export const AdminLogin = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@hargarten-properties.lu"
-                className="w-full px-4 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors bg-white text-[#1a1a1a] placeholder:text-[#9ca3af]"
+                className="w-full border border-[#e5e7eb] bg-white px-4 py-3 font-sans text-sm text-[#1a1a1a] transition-colors placeholder:text-[#9ca3af] focus:border-[#163b0f] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-[#6b7280] mb-2 font-sans font-medium">
+              <label className="mb-2 block font-sans text-[10px] font-medium tracking-widest text-[#6b7280] uppercase">
                 {adminT("admin_login_password")}
               </label>
               <input
@@ -81,24 +86,24 @@ export const AdminLogin = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 border border-[#e5e7eb] text-sm font-sans focus:outline-none focus:border-[#163b0f] transition-colors bg-white text-[#1a1a1a]"
+                className="w-full border border-[#e5e7eb] bg-white px-4 py-3 font-sans text-sm text-[#1a1a1a] transition-colors focus:border-[#163b0f] focus:outline-none"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-[#163b0f] text-[#fbf6f1] py-3.5 text-[10px] uppercase tracking-widest font-sans font-bold hover:bg-[#163b0f]/90 transition-colors mt-2"
+              className="mt-2 w-full bg-[#163b0f] py-3.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
             >
               {adminT("admin_login_button")}
             </button>
           </form>
 
-          <p className="text-[10px] font-sans text-[#9ca3af] mt-6 text-center">
+          <p className="mt-6 text-center font-sans text-[10px] text-[#9ca3af]">
             {adminT("admin_login_demo")}
           </p>
         </div>
 
-        <p className="text-center text-[10px] font-sans text-[#6b7280]/50 mt-6">
+        <p className="mt-6 text-center font-sans text-[10px] text-[#6b7280]/50">
           © {new Date().getFullYear()} Hargarten Properties Sàrl-s
         </p>
       </div>

@@ -142,6 +142,18 @@
   "property_inquire": "Nous contacter",
 
   "footer_admin": "Admin",
+  "footer_cookie_settings": "Gestion des cookies",
+
+  "cookie_title": "Ce site utilise des cookies",
+  "cookie_description": "Nous utilisons des cookies pour analyser le trafic et ameliorer votre experience. Les cookies essentiels sont toujours actifs. Les cookies analytiques ne sont actives qu'avec votre consentement.",
+  "cookie_accept": "Accepter",
+  "cookie_reject": "Refuser",
+  "cookie_show_details": "Voir les details",
+  "cookie_hide_details": "Masquer les details",
+  "cookie_essential_title": "Essentiels (toujours actifs)",
+  "cookie_essential_desc": "Necessaires au fonctionnement de base du site, comme la navigation et la securite. Ils ne peuvent pas etre desactives.",
+  "cookie_analytics_title": "Analytiques (optionnels)",
+  "cookie_analytics_desc": "Google Analytics collecte des donnees d'utilisation anonymes pour nous aider a comprendre comment les visiteurs interagissent avec le site. Aucune donnee personnelle n'est partagee avec des tiers.",
 
   "admin_portal": "Portail Admin",
   "admin_nav_section": "Navigation",

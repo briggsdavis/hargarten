@@ -1,8 +1,17 @@
+import {
+  MapPin,
+  Maximize,
+  Maximize2,
+  Bed,
+  Bath,
+  X,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 import { useState, useEffect, useCallback } from "react"
 import { createPortal } from "react-dom"
 import { useParams } from "react-router"
-import { MapPin, Maximize, Maximize2, Bed, Bath, X, ChevronLeft, ChevronRight } from "lucide-react"
 import { PROPERTIES } from "../constants"
 import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
@@ -51,7 +60,13 @@ const BENTO = [
   },
 ]
 
-function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => void }) {
+function Lightbox({
+  startIndex,
+  onClose,
+}: {
+  startIndex: number
+  onClose: () => void
+}) {
   const [index, setIndex] = useState(startIndex)
   const [direction, setDirection] = useState(0)
 
@@ -63,7 +78,10 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
     [index],
   )
 
-  const prev = useCallback(() => go((index - 1 + GALLERY.length) % GALLERY.length), [go, index])
+  const prev = useCallback(
+    () => go((index - 1 + GALLERY.length) % GALLERY.length),
+    [go, index],
+  )
   const next = useCallback(() => go((index + 1) % GALLERY.length), [go, index])
 
   useEffect(() => {
@@ -96,30 +114,31 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-[500] bg-black/96 flex flex-col"
+      className="fixed inset-0 z-[500] flex flex-col bg-black/96"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}
     >
       {/* Top bar */}
-      <div className="flex-none flex justify-between items-center px-8 py-5">
-        <span className="text-white/40 text-[10px] uppercase tracking-[0.25em] font-bold">
-          {index + 1} <span className="text-white/20 mx-1">/</span> {GALLERY.length}
+      <div className="flex flex-none items-center justify-between px-8 py-5">
+        <span className="text-[10px] font-bold tracking-[0.25em] text-white/40 uppercase">
+          {index + 1} <span className="mx-1 text-white/20">/</span>{" "}
+          {GALLERY.length}
         </span>
         <button
           onClick={onClose}
-          className="text-white/50 hover:text-white transition-colors interactive"
+          className="interactive text-white/50 transition-colors hover:text-white"
         >
           <X size={22} />
         </button>
       </div>
 
       {/* Main image area */}
-      <div className="flex-1 flex items-center justify-center relative overflow-hidden px-16 min-h-0">
+      <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-16">
         {/* Prev */}
         <button
           onClick={prev}
-          className="absolute left-4 z-10 w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors interactive"
+          className="interactive absolute left-4 z-10 flex h-10 w-10 items-center justify-center text-white/50 transition-colors hover:text-white"
         >
           <ChevronLeft size={28} />
         </button>
@@ -142,7 +161,7 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
         {/* Next */}
         <button
           onClick={next}
-          className="absolute right-4 z-10 w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors interactive"
+          className="interactive absolute right-4 z-10 flex h-10 w-10 items-center justify-center text-white/50 transition-colors hover:text-white"
         >
           <ChevronRight size={28} />
         </button>
@@ -150,18 +169,22 @@ function Lightbox({ startIndex, onClose }: { startIndex: number; onClose: () => 
 
       {/* Bottom thumbnail carousel */}
       <div className="flex-none px-8 py-5">
-        <div className="flex gap-3 overflow-x-auto pb-1 justify-center">
+        <div className="flex justify-center gap-3 overflow-x-auto pb-1">
           {GALLERY_THUMBS.map((thumb, i) => (
             <button
               key={i}
               onClick={() => go(i)}
-              className={`flex-shrink-0 w-20 h-14 overflow-hidden transition-all duration-300 interactive ${
+              className={`interactive h-14 w-20 flex-shrink-0 overflow-hidden transition-all duration-300 ${
                 i === index
-                  ? "ring-2 ring-white ring-offset-2 ring-offset-black opacity-100"
+                  ? "opacity-100 ring-2 ring-white ring-offset-2 ring-offset-black"
                   : "opacity-30 hover:opacity-60"
               }`}
             >
-              <img src={thumb} className="w-full h-full object-cover" draggable={false} />
+              <img
+                src={thumb}
+                className="h-full w-full object-cover"
+                draggable={false}
+              />
             </button>
           ))}
         </div>
@@ -184,20 +207,22 @@ export const PropertyDetail = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-parchment">
+      <div className="bg-parchment min-h-screen">
         {/* Back button */}
-        <div className="pt-32 px-8 md:px-24 mb-8">
+        <div className="mb-8 px-8 pt-32 md:px-24">
           <LocaleLink
             to="/portfolio"
-            className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold text-primary/50 hover:text-primary transition-colors interactive group"
+            className="text-primary/50 hover:text-primary interactive group flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase transition-colors"
           >
-            <span className="border-b border-current pb-0.5 pt-2">{t("property_back")}</span>
+            <span className="border-b border-current pt-2 pb-0.5">
+              {t("property_back")}
+            </span>
           </LocaleLink>
         </div>
 
         {/* Hero - click to open lightbox at index 0 */}
         <section
-          className="h-[70vh] relative overflow-hidden mx-8 md:mx-24 mb-20 group cursor-pointer"
+          className="group relative mx-8 mb-20 h-[70vh] cursor-pointer overflow-hidden md:mx-24"
           onClick={() => openLightbox(0)}
         >
           <motion.img
@@ -205,20 +230,20 @@ export const PropertyDetail = () => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2 }}
             src={property.image}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-black/20" />
           {/* Expand hint */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30">
-            <div className="flex items-center gap-2 text-white text-[10px] uppercase tracking-widest font-bold">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-white uppercase">
               <Maximize2 size={14} />
               {t("property_gallery")}
             </div>
           </div>
         </section>
 
-        <div className="max-w-7xl mx-auto px-8 md:px-24 pb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div className="mx-auto max-w-7xl px-8 pb-32 md:px-24">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-3">
             {/* Details */}
             <div className="lg:col-span-2">
               <motion.div
@@ -226,33 +251,33 @@ export const PropertyDetail = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <div className="flex items-center gap-2 text-primary/50 uppercase tracking-widest text-xs mb-4">
+                <div className="text-primary/50 mb-4 flex items-center gap-2 text-xs tracking-widest uppercase">
                   <MapPin size={14} />
                   {property.location}
                 </div>
-                <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">
+                <h1 className="text-primary mb-8 font-serif text-5xl md:text-7xl">
                   {property.title}
                 </h1>
-                <p className="text-xl text-primary/70 leading-relaxed mb-12">
+                <p className="text-primary/70 mb-12 text-xl leading-relaxed">
                   {property.description}
                 </p>
 
                 {/* Bento Gallery */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-12">
                   {BENTO.map(({ src, col, aspect, idx }) => (
                     <div
                       key={idx}
-                      className={`${col} ${aspect} overflow-hidden relative group cursor-pointer`}
+                      className={`${col} ${aspect} group relative cursor-pointer overflow-hidden`}
                       onClick={() => openLightbox(idx)}
                     >
                       <img
                         src={src}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 flex items-center justify-center">
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/25">
                         <Maximize2
                           size={18}
-                          className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          className="text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                         />
                       </div>
                     </div>
@@ -270,45 +295,48 @@ export const PropertyDetail = () => {
                 className="sticky top-32 space-y-12"
               >
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-2">
+                  <p className="text-primary/40 mb-2 text-[10px] tracking-widest uppercase">
                     {t("property_price")}
                   </p>
-                  <p className="text-4xl font-serif">${property.price}</p>
+                  <p className="font-serif text-4xl">${property.price}</p>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="text-center p-4 bg-primary/5">
-                    <Maximize size={20} className="mx-auto mb-2 text-primary/40" />
+                  <div className="bg-primary/5 p-4 text-center">
+                    <Maximize
+                      size={20}
+                      className="text-primary/40 mx-auto mb-2"
+                    />
                     <p className="text-xs font-bold">{property.sqm}</p>
-                    <p className="text-[8px] uppercase tracking-widest opacity-40">
+                    <p className="text-[8px] tracking-widest uppercase opacity-40">
                       {t("property_sqm")}
                     </p>
                   </div>
-                  <div className="text-center p-4 bg-primary/5">
-                    <Bed size={20} className="mx-auto mb-2 text-primary/40" />
+                  <div className="bg-primary/5 p-4 text-center">
+                    <Bed size={20} className="text-primary/40 mx-auto mb-2" />
                     <p className="text-xs font-bold">{property.bedrooms}</p>
-                    <p className="text-[8px] uppercase tracking-widest opacity-40">
+                    <p className="text-[8px] tracking-widest uppercase opacity-40">
                       {t("property_bed")}
                     </p>
                   </div>
-                  <div className="text-center p-4 bg-primary/5">
-                    <Bath size={20} className="mx-auto mb-2 text-primary/40" />
+                  <div className="bg-primary/5 p-4 text-center">
+                    <Bath size={20} className="text-primary/40 mx-auto mb-2" />
                     <p className="text-xs font-bold">{property.bathrooms}</p>
-                    <p className="text-[8px] uppercase tracking-widest opacity-40">
+                    <p className="text-[8px] tracking-widest uppercase opacity-40">
                       {t("property_bath")}
                     </p>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-primary/40 mb-4">
+                  <p className="text-primary/40 mb-4 text-[10px] tracking-widest uppercase">
                     {t("property_amenities")}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {property.amenities.map((a) => (
                       <span
                         key={a}
-                        className="px-3 py-1 border border-primary/10 text-[10px] uppercase tracking-widest font-bold"
+                        className="border-primary/10 border px-3 py-1 text-[10px] font-bold tracking-widest uppercase"
                       >
                         {a}
                       </span>
@@ -316,18 +344,18 @@ export const PropertyDetail = () => {
                   </div>
                 </div>
 
-                <div className="pt-8 border-t border-primary/10">
-                  <div className="flex justify-between items-center mb-8">
-                    <span className="text-[10px] uppercase tracking-widest text-primary/40">
+                <div className="border-primary/10 border-t pt-8">
+                  <div className="mb-8 flex items-center justify-between">
+                    <span className="text-primary/40 text-[10px] tracking-widest uppercase">
                       {t("property_status")}
                     </span>
-                    <span className="text-xs font-bold uppercase tracking-widest">
+                    <span className="text-xs font-bold tracking-widest uppercase">
                       {property.status}
                     </span>
                   </div>
                   <LocaleLink
                     to="/contact"
-                    className="block w-full bg-primary text-parchment py-4 text-xs uppercase tracking-widest font-bold hover:bg-primary/90 transition-colors interactive text-center"
+                    className="bg-primary text-parchment hover:bg-primary/90 interactive block w-full py-4 text-center text-xs font-bold tracking-widest uppercase transition-colors"
                   >
                     {t("property_inquire")}
                   </LocaleLink>
@@ -340,7 +368,9 @@ export const PropertyDetail = () => {
 
       {/* Fullscreen Lightbox */}
       <AnimatePresence>
-        {lightboxIndex !== null && <Lightbox startIndex={lightboxIndex} onClose={closeLightbox} />}
+        {lightboxIndex !== null && (
+          <Lightbox startIndex={lightboxIndex} onClose={closeLightbox} />
+        )}
       </AnimatePresence>
     </>
   )
