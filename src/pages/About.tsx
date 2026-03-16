@@ -19,12 +19,7 @@ export const About = () => {
     },
     { title: t("about_value4_title"), desc: t("about_value4_desc"), quote: "", image: "/livingroom.jpg" },
     { title: t("about_value5_title"), desc: t("about_value5_desc"), quote: t("about_value5_quote"), image: "/aboutt.jpg" },
-    {
-      title: t("about_value6_title"),
-      desc: t("about_value6_desc"),
-      quote: "",
-      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
+    { title: t("about_value6_title"), desc: t("about_value6_desc"), quote: "", image: "/partnership.jpg" },
   ]
 
   const { scrollYProgress } = useScroll({
@@ -62,7 +57,7 @@ export const About = () => {
             className="absolute inset-0 w-full h-[130%] -top-[15%]"
           >
             <img
-              src="/finalhero.jpg"
+              src="/potential.jpg"
               alt="About Hargarten"
               className="w-full h-full object-cover"
             />
@@ -179,75 +174,6 @@ export const About = () => {
           <img src="/paralax.jpg" alt="Luxury Interior" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
-      </section>
-
-      {/* Process Timeline Section */}
-      <section className="py-32 md:py-40 px-8 md:px-24 bg-white/50">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.9 }}
-            className="mb-20"
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-primary/40 mb-4">{t("about_process_label")}</p>
-            <h2 className="text-4xl md:text-5xl font-serif text-primary tracking-tighter">{t("about_process_heading")}</h2>
-          </motion.div>
-
-          <div className="relative">
-            <div className="space-y-16 md:space-y-20">
-              {[
-                { step: "01", title: t("about_process_step1_title"), text: t("about_process_step1_text") },
-                { step: "02", title: t("about_process_step2_title"), text: t("about_process_step2_text") },
-                { step: "03", title: t("about_process_step3_title"), text: t("about_process_step3_text") },
-                { step: "04", title: t("about_process_step4_title"), text: t("about_process_step4_text") },
-              ].map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.7, delay: idx * 0.1 }}
-                  className="flex gap-10 md:gap-16"
-                >
-                  {/* Step dot */}
-                  <div className="shrink-0 w-9 md:w-11 flex flex-col items-center self-stretch">
-                    <div className="w-9 h-9 md:w-11 md:h-11 rounded-full border border-primary/20 bg-parchment flex items-center justify-center shrink-0">
-                      <span className="text-[10px] font-bold tracking-widest text-primary/50">{item.step}</span>
-                    </div>
-                    {idx < 3 && <div className="flex-1 w-px bg-primary/15 mt-2" />}
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 pb-2">
-                    <h3 className="text-2xl md:text-3xl font-serif text-primary mb-4 tracking-tighter">
-                      {item.title}
-                    </h3>
-                    <p className="text-lg text-primary/65 leading-relaxed">{item.text}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7 }}
-              className="mt-20 pt-16 border-t border-primary/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
-            >
-              <p className="text-2xl md:text-3xl font-serif text-primary tracking-tighter">{t("about_process_cta")}</p>
-              <LocaleLink
-                to="/contact"
-                className="shrink-0 inline-block px-8 py-4 border border-primary text-xs uppercase tracking-widest font-bold text-primary hover:bg-primary hover:text-parchment transition-colors duration-300"
-              >
-                {t("about_process_cta_button")}
-              </LocaleLink>
-            </motion.div>
-            <p className="mt-6 text-sm italic text-primary/40">{t("about_process_slogan")}</p>
-          </div>
-        </div>
       </section>
 
       {/* Scroll-triggered Values Section */}
