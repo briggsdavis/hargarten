@@ -174,7 +174,7 @@ export const About = () => {
                 <h3 className="text-primary mb-1 font-serif text-lg tracking-tight">
                   {person.name}
                 </h3>
-                <p className="text-primary/40 text-[10px] tracking-[0.2em] uppercase">
+                <p className="text-primary/40 text-xs tracking-[0.2em] uppercase">
                   {person.role}
                 </p>
               </div>
@@ -315,7 +315,7 @@ export const About = () => {
           transition={{ duration: 1 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="text-primary/40 mb-6 text-[10px] tracking-[0.3em] uppercase">
+          <p className="text-primary/40 mb-6 text-xs tracking-[0.3em] uppercase">
             {t("about_cta_label")}
           </p>
           <h2 className="text-primary mb-8 font-serif text-4xl leading-tight tracking-tighter md:text-6xl">

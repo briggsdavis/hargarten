@@ -5,12 +5,21 @@ export const Footer = () => {
   const { t } = useLocale()
   const { openSettings } = useCookieConsent()
 
+  const linkClass =
+    "text-parchment/40 hover:text-parchment interactive text-xs tracking-widest uppercase transition-colors duration-200"
+
   const navItems = [
     { key: "nav_home", path: "/" },
     { key: "nav_about", path: "/about" },
     { key: "nav_portfolio", path: "/portfolio" },
     { key: "nav_services", path: "/services" },
     { key: "nav_contact", path: "/contact" },
+  ]
+
+  const legalItems = [
+    { key: "footer_legal", path: "/legal" },
+    { key: "footer_privacy", path: "/privacy" },
+    { key: "footer_cookies", path: "/cookies" },
   ]
 
   return (
@@ -35,52 +44,47 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom strip */}
-      <div className="flex flex-col gap-6 px-8 py-7 md:grid md:grid-cols-3 md:items-center md:px-16">
-        {/* Nav */}
-        <div className="flex flex-wrap gap-x-8 gap-y-3">
+      {/* Columns */}
+      <div className="grid grid-cols-2 gap-x-8 gap-y-10 px-8 pt-10 pb-8 md:grid-cols-4 md:px-16">
+        {/* Pages */}
+        <nav className="flex flex-col gap-3">
           {navItems.map((item) => (
-            <LocaleLink
-              key={item.key}
-              to={item.path}
-              className="text-parchment/40 hover:text-parchment interactive text-[10px] tracking-widest uppercase transition-colors duration-200"
-            >
+            <LocaleLink key={item.key} to={item.path} className={linkClass}>
               {t(item.key)}
             </LocaleLink>
           ))}
-        </div>
+        </nav>
 
-        {/* Copyright */}
-        <p className="text-parchment/20 text-[10px] tracking-widest uppercase md:text-center">
-          &copy; {new Date().getFullYear()} Sarl-s
-        </p>
+        {/* Legal */}
+        <nav className="flex flex-col gap-3">
+          {legalItems.map((item) => (
+            <LocaleLink key={item.key} to={item.path} className={linkClass}>
+              {t(item.key)}
+            </LocaleLink>
+          ))}
+          <button onClick={openSettings} className={`text-left ${linkClass}`}>
+            {t("footer_cookie_settings")}
+          </button>
+        </nav>
 
-        {/* Contact + admin */}
-        <div className="flex flex-wrap gap-x-8 gap-y-3 md:items-center md:justify-end">
+        {/* Contact */}
+        <div className="flex flex-col gap-3">
           <a
             href="mailto:Contact@hargarten-properties.lu"
-            className="text-parchment/40 hover:text-parchment interactive text-[10px] tracking-widest uppercase transition-colors duration-200"
+            className={linkClass}
           >
             Contact@hargarten-properties.lu
           </a>
-          <a
-            href="tel:+35212345678"
-            className="text-parchment/40 hover:text-parchment interactive text-[10px] tracking-widest uppercase transition-colors duration-200"
-          >
-            +352 123 456 78
+          <a href="tel:+352621699831" className={linkClass}>
+            +352 621 699 831
           </a>
-          <button
-            onClick={openSettings}
-            className="text-parchment/40 hover:text-parchment interactive text-[10px] tracking-widest uppercase transition-colors duration-200"
-          >
-            {t("footer_cookie_settings")}
-          </button>
-          <LocaleLink
-            to="/admin/login"
-            className="text-parchment/15 hover:text-parchment/40 interactive text-[10px] transition-colors duration-300"
-          >
-            {t("footer_admin")}
-          </LocaleLink>
+        </div>
+
+        {/* Copyright */}
+        <div className="flex flex-col gap-3">
+          <p className="text-parchment/40 text-xs tracking-widest uppercase">
+            &copy; {new Date().getFullYear()} Sarl-s
+          </p>
         </div>
       </div>
     </footer>

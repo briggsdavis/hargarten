@@ -85,13 +85,13 @@ const EMPTY_FORM: FormData = {
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="mb-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#9ca3af] uppercase">
+  <p className="mb-1.5 font-sans text-xs font-bold tracking-[0.22em] text-[#9ca3af] uppercase">
     {children}
   </p>
 )
 
 const FieldHint = ({ children }: { children: React.ReactNode }) => (
-  <p className="mt-1 font-sans text-[11px] text-[#9ca3af]">{children}</p>
+  <p className="mt-1 font-sans text-xs text-[#9ca3af]">{children}</p>
 )
 
 const LangInput = ({
@@ -114,7 +114,7 @@ const LangInput = ({
   <div className="flex items-start gap-3">
     <div className="mt-2.5 flex flex-shrink-0 items-center gap-1.5">
       <span className="text-base leading-none">{flag}</span>
-      <span className="w-5 font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase">
+      <span className="w-5 font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
         {lang}
       </span>
     </div>
@@ -289,7 +289,7 @@ export const AdminListings = () => {
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <p className="mb-1 font-sans text-[10px] tracking-widest text-[#9ca3af] uppercase">
+          <p className="mb-1 font-sans text-xs tracking-widest text-[#9ca3af] uppercase">
             {adminT("admin_management")}
           </p>
           <h2 className="font-sans text-2xl font-semibold tracking-tight text-[#1a1a1a]">
@@ -301,7 +301,7 @@ export const AdminListings = () => {
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-5 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
+          className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-5 py-2.5 font-sans text-xs font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
         >
           <Plus size={13} />
           {adminT("admin_add_new")}
@@ -323,7 +323,7 @@ export const AdminListings = () => {
               ].map((h, i) => (
                 <th
                   key={i}
-                  className="px-5 py-3.5 text-left font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase"
+                  className="px-5 py-3.5 text-left font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase"
                 >
                   {h}
                 </th>
@@ -359,7 +359,7 @@ export const AdminListings = () => {
                   </span>
                 </td>
                 <td className="px-5 py-4">
-                  <span className="font-sans text-[10px] tracking-wider text-[#6b7280] uppercase">
+                  <span className="font-sans text-xs tracking-wider text-[#6b7280] uppercase">
                     {property.type === "Sale"
                       ? adminT("admin_for_sale")
                       : adminT("admin_for_rent")}
@@ -367,7 +367,7 @@ export const AdminListings = () => {
                 </td>
                 <td className="px-5 py-4">
                   <span
-                    className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-sans text-[10px] font-semibold ${
+                    className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-sans text-xs font-semibold ${
                       property.status === "Available"
                         ? "bg-emerald-50 text-emerald-700"
                         : "bg-amber-50 text-amber-700"
@@ -398,13 +398,13 @@ export const AdminListings = () => {
                       <div className="ml-1 flex items-center gap-2">
                         <button
                           onClick={() => handleDelete(property.id)}
-                          className="font-sans text-[10px] font-bold text-red-600 hover:underline"
+                          className="font-sans text-xs font-bold text-red-600 hover:underline"
                         >
                           {adminT("admin_confirm")}
                         </button>
                         <button
                           onClick={() => setDeleteConfirmId(null)}
-                          className="font-sans text-[10px] text-[#6b7280] hover:underline"
+                          className="font-sans text-xs text-[#6b7280] hover:underline"
                         >
                           {adminT("admin_cancel")}
                         </button>
@@ -432,7 +432,7 @@ export const AdminListings = () => {
             </p>
             <button
               onClick={openAdd}
-              className="mt-4 font-sans text-[10px] font-bold tracking-widest text-[#163b0f] uppercase hover:underline"
+              className="mt-4 font-sans text-xs font-bold tracking-widest text-[#163b0f] uppercase hover:underline"
             >
               {adminT("admin_add_first")} →
             </button>
@@ -447,13 +447,13 @@ export const AdminListings = () => {
           <div className="flex flex-shrink-0 items-center justify-between border-b border-[#e8e4df] bg-white px-6 py-4 md:px-10">
             <div className="flex items-center gap-4">
               <img
-                src="/logo.png"
+                src="/inverted.png"
                 alt="Hargarten Properties"
                 className="h-8 w-auto object-contain"
               />
               <div className="h-6 w-px bg-[#e8e4df]" />
               <div>
-                <p className="font-sans text-[9px] tracking-widest text-[#9ca3af] uppercase">
+                <p className="font-sans text-xs tracking-widest text-[#9ca3af] uppercase">
                   {editingId
                     ? adminT("admin_editing_listing")
                     : adminT("admin_creating_listing")}
@@ -467,9 +467,9 @@ export const AdminListings = () => {
             </div>
             <button
               onClick={closeForm}
-              className="flex items-center gap-2 border border-[#e8e4df] bg-white px-4 py-2 font-sans text-[11px] font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:border-[#1a1a1a] hover:text-[#1a1a1a]"
+              className="flex items-center gap-2 border border-[#e8e4df] bg-white px-4 py-2 font-sans text-xs leading-none font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:border-[#1a1a1a] hover:text-[#1a1a1a]"
             >
-              <X size={13} />
+              <X size={13} className="shrink-0 -translate-y-px" />
               {adminT("admin_cancel")}
             </button>
           </div>
@@ -484,7 +484,7 @@ export const AdminListings = () => {
                 >
                   {idx > 0 && (
                     <div
-                      className={`absolute top-3 right-1/2 h-px w-full transition-colors ${
+                      className={`absolute top-3 right-1/2 z-0 h-px w-full transition-colors ${
                         currentStep > idx ? "bg-[#163b0f]/30" : "bg-[#e8e4df]"
                       }`}
                     />
@@ -492,13 +492,13 @@ export const AdminListings = () => {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(step.number)}
-                    className="relative z-10 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full font-sans text-[10px] font-bold transition-all"
+                    className="relative z-10 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full font-sans text-xs font-bold transition-all"
                     style={{
                       background:
                         currentStep === step.number
                           ? "#163b0f"
                           : currentStep > step.number
-                            ? "rgba(22,59,15,0.15)"
+                            ? "#dce1db"
                             : "#e8e4df",
                       color:
                         currentStep === step.number
@@ -515,7 +515,7 @@ export const AdminListings = () => {
                     )}
                   </button>
                   <span
-                    className={`mt-1.5 hidden text-center font-sans text-[9px] leading-tight font-bold tracking-wider uppercase transition-colors md:block ${
+                    className={`mt-1.5 hidden text-center font-sans text-xs leading-tight font-bold tracking-wider uppercase transition-colors md:block ${
                       currentStep === step.number
                         ? "text-[#163b0f]"
                         : "text-[#9ca3af]"
@@ -537,7 +537,7 @@ export const AdminListings = () => {
             <div className="mx-auto max-w-3xl px-6 py-10 md:px-0">
               {/* Step header */}
               <div className="mb-8">
-                <p className="mb-2 font-sans text-[9px] font-bold tracking-[0.25em] text-[#9ca3af] uppercase">
+                <p className="mb-2 font-sans text-xs font-bold tracking-[0.25em] text-[#9ca3af] uppercase">
                   {adminT("admin_step_of", {
                     current: stepInfo.number,
                     total: STEPS.length,
@@ -550,7 +550,7 @@ export const AdminListings = () => {
                   {stepInfo.subtitle}
                 </p>
                 <div className="mt-4 rounded-lg border border-[#163b0f]/10 bg-[#163b0f]/5 px-4 py-3">
-                  <p className="font-sans text-[11px] leading-relaxed text-[#163b0f]">
+                  <p className="font-sans text-xs leading-relaxed text-[#163b0f]">
                     <span className="font-bold tracking-wider uppercase">
                       {adminT("admin_tip")}:{" "}
                     </span>
@@ -612,7 +612,7 @@ export const AdminListings = () => {
                             size={20}
                             className="text-[#c4c4c4] transition-colors group-hover:text-[#163b0f]/40"
                           />
-                          <span className="font-sans text-[9px] tracking-wider text-[#c4c4c4] uppercase group-hover:text-[#9ca3af]">
+                          <span className="font-sans text-xs tracking-wider text-[#c4c4c4] uppercase group-hover:text-[#9ca3af]">
                             {adminT("admin_add_photo")}
                           </span>
                         </div>
@@ -736,7 +736,7 @@ export const AdminListings = () => {
                             ? adminT("admin_status_available")
                             : adminT("admin_status_reserved")}
                         </span>
-                        <span className="text-[9px] tracking-wider uppercase opacity-60">
+                        <span className="text-xs tracking-wider uppercase opacity-60">
                           {adminT("admin_click_toggle")}
                         </span>
                       </button>
@@ -757,7 +757,7 @@ export const AdminListings = () => {
                           key={t}
                           type="button"
                           onClick={() => field("type", t)}
-                          className={`flex-1 py-3 font-sans text-[10px] font-bold tracking-widest uppercase transition-all ${
+                          className={`flex-1 py-3 font-sans text-xs font-bold tracking-widest uppercase transition-all ${
                             formData.type === t
                               ? "bg-[#163b0f] text-[#fbf6f1]"
                               : "bg-white text-[#6b7280] hover:bg-[#f9f8f6]"
@@ -782,7 +782,6 @@ export const AdminListings = () => {
                       {
                         labelKey: "admin_bedrooms",
                         key: "bedrooms" as const,
-                        suffixKey: "admin_rooms_suffix",
                         type: "number",
                         hintKey: "admin_bedrooms_hint",
                         placeholder: "e.g. 3",
@@ -790,7 +789,6 @@ export const AdminListings = () => {
                       {
                         labelKey: "admin_bathrooms",
                         key: "bathrooms" as const,
-                        suffixKey: "admin_baths_suffix",
                         type: "number",
                         hintKey: "admin_bathrooms_hint",
                         placeholder: "e.g. 2",
@@ -798,46 +796,31 @@ export const AdminListings = () => {
                       {
                         labelKey: "admin_surface",
                         key: "sqm" as const,
-                        suffixKey: "admin_sqm_suffix",
                         type: "text",
                         hintKey: "admin_surface_hint",
                         placeholder: "e.g. 142.5",
                       },
-                    ].map(
-                      ({
-                        labelKey,
-                        key,
-                        suffixKey,
-                        type,
-                        hintKey,
-                        placeholder,
-                      }) => (
-                        <div key={key}>
-                          <SectionLabel>{adminT(labelKey)}</SectionLabel>
-                          <div className="relative">
-                            <input
-                              type={type}
-                              value={formData[key]}
-                              onChange={(e) =>
-                                field(
-                                  key,
-                                  type === "number"
-                                    ? Number(e.target.value)
-                                    : e.target.value,
-                                )
-                              }
-                              min={type === "number" ? 0 : undefined}
-                              placeholder={placeholder}
-                              className="w-full rounded-lg border border-[#e5e7eb] bg-white px-4 py-3 pr-12 font-sans text-sm transition-colors placeholder:text-[#c4c4c4] focus:border-[#163b0f] focus:outline-none"
-                            />
-                            <span className="absolute top-1/2 right-4 -translate-y-1/2 font-sans text-[10px] tracking-wider text-[#9ca3af] uppercase">
-                              {adminT(suffixKey)}
-                            </span>
-                          </div>
-                          <FieldHint>{adminT(hintKey)}</FieldHint>
-                        </div>
-                      ),
-                    )}
+                    ].map(({ labelKey, key, type, hintKey, placeholder }) => (
+                      <div key={key}>
+                        <SectionLabel>{adminT(labelKey)}</SectionLabel>
+                        <input
+                          type={type}
+                          value={formData[key]}
+                          onChange={(e) =>
+                            field(
+                              key,
+                              type === "number"
+                                ? Number(e.target.value)
+                                : e.target.value,
+                            )
+                          }
+                          min={type === "number" ? 0 : undefined}
+                          placeholder={placeholder}
+                          className="w-full rounded-lg border border-[#e5e7eb] bg-white px-4 py-3 font-sans text-sm transition-colors placeholder:text-[#c4c4c4] focus:border-[#163b0f] focus:outline-none"
+                        />
+                        <FieldHint>{adminT(hintKey)}</FieldHint>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -909,10 +892,10 @@ export const AdminListings = () => {
                             }`}
                           >
                             <div className="min-w-0">
-                              <p className="truncate font-sans text-[11px] leading-tight font-semibold">
+                              <p className="truncate font-sans text-xs leading-tight font-semibold">
                                 {amenity.en}
                               </p>
-                              <p className="mt-0.5 truncate font-sans text-[9px] text-current opacity-60">
+                              <p className="mt-0.5 truncate font-sans text-xs text-current opacity-60">
                                 {amenity.fr} · {amenity.lb}
                               </p>
                             </div>
@@ -948,7 +931,7 @@ export const AdminListings = () => {
                           <p className="font-sans text-sm font-semibold text-[#1a1a1a]">
                             {adminT("admin_add_amenity_heading")}
                           </p>
-                          <p className="font-sans text-[11px] text-[#9ca3af]">
+                          <p className="font-sans text-xs text-[#9ca3af]">
                             {adminT("admin_add_amenity_subtitle")}
                           </p>
                         </div>
@@ -1013,7 +996,7 @@ export const AdminListings = () => {
                               !newAmenity.fr.trim() ||
                               !newAmenity.lb.trim()
                             }
-                            className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-5 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90 disabled:cursor-not-allowed disabled:opacity-40"
+                            className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-5 py-2.5 font-sans text-xs font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90 disabled:cursor-not-allowed disabled:opacity-40"
                           >
                             <Plus size={11} />
                             {adminT("admin_add_amenity_button")}
@@ -1024,7 +1007,7 @@ export const AdminListings = () => {
                               setShowAddAmenity(false)
                               setNewAmenity({ en: "", fr: "", lb: "" })
                             }}
-                            className="rounded-sm border border-[#e5e7eb] px-5 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:bg-[#f5f4f0]"
+                            className="rounded-sm border border-[#e5e7eb] px-5 py-2.5 font-sans text-xs font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:bg-[#f5f4f0]"
                           >
                             {adminT("admin_cancel")}
                           </button>
@@ -1043,13 +1026,13 @@ export const AdminListings = () => {
               type="button"
               onClick={goPrev}
               disabled={currentStep === 1}
-              className="flex items-center gap-2 rounded-sm border border-[#e5e7eb] px-5 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:bg-[#f5f4f0] disabled:cursor-not-allowed disabled:opacity-30"
+              className="flex items-center gap-2 rounded-sm border border-[#e5e7eb] px-5 py-2.5 font-sans text-xs font-bold tracking-widest text-[#6b7280] uppercase transition-colors hover:bg-[#f5f4f0] disabled:cursor-not-allowed disabled:opacity-30"
             >
               <ChevronLeft size={13} />
               {adminT("admin_previous")}
             </button>
 
-            <p className="hidden font-sans text-[10px] tracking-wider text-[#9ca3af] uppercase md:block">
+            <p className="hidden font-sans text-xs tracking-wider text-[#9ca3af] uppercase md:block">
               {adminT("admin_step_of", {
                 current: currentStep,
                 total: STEPS.length,
@@ -1060,7 +1043,7 @@ export const AdminListings = () => {
               <button
                 type="button"
                 onClick={goNext}
-                className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-6 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
+                className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-6 py-2.5 font-sans text-xs font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
               >
                 {adminT("admin_next_step")}
                 <ChevronRight size={13} />
@@ -1069,7 +1052,7 @@ export const AdminListings = () => {
               <button
                 type="submit"
                 form="property-form"
-                className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-6 py-2.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
+                className="flex items-center gap-2 rounded-sm bg-[#163b0f] px-6 py-2.5 font-sans text-xs font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
               >
                 <Check size={13} />
                 {editingId

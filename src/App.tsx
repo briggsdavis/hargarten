@@ -19,8 +19,11 @@ import { AdminLayout } from "./pages/admin/AdminLayout"
 import { AdminListings } from "./pages/admin/AdminListings"
 import { AdminLogin } from "./pages/admin/AdminLogin"
 import { Contact } from "./pages/Contact"
+import { CookiePolicy } from "./pages/CookiePolicy"
 import { Home } from "./pages/Home"
+import { Impressum } from "./pages/Impressum"
 import { Portfolio } from "./pages/Portfolio"
+import { PrivacyPolicy } from "./pages/PrivacyPolicy"
 import { Services } from "./pages/Services"
 
 const publicRoutes = (
@@ -31,6 +34,9 @@ const publicRoutes = (
     <Route path="portfolio/:id" element={<PropertyDetail />} />
     <Route path="services" element={<Services />} />
     <Route path="contact" element={<Contact />} />
+    <Route path="legal" element={<Impressum />} />
+    <Route path="privacy" element={<PrivacyPolicy />} />
+    <Route path="cookies" element={<CookiePolicy />} />
   </>
 )
 

@@ -139,7 +139,7 @@ export const Home = () => {
               <h2 className="text-primary font-serif text-4xl md:text-6xl">
                 {t("home_select_residences")}
               </h2>
-              <span className="mb-2 text-[10px] tracking-widest uppercase opacity-50">
+              <span className="mb-2 text-xs tracking-widest uppercase opacity-50">
                 {t("home_explore_properties")}
               </span>
             </div>
@@ -182,7 +182,7 @@ export const Home = () => {
                       <p className="text-sm font-medium">
                         From &euro;{prop.price}
                       </p>
-                      <p className="text-primary/40 mt-1 text-[10px] tracking-widest uppercase">
+                      <p className="text-primary/40 mt-1 text-xs tracking-widest uppercase">
                         {prop.type}
                       </p>
                     </div>
@@ -208,7 +208,7 @@ export const Home = () => {
             transition={{ duration: 0.9 }}
             className="flex max-w-xl flex-col items-start justify-center py-16"
           >
-            <p className="text-primary/40 mb-6 text-[10px] tracking-[0.3em] uppercase">
+            <p className="text-primary/40 mb-6 text-xs tracking-[0.3em] uppercase">
               {t("home_residences")}
             </p>
             <h2 className="text-primary mb-6 font-serif text-4xl leading-tight md:text-5xl">
@@ -255,7 +255,7 @@ export const Home = () => {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <p className="text-primary/40 text-[10px] tracking-[0.3em] uppercase">
+          <p className="text-primary/40 text-xs tracking-[0.3em] uppercase">
             {t("home_what_we_offer")}
           </p>
         </motion.div>
@@ -285,7 +285,7 @@ export const Home = () => {
 
               {/* Caption row */}
               <div className="border-primary/10 flex items-center justify-between border-t pt-5">
-                <span className="border-primary/30 group-hover:border-primary text-primary/60 group-hover:text-primary border-b pb-1 text-[11px] font-bold tracking-[0.25em] uppercase transition-colors duration-300">
+                <span className="border-primary/30 group-hover:border-primary text-primary/60 group-hover:text-primary border-b pb-1 text-xs font-bold tracking-[0.25em] uppercase transition-colors duration-300">
                   {service.localizedTitle?.[locale] ?? service.title}
                 </span>
               </div>

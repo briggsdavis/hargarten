@@ -22,7 +22,7 @@ export const AdminDashboardHome = () => {
     <div className="max-w-4xl p-8">
       {/* Page Header */}
       <div className="mb-10">
-        <p className="mb-1 font-sans text-[10px] tracking-widest text-[#9ca3af] uppercase">
+        <p className="mb-1 font-sans text-xs tracking-widest text-[#9ca3af] uppercase">
           {adminT("admin_overview")}
         </p>
         <h2 className="font-sans text-2xl font-semibold tracking-tight text-[#1a1a1a]">
@@ -49,7 +49,7 @@ export const AdminDashboardHome = () => {
               ) : (
                 <EyeOff size={15} className="text-amber-600" />
               )}
-              <span className="font-sans text-[9px] font-bold tracking-[0.2em] text-[#6b7280] uppercase">
+              <span className="font-sans text-xs font-bold tracking-[0.2em] text-[#6b7280] uppercase">
                 {adminT("admin_portfolio_visibility")}
               </span>
             </div>
@@ -83,7 +83,7 @@ export const AdminDashboardHome = () => {
               />
             </button>
             <span
-              className={`font-sans text-[9px] font-bold tracking-widest uppercase ${
+              className={`font-sans text-xs font-bold tracking-widest uppercase ${
                 portfolioLive ? "text-[#163b0f]" : "text-[#9ca3af]"
               }`}
             >
@@ -97,7 +97,7 @@ export const AdminDashboardHome = () => {
         {/* Status pill */}
         <div className="mt-5 flex items-center gap-2 border-t border-current/10 pt-4">
           <span
-            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-sans text-[10px] font-semibold ${
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-sans text-xs font-semibold ${
               portfolioLive
                 ? "bg-[#163b0f]/10 text-[#163b0f]"
                 : "bg-amber-100 text-amber-700"
@@ -152,7 +152,7 @@ export const AdminDashboardHome = () => {
             <p className="font-sans text-2xl font-semibold tracking-tight text-[#1a1a1a]">
               {value}
             </p>
-            <p className="mt-0.5 font-sans text-[11px] text-[#6b7280]">
+            <p className="mt-0.5 font-sans text-xs text-[#6b7280]">
               {adminT(labelKey)}
             </p>
           </div>
@@ -162,7 +162,7 @@ export const AdminDashboardHome = () => {
       {/* Quick Links */}
       <div className="overflow-hidden rounded-xl border border-[#e8e4df] bg-white">
         <div className="border-b border-[#e8e4df] px-6 py-4">
-          <p className="font-sans text-[10px] font-bold tracking-widest text-[#9ca3af] uppercase">
+          <p className="font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
             {adminT("admin_quick_actions")}
           </p>
         </div>

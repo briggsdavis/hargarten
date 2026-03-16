@@ -73,7 +73,7 @@ export const Services = () => {
             transition={{ duration: 0.9 }}
             className="mb-20"
           >
-            <p className="text-primary/40 mb-4 text-[10px] tracking-[0.3em] uppercase">
+            <p className="text-primary/40 mb-4 text-xs tracking-[0.3em] uppercase">
               {t("about_process_label")}
             </p>
             <h2 className="text-primary font-serif text-4xl tracking-tighter md:text-5xl">
@@ -116,7 +116,7 @@ export const Services = () => {
                   {/* Step dot */}
                   <div className="flex w-9 shrink-0 flex-col items-center self-stretch md:w-11">
                     <div className="border-primary/20 bg-parchment flex h-9 w-9 shrink-0 items-center justify-center rounded-full border md:h-11 md:w-11">
-                      <span className="text-primary/50 text-[10px] font-bold tracking-widest">
+                      <span className="text-primary/50 text-xs font-bold tracking-widest">
                         {item.step}
                       </span>
                     </div>
@@ -242,7 +242,7 @@ export const Services = () => {
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 }}
-                          className="text-primary/40 mb-4 pr-8 pl-16 text-[10px] font-bold tracking-[0.3em] uppercase md:pl-24"
+                          className="text-primary/40 mb-4 pr-8 pl-16 text-xs font-bold tracking-[0.3em] uppercase md:pl-24"
                         >
                           {service.localizedSubtitle?.[locale] ??
                             service.subtitle}
@@ -343,7 +343,7 @@ export const Services = () => {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="flex flex-col justify-center px-12 py-24 md:px-20"
           >
-            <p className="text-primary/40 mb-8 text-[10px] tracking-[0.3em] uppercase">
+            <p className="text-primary/40 mb-8 text-xs tracking-[0.3em] uppercase">
               {t("services_cta_label")}
             </p>
             <h2 className="text-primary mb-8 font-serif text-4xl leading-tight tracking-tighter md:text-5xl">
@@ -354,7 +354,7 @@ export const Services = () => {
             </p>
             <LocaleLink
               to="/portfolio"
-              className="group interactive inline-flex items-center self-start text-[11px] font-bold tracking-widest uppercase"
+              className="group interactive inline-flex items-center self-start text-xs font-bold tracking-widest uppercase"
             >
               <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors duration-300">
                 {t("services_cta_link")}

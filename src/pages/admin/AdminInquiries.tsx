@@ -185,7 +185,7 @@ export const AdminInquiries = () => {
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <p className="mb-1 font-sans text-[10px] tracking-widest text-[#9ca3af] uppercase">
+          <p className="mb-1 font-sans text-xs tracking-widest text-[#9ca3af] uppercase">
             {adminT("admin_crm_inbox")}
           </p>
           <h2 className="font-sans text-2xl font-semibold tracking-tight text-[#1a1a1a]">
@@ -314,19 +314,19 @@ export const AdminInquiries = () => {
           <thead>
             <tr className="border-b border-[#e8e4df] bg-[#f9f8f6]">
               <th className="w-8 px-4 py-3.5" />
-              <th className="px-4 py-3.5 text-left font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase">
+              <th className="px-4 py-3.5 text-left font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
                 {adminT("admin_col_date")}
               </th>
-              <th className="px-4 py-3.5 text-left font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase">
+              <th className="px-4 py-3.5 text-left font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
                 {adminT("admin_col_first_name")}
               </th>
-              <th className="px-4 py-3.5 text-left font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase">
+              <th className="px-4 py-3.5 text-left font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
                 {adminT("admin_col_last_name")}
               </th>
-              <th className="px-4 py-3.5 text-left font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase">
+              <th className="px-4 py-3.5 text-left font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
                 Email
               </th>
-              <th className="px-4 py-3.5 text-left font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase">
+              <th className="px-4 py-3.5 text-left font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
                 {adminT("admin_col_subject")}
               </th>
             </tr>
@@ -419,7 +419,7 @@ export const AdminInquiries = () => {
                           />
                         )}
                         <span
-                          className={`rounded-full border px-2.5 py-1 font-sans text-[10px] font-semibold ${getSubjectStyle(
+                          className={`rounded-full border px-2.5 py-1 font-sans text-xs font-semibold ${getSubjectStyle(
                             inquiry.subject,
                           )}`}
                         >
@@ -441,14 +441,14 @@ export const AdminInquiries = () => {
                       <td colSpan={6} className="px-10 py-6">
                         {/* Full subject line (in case it was truncated) */}
                         {translateSubject(inquiry.subject).length > 28 && (
-                          <p className="mb-2 font-sans text-[10px] font-bold tracking-widest text-[#9ca3af] uppercase">
+                          <p className="mb-2 font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
                             {translateSubject(inquiry.subject)}
                           </p>
                         )}
 
                         {/* Message body */}
                         <div className="mb-5 rounded-lg border border-[#e8e4df] bg-white px-5 py-4">
-                          <p className="mb-2.5 font-sans text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase">
+                          <p className="mb-2.5 font-sans text-xs font-bold tracking-widest text-[#9ca3af] uppercase">
                             {adminT("admin_message_label")}
                           </p>
                           <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]">
@@ -464,7 +464,7 @@ export const AdminInquiries = () => {
                                 e.stopPropagation()
                                 markAsRead(inquiry.id)
                               }}
-                              className="flex items-center gap-1.5 rounded-sm border border-[#163b0f]/25 px-4 py-2 font-sans text-[10px] font-bold tracking-widest text-[#163b0f] uppercase transition-all hover:border-[#163b0f] hover:bg-[#163b0f] hover:text-[#fbf6f1]"
+                              className="flex items-center gap-1.5 rounded-sm border border-[#163b0f]/25 px-4 py-2 font-sans text-xs font-bold tracking-widest text-[#163b0f] uppercase transition-all hover:border-[#163b0f] hover:bg-[#163b0f] hover:text-[#fbf6f1]"
                             >
                               <CheckCircle size={12} />
                               {adminT("admin_mark_read")}
@@ -476,7 +476,7 @@ export const AdminInquiries = () => {
                               e.stopPropagation()
                               deleteInquiry(inquiry.id)
                             }}
-                            className="flex items-center gap-1.5 rounded-sm border border-red-200 px-4 py-2 font-sans text-[10px] font-bold tracking-widest text-red-500 uppercase transition-all hover:bg-red-50"
+                            className="flex items-center gap-1.5 rounded-sm border border-red-200 px-4 py-2 font-sans text-xs font-bold tracking-widest text-red-500 uppercase transition-all hover:bg-red-50"
                           >
                             <Trash2 size={12} />
                             {adminT("admin_delete")}
@@ -485,7 +485,7 @@ export const AdminInquiries = () => {
                           <a
                             href={`mailto:${inquiry.email}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="ml-auto flex items-center gap-1.5 rounded-sm border border-[#e5e7eb] px-4 py-2 font-sans text-[10px] font-bold tracking-widest text-[#6b7280] uppercase transition-all hover:border-[#163b0f]/30 hover:bg-white"
+                            className="ml-auto flex items-center gap-1.5 rounded-sm border border-[#e5e7eb] px-4 py-2 font-sans text-xs font-bold tracking-widest text-[#6b7280] uppercase transition-all hover:border-[#163b0f]/30 hover:bg-white"
                           >
                             <Mail size={12} />
                             {adminT("admin_reply_email")}

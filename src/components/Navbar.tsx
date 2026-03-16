@@ -95,7 +95,7 @@ export const Navbar = () => {
           <LanguageSwitcher />
           <Link
             to={localePath("/contact")}
-            className={`hidden border text-[11.5px] font-bold tracking-widest uppercase md:inline-block ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
+            className={`hidden border text-xs font-bold tracking-widest uppercase md:inline-block ${borderClass} px-[18px] py-[9px] transition-all duration-300 ${contactHover} interactive`}
           >
             {t("nav_contact")}
           </Link>
@@ -128,7 +128,7 @@ export const Navbar = () => {
             <Link
               to={localePath("/contact")}
               onClick={() => setIsOpen(false)}
-              className="border-primary text-primary hover:bg-primary hover:text-parchment interactive absolute top-8 right-8 z-10 hidden border px-[18px] py-[9px] text-[11.5px] font-bold tracking-widest uppercase transition-all duration-300 md:block"
+              className="border-primary text-primary hover:bg-primary hover:text-parchment interactive absolute top-8 right-8 z-10 hidden border px-[18px] py-[9px] text-xs font-bold tracking-widest uppercase transition-all duration-300 md:block"
             >
               {t("nav_contact")}
             </Link>

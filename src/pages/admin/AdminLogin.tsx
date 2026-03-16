@@ -29,7 +29,7 @@ export const AdminLogin = () => {
           <button
             key={code}
             onClick={() => setAdminLocale(code)}
-            className={`rounded px-3 py-1.5 font-sans text-[9px] font-bold tracking-widest uppercase transition-all ${
+            className={`rounded px-3 py-1.5 font-sans text-xs font-bold tracking-widest uppercase transition-all ${
               adminLocale === code
                 ? "bg-[#163b0f] text-[#fbf6f1]"
                 : "text-[#9ca3af] hover:bg-white hover:text-[#1a1a1a]"
@@ -49,7 +49,7 @@ export const AdminLogin = () => {
           >
             Hargarten Properties
           </h1>
-          <p className="mt-2 font-sans text-[10px] tracking-[0.25em] text-[#163b0f]/40 uppercase">
+          <p className="mt-2 font-sans text-xs tracking-[0.25em] text-[#163b0f]/40 uppercase">
             {adminT("admin_login_portal")}
           </p>
         </div>
@@ -65,7 +65,7 @@ export const AdminLogin = () => {
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
-              <label className="mb-2 block font-sans text-[10px] font-medium tracking-widest text-[#6b7280] uppercase">
+              <label className="mb-2 block font-sans text-xs font-medium tracking-widest text-[#6b7280] uppercase">
                 {adminT("admin_login_email")}
               </label>
               <input
@@ -78,7 +78,7 @@ export const AdminLogin = () => {
             </div>
 
             <div>
-              <label className="mb-2 block font-sans text-[10px] font-medium tracking-widest text-[#6b7280] uppercase">
+              <label className="mb-2 block font-sans text-xs font-medium tracking-widest text-[#6b7280] uppercase">
                 {adminT("admin_login_password")}
               </label>
               <input
@@ -92,18 +92,18 @@ export const AdminLogin = () => {
 
             <button
               type="submit"
-              className="mt-2 w-full bg-[#163b0f] py-3.5 font-sans text-[10px] font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
+              className="mt-2 w-full bg-[#163b0f] py-3.5 font-sans text-xs font-bold tracking-widest text-[#fbf6f1] uppercase transition-colors hover:bg-[#163b0f]/90"
             >
               {adminT("admin_login_button")}
             </button>
           </form>
 
-          <p className="mt-6 text-center font-sans text-[10px] text-[#9ca3af]">
+          <p className="mt-6 text-center font-sans text-xs text-[#9ca3af]">
             {adminT("admin_login_demo")}
           </p>
         </div>
 
-        <p className="mt-6 text-center font-sans text-[10px] text-[#6b7280]/50">
+        <p className="mt-6 text-center font-sans text-xs text-[#6b7280]/50">
           © {new Date().getFullYear()} Hargarten Properties Sàrl-s
         </p>
       </div>

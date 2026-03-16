@@ -121,7 +121,7 @@ function Lightbox({
     >
       {/* Top bar */}
       <div className="flex flex-none items-center justify-between px-8 py-5">
-        <span className="text-[10px] font-bold tracking-[0.25em] text-white/40 uppercase">
+        <span className="text-xs font-bold tracking-[0.25em] text-white/40 uppercase">
           {index + 1} <span className="mx-1 text-white/20">/</span>{" "}
           {GALLERY.length}
         </span>
@@ -212,7 +212,7 @@ export const PropertyDetail = () => {
         <div className="mb-8 px-8 pt-32 md:px-24">
           <LocaleLink
             to="/portfolio"
-            className="text-primary/50 hover:text-primary interactive group flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase transition-colors"
+            className="text-primary/50 hover:text-primary interactive group flex items-center gap-3 text-xs font-bold tracking-widest uppercase transition-colors"
           >
             <span className="border-b border-current pt-2 pb-0.5">
               {t("property_back")}
@@ -235,7 +235,7 @@ export const PropertyDetail = () => {
           <div className="absolute inset-0 bg-black/20" />
           {/* Expand hint */}
           <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-white uppercase">
+            <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-white uppercase">
               <Maximize2 size={14} />
               {t("property_gallery")}
             </div>
@@ -295,7 +295,7 @@ export const PropertyDetail = () => {
                 className="sticky top-32 space-y-12"
               >
                 <div>
-                  <p className="text-primary/40 mb-2 text-[10px] tracking-widest uppercase">
+                  <p className="text-primary/40 mb-2 text-xs tracking-widest uppercase">
                     {t("property_price")}
                   </p>
                   <p className="font-serif text-4xl">${property.price}</p>
@@ -308,35 +308,35 @@ export const PropertyDetail = () => {
                       className="text-primary/40 mx-auto mb-2"
                     />
                     <p className="text-xs font-bold">{property.sqm}</p>
-                    <p className="text-[8px] tracking-widest uppercase opacity-40">
+                    <p className="text-xs tracking-widest uppercase opacity-40">
                       {t("property_sqm")}
                     </p>
                   </div>
                   <div className="bg-primary/5 p-4 text-center">
                     <Bed size={20} className="text-primary/40 mx-auto mb-2" />
                     <p className="text-xs font-bold">{property.bedrooms}</p>
-                    <p className="text-[8px] tracking-widest uppercase opacity-40">
+                    <p className="text-xs tracking-widest uppercase opacity-40">
                       {t("property_bed")}
                     </p>
                   </div>
                   <div className="bg-primary/5 p-4 text-center">
                     <Bath size={20} className="text-primary/40 mx-auto mb-2" />
                     <p className="text-xs font-bold">{property.bathrooms}</p>
-                    <p className="text-[8px] tracking-widest uppercase opacity-40">
+                    <p className="text-xs tracking-widest uppercase opacity-40">
                       {t("property_bath")}
                     </p>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-primary/40 mb-4 text-[10px] tracking-widest uppercase">
+                  <p className="text-primary/40 mb-4 text-xs tracking-widest uppercase">
                     {t("property_amenities")}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {property.amenities.map((a) => (
                       <span
                         key={a}
-                        className="border-primary/10 border px-3 py-1 text-[10px] font-bold tracking-widest uppercase"
+                        className="border-primary/10 border px-3 py-1 text-xs font-bold tracking-widest uppercase"
                       >
                         {a}
                       </span>
@@ -346,7 +346,7 @@ export const PropertyDetail = () => {
 
                 <div className="border-primary/10 border-t pt-8">
                   <div className="mb-8 flex items-center justify-between">
-                    <span className="text-primary/40 text-[10px] tracking-widest uppercase">
+                    <span className="text-primary/40 text-xs tracking-widest uppercase">
                       {t("property_status")}
                     </span>
                     <span className="text-xs font-bold tracking-widest uppercase">

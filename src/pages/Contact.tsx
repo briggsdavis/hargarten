@@ -27,7 +27,7 @@ export const Contact = () => {
                   <Mail size={20} className="text-primary" />
                 </div>
                 <div>
-                  <p className="text-primary/40 mb-1 text-[10px] tracking-widest uppercase">
+                  <p className="text-primary/40 mb-1 text-xs tracking-widest uppercase">
                     {t("contact_email")}
                   </p>
                   <a
@@ -44,7 +44,7 @@ export const Contact = () => {
                   <Phone size={20} className="text-primary" />
                 </div>
                 <div>
-                  <p className="text-primary/40 mb-1 text-[10px] tracking-widest uppercase">
+                  <p className="text-primary/40 mb-1 text-xs tracking-widest uppercase">
                     {t("contact_phone")}
                   </p>
                   <a
@@ -61,7 +61,7 @@ export const Contact = () => {
                   <MapPin size={20} className="text-primary" />
                 </div>
                 <div>
-                  <p className="text-primary/40 mb-1 text-[10px] tracking-widest uppercase">
+                  <p className="text-primary/40 mb-1 text-xs tracking-widest uppercase">
                     {t("contact_office")}
                   </p>
                   <p className="font-serif text-xl">
@@ -83,7 +83,7 @@ export const Contact = () => {
             <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="text-primary/40 text-[10px] tracking-widest uppercase">
+                  <label className="text-primary/40 text-xs tracking-widest uppercase">
                     {t("contact_first_name")}
                   </label>
                   <input
@@ -92,7 +92,7 @@ export const Contact = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-primary/40 text-[10px] tracking-widest uppercase">
+                  <label className="text-primary/40 text-xs tracking-widest uppercase">
                     {t("contact_last_name")}
                   </label>
                   <input
@@ -102,7 +102,7 @@ export const Contact = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-primary/40 text-[10px] tracking-widest uppercase">
+                <label className="text-primary/40 text-xs tracking-widest uppercase">
                   {t("contact_email_address")}
                 </label>
                 <input
@@ -111,7 +111,7 @@ export const Contact = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-primary/40 text-[10px] tracking-widest uppercase">
+                <label className="text-primary/40 text-xs tracking-widest uppercase">
                   {t("contact_subject")}
                 </label>
                 <select className="border-primary/20 focus:border-primary w-full appearance-none border-b bg-transparent py-2 transition-colors outline-none">
@@ -122,7 +122,7 @@ export const Contact = () => {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-primary/40 text-[10px] tracking-widest uppercase">
+                <label className="text-primary/40 text-xs tracking-widest uppercase">
                   {t("contact_message")}
                 </label>
                 <textarea

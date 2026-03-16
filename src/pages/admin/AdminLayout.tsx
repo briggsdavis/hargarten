@@ -46,14 +46,14 @@ export const AdminLayout = () => {
           >
             Hargarten
           </h1>
-          <p className="mt-1 font-sans text-[9px] tracking-[0.2em] text-[#163b0f]/40 uppercase">
+          <p className="mt-1 font-sans text-xs tracking-[0.2em] text-[#163b0f]/40 uppercase">
             {adminT("admin_portal")}
           </p>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-5">
-          <p className="mb-3 px-3 font-sans text-[9px] font-medium tracking-widest text-[#9ca3af] uppercase">
+          <p className="mb-3 px-3 font-sans text-xs font-medium tracking-widest text-[#9ca3af] uppercase">
             {adminT("admin_nav_section")}
           </p>
           <div className="flex flex-col gap-0.5">
@@ -125,7 +125,7 @@ export const AdminLayout = () => {
             <button
               key={code}
               onClick={() => setAdminLocale(code)}
-              className={`rounded px-3 py-1.5 font-sans text-[9px] font-bold tracking-widest uppercase transition-all ${
+              className={`rounded px-3 py-1.5 font-sans text-xs font-bold tracking-widest uppercase transition-all ${
                 adminLocale === code
                   ? "bg-[#163b0f] text-[#fbf6f1]"
                   : "text-[#9ca3af] hover:bg-[#f5f4f0] hover:text-[#1a1a1a]"

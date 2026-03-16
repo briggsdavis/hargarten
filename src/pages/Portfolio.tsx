@@ -22,7 +22,7 @@ const PillGroup = ({
   onChange: (v: string) => void
 }) => (
   <div className="flex flex-col gap-2">
-    <span className="text-primary/40 text-[9px] tracking-[0.2em] uppercase">
+    <span className="text-primary/40 text-xs tracking-[0.2em] uppercase">
       {label}
     </span>
     <div className="flex gap-2">
@@ -30,7 +30,7 @@ const PillGroup = ({
         <button
           key={opt}
           onClick={() => onChange(opt)}
-          className={`interactive border px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all duration-200 ${
+          className={`interactive border px-3 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-200 ${
             value === opt
               ? "bg-primary text-parchment border-primary"
               : "text-primary/50 border-primary/20 hover:border-primary hover:text-primary bg-transparent"
@@ -174,7 +174,7 @@ export const Portfolio = () => {
 
             {/* Bedrooms */}
             <div className="flex flex-col gap-2">
-              <span className="text-primary/40 text-[9px] tracking-[0.2em] uppercase">
+              <span className="text-primary/40 text-xs tracking-[0.2em] uppercase">
                 {t("portfolio_min_rooms")}
               </span>
               <div className="flex gap-2">
@@ -182,7 +182,7 @@ export const Portfolio = () => {
                   <button
                     key={n}
                     onClick={() => setMinBedrooms(n)}
-                    className={`interactive h-8 w-8 border text-[10px] font-bold transition-all duration-200 ${
+                    className={`interactive h-8 w-8 border text-xs font-bold transition-all duration-200 ${
                       minBedrooms === n
                         ? "bg-primary text-parchment border-primary"
                         : "text-primary/50 border-primary/20 hover:border-primary hover:text-primary bg-transparent"
@@ -196,13 +196,13 @@ export const Portfolio = () => {
 
             {/* Amenities Dropdown */}
             <div className="flex flex-col gap-2" ref={amenityRef}>
-              <span className="text-primary/40 text-[9px] tracking-[0.2em] uppercase">
+              <span className="text-primary/40 text-xs tracking-[0.2em] uppercase">
                 {t("portfolio_amenities")}
               </span>
               <div className="relative">
                 <button
                   onClick={() => setAmenityOpen((v) => !v)}
-                  className={`interactive flex items-center gap-3 border px-4 py-2 text-[10px] font-bold tracking-widest uppercase transition-all duration-200 ${
+                  className={`interactive flex items-center gap-3 border px-4 py-2 text-xs font-bold tracking-widest uppercase transition-all duration-200 ${
                     selectedAmenities.length > 0
                       ? "border-primary text-primary bg-primary/5"
                       : "border-primary/20 text-primary/50 hover:border-primary hover:text-primary"
@@ -234,7 +234,7 @@ export const Portfolio = () => {
                         <button
                           key={a}
                           onClick={() => toggleAmenity(a)}
-                          className={`interactive flex w-full items-center justify-between px-4 py-2.5 text-left text-[10px] tracking-widest uppercase transition-colors ${
+                          className={`interactive flex w-full items-center justify-between px-4 py-2.5 text-left text-xs tracking-widest uppercase transition-colors ${
                             selectedAmenities.includes(a)
                               ? "text-primary bg-primary/5 font-bold"
                               : "text-primary/50 hover:text-primary hover:bg-primary/3"
@@ -256,7 +256,7 @@ export const Portfolio = () => {
             {activeFilterCount > 0 && (
               <button
                 onClick={clearAll}
-                className="text-primary/40 hover:text-primary interactive flex items-center gap-2 self-end text-[10px] tracking-widest uppercase transition-colors"
+                className="text-primary/40 hover:text-primary interactive flex items-center gap-2 self-end text-xs tracking-widest uppercase transition-colors"
               >
                 <X size={10} />
                 {t("portfolio_clear_filters")}
@@ -268,7 +268,7 @@ export const Portfolio = () => {
           <div className="mt-6 pt-6">
             {isRentMode ? (
               <div className="flex max-w-sm flex-col gap-2">
-                <div className="text-primary/40 flex justify-between text-[9px] tracking-[0.2em] uppercase">
+                <div className="text-primary/40 flex justify-between text-xs tracking-[0.2em] uppercase">
                   <span>{t("portfolio_max_price")} / mo</span>
                   <span className="text-primary font-bold">
                     {maxRentPrice === 10000
@@ -285,14 +285,14 @@ export const Portfolio = () => {
                   onChange={(e) => setMaxRentPrice(parseInt(e.target.value))}
                   className="w-full cursor-pointer"
                 />
-                <div className="text-primary/30 flex justify-between text-[8px]">
+                <div className="text-primary/30 flex justify-between text-xs">
                   <span>&euro;1,000/mo</span>
                   <span>&euro;10,000+/mo</span>
                 </div>
               </div>
             ) : (
               <div className="flex max-w-sm flex-col gap-2">
-                <div className="text-primary/40 flex justify-between text-[9px] tracking-[0.2em] uppercase">
+                <div className="text-primary/40 flex justify-between text-xs tracking-[0.2em] uppercase">
                   <span>{t("portfolio_max_price")}</span>
                   <span className="text-primary font-bold">
                     {maxSalePrice === 6
@@ -311,7 +311,7 @@ export const Portfolio = () => {
                   onChange={(e) => setMaxSalePrice(parseFloat(e.target.value))}
                   className="w-full cursor-pointer"
                 />
-                <div className="text-primary/30 flex justify-between text-[8px]">
+                <div className="text-primary/30 flex justify-between text-xs">
                   <span>&euro;300K</span>
                   <span>&euro;6M+</span>
                 </div>
@@ -325,13 +325,13 @@ export const Portfolio = () => {
               <button
                 key={a}
                 onClick={() => toggleAmenity(a)}
-                className="bg-primary text-parchment interactive hover:bg-primary/80 flex items-center gap-2 px-3 py-1 text-[9px] font-bold tracking-widest uppercase transition-colors"
+                className="bg-primary text-parchment interactive hover:bg-primary/80 flex items-center gap-2 px-3 py-1 text-xs font-bold tracking-widest uppercase transition-colors"
               >
                 {a}
                 <X size={8} />
               </button>
             ))}
-            <span className="text-primary/30 ml-auto text-[10px] tracking-widest uppercase">
+            <span className="text-primary/30 ml-auto text-xs tracking-widest uppercase">
               {filtered.length === 1
                 ? t("portfolio_property", { count: String(filtered.length) })
                 : t("portfolio_properties", { count: String(filtered.length) })}
@@ -364,7 +364,7 @@ export const Portfolio = () => {
                     alt={prop.title}
                     className="h-full w-full object-cover"
                   />
-                  <div className="bg-parchment/90 text-primary absolute top-4 right-4 px-3 py-1 text-[10px] font-bold tracking-widest uppercase backdrop-blur-sm">
+                  <div className="bg-parchment/90 text-primary absolute top-4 right-4 px-3 py-1 text-xs font-bold tracking-widest uppercase backdrop-blur-sm">
                     {prop.status}
                   </div>
                 </div>
@@ -373,7 +373,7 @@ export const Portfolio = () => {
                     <h3 className="font-serif text-base tracking-tight">
                       {prop.title}
                     </h3>
-                    <p className="text-primary/40 mt-0.5 text-[9px] tracking-widest uppercase">
+                    <p className="text-primary/40 mt-0.5 text-xs tracking-widest uppercase">
                       {prop.location}
                     </p>
                   </div>
@@ -381,7 +381,7 @@ export const Portfolio = () => {
                     <p className="text-primary/70 text-sm font-medium">
                       ${prop.price}
                     </p>
-                    <p className="text-primary/30 mt-0.5 text-[9px] tracking-widest uppercase">
+                    <p className="text-primary/30 mt-0.5 text-xs tracking-widest uppercase">
                       {prop.sqm} {t("portfolio_sqm")} / {prop.bedrooms}{" "}
                       {t("portfolio_bed")}
                     </p>
@@ -403,7 +403,7 @@ export const Portfolio = () => {
             </p>
             <button
               onClick={clearAll}
-              className="text-primary/50 border-primary/20 hover:text-primary hover:border-primary interactive border-b pb-1 text-[10px] font-bold tracking-widest uppercase transition-colors"
+              className="text-primary/50 border-primary/20 hover:text-primary hover:border-primary interactive border-b pb-1 text-xs font-bold tracking-widest uppercase transition-colors"
             >
               {t("portfolio_clear_all")}
             </button>

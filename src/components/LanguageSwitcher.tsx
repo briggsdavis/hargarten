@@ -15,7 +15,7 @@ export const LanguageSwitcher = ({
         <Link
           key={loc}
           to={switchLocalePath(loc)}
-          className={`interactive text-[10px] font-bold tracking-widest uppercase transition-colors duration-200 ${
+          className={`interactive text-xs font-bold tracking-widest uppercase transition-colors duration-200 ${
             loc === locale ? "opacity-100" : "opacity-40 hover:opacity-70"
           }`}
         >
