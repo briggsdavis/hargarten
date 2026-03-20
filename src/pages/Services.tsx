@@ -162,9 +162,12 @@ export const Services = () => {
 
       {/* Services — Two Columns */}
       <div className="mx-auto max-w-7xl px-8 pb-32 md:px-16">
-        <div className="grid grid-cols-1 gap-16 md:grid-cols-[1fr_1px_1fr] md:gap-0">
+        {/* Faint horizontal line connecting the two columns */}
+        <div className="bg-primary/10 mb-12 hidden h-px md:block" />
+
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-0">
           {SERVICES.map((service, idx) => {
-            const column = (
+            return (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}
@@ -174,7 +177,7 @@ export const Services = () => {
                 className="md:px-12"
               >
                 {/* Service image */}
-                <div className="relative mb-8 aspect-[80/69] overflow-hidden">
+                <div className="relative mb-8 mt-8 aspect-[80/69] overflow-hidden">
                   <img
                     src={service.image}
                     alt={service.localizedTitle?.[locale] ?? service.title}
@@ -239,20 +242,6 @@ export const Services = () => {
                 </div>
               </motion.div>
             )
-
-            /* Insert the faint connecting line between the two columns */
-            if (idx === 0) {
-              return (
-                <>
-                  {column}
-                  <div
-                    key="divider"
-                    className="bg-primary/10 hidden self-stretch md:block"
-                  />
-                </>
-              )
-            }
-            return column
           })}
         </div>
 
