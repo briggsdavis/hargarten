@@ -1,12 +1,10 @@
-import { ChevronDown } from "lucide-react"
-import { motion, AnimatePresence, useScroll, useTransform } from "motion/react"
-import { useState, useRef } from "react"
+import { motion, useScroll, useTransform } from "motion/react"
+import { useRef } from "react"
 import { SERVICES } from "../constants"
 import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 export const Services = () => {
   const { t, locale } = useLocale()
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -162,133 +160,100 @@ export const Services = () => {
         </div>
       </section>
 
-      {/* Services Accordion */}
-      <div className="mx-auto max-w-5xl px-8 pb-32 md:px-24">
-        <div className="flex flex-col gap-4">
-          {SERVICES.map((service, idx) => (
-            <div key={idx} className="border-primary/10 border-b">
-              <button
-                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="interactive group flex w-full items-center justify-between py-10 text-left"
+      {/* Services — Two Columns */}
+      <div className="mx-auto max-w-7xl px-8 pb-32 md:px-16">
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-[1fr_1px_1fr] md:gap-0">
+          {SERVICES.map((service, idx) => {
+            const column = (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.8, delay: idx * 0.15 }}
+                className="md:px-12"
               >
-                <div className="flex items-center gap-8">
+                {/* Service image */}
+                <div className="relative mb-8 aspect-[80/69] overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.localizedTitle?.[locale] ?? service.title}
+                    className="h-full w-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="bg-primary/10 absolute inset-0" />
+                </div>
+
+                {/* Service number + title */}
+                <div className="mb-6 flex items-center gap-6">
                   <span className="text-primary/30 font-mono text-xs font-medium">
                     0{idx + 1}
                   </span>
-                  <h3 className="font-serif text-3xl md:text-4xl">
+                  <h3 className="text-primary font-serif text-2xl tracking-tighter md:text-3xl">
                     {service.localizedTitle?.[locale] ?? service.title}
                   </h3>
                 </div>
-                <motion.div
-                  animate={{ rotate: openIndex === idx ? 180 : 0 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <ChevronDown size={32} strokeWidth={1} />
-                </motion.div>
-              </button>
 
-              <AnimatePresence>
-                {openIndex === idx && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="pb-16">
-                      {/* Top row: overview text + image */}
-                      <div className="mb-12 grid grid-cols-1 items-center gap-12 pr-8 pl-16 md:grid-cols-2 md:pl-24">
-                        <motion.p
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.1 }}
-                          className="text-primary/65 text-base leading-relaxed"
-                        >
-                          {service.localizedOverview?.[locale] ??
-                            service.overview}
-                        </motion.p>
+                {/* Overview */}
+                <p className="text-primary/65 mb-8 text-base leading-relaxed">
+                  {service.localizedOverview?.[locale] ?? service.overview}
+                </p>
 
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.94, y: 12 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          transition={{
-                            duration: 0.7,
-                            ease: [0.22, 1, 0.36, 1],
-                            delay: 0.15,
-                          }}
-                          className="relative aspect-[80/69] overflow-hidden"
-                        >
-                          <motion.img
-                            src={service.image}
-                            alt={service.title}
-                            initial={{ scale: 1.08 }}
-                            animate={{ scale: 1 }}
-                            transition={{
-                              duration: 1.2,
-                              ease: [0.22, 1, 0.36, 1],
-                            }}
-                            className="h-full w-full object-cover"
-                            referrerPolicy="no-referrer"
-                          />
-                          <div className="bg-primary/10 absolute inset-0" />
-                        </motion.div>
-                      </div>
+                {/* Optional subtitle */}
+                {(service.localizedSubtitle?.[locale] ?? service.subtitle) && (
+                  <p className="text-primary/40 mb-4 text-xs font-bold tracking-[0.3em] uppercase">
+                    {service.localizedSubtitle?.[locale] ?? service.subtitle}
+                  </p>
+                )}
 
-                      {/* Optional subtitle */}
-                      {(service.localizedSubtitle?.[locale] ??
-                        service.subtitle) && (
-                        <motion.p
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.15 }}
-                          className="text-primary/40 mb-4 pr-8 pl-16 text-xs font-bold tracking-[0.3em] uppercase md:pl-24"
-                        >
-                          {service.localizedSubtitle?.[locale] ??
-                            service.subtitle}
-                        </motion.p>
-                      )}
-
-                      {/* Numbered sub-services — full width */}
-                      <div className="flex flex-col">
-                        {(
-                          service.localizedSubServices?.[locale] ??
-                          service.subServices
-                        ).map((sub, sIdx) => (
-                          <motion.div
-                            key={sIdx}
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 + sIdx * 0.06 }}
-                            className="border-primary/10 grid grid-cols-[64px_1fr] border-t py-5 pr-8 md:grid-cols-[96px_1fr]"
-                          >
-                            <span className="text-primary/25 pt-0.5 font-mono text-xs">
-                              {String(sIdx + 1).padStart(2, "0")}
-                            </span>
-                            <div>
-                              <h4 className="text-primary mb-1.5 text-sm font-semibold tracking-wide">
-                                {sub.title}
-                              </h4>
-                              <ul className="flex flex-col gap-1">
-                                {sub.bullets.map((bullet, bIdx) => (
-                                  <li
-                                    key={bIdx}
-                                    className="text-primary/55 text-sm leading-relaxed"
-                                  >
-                                    {bullet}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </motion.div>
-                        ))}
+                {/* Numbered sub-services */}
+                <div className="flex flex-col">
+                  {(
+                    service.localizedSubServices?.[locale] ??
+                    service.subServices
+                  ).map((sub, sIdx) => (
+                    <div
+                      key={sIdx}
+                      className="border-primary/10 grid grid-cols-[40px_1fr] border-t py-5"
+                    >
+                      <span className="text-primary/25 pt-0.5 font-mono text-xs">
+                        {String(sIdx + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <h4 className="text-primary mb-1.5 text-sm font-semibold tracking-wide">
+                          {sub.title}
+                        </h4>
+                        <ul className="flex flex-col gap-1">
+                          {sub.bullets.map((bullet, bIdx) => (
+                            <li
+                              key={bIdx}
+                              className="text-primary/55 text-sm leading-relaxed"
+                            >
+                              {bullet}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
+                  ))}
+                </div>
+              </motion.div>
+            )
+
+            /* Insert the faint connecting line between the two columns */
+            if (idx === 0) {
+              return (
+                <>
+                  {column}
+                  <div
+                    key="divider"
+                    className="bg-primary/10 hidden self-stretch md:block"
+                  />
+                </>
+              )
+            }
+            return column
+          })}
         </div>
 
         {/* Legal Authority Section */}
