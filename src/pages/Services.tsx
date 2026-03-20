@@ -230,7 +230,7 @@ export const Services = () => {
                           {sub.bullets.map((bullet, bIdx) => (
                             <li
                               key={bIdx}
-                              className="text-primary/55 text-sm leading-relaxed"
+                              className="text-primary/55 text-sm leading-relaxed text-justify"
                             >
                               {bullet}
                             </li>
