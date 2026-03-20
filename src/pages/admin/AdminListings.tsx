@@ -46,22 +46,13 @@ type FormData = Omit<Property, "id"> & {
 // ─── Known amenities (pre-seeded, with all three language translations) ───────
 
 const SEED_AMENITIES: AmenityOption[] = [
-  { en: "Concierge", fr: "Conciergerie", lb: "Conciergerie" },
-  { en: "Double Garage", fr: "Double Garage", lb: "Doppel Garag" },
-  { en: "Fireplace", fr: "Cheminée", lb: "Kamin" },
-  {
-    en: "Floor-to-ceiling Windows",
-    fr: "Fenêtres sol-plafond",
-    lb: "Buedefen-Fënsteren",
-  },
-  { en: "Guest House", fr: "Maison d'hôtes", lb: "Gasthaus" },
-  { en: "Home Cinema", fr: "Cinéma privé", lb: "Heemkino" },
-  { en: "Infinity Pool", fr: "Piscine à débordement", lb: "Infinity Pool" },
-  { en: "Private Elevator", fr: "Ascenseur privé", lb: "Privat Lift" },
-  { en: "Private Garden", fr: "Jardin privé", lb: "Privaten Gaart" },
-  { en: "Roof Terrace", fr: "Terrasse sur le toit", lb: "Daachterras" },
-  { en: "Smart Home", fr: "Maison connectée", lb: "Smart Home" },
-  { en: "Wine Cellar", fr: "Cave à vin", lb: "Wäikeller" },
+  { en: "Balcony", fr: "Balcon", lb: "Balkon" },
+  { en: "Cellar", fr: "Cave", lb: "Keller" },
+  { en: "Elevator", fr: "Ascenseur", lb: "Lift" },
+  { en: "Garage", fr: "Garage", lb: "Garag" },
+  { en: "Garden", fr: "Jardin", lb: "Gaart" },
+  { en: "Parking", fr: "Parking", lb: "Parking" },
+  { en: "Terrace", fr: "Terrasse", lb: "Terrass" },
 ]
 
 const EMPTY_FORM: FormData = {

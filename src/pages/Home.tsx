@@ -81,9 +81,7 @@ export const Home = () => {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="text-parchment/80 text-sm font-medium tracking-[0.3em] uppercase"
           >
-            {t("home_hero_subtitle", {
-              year: String(new Date().getFullYear()),
-            })}
+            {t("home_hero_subtitle")}
           </motion.p>
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -117,7 +115,7 @@ export const Home = () => {
               {t("home_intro_text")}
             </p>
             <LocaleLink
-              to="/about"
+              to="/services"
               className="group interactive flex items-start gap-4 text-xs font-bold tracking-widest uppercase"
             >
               <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors">

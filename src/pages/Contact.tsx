@@ -115,10 +115,10 @@ export const Contact = () => {
                   {t("contact_subject")}
                 </label>
                 <select className="border-primary/20 focus:border-primary w-full appearance-none border-b bg-transparent py-2 transition-colors outline-none">
-                  <option>{t("contact_subject_inquiry")}</option>
-                  <option>{t("contact_subject_legal")}</option>
-                  <option>{t("contact_subject_management")}</option>
-                  <option>{t("contact_subject_other")}</option>
+                  <option>{t("contact_subject_sale")}</option>
+                  <option>{t("contact_subject_purchase")}</option>
+                  <option>{t("contact_subject_location")}</option>
+                  <option>{t("contact_subject_contract")}</option>
                 </select>
               </div>
               <div className="space-y-2">

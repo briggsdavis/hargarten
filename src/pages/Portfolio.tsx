@@ -6,9 +6,15 @@ import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 const MotionLocaleLink = motion(LocaleLink)
 
-const ALL_AMENITIES = Array.from(
-  new Set(PROPERTIES.flatMap((p) => p.amenities)),
-).sort()
+const ALL_AMENITIES = [
+  "Balcony",
+  "Cellar",
+  "Elevator",
+  "Garage",
+  "Garden",
+  "Parking",
+  "Terrace",
+]
 
 const PillGroup = ({
   label,
@@ -278,7 +284,7 @@ export const Portfolio = () => {
                 </div>
                 <input
                   type="range"
-                  min="1000"
+                  min="0"
                   max="10000"
                   step="100"
                   value={maxRentPrice}
@@ -286,7 +292,7 @@ export const Portfolio = () => {
                   className="w-full cursor-pointer"
                 />
                 <div className="text-primary/30 flex justify-between text-xs">
-                  <span>&euro;1,000/mo</span>
+                  <span>&euro;0/mo</span>
                   <span>&euro;10,000+/mo</span>
                 </div>
               </div>
@@ -304,7 +310,7 @@ export const Portfolio = () => {
                 </div>
                 <input
                   type="range"
-                  min="0.3"
+                  min="0"
                   max="6"
                   step="0.1"
                   value={maxSalePrice}
@@ -312,7 +318,7 @@ export const Portfolio = () => {
                   className="w-full cursor-pointer"
                 />
                 <div className="text-primary/30 flex justify-between text-xs">
-                  <span>&euro;300K</span>
+                  <span>&euro;0</span>
                   <span>&euro;6M+</span>
                 </div>
               </div>
