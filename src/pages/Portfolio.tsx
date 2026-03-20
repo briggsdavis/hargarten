@@ -284,7 +284,7 @@ export const Portfolio = () => {
                 </div>
                 <input
                   type="range"
-                  min="1000"
+                  min="0"
                   max="10000"
                   step="100"
                   value={maxRentPrice}
@@ -292,7 +292,7 @@ export const Portfolio = () => {
                   className="w-full cursor-pointer"
                 />
                 <div className="text-primary/30 flex justify-between text-xs">
-                  <span>&euro;1,000/mo</span>
+                  <span>&euro;0/mo</span>
                   <span>&euro;10,000+/mo</span>
                 </div>
               </div>
