@@ -32,13 +32,13 @@ export const About = () => {
       title: t("about_value4_title"),
       desc: t("about_value4_desc"),
       quote: "",
-      image: "/livingroom.jpg",
+      image: "/i3.jpg",
     },
     {
       title: t("about_value5_title"),
       desc: t("about_value5_desc"),
       quote: t("about_value5_quote"),
-      image: "/aboutt.jpg",
+      image: "/prevision.jpg",
     },
     {
       title: t("about_value6_title"),
@@ -222,13 +222,14 @@ export const About = () => {
           className="absolute inset-0 -top-[10%] h-[120%] w-full"
         >
           <img
-            src="/paralax.jpg"
+            src="/i2.jpg"
             alt="Luxury Interior"
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-black/20" />
         </motion.div>
       </section>
+      <div className="pb-16" />
 
       {/* Scroll-triggered Values Section */}
       <section id="values" ref={valuesRef} className="relative h-[600vh]">
