@@ -19,7 +19,7 @@ export const About = () => {
       title: t("about_value2_title"),
       desc: t("about_value2_desc"),
       quote: t("about_value2_quote"),
-      image: "/discretion.jpg",
+      image: "/i2.jpg",
     },
     {
       title: t("about_value3_title"),
