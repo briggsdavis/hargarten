@@ -371,7 +371,9 @@ export const Portfolio = () => {
                     className="h-full w-full object-cover"
                   />
                   <div className="bg-parchment/90 text-primary absolute top-4 right-4 px-3 py-1 text-xs font-bold tracking-widest uppercase backdrop-blur-sm">
-                    {prop.status}
+                    {prop.status === "Available"
+                      ? t("portfolio_available")
+                      : t("portfolio_reserved")}
                   </div>
                 </div>
                 <div className="flex items-start justify-between">

@@ -44,7 +44,7 @@ export const About = () => {
       title: t("about_value6_title"),
       desc: t("about_value6_desc"),
       quote: "",
-      image: "/i2.jpg",
+      image: "/r.jpg",
     },
   ]
 
@@ -222,8 +222,8 @@ export const About = () => {
           className="absolute inset-0 -top-[10%] h-[120%] w-full"
         >
           <img
-            src="/i2.jpg"
-            alt="Luxury Interior"
+            src="/esch.jpg"
+            alt="Esch-sur-Alzette"
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-black/20" />
