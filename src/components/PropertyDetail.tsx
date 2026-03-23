@@ -350,7 +350,9 @@ export const PropertyDetail = () => {
                       {t("property_status")}
                     </span>
                     <span className="text-xs font-bold tracking-widest uppercase">
-                      {property.status}
+                      {property.status === "Available"
+                        ? t("portfolio_available")
+                        : t("portfolio_reserved")}
                     </span>
                   </div>
                   <LocaleLink
