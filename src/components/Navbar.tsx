@@ -8,9 +8,9 @@ import { isLocale } from "../i18n/locales"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 
 const ALL_MENU_ITEMS = [
-  { nameKey: "nav_home", id: "home", image: "/lux.jpg" },
+  { nameKey: "nav_home", id: "home", image: "/modernhero1.jpg" },
   { nameKey: "nav_about", id: "about", image: "/aboutt.jpg" },
-  { nameKey: "nav_portfolio", id: "portfolio", image: "/servicesnav.jpg" },
+  { nameKey: "nav_portfolio", id: "portfolio", image: "/i3.jpg" },
   { nameKey: "nav_services", id: "services", image: "/city.jpg" },
   { nameKey: "nav_contact", id: "contact", image: "/finalcontact.jpg" },
 ]

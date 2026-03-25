@@ -6,7 +6,7 @@ import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 const MotionLocaleLink = motion(LocaleLink)
 
-const HERO_IMAGES = ["/modernhero.jpg"]
+const HERO_IMAGES = ["/modernhero1.jpg"]
 
 export const Home = () => {
   const { portfolioLive } = useAdmin()
@@ -63,7 +63,7 @@ export const Home = () => {
               />
             </AnimatePresence>
           </motion.div>
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-black/40" />
         </motion.div>
 
         <div className="relative z-10 px-4 text-center">
@@ -235,7 +235,7 @@ export const Home = () => {
           className="absolute inset-0 -top-[15%] h-[130%] w-full"
         >
           <img
-            src="/paralax.jpg"
+            src="/esch.jpg"
             alt="Luxury interior"
             className="h-full w-full object-cover"
           />

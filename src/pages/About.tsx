@@ -5,7 +5,6 @@ import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 export const About = () => {
   const { t } = useLocale()
   const valuesRef = useRef<HTMLDivElement>(null)
-  const parallaxRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLElement>(null)
 
   const valuesData = [
@@ -13,7 +12,7 @@ export const About = () => {
       title: t("about_value1_title"),
       desc: t("about_value1_desc"),
       quote: t("about_value1_quote"),
-      image: "/newtrust.jpg",
+      image: "/minimalistmtrust.jpg",
     },
     {
       title: t("about_value2_title"),
@@ -53,17 +52,11 @@ export const About = () => {
     offset: ["start start", "end end"],
   })
 
-  const { scrollYProgress: parallaxScroll } = useScroll({
-    target: parallaxRef,
-    offset: ["start end", "end start"],
-  })
-
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   })
 
-  const parallaxY = useTransform(parallaxScroll, [0, 1], ["-10%", "10%"])
   const heroParallaxY = useTransform(heroScroll, [0, 1], ["0%", "30%"])
 
   const activeValueIndex = useTransform(
@@ -91,7 +84,7 @@ export const About = () => {
             className="absolute inset-0 -top-[15%] h-[130%] w-full"
           >
             <img
-              src="/potential.jpg"
+              src="/modernaboutservice.jpg"
               alt="About Hargarten"
               className="h-full w-full object-cover"
             />
@@ -214,22 +207,6 @@ export const About = () => {
           </motion.div>
         </div>
       </section>
-
-      {/* Parallax Image Section */}
-      <section ref={parallaxRef} className="relative h-[60vh] overflow-hidden">
-        <motion.div
-          style={{ y: parallaxY }}
-          className="absolute inset-0 -top-[10%] h-[120%] w-full"
-        >
-          <img
-            src="/esch.jpg"
-            alt="Esch-sur-Alzette"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/20" />
-        </motion.div>
-      </section>
-      <div className="pb-16" />
 
       {/* Scroll-triggered Values Section */}
       <section id="values" ref={valuesRef} className="relative h-[600vh]">

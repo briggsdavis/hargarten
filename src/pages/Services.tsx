@@ -36,7 +36,7 @@ export const Services = () => {
             className="absolute inset-0 -top-[15%] h-[130%] w-full"
           >
             <img
-              src="/hr.jpg"
+              src="/modernaboutservice.jpg"
               alt="Services"
               className="h-full w-full object-cover"
             />
