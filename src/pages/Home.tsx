@@ -235,7 +235,7 @@ export const Home = () => {
           className="absolute inset-0 -top-[15%] h-[130%] w-full"
         >
           <img
-            src="/paralax.jpg"
+            src="/esch.jpg"
             alt="Luxury interior"
             className="h-full w-full object-cover"
           />
