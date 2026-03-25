@@ -63,7 +63,7 @@ export const Home = () => {
               />
             </AnimatePresence>
           </motion.div>
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-black/40" />
         </motion.div>
 
         <div className="relative z-10 px-4 text-center">

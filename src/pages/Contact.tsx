@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, ChevronDown } from "lucide-react"
 import { motion } from "motion/react"
 import { useLocale } from "../i18n/LocaleContext"
 
@@ -114,12 +114,15 @@ export const Contact = () => {
                 <label className="text-primary/40 text-xs tracking-widest uppercase">
                   {t("contact_subject")}
                 </label>
-                <select className="border-primary/20 focus:border-primary w-full appearance-none border-b bg-transparent py-2 transition-colors outline-none">
-                  <option>{t("contact_subject_sale")}</option>
-                  <option>{t("contact_subject_purchase")}</option>
-                  <option>{t("contact_subject_location")}</option>
-                  <option>{t("contact_subject_contract")}</option>
-                </select>
+                <div className="relative">
+                  <select className="border-primary/20 focus:border-primary w-full appearance-none border-b bg-transparent py-2 pr-8 transition-colors outline-none cursor-pointer">
+                    <option className="bg-white text-primary">{t("contact_subject_sale")}</option>
+                    <option className="bg-white text-primary">{t("contact_subject_purchase")}</option>
+                    <option className="bg-white text-primary">{t("contact_subject_location")}</option>
+                    <option className="bg-white text-primary">{t("contact_subject_contract")}</option>
+                  </select>
+                  <ChevronDown size={14} className="text-primary/40 pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" />
+                </div>
               </div>
               <div className="space-y-2">
                 <label className="text-primary/40 text-xs tracking-widest uppercase">
