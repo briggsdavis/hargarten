@@ -131,6 +131,14 @@
   "portfolio_sqm": "SQM",
   "portfolio_bed": "Bed",
 
+  "amenity_balcony": "Balcony",
+  "amenity_cellar": "Cellar",
+  "amenity_elevator": "Elevator",
+  "amenity_garage": "Garage",
+  "amenity_garden": "Garden",
+  "amenity_parking": "Parking",
+  "amenity_terrace": "Terrace",
+
   "property_back": "Back to Portfolio",
   "property_gallery": "View Gallery",
   "property_price": "Price",

@@ -1,11 +1,17 @@
-import { motion, useScroll, useTransform } from "motion/react"
-import { useRef } from "react"
+import { ChevronDown } from "lucide-react"
+import { motion, useScroll, useTransform, AnimatePresence } from "motion/react"
+import { useRef, useState } from "react"
 import { SERVICES } from "../constants"
 import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 export const Services = () => {
   const { t, locale } = useLocale()
   const heroRef = useRef<HTMLElement>(null)
+  const [openServices, setOpenServices] = useState<boolean[]>(
+    SERVICES.map(() => false),
+  )
+  const toggleService = (idx: number) =>
+    setOpenServices((prev) => prev.map((v, i) => (i === idx ? !v : v)))
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -167,6 +173,7 @@ export const Services = () => {
 
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-0">
           {SERVICES.map((service, idx) => {
+            const isOpen = openServices[idx]
             return (
               <motion.div
                 key={idx}
@@ -187,59 +194,90 @@ export const Services = () => {
                   <div className="bg-primary/10 absolute inset-0" />
                 </div>
 
-                {/* Service number + title */}
-                <div className="mb-6 flex items-center gap-6">
-                  <span className="text-primary/30 font-mono text-xs font-medium">
-                    0{idx + 1}
-                  </span>
-                  <h3 className="text-primary font-serif text-2xl tracking-tighter md:text-3xl">
-                    {service.localizedTitle?.[locale] ?? service.title}
-                  </h3>
-                </div>
+                {/* Accordion header: service number + title + toggle */}
+                <button
+                  onClick={() => toggleService(idx)}
+                  className="interactive border-primary/10 mb-0 flex w-full items-center justify-between border-t pt-6 pb-6 text-left"
+                >
+                  <div className="flex items-center gap-6">
+                    <span className="text-primary/30 font-mono text-xs font-medium">
+                      0{idx + 1}
+                    </span>
+                    <h3 className="text-primary font-serif text-2xl tracking-tighter md:text-3xl">
+                      {service.localizedTitle?.[locale] ?? service.title}
+                    </h3>
+                  </div>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="text-primary/40 ml-4 shrink-0"
+                  >
+                    <ChevronDown size={18} />
+                  </motion.span>
+                </button>
 
-                {/* Overview */}
-                <p className="text-primary/65 mb-8 text-base leading-relaxed">
-                  {service.localizedOverview?.[locale] ?? service.overview}
-                </p>
-
-                {/* Optional subtitle */}
-                {(service.localizedSubtitle?.[locale] ?? service.subtitle) && (
-                  <p className="text-primary/40 mb-4 text-xs font-bold tracking-[0.3em] uppercase">
-                    {service.localizedSubtitle?.[locale] ?? service.subtitle}
-                  </p>
-                )}
-
-                {/* Numbered sub-services */}
-                <div className="flex flex-col">
-                  {(
-                    service.localizedSubServices?.[locale] ??
-                    service.subServices
-                  ).map((sub, sIdx) => (
-                    <div
-                      key={sIdx}
-                      className="border-primary/10 grid grid-cols-[40px_1fr] border-t py-5"
+                {/* Expandable content */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
-                      <span className="text-primary/25 pt-0.5 font-mono text-xs">
-                        {String(sIdx + 1).padStart(2, "0")}
-                      </span>
-                      <div>
-                        <h4 className="text-primary mb-1.5 text-sm font-semibold tracking-wide">
-                          {sub.title}
-                        </h4>
-                        <ul className="flex flex-col gap-1">
-                          {sub.bullets.map((bullet, bIdx) => (
-                            <li
-                              key={bIdx}
-                              className="text-primary/55 text-sm leading-relaxed text-justify"
+                      <div className="pb-8">
+                        {/* Overview */}
+                        <p className="text-primary/65 mb-8 text-base leading-relaxed">
+                          {service.localizedOverview?.[locale] ??
+                            service.overview}
+                        </p>
+
+                        {/* Optional subtitle */}
+                        {(service.localizedSubtitle?.[locale] ??
+                          service.subtitle) && (
+                          <p className="text-primary/40 mb-4 text-xs font-bold tracking-[0.3em] uppercase">
+                            {service.localizedSubtitle?.[locale] ??
+                              service.subtitle}
+                          </p>
+                        )}
+
+                        {/* Numbered sub-services */}
+                        <div className="flex flex-col">
+                          {(
+                            service.localizedSubServices?.[locale] ??
+                            service.subServices
+                          ).map((sub, sIdx) => (
+                            <div
+                              key={sIdx}
+                              className="border-primary/10 grid grid-cols-[40px_1fr] border-t py-5"
                             >
-                              {bullet}
-                            </li>
+                              <span className="text-primary/25 pt-0.5 font-mono text-xs">
+                                {String(sIdx + 1).padStart(2, "0")}
+                              </span>
+                              <div>
+                                <h4 className="text-primary mb-1.5 text-sm font-semibold tracking-wide">
+                                  {sub.title}
+                                </h4>
+                                <ul className="flex flex-col gap-1">
+                                  {sub.bullets.map((bullet, bIdx) => (
+                                    <li
+                                      key={bIdx}
+                                      className="text-primary/55 text-sm leading-relaxed text-justify"
+                                    >
+                                      {bullet}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             )
           })}

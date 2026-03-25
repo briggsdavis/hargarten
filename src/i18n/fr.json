@@ -131,6 +131,14 @@
   "portfolio_sqm": "M²",
   "portfolio_bed": "Ch.",
 
+  "amenity_balcony": "Balcon",
+  "amenity_cellar": "Cave",
+  "amenity_elevator": "Ascenseur",
+  "amenity_garage": "Garage",
+  "amenity_garden": "Jardin",
+  "amenity_parking": "Parking",
+  "amenity_terrace": "Terrasse",
+
   "property_back": "Retour au portfolio",
   "property_gallery": "Voir la galerie",
   "property_price": "Prix",

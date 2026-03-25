@@ -131,6 +131,14 @@
   "portfolio_sqm": "QM",
   "portfolio_bed": "Schlofz.",
 
+  "amenity_balcony": "Balkon",
+  "amenity_cellar": "Keller",
+  "amenity_elevator": "Lift",
+  "amenity_garage": "Garage",
+  "amenity_garden": "Gaart",
+  "amenity_parking": "Parking",
+  "amenity_terrace": "Terrass",
+
   "property_back": "Zréck zum Portfolio",
   "property_gallery": "Galerie gesinn",
   "property_price": "Präis",
