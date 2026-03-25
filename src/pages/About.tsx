@@ -38,13 +38,13 @@ export const About = () => {
       title: t("about_value5_title"),
       desc: t("about_value5_desc"),
       quote: t("about_value5_quote"),
-      image: "/prevision.jpg",
+      image: "/r.jpg",
     },
     {
       title: t("about_value6_title"),
       desc: t("about_value6_desc"),
       quote: "",
-      image: "/r.jpg",
+      image: "/prevision.jpg",
     },
   ]
 

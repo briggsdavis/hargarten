@@ -51,6 +51,7 @@ const PillGroup = ({
 
 export const Portfolio = () => {
   const { t } = useLocale()
+  const tAmenity = (a: string) => t(`amenity_${a.toLowerCase()}`)
   const [statusFilter, setStatusFilter] = useState("All")
   const [typeFilter, setTypeFilter] = useState("All")
   const [minBedrooms, setMinBedrooms] = useState(0)
@@ -246,7 +247,7 @@ export const Portfolio = () => {
                               : "text-primary/50 hover:text-primary hover:bg-primary/3"
                           }`}
                         >
-                          {a}
+                          {tAmenity(a)}
                           {selectedAmenities.includes(a) && (
                             <span className="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
                           )}
@@ -333,7 +334,7 @@ export const Portfolio = () => {
                 onClick={() => toggleAmenity(a)}
                 className="bg-primary text-parchment interactive hover:bg-primary/80 flex items-center gap-2 px-3 py-1 text-xs font-bold tracking-widest uppercase transition-colors"
               >
-                {a}
+                {tAmenity(a)}
                 <X size={8} />
               </button>
             ))}
