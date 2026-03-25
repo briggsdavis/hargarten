@@ -13,13 +13,13 @@ export const About = () => {
       title: t("about_value1_title"),
       desc: t("about_value1_desc"),
       quote: t("about_value1_quote"),
-      image: "/trust.jpg",
+      image: "/newtrust.jpg",
     },
     {
       title: t("about_value2_title"),
       desc: t("about_value2_desc"),
       quote: t("about_value2_quote"),
-      image: "/i2.jpg",
+      image: "/newdiscretion.jpg",
     },
     {
       title: t("about_value3_title"),
@@ -32,7 +32,7 @@ export const About = () => {
       title: t("about_value4_title"),
       desc: t("about_value4_desc"),
       quote: "",
-      image: "/i3.jpg",
+      image: "/newmarketexpertise.jpg",
     },
     {
       title: t("about_value5_title"),
@@ -44,7 +44,7 @@ export const About = () => {
       title: t("about_value6_title"),
       desc: t("about_value6_desc"),
       quote: "",
-      image: "/prevision.jpg",
+      image: "/newlongtermpartnerships.jpg",
     },
   ]
 

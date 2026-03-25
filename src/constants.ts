@@ -333,7 +333,7 @@ export const SERVICES = [
     title: "Real Estate Services",
     overview:
       "From acquisition to sale, our agency delivers end-to-end real estate services across Luxembourg's premium market, combining local expertise with a personalised approach.",
-    image: "/r.jpg",
+    image: "/i3.jpg",
     subtitle: null,
     subServices: [
       {
