@@ -13,7 +13,7 @@ export const About = () => {
       title: t("about_value1_title"),
       desc: t("about_value1_desc"),
       quote: t("about_value1_quote"),
-      image: "/newtrust.jpg",
+      image: "/minimalistmtrust.jpg",
     },
     {
       title: t("about_value2_title"),
@@ -91,7 +91,7 @@ export const About = () => {
             className="absolute inset-0 -top-[15%] h-[130%] w-full"
           >
             <img
-              src="/potential.jpg"
+              src="/modernaboutservice.jpg"
               alt="About Hargarten"
               className="h-full w-full object-cover"
             />
