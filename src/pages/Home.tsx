@@ -6,7 +6,7 @@ import { useLocale, LocaleLink } from "../i18n/LocaleContext"
 
 const MotionLocaleLink = motion(LocaleLink)
 
-const HERO_IMAGES = ["/finalbanner.jpg"]
+const HERO_IMAGES = ["/ban.jpg"]
 
 export const Home = () => {
   const { portfolioLive } = useAdmin()
