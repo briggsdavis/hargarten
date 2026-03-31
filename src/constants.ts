@@ -251,7 +251,7 @@ export const SERVICES = [
     },
     localizedOverview: {
       fr: "Chez Hargarten-Properties, expertise juridique et immobilière vont de pair. Un seul interlocuteur pour vos achats, ventes, locations et investissements — en toute sécurité.",
-      lb: "Bei Hargarten-Properties verbannen mir juristesch Expertise a Maartkenntnis am Lëtzebuerger Immobiliësektor ënner engem Daach. Dës eenzegaarteg Synergie vun Immobilien a Recht erlaabt eis, eis Clienten duerch all Phase vun hirem Projet ze begleeden: Kaf, Verkaf, Locatioun oder Investitioun. Mat eisem integréierte Usaz profitéiert Dir vun enger personaliséierter Begleedung, fundéierten Entscheedungen a maximaler Sécherheet bei all Immobilientransaktioun.",
+      lb: "Bei Hargarten-Properties gehéieren juristesch an immobiliär Expertise zesummen. Een Uspriechpartner fir Är Keef, Verkaef, Locatiounen an Investitiounen — mat voller Sécherheet.",
     },
     localizedSubtitle: {
       fr: "Alliance entre expertise juridique et expertise immobilière",
