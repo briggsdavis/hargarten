@@ -25,19 +25,19 @@ export const Footer = () => {
   return (
     <footer className="bg-primary text-parchment">
       {/* Top rule */}
-      <div className="bg-parchment/10 h-px w-full" />
+      <div className="h-px w-full bg-parchment/10" />
 
       {/* Wordmark zone */}
-      <div className="border-parchment/10 border-b px-8 pt-16 pb-10 md:px-16">
+      <div className="border-b border-parchment/10 px-8 pt-16 pb-10 md:px-16">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <h2
-              className="text-parchment/90 font-serif leading-none tracking-tighter"
+              className="font-serif leading-none tracking-tighter text-parchment/90"
               style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
             >
               {t("nav_brand")}
             </h2>
-            <p className="text-parchment/40 mt-4 text-sm italic">
+            <p className="mt-4 text-sm text-parchment/40 italic">
               {t("about_process_slogan")}
             </p>
           </div>
@@ -82,7 +82,7 @@ export const Footer = () => {
 
         {/* Copyright */}
         <div className="flex flex-col gap-3">
-          <p className="text-parchment/40 text-xs tracking-widest uppercase">
+          <p className="text-xs tracking-widest text-parchment/40 uppercase">
             &copy; {new Date().getFullYear()} Sarl-s
           </p>
         </div>

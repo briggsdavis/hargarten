@@ -71,7 +71,7 @@ export const Home = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.9 }}
-            className="text-parchment mb-6 font-serif text-3xl tracking-tighter md:text-5xl"
+            className="mb-6 font-serif text-3xl tracking-tighter text-parchment md:text-5xl"
           >
             {t("home_hero_title")}
           </motion.h1>
@@ -79,7 +79,7 @@ export const Home = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="text-parchment/80 text-sm font-medium tracking-[0.3em] uppercase"
+            className="text-sm font-medium tracking-[0.3em] text-parchment/80 uppercase"
           >
             {t("home_hero_subtitle")}
           </motion.p>
@@ -91,7 +91,7 @@ export const Home = () => {
           >
             <LocaleLink
               to="/contact"
-              className="border-parchment/60 text-parchment hover:bg-parchment hover:text-primary interactive inline-block border px-8 py-3 text-xs font-bold tracking-widest uppercase transition-colors duration-300"
+              className="interactive inline-block border border-parchment/60 px-8 py-3 text-xs font-bold tracking-widest text-parchment uppercase transition-colors duration-300 hover:bg-parchment hover:text-primary"
             >
               {t("contact_title")}
             </LocaleLink>
@@ -108,21 +108,21 @@ export const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <h2 className="text-primary mb-12 font-serif text-3xl leading-tight md:text-5xl">
+            <h2 className="mb-12 font-serif text-3xl leading-tight text-primary md:text-5xl">
               {t("home_intro_heading")}
             </h2>
-            <p className="text-primary/70 mb-8 text-lg leading-relaxed">
+            <p className="mb-8 text-lg leading-relaxed text-primary/70">
               {t("home_intro_text")}
             </p>
             <LocaleLink
               to="/services"
               className="group interactive flex items-start gap-4 text-xs font-bold tracking-widest uppercase"
             >
-              <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors">
+              <span className="border-b border-primary/30 pb-1 transition-colors group-hover:border-primary">
                 {t("home_discover_values")}
               </span>
             </LocaleLink>
-            <p className="text-primary/40 mt-8 text-sm italic">
+            <p className="mt-8 text-sm text-primary/40 italic">
               {t("about_process_slogan")}
             </p>
           </motion.div>
@@ -134,7 +134,7 @@ export const Home = () => {
         {portfolioLive ? (
           <>
             <div className="mb-16 flex items-end justify-between">
-              <h2 className="text-primary font-serif text-4xl md:text-6xl">
+              <h2 className="font-serif text-4xl text-primary md:text-6xl">
                 {t("home_select_residences")}
               </h2>
               <span className="mb-2 text-xs tracking-widest uppercase opacity-50">
@@ -172,7 +172,7 @@ export const Home = () => {
                   <div className="mt-6 flex items-start justify-between">
                     <div>
                       <h3 className="font-serif text-xl">{prop.title}</h3>
-                      <p className="text-primary/50 mt-1 text-xs tracking-widest uppercase">
+                      <p className="mt-1 text-xs tracking-widest text-primary/50 uppercase">
                         {prop.location}
                       </p>
                     </div>
@@ -180,7 +180,7 @@ export const Home = () => {
                       <p className="text-sm font-medium">
                         From &euro;{prop.price}
                       </p>
-                      <p className="text-primary/40 mt-1 text-xs tracking-widest uppercase">
+                      <p className="mt-1 text-xs tracking-widest text-primary/40 uppercase">
                         {prop.type}
                       </p>
                     </div>
@@ -192,7 +192,7 @@ export const Home = () => {
             <div className="mt-20 flex justify-center">
               <LocaleLink
                 to="/portfolio"
-                className="bg-primary text-parchment hover:bg-primary/90 interactive px-12 py-4 text-xs font-bold tracking-widest uppercase transition-colors"
+                className="interactive bg-primary px-12 py-4 text-xs font-bold tracking-widest text-parchment uppercase transition-colors hover:bg-primary/90"
               >
                 {t("home_explore_portfolio")}
               </LocaleLink>
@@ -206,18 +206,18 @@ export const Home = () => {
             transition={{ duration: 0.9 }}
             className="flex max-w-xl flex-col items-start justify-center py-16"
           >
-            <p className="text-primary/40 mb-6 text-xs tracking-[0.3em] uppercase">
+            <p className="mb-6 text-xs tracking-[0.3em] text-primary/40 uppercase">
               {t("home_residences")}
             </p>
-            <h2 className="text-primary mb-6 font-serif text-4xl leading-tight md:text-5xl">
+            <h2 className="mb-6 font-serif text-4xl leading-tight text-primary md:text-5xl">
               {t("home_coming_soon_title")}
             </h2>
-            <p className="text-primary/50 text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed text-primary/50">
               {t("home_coming_soon_text")}
             </p>
             <LocaleLink
               to="/contact"
-              className="border-primary/30 hover:border-primary interactive mt-10 border-b pb-1 text-xs font-bold tracking-widest uppercase transition-colors"
+              className="interactive mt-10 border-b border-primary/30 pb-1 text-xs font-bold tracking-widest uppercase transition-colors hover:border-primary"
             >
               {t("home_early_access")}
             </LocaleLink>
@@ -253,7 +253,7 @@ export const Home = () => {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <p className="text-primary/40 text-xs tracking-[0.3em] uppercase">
+          <p className="text-xs tracking-[0.3em] text-primary/40 uppercase">
             {t("home_what_we_offer")}
           </p>
         </motion.div>
@@ -282,8 +282,8 @@ export const Home = () => {
               </div>
 
               {/* Caption row */}
-              <div className="border-primary/10 flex items-center justify-between border-t pt-5">
-                <span className="border-primary/30 group-hover:border-primary text-primary/60 group-hover:text-primary border-b pb-1 text-xs font-bold tracking-[0.25em] uppercase transition-colors duration-300">
+              <div className="flex items-center justify-between border-t border-primary/10 pt-5">
+                <span className="border-b border-primary/30 pb-1 text-xs font-bold tracking-[0.25em] text-primary/60 uppercase transition-colors duration-300 group-hover:border-primary group-hover:text-primary">
                   {service.localizedTitle?.[locale] ?? service.title}
                 </span>
               </div>
@@ -299,14 +299,14 @@ export const Home = () => {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="w-full"
         >
-          <h2 className="text-primary mb-8 font-serif text-3xl leading-tight tracking-tighter md:text-5xl">
+          <h2 className="mb-8 font-serif text-3xl leading-tight tracking-tighter text-primary md:text-5xl">
             {t("home_services_heading")}
           </h2>
           <LocaleLink
             to="/services"
             className="group interactive flex items-center gap-5 text-xs font-bold tracking-widest uppercase"
           >
-            <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors duration-300">
+            <span className="border-b border-primary/30 pb-1 transition-colors duration-300 group-hover:border-primary">
               {t("home_explore_services")}
             </span>
           </LocaleLink>

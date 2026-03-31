@@ -66,7 +66,7 @@ export const About = () => {
   )
 
   return (
-    <div className="bg-parchment relative">
+    <div className="relative bg-parchment">
       {/* Hero Banner (Partial Height) */}
       <section
         ref={heroRef}
@@ -96,7 +96,7 @@ export const About = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="text-parchment font-serif text-6xl tracking-tighter md:text-8xl"
+            className="font-serif text-6xl tracking-tighter text-parchment md:text-8xl"
           >
             {t("about_hero_title")}
           </motion.h1>
@@ -116,7 +116,7 @@ export const About = () => {
             {[t("about_intro_p1"), t("about_intro_p2"), t("about_intro_p3")]
               .filter(Boolean)
               .map((text, i) => (
-                <p key={i} className="text-primary/80 text-xl leading-relaxed">
+                <p key={i} className="text-xl leading-relaxed text-primary/80">
                   {text}
                 </p>
               ))}
@@ -128,7 +128,7 @@ export const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.9 }}
-            className="text-primary mb-16 font-serif text-3xl tracking-tighter md:text-4xl"
+            className="mb-16 font-serif text-3xl tracking-tighter text-primary md:text-4xl"
           >
             {t("about_intro_synergy_heading")}
           </motion.h2>
@@ -156,7 +156,7 @@ export const About = () => {
               },
             ].map((person) => (
               <div key={person.name}>
-                <div className="border-primary/10 mb-4 aspect-[3/4] overflow-hidden border">
+                <div className="mb-4 aspect-[3/4] overflow-hidden border border-primary/10">
                   <img
                     src={person.src}
                     alt={person.alt}
@@ -164,10 +164,10 @@ export const About = () => {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <h3 className="text-primary mb-1 font-serif text-lg tracking-tight">
+                <h3 className="mb-1 font-serif text-lg tracking-tight text-primary">
                   {person.name}
                 </h3>
-                <p className="text-primary/40 text-xs tracking-[0.2em] uppercase">
+                <p className="text-xs tracking-[0.2em] text-primary/40 uppercase">
                   {person.role}
                 </p>
               </div>
@@ -182,26 +182,26 @@ export const About = () => {
             transition={{ duration: 0.9 }}
             className="space-y-12"
           >
-            <p className="text-primary/75 text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed text-primary/75">
               {t("about_intro_body1")}
             </p>
             <div>
-              <h3 className="text-primary mb-4 font-serif text-2xl tracking-tighter md:text-3xl">
+              <h3 className="mb-4 font-serif text-2xl tracking-tighter text-primary md:text-3xl">
                 {t("about_intro_body2_heading")}
               </h3>
-              <p className="text-primary/75 text-lg leading-relaxed">
+              <p className="text-lg leading-relaxed text-primary/75">
                 {t("about_intro_body2")}
               </p>
             </div>
             <div>
-              <h3 className="text-primary mb-4 font-serif text-2xl tracking-tighter md:text-3xl">
+              <h3 className="mb-4 font-serif text-2xl tracking-tighter text-primary md:text-3xl">
                 {t("about_intro_body3_heading")}
               </h3>
-              <p className="text-primary/75 text-lg leading-relaxed">
+              <p className="text-lg leading-relaxed text-primary/75">
                 {t("about_intro_body3")}
               </p>
             </div>
-            <p className="text-primary/40 text-sm italic">
+            <p className="text-sm text-primary/40 italic">
               {t("about_process_slogan")}
             </p>
           </motion.div>
@@ -237,7 +237,7 @@ export const About = () => {
                     className="h-full w-full object-cover"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="bg-primary/20 absolute inset-0" />
+                  <div className="absolute inset-0 bg-primary/20" />
                 </motion.div>
               ))}
             </div>
@@ -262,17 +262,17 @@ export const About = () => {
                       ),
                     }}
                   >
-                    <span className="text-primary/30 mb-4 text-xs font-bold tracking-[0.3em] uppercase">
+                    <span className="mb-4 text-xs font-bold tracking-[0.3em] text-primary/30 uppercase">
                       {t("about_value_label", { index: String(idx + 1) })}
                     </span>
-                    <h3 className="text-primary mb-8 font-serif text-4xl tracking-tighter md:text-6xl">
+                    <h3 className="mb-8 font-serif text-4xl tracking-tighter text-primary md:text-6xl">
                       {value.title}
                     </h3>
-                    <p className="text-primary text-xl leading-relaxed font-medium">
+                    <p className="text-xl leading-relaxed font-medium text-primary">
                       {value.desc}
                     </p>
                     {value.quote && (
-                      <p className="text-primary/50 mt-5 text-base leading-relaxed italic">
+                      <p className="mt-5 text-base leading-relaxed text-primary/50 italic">
                         {value.quote}
                       </p>
                     )}
@@ -293,20 +293,20 @@ export const About = () => {
           transition={{ duration: 1 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="text-primary/40 mb-6 text-xs tracking-[0.3em] uppercase">
+          <p className="mb-6 text-xs tracking-[0.3em] text-primary/40 uppercase">
             {t("about_cta_label")}
           </p>
-          <h2 className="text-primary mb-8 font-serif text-4xl leading-tight tracking-tighter md:text-6xl">
+          <h2 className="mb-8 font-serif text-4xl leading-tight tracking-tighter text-primary md:text-6xl">
             {t("about_cta_heading")}
           </h2>
-          <p className="text-primary/60 mx-auto mb-14 max-w-xl text-lg leading-relaxed">
+          <p className="mx-auto mb-14 max-w-xl text-lg leading-relaxed text-primary/60">
             {t("about_cta_text")}
           </p>
           <LocaleLink
             to="/portfolio"
             className="group interactive inline-flex items-center gap-5 text-xs font-bold tracking-widest uppercase"
           >
-            <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors duration-300">
+            <span className="border-b border-primary/30 pb-1 transition-colors duration-300 group-hover:border-primary">
               {t("about_cta_link")}
             </span>
           </LocaleLink>

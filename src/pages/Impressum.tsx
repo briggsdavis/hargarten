@@ -41,31 +41,31 @@ export const Impressum = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-primary mb-16 font-serif text-6xl tracking-tighter md:text-8xl">
+          <h1 className="mb-16 font-serif text-6xl tracking-tighter text-primary md:text-8xl">
             {t("legal_title")}
           </h1>
 
           <div className="space-y-10">
             {sections.map((s) => (
               <section key={s.label}>
-                <h2 className="text-primary/40 mb-2 text-xs tracking-widest uppercase">
+                <h2 className="mb-2 text-xs tracking-widest text-primary/40 uppercase">
                   {t(s.label)}
                 </h2>
                 {s.value ? (
                   s.href ? (
                     <a
                       href={s.href}
-                      className="text-primary hover:text-primary/60 font-serif text-xl transition-colors"
+                      className="font-serif text-xl text-primary transition-colors hover:text-primary/60"
                     >
                       {s.value}
                     </a>
                   ) : (
-                    <p className="text-primary font-serif text-xl whitespace-pre-line">
+                    <p className="font-serif text-xl whitespace-pre-line text-primary">
                       {s.value}
                     </p>
                   )
                 ) : (
-                  <p className="text-primary/70 text-lg">{t(s.fallback!)}</p>
+                  <p className="text-lg text-primary/70">{t(s.fallback!)}</p>
                 )}
               </section>
             ))}
@@ -76,7 +76,7 @@ export const Impressum = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3 }}
-          className="text-primary/40 mt-24 text-sm italic"
+          className="mt-24 text-sm text-primary/40 italic"
         >
           {t("about_process_slogan")}
         </motion.p>

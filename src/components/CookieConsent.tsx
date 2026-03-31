@@ -16,7 +16,7 @@ export const CookieConsent = () => {
           animate={{ y: 0 }}
           exit={{ y: "100%" }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-primary text-parchment border-parchment/10 fixed right-0 bottom-0 left-0 z-[9999] border-t"
+          className="fixed right-0 bottom-0 left-0 z-[9999] border-t border-parchment/10 bg-primary text-parchment"
         >
           <div className="px-8 py-6 md:px-16 md:py-8">
             {/* Main row */}
@@ -26,12 +26,12 @@ export const CookieConsent = () => {
                 <p className="mb-2 text-xs font-bold tracking-widest uppercase">
                   {t("cookie_title")}
                 </p>
-                <p className="text-parchment/70 text-sm leading-relaxed">
+                <p className="text-sm leading-relaxed text-parchment/70">
                   {t("cookie_description")}
                 </p>
                 <button
                   onClick={() => setShowDetails((d) => !d)}
-                  className="text-parchment/40 hover:text-parchment interactive mt-2 text-xs tracking-widest uppercase underline underline-offset-2 transition-colors duration-200"
+                  className="interactive mt-2 text-xs tracking-widest text-parchment/40 uppercase underline underline-offset-2 transition-colors duration-200 hover:text-parchment"
                 >
                   {showDetails
                     ? t("cookie_hide_details")
@@ -43,13 +43,13 @@ export const CookieConsent = () => {
               <div className="flex shrink-0 gap-4">
                 <button
                   onClick={reject}
-                  className="border-parchment/40 text-parchment hover:bg-parchment hover:text-primary interactive border px-[18px] py-[9px] text-xs font-bold tracking-widest uppercase transition-all duration-300"
+                  className="interactive border border-parchment/40 px-[18px] py-[9px] text-xs font-bold tracking-widest text-parchment uppercase transition-all duration-300 hover:bg-parchment hover:text-primary"
                 >
                   {t("cookie_reject")}
                 </button>
                 <button
                   onClick={accept}
-                  className="border-parchment/40 text-parchment hover:bg-parchment hover:text-primary interactive border px-[18px] py-[9px] text-xs font-bold tracking-widest uppercase transition-all duration-300"
+                  className="interactive border border-parchment/40 px-[18px] py-[9px] text-xs font-bold tracking-widest text-parchment uppercase transition-all duration-300 hover:bg-parchment hover:text-primary"
                 >
                   {t("cookie_accept")}
                 </button>
@@ -66,22 +66,22 @@ export const CookieConsent = () => {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <div className="border-parchment/10 mt-6 grid gap-6 border-t pt-6 md:grid-cols-2">
+                  <div className="mt-6 grid gap-6 border-t border-parchment/10 pt-6 md:grid-cols-2">
                     {/* Essential */}
                     <div>
-                      <p className="text-parchment/60 mb-1 text-xs font-bold tracking-widest uppercase">
+                      <p className="mb-1 text-xs font-bold tracking-widest text-parchment/60 uppercase">
                         {t("cookie_essential_title")}
                       </p>
-                      <p className="text-parchment/40 text-xs leading-relaxed">
+                      <p className="text-xs leading-relaxed text-parchment/40">
                         {t("cookie_essential_desc")}
                       </p>
                     </div>
                     {/* Analytics */}
                     <div>
-                      <p className="text-parchment/60 mb-1 text-xs font-bold tracking-widest uppercase">
+                      <p className="mb-1 text-xs font-bold tracking-widest text-parchment/60 uppercase">
                         {t("cookie_analytics_title")}
                       </p>
-                      <p className="text-parchment/40 text-xs leading-relaxed">
+                      <p className="text-xs leading-relaxed text-parchment/40">
                         {t("cookie_analytics_desc")}
                       </p>
                     </div>

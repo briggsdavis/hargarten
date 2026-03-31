@@ -207,12 +207,12 @@ export const PropertyDetail = () => {
 
   return (
     <>
-      <div className="bg-parchment min-h-screen">
+      <div className="min-h-screen bg-parchment">
         {/* Back button */}
         <div className="mb-8 px-8 pt-32 md:px-24">
           <LocaleLink
             to="/portfolio"
-            className="text-primary/50 hover:text-primary interactive group flex items-center gap-3 text-xs font-bold tracking-widest uppercase transition-colors"
+            className="interactive group flex items-center gap-3 text-xs font-bold tracking-widest text-primary/50 uppercase transition-colors hover:text-primary"
           >
             <span className="border-b border-current pt-2 pb-0.5">
               {t("property_back")}
@@ -251,14 +251,14 @@ export const PropertyDetail = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <div className="text-primary/50 mb-4 flex items-center gap-2 text-xs tracking-widest uppercase">
+                <div className="mb-4 flex items-center gap-2 text-xs tracking-widest text-primary/50 uppercase">
                   <MapPin size={14} />
                   {property.location}
                 </div>
-                <h1 className="text-primary mb-8 font-serif text-5xl md:text-7xl">
+                <h1 className="mb-8 font-serif text-5xl text-primary md:text-7xl">
                   {property.title}
                 </h1>
-                <p className="text-primary/70 mb-12 text-xl leading-relaxed">
+                <p className="mb-12 text-xl leading-relaxed text-primary/70">
                   {property.description}
                 </p>
 
@@ -295,7 +295,7 @@ export const PropertyDetail = () => {
                 className="sticky top-32 space-y-12"
               >
                 <div>
-                  <p className="text-primary/40 mb-2 text-xs tracking-widest uppercase">
+                  <p className="mb-2 text-xs tracking-widest text-primary/40 uppercase">
                     {t("property_price")}
                   </p>
                   <p className="font-serif text-4xl">${property.price}</p>
@@ -305,7 +305,7 @@ export const PropertyDetail = () => {
                   <div className="bg-primary/5 p-4 text-center">
                     <Maximize
                       size={20}
-                      className="text-primary/40 mx-auto mb-2"
+                      className="mx-auto mb-2 text-primary/40"
                     />
                     <p className="text-xs font-bold">{property.sqm}</p>
                     <p className="text-xs tracking-widest uppercase opacity-40">
@@ -313,14 +313,14 @@ export const PropertyDetail = () => {
                     </p>
                   </div>
                   <div className="bg-primary/5 p-4 text-center">
-                    <Bed size={20} className="text-primary/40 mx-auto mb-2" />
+                    <Bed size={20} className="mx-auto mb-2 text-primary/40" />
                     <p className="text-xs font-bold">{property.bedrooms}</p>
                     <p className="text-xs tracking-widest uppercase opacity-40">
                       {t("property_bed")}
                     </p>
                   </div>
                   <div className="bg-primary/5 p-4 text-center">
-                    <Bath size={20} className="text-primary/40 mx-auto mb-2" />
+                    <Bath size={20} className="mx-auto mb-2 text-primary/40" />
                     <p className="text-xs font-bold">{property.bathrooms}</p>
                     <p className="text-xs tracking-widest uppercase opacity-40">
                       {t("property_bath")}
@@ -329,14 +329,14 @@ export const PropertyDetail = () => {
                 </div>
 
                 <div>
-                  <p className="text-primary/40 mb-4 text-xs tracking-widest uppercase">
+                  <p className="mb-4 text-xs tracking-widest text-primary/40 uppercase">
                     {t("property_amenities")}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {property.amenities.map((a) => (
                       <span
                         key={a}
-                        className="border-primary/10 border px-3 py-1 text-xs font-bold tracking-widest uppercase"
+                        className="border border-primary/10 px-3 py-1 text-xs font-bold tracking-widest uppercase"
                       >
                         {a}
                       </span>
@@ -344,9 +344,9 @@ export const PropertyDetail = () => {
                   </div>
                 </div>
 
-                <div className="border-primary/10 border-t pt-8">
+                <div className="border-t border-primary/10 pt-8">
                   <div className="mb-8 flex items-center justify-between">
-                    <span className="text-primary/40 text-xs tracking-widest uppercase">
+                    <span className="text-xs tracking-widest text-primary/40 uppercase">
                       {t("property_status")}
                     </span>
                     <span className="text-xs font-bold tracking-widest uppercase">
@@ -357,7 +357,7 @@ export const PropertyDetail = () => {
                   </div>
                   <LocaleLink
                     to="/contact"
-                    className="bg-primary text-parchment hover:bg-primary/90 interactive block w-full py-4 text-center text-xs font-bold tracking-widest uppercase transition-colors"
+                    className="interactive block w-full bg-primary py-4 text-center text-xs font-bold tracking-widest text-parchment uppercase transition-colors hover:bg-primary/90"
                   >
                     {t("property_inquire")}
                   </LocaleLink>

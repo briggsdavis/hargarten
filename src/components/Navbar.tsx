@@ -128,16 +128,16 @@ export const Navbar = () => {
             <Link
               to={localePath("/contact")}
               onClick={() => setIsOpen(false)}
-              className="border-primary text-primary hover:bg-primary hover:text-parchment interactive absolute top-8 right-8 z-10 hidden border px-[18px] py-[9px] text-xs font-bold tracking-widest uppercase transition-all duration-300 md:block"
+              className="interactive absolute top-8 right-8 z-10 hidden border border-primary px-[18px] py-[9px] text-xs font-bold tracking-widest text-primary uppercase transition-all duration-300 hover:bg-primary hover:text-parchment md:block"
             >
               {t("nav_contact")}
             </Link>
 
             {/* Left Side: Menu Links */}
-            <div className="bg-parchment relative flex h-full w-full flex-col justify-center px-12 md:w-3/5 md:px-24">
+            <div className="relative flex h-full w-full flex-col justify-center bg-parchment px-12 md:w-3/5 md:px-24">
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-primary interactive absolute top-8 left-8"
+                className="interactive absolute top-8 left-8 text-primary"
               >
                 <X size={32} />
               </button>
@@ -171,7 +171,7 @@ export const Navbar = () => {
             </div>
 
             {/* Right Side: Image inset so edges don't touch the screen border */}
-            <div className="bg-parchment hidden h-full w-2/5 items-center justify-center p-10 md:flex">
+            <div className="hidden h-full w-2/5 items-center justify-center bg-parchment p-10 md:flex">
               <div className="relative h-[75%] w-full overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.img

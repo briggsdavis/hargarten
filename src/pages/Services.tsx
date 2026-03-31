@@ -19,7 +19,7 @@ export const Services = () => {
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
 
   return (
-    <div className="bg-parchment relative">
+    <div className="relative bg-parchment">
       {/* Hero Banner */}
       <section
         ref={heroRef}
@@ -48,7 +48,7 @@ export const Services = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="text-parchment font-serif text-6xl tracking-tighter md:text-8xl"
+            className="font-serif text-6xl tracking-tighter text-parchment md:text-8xl"
           >
             {t("services_hero_title")}
           </motion.h1>
@@ -61,7 +61,7 @@ export const Services = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-primary/70 text-xl leading-relaxed"
+          className="text-xl leading-relaxed text-primary/70"
         >
           {t("services_intro")}
         </motion.p>
@@ -77,10 +77,10 @@ export const Services = () => {
             transition={{ duration: 0.9 }}
             className="mb-20"
           >
-            <p className="text-primary/40 mb-4 text-xs tracking-[0.3em] uppercase">
+            <p className="mb-4 text-xs tracking-[0.3em] text-primary/40 uppercase">
               {t("about_process_label")}
             </p>
-            <h2 className="text-primary font-serif text-4xl tracking-tighter md:text-5xl">
+            <h2 className="font-serif text-4xl tracking-tighter text-primary md:text-5xl">
               {t("about_process_heading")}
             </h2>
           </motion.div>
@@ -119,22 +119,22 @@ export const Services = () => {
                 >
                   {/* Step dot */}
                   <div className="flex w-9 shrink-0 flex-col items-center self-stretch md:w-11">
-                    <div className="border-primary/20 bg-parchment flex h-9 w-9 shrink-0 items-center justify-center rounded-full border md:h-11 md:w-11">
-                      <span className="text-primary/50 text-xs font-bold tracking-widest">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-parchment md:h-11 md:w-11">
+                      <span className="text-xs font-bold tracking-widest text-primary/50">
                         {item.step}
                       </span>
                     </div>
                     {idx < 3 && (
-                      <div className="bg-primary/15 mt-2 w-px flex-1" />
+                      <div className="mt-2 w-px flex-1 bg-primary/15" />
                     )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1 pb-2">
-                    <h3 className="text-primary mb-4 font-serif text-2xl tracking-tighter md:text-3xl">
+                    <h3 className="mb-4 font-serif text-2xl tracking-tighter text-primary md:text-3xl">
                       {item.title}
                     </h3>
-                    <p className="text-primary/65 text-lg leading-relaxed">
+                    <p className="text-lg leading-relaxed text-primary/65">
                       {item.text}
                     </p>
                   </div>
@@ -147,19 +147,19 @@ export const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7 }}
-              className="border-primary/10 mt-20 flex flex-col items-start justify-between gap-8 border-t pt-16 sm:flex-row sm:items-center"
+              className="mt-20 flex flex-col items-start justify-between gap-8 border-t border-primary/10 pt-16 sm:flex-row sm:items-center"
             >
-              <p className="text-primary font-serif text-2xl tracking-tighter md:text-3xl">
+              <p className="font-serif text-2xl tracking-tighter text-primary md:text-3xl">
                 {t("about_process_cta")}
               </p>
               <LocaleLink
                 to="/contact"
-                className="border-primary text-primary hover:bg-primary hover:text-parchment inline-block shrink-0 border px-8 py-4 text-xs font-bold tracking-widest uppercase transition-colors duration-300"
+                className="inline-block shrink-0 border border-primary px-8 py-4 text-xs font-bold tracking-widest text-primary uppercase transition-colors duration-300 hover:bg-primary hover:text-parchment"
               >
                 {t("about_process_cta_button")}
               </LocaleLink>
             </motion.div>
-            <p className="text-primary/40 mt-6 text-sm italic">
+            <p className="mt-6 text-sm text-primary/40 italic">
               {t("about_process_slogan")}
             </p>
           </div>
@@ -169,7 +169,7 @@ export const Services = () => {
       {/* Services — Two Columns */}
       <div className="mx-auto max-w-7xl px-8 pb-32 md:px-16">
         {/* Faint horizontal line connecting the two columns */}
-        <div className="bg-primary/10 mb-12 hidden h-px md:block" />
+        <div className="mb-12 hidden h-px bg-primary/10 md:block" />
 
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-0">
           {SERVICES.map((service, idx) => {
@@ -184,33 +184,33 @@ export const Services = () => {
                 className="md:px-12"
               >
                 {/* Service image */}
-                <div className="relative mb-8 mt-8 aspect-[80/69] overflow-hidden">
+                <div className="relative mt-8 mb-8 aspect-[80/69] overflow-hidden">
                   <img
                     src={service.image}
                     alt={service.localizedTitle?.[locale] ?? service.title}
                     className="h-full w-full object-cover"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="bg-primary/10 absolute inset-0" />
+                  <div className="absolute inset-0 bg-primary/10" />
                 </div>
 
                 {/* Accordion header: service number + title + toggle */}
                 <button
                   onClick={() => toggleService(idx)}
-                  className="interactive border-primary/10 mb-0 flex w-full items-center justify-between border-t pt-6 pb-6 text-left"
+                  className="interactive mb-0 flex w-full items-center justify-between border-t border-primary/10 pt-6 pb-6 text-left"
                 >
                   <div className="flex items-center gap-6">
-                    <span className="text-primary/30 font-mono text-xs font-medium">
+                    <span className="font-mono text-xs font-medium text-primary/30">
                       0{idx + 1}
                     </span>
-                    <h3 className="text-primary font-serif text-2xl tracking-tighter md:text-3xl">
+                    <h3 className="font-serif text-2xl tracking-tighter text-primary md:text-3xl">
                       {service.localizedTitle?.[locale] ?? service.title}
                     </h3>
                   </div>
                   <motion.span
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.25 }}
-                    className="text-primary/40 ml-4 shrink-0"
+                    className="ml-4 shrink-0 text-primary/40"
                   >
                     <ChevronDown size={18} />
                   </motion.span>
@@ -229,7 +229,7 @@ export const Services = () => {
                     >
                       <div className="pb-8">
                         {/* Overview */}
-                        <p className="text-primary/65 mb-8 text-base leading-relaxed">
+                        <p className="mb-8 text-base leading-relaxed text-primary/65">
                           {service.localizedOverview?.[locale] ??
                             service.overview}
                         </p>
@@ -237,7 +237,7 @@ export const Services = () => {
                         {/* Optional subtitle */}
                         {(service.localizedSubtitle?.[locale] ??
                           service.subtitle) && (
-                          <p className="text-primary/40 mb-4 text-xs font-bold tracking-[0.3em] uppercase">
+                          <p className="mb-4 text-xs font-bold tracking-[0.3em] text-primary/40 uppercase">
                             {service.localizedSubtitle?.[locale] ??
                               service.subtitle}
                           </p>
@@ -251,20 +251,20 @@ export const Services = () => {
                           ).map((sub, sIdx) => (
                             <div
                               key={sIdx}
-                              className="border-primary/10 grid grid-cols-[40px_1fr] border-t py-5"
+                              className="grid grid-cols-[40px_1fr] border-t border-primary/10 py-5"
                             >
-                              <span className="text-primary/25 pt-0.5 font-mono text-xs">
+                              <span className="pt-0.5 font-mono text-xs text-primary/25">
                                 {String(sIdx + 1).padStart(2, "0")}
                               </span>
                               <div>
-                                <h4 className="text-primary mb-1.5 text-sm font-semibold tracking-wide">
+                                <h4 className="mb-1.5 text-sm font-semibold tracking-wide text-primary">
                                   {sub.title}
                                 </h4>
                                 <ul className="flex flex-col gap-1">
                                   {sub.bullets.map((bullet, bIdx) => (
                                     <li
                                       key={bIdx}
-                                      className="text-primary/55 text-sm leading-relaxed text-justify"
+                                      className="text-justify text-sm leading-relaxed text-primary/55"
                                     >
                                       {bullet}
                                     </li>
@@ -288,7 +288,7 @@ export const Services = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-primary text-parchment mt-32 flex flex-col items-center gap-12 p-12 md:flex-row"
+          className="mt-32 flex flex-col items-center gap-12 bg-primary p-12 text-parchment md:flex-row"
         >
           <div className="md:w-1/3">
             <h4 className="mb-4 text-xs font-bold tracking-[0.3em] uppercase opacity-60">
@@ -324,7 +324,7 @@ export const Services = () => {
               alt="Portfolio"
               className="h-full w-full object-cover"
             />
-            <div className="bg-primary/10 absolute inset-0" />
+            <div className="absolute inset-0 bg-primary/10" />
           </motion.div>
 
           {/* Text */}
@@ -335,20 +335,20 @@ export const Services = () => {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="flex flex-col justify-center px-12 py-24 md:px-20"
           >
-            <p className="text-primary/40 mb-8 text-xs tracking-[0.3em] uppercase">
+            <p className="mb-8 text-xs tracking-[0.3em] text-primary/40 uppercase">
               {t("services_cta_label")}
             </p>
-            <h2 className="text-primary mb-8 font-serif text-4xl leading-tight tracking-tighter md:text-5xl">
+            <h2 className="mb-8 font-serif text-4xl leading-tight tracking-tighter text-primary md:text-5xl">
               {t("services_cta_heading")}
             </h2>
-            <p className="text-primary/60 mb-14 max-w-sm text-base leading-relaxed">
+            <p className="mb-14 max-w-sm text-base leading-relaxed text-primary/60">
               {t("services_cta_text")}
             </p>
             <LocaleLink
               to="/portfolio"
               className="group interactive inline-flex items-center self-start text-xs font-bold tracking-widest uppercase"
             >
-              <span className="border-primary/30 group-hover:border-primary border-b pb-1 transition-colors duration-300">
+              <span className="border-b border-primary/30 pb-1 transition-colors duration-300 group-hover:border-primary">
                 {t("services_cta_link")}
               </span>
             </LocaleLink>

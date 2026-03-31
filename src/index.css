@@ -16,7 +16,7 @@
   body {
     margin: 0;
     padding: 0;
-    @apply bg-parchment text-primary selection:bg-primary selection:text-parchment font-sans antialiased;
+    @apply bg-parchment font-sans text-primary antialiased selection:bg-primary selection:text-parchment;
     cursor: none;
   }
 

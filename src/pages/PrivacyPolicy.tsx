@@ -63,34 +63,34 @@ export const PrivacyPolicy = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-primary mb-4 font-serif text-6xl tracking-tighter md:text-8xl">
+          <h1 className="mb-4 font-serif text-6xl tracking-tighter text-primary md:text-8xl">
             {t("privacy_title")}
           </h1>
-          <p className="text-primary/40 mb-16 text-sm">
+          <p className="mb-16 text-sm text-primary/40">
             {t("privacy_updated")}
           </p>
-          <p className="text-primary/70 mb-16 text-lg leading-relaxed">
+          <p className="mb-16 text-lg leading-relaxed text-primary/70">
             {t("privacy_intro")}
           </p>
 
           <div className="space-y-12">
             {sections.map((s) => (
               <section key={s.title}>
-                <h2 className="text-primary mb-4 font-serif text-2xl tracking-tight">
+                <h2 className="mb-4 font-serif text-2xl tracking-tight text-primary">
                   {t(s.title)}
                 </h2>
                 {s.content.map((key) =>
                   s.list ? (
                     <p
                       key={key}
-                      className="text-primary/70 mb-2 text-base leading-relaxed"
+                      className="mb-2 text-base leading-relaxed text-primary/70"
                     >
                       &bull; {t(key)}
                     </p>
                   ) : (
                     <p
                       key={key}
-                      className="text-primary/70 text-base leading-relaxed"
+                      className="text-base leading-relaxed text-primary/70"
                     >
                       {t(key)}
                     </p>
@@ -101,7 +101,7 @@ export const PrivacyPolicy = () => {
                     {s.listItems.map((key) => (
                       <li
                         key={key}
-                        className="text-primary/70 text-base leading-relaxed"
+                        className="text-base leading-relaxed text-primary/70"
                       >
                         &bull; {t(key)}
                       </li>
@@ -109,7 +109,7 @@ export const PrivacyPolicy = () => {
                   </ul>
                 )}
                 {s.after && (
-                  <p className="text-primary/70 mt-4 text-base leading-relaxed">
+                  <p className="mt-4 text-base leading-relaxed text-primary/70">
                     {t(s.after)}
                   </p>
                 )}
@@ -122,7 +122,7 @@ export const PrivacyPolicy = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3 }}
-          className="text-primary/40 mt-24 text-sm italic"
+          className="mt-24 text-sm text-primary/40 italic"
         >
           {t("about_process_slogan")}
         </motion.p>

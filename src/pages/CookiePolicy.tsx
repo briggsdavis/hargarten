@@ -28,20 +28,20 @@ export const CookiePolicy = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-primary mb-16 font-serif text-6xl tracking-tighter md:text-8xl">
+          <h1 className="mb-16 font-serif text-6xl tracking-tighter text-primary md:text-8xl">
             {t("cookiepolicy_title")}
           </h1>
-          <p className="text-primary/70 mb-16 text-lg leading-relaxed">
+          <p className="mb-16 text-lg leading-relaxed text-primary/70">
             {t("cookiepolicy_intro")}
           </p>
 
           <div className="space-y-12">
             {sections.map((s) => (
               <section key={s.title}>
-                <h2 className="text-primary mb-4 font-serif text-2xl tracking-tight">
+                <h2 className="mb-4 font-serif text-2xl tracking-tight text-primary">
                   {t(s.title)}
                 </h2>
-                <p className="text-primary/70 text-base leading-relaxed">
+                <p className="text-base leading-relaxed text-primary/70">
                   {t(s.text)}
                 </p>
               </section>
@@ -51,7 +51,7 @@ export const CookiePolicy = () => {
           <div className="mt-12">
             <button
               onClick={openSettings}
-              className="bg-primary text-parchment hover:bg-primary/90 interactive px-8 py-4 text-xs font-bold tracking-widest uppercase transition-colors"
+              className="interactive bg-primary px-8 py-4 text-xs font-bold tracking-widest text-parchment uppercase transition-colors hover:bg-primary/90"
             >
               {t("footer_cookie_settings")}
             </button>
@@ -62,7 +62,7 @@ export const CookiePolicy = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3 }}
-          className="text-primary/40 mt-24 text-sm italic"
+          className="mt-24 text-sm text-primary/40 italic"
         >
           {t("about_process_slogan")}
         </motion.p>
