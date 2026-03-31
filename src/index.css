@@ -37,6 +37,12 @@
     text-align: justify;
   }
 
+  @media (max-width: 767px) {
+    p {
+      text-align: left;
+    }
+  }
+
   .admin-portal p {
     text-align: left;
   }

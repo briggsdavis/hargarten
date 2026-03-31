@@ -207,7 +207,7 @@ export const SERVICES = [
   {
     title: "Real Estate Legal Services",
     overview:
-      "At Hargarten-Properties, we bridge the gap between legal mastery and real estate market expertise within a single firm. This unique synergy allows us to guide our clients through every phase of their property journey: acquisition, sale, leasing, or investment. Through this integrated approach, you benefit from bespoke advisory, informed decision-making, and unparalleled security in all your real estate transactions.",
+      "At Hargarten-Properties, legal and real estate expertise go hand in hand. A single point of contact for your purchases, sales, rentals and investments — in complete security.",
     image:
       "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1200",
     subtitle: "Securing Purchases and Sales",
@@ -250,8 +250,8 @@ export const SERVICES = [
       lb: "Juristesch Immobiliëservicer",
     },
     localizedOverview: {
-      fr: "Chez Hargarten-Properties, nous réunissons au sein d'une même structure l'expertise juridique et la maîtrise du marché immobilier. Cette synergie unique nous permet d'accompagner nos clients dans chaque étape de leur projet : acquisition, vente, location ou investissement. Grâce à cette approche intégrée, vous bénéficiez d'un accompagnement sur mesure, d'une prise de décision éclairée et d'une sécurité renforcée dans toutes vos opérations immobilières.",
-      lb: "Bei Hargarten-Properties verbannen mir juristesch Expertise a Maartkenntnis am Lëtzebuerger Immobiliësektor ënner engem Daach. Dës eenzegaarteg Synergie vun Immobilien a Recht erlaabt eis, eis Clienten duerch all Phase vun hirem Projet ze begleeden: Kaf, Verkaf, Locatioun oder Investitioun. Mat eisem integréierte Usaz profitéiert Dir vun enger personaliséierter Begleedung, fundéierten Entscheedungen a maximaler Sécherheet bei all Immobilientransaktioun.",
+      fr: "Chez Hargarten-Properties, expertise juridique et immobilière vont de pair. Un seul interlocuteur pour vos achats, ventes, locations et investissements — en toute sécurité.",
+      lb: "Bei Hargarten-Properties gehéieren juristesch an immobiliär Expertise zesummen. Een Uspriechpartner fir Är Keef, Verkaef, Locatiounen an Investitiounen — mat voller Sécherheet.",
     },
     localizedSubtitle: {
       fr: "Alliance entre expertise juridique et expertise immobilière",
